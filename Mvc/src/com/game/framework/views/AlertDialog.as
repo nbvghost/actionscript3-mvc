@@ -1,6 +1,6 @@
 package com.game.framework.views
 {
-	import com.asvital.dev.Console;
+	import com.asvital.debug.Console;
 	import com.game.framework.data.AlertDialogBuilder;
 	import com.game.framework.data.ConfigData;
 	import com.game.framework.events.DialogEvent;

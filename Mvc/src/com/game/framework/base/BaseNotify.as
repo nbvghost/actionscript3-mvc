@@ -1,5 +1,5 @@
 package com.game.framework.base {
-	import com.asvital.dev.Console;
+	import com.asvital.debug.Console;
 	import com.game.framework.FW;
 	import com.game.framework.Launcher;
 	import com.game.framework.error.OperateError;

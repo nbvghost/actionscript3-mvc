@@ -1,5 +1,5 @@
 package com.game.framework.views {
-	import com.asvital.dev.Console;
+	import com.asvital.debug.Console;
 	import com.game.framework.FW;
 	import com.game.framework.events.AssetsEvent;
 	import com.game.framework.ifaces.ICreateView;

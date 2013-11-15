@@ -1,5 +1,5 @@
 package com.game.framework.net {
-	import com.asvital.dev.Console;
+	import com.asvital.debug.Console;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.IAssetsData;
 	import com.game.framework.ifaces.INotifyData;

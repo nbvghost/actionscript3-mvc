@@ -1,5 +1,5 @@
 package com.game.framework.display {
-	import com.asvital.dev.Console;
+	import com.asvital.debug.Console;
 	
 	import flash.display.Sprite;
 	

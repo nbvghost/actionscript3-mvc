@@ -1,5 +1,5 @@
 package com.game.framework {
-	import com.asvital.dev.Console;
+	import com.asvital.debug.Console;
 	import com.game.framework.command.Command;
 	import com.game.framework.error.OperateError;
 	import com.game.framework.ifaces.INotify;
