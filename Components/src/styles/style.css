@@ -1,0 +1,23 @@
+﻿p {
+	font-family:Microsoft YaHei;
+	font-size: 14;
+	font-Style: italic;
+	margin-left: 10;  
+}
+h1 {
+	font-family: Microsoft YaHei;
+	font-size: 20;
+	font-weight: bold;
+}
+.bluetext {
+	color: #0000CC;
+}
+a:link{
+	color: #ff00CC;
+}
+a:hover{
+	color:#ffff00;
+}
+a:active {
+	color:#ff00ff;
+}

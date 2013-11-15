@@ -1,19 +1,17 @@
 ﻿package com.sanbeetle.component {
 	
+	import com.asvital.dev.Console;
+	import com.sanbeetle.component.child.IListBox;
 	import com.sanbeetle.core.UIComponent;
+	import com.sanbeetle.data.DataProvider;
+	import com.sanbeetle.data.SimpleCollectionItem;
 	import com.sanbeetle.events.ControlEvent;
-	import com.sanbeetle.skin.IListBox;
-	import com.sanbeetle.skin.IListBoxItem;
+	import com.sanbeetle.skin.IListBoxBgA;
 	import com.sanbeetle.skin.ISideBoxBtn;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.filters.BitmapFilterQuality;
-	import flash.filters.DropShadowFilter;
 	import flash.geom.Point;
-	
-	import fl.data.DataProvider;
-	import fl.data.SimpleCollectionItem;
 	
 	[Event(name="change", type="com.sanbeetle.events.ControlEvent")]
 	
@@ -29,70 +27,107 @@
 		
 		public function ISideBox() {
 			tels = new ISideBoxBtn();
-			sideBoxSkin = new IListBox();	
+			tels.mouseChildren =false;
+			tels.stop();
+			sideBoxSkin = new IListBox(new IListBoxBgA);	
+			sideBoxSkin.addEventListener(ControlEvent.CHANGE,onContentClickHandler);
 			
-			this.trueWidth = 52;
-			this.trueHeight =32;
+			
+			
+			//this.trueWidth = 52;
+			//this.trueHeight =32;
+			this.width = 52;
+			this.height=32;
+			
 		}		
 		[Inspectable(defaultValue = 120)]
 		public function get boxWidth():int
 		{
 			return _boxWidth;
 		}
-
+		
 		public function set boxWidth(value:int):void
 		{
-			_boxWidth = value;
+			
+			_boxWidth = value;	
+			
+			sideBoxSkin.width = _boxWidth;	
+			sideBoxSkin.listWidth = _boxWidth;
+			
+			this.updateUI();
+			
 		}
-
+		
+		override protected function updateUI():void
+		{
+			Console.out("components"+_boxWidth);
+			sideBoxSkin.width = _boxWidth;	
+			sideBoxSkin.listWidth = _boxWidth;
+			
+		}
+		
+		
 		override protected function createUI():void
 		{	
 			
-			
 			this.addChild(tels);
-								
+			
 			
 			this.buttonMode =true;						
 			
 			
-			addChild(sideBoxSkin);
+			addChild(sideBoxSkin);		
+			
 			
 			//resetPoint();
 			
 			
+			//sideBoxSkin.width = _boxWidth;	
+			//sideBoxSkin.listWidth = _boxWidth;
+			
 			sideBoxSkin.visible =false;
 			
-			tels.addEventListener(MouseEvent.CLICK,onManinClickHandler);
+			tels.addEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);
+			tels.addEventListener(MouseEvent.MOUSE_OUT,onMouseHandler);
+			tels.addEventListener(MouseEvent.MOUSE_OVER,onMouseHandler);
+			//tels.addEventListener(MouseEvent.MOUSE_UP,onMouseHandler);
+			tels.addEventListener(MouseEvent.CLICK,onManinClickHandler);			
 			
-			sideBoxSkin.filters=[new DropShadowFilter(1, 60, 0x000000, 0.3, 10, 10, 1,BitmapFilterQuality.LOW, false, false)];
+			sideBoxSkin.filters=this.component.isideBoxFilters;
 		}
 		
-		protected function onContentClickHandler(event:MouseEvent):void
+		protected function onMouseHandler(event:MouseEvent):void
 		{
-			//trace(event.target);
-			//trace(ISideBoxSkinItem(event.target).simpleCollectionItem.label);
-			if(event.target is IListBoxItem){
-				this.dispatchEvent(new ControlEvent(ControlEvent.CHANGE,IListBoxItem(event.target).data));
+			//Console.out("components"+event.type);
+			switch(event.type){
+				case MouseEvent.MOUSE_DOWN:
+					tels.gotoAndStop(3);
+					//onManinClickHandler(event);
+					break;
+				case MouseEvent.MOUSE_OUT:
+					tels.gotoAndStop(1);
+					break;
+				case MouseEvent.MOUSE_OVER:
+					tels.gotoAndStop(2);
+					break;
+				case MouseEvent.MOUSE_UP:
+					tels.gotoAndStop(1);
+					break;
 			}
 			
 		}
 		
-		override public function get height():Number
+		protected function onContentClickHandler(event:ControlEvent):void
 		{
-			// TODO Auto Generated method stub
-			return trueHeight;
-		}
-		
-		override public function get width():Number
-		{
-			// TODO Auto Generated method stub
-			return trueWidth;
-		}
-		
+			//Console.out("components"+event.target);
+			//Console.out("components"+ISideBoxSkinItem(event.target).simpleCollectionItem.label);			
+			this.dispatchEvent(new ControlEvent(ControlEvent.CHANGE,event.data));		
+			
+		}	
 		
 		protected function onManinClickHandler(event:MouseEvent):void
 		{
-			//trace(event);		
+			//Console.out("components"+event);		
 			sideBoxSkin.visible =true;
 			stage.addEventListener(MouseEvent.MOUSE_UP,onStageUpHandler);
 			resetPoint();
@@ -107,7 +142,7 @@
 		
 		protected function onStageUpHandler(event:MouseEvent):void
 		{
-			//trace(event.toString());
+			//Console.out("components"+event.toString());
 			if(sideBoxSkin!=null){
 				sideBoxSkin.visible =false;
 			}
@@ -115,7 +150,7 @@
 			stage.removeEventListener(MouseEvent.MOUSE_UP,onStageUpHandler);
 			
 		}
-		[Collection(collectionClass="fl.data.DataProvider", identifier="item", collectionItem="fl.data.SimpleCollectionItem")]
+		[Collection(collectionClass="com.sanbeetle.data.DataProvider", identifier="item", collectionItem="com.sanbeetle.data.SimpleCollectionItem")]
 		/**
 		 * @copy fl.controls.SelectableList#dataProvider
 		 *
@@ -140,11 +175,12 @@
 		 * @playerversion Flash 9.0.28.0
 		 */
 		public function set dataProvider(value:DataProvider):void {
-			_dataProvider = value;
+			_dataProvider = value;	
 			
-			sideBoxSkin.width = _boxWidth;		
-			sideBoxSkin.dataProvider =  value;
-					
+			sideBoxSkin.dataProvider =  value;			
+			
+			
+			
 		}
 		
 		private function resetPoint():void{
@@ -152,16 +188,16 @@
 			if(this.stage==null){
 				return;
 			}
-			sideBoxSkin.x = -sideBoxSkin.width;
-			//trace(sideBoxContent.width);
+			sideBoxSkin.x = -(sideBoxSkin.width+2);
+			//Console.out("components"+sideBoxContent.width);
 			//return;
 			sideBoxSkin.y = 0;
 			this.addChild(sideBoxSkin);
-			//trace(sideBoxContent.y);
+			//Console.out("components"+sideBoxContent.y);
 			var localPoint:Point = this.localToGlobal(new Point(sideBoxSkin.x,sideBoxSkin.y));
 			//return;
 			stage.addChild(sideBoxSkin);
-			//trace(stage.numChildren);
+			//Console.out("components"+stage.numChildren);
 			stage.setChildIndex(sideBoxSkin,stage.numChildren-1);
 			
 			sideBoxSkin.x = localPoint.x;

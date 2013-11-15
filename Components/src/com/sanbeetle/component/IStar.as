@@ -3,9 +3,6 @@
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.skin.IStarSkin;
 	
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
-	
 	
 	public class IStar extends UIComponent {
 		
@@ -17,7 +14,7 @@
 		private var arrr:Array = new Array();
 		
 		public function IStar() {
-			// constructor code
+			
 		}
 		[Inspectable(defaultValue =false)]	
 		public function get isShowCurrent():Boolean
@@ -31,7 +28,7 @@
 			createStar();
 		}
 		
-		[Inspectable(enumeration = "0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10",defaultValue =0.5)]
+		[Inspectable(enumeration = "-1,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10",defaultValue =0.5)]
 		public function get current():Number
 		{
 			return _current;
@@ -42,7 +39,7 @@
 			_current = value;
 			createStar();
 		}
-		[Inspectable(enumeration = "0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10",defaultValue =1.5)]
+		[Inspectable(enumeration = "-1,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10",defaultValue =1.5)]
 		public function get total():Number
 		{
 			return _total;
@@ -56,31 +53,43 @@
 		
 		override protected function createUI():void
 		{
-			//trace(57%10);
+			//Console.out("components"+57%10);
 			
-			var timetr:Timer = new Timer(2000);
-			timetr.addEventListener(TimerEvent.TIMER,onsdfs);
+			
+			//timetr.addEventListener(TimerEvent.TIMER,onsdfs);
 			
 			//timetr.start();
 			createStar();
 			
-		}
-		
-		protected function onsdfs(event:TimerEvent):void
+		}		
+		/*protected function onsdfs(event:TimerEvent):void
 		{
 			_total = int(Math.random()*10);
 			_current = int(Math.random()*_total);
 			
-			trace(_current,_total);
+			Console.out("components"+_current,_total);
 			createStar();
-		}
+		}*/
 		private function createStar():void{
+			
 			var i:int=0;
 			for(i=0;i<arrr.length;i++){
 				//IStarSkin(arrr[i])
 				this.removeChild(arrr[i]);
 			}
+			
 			arrr.splice(0,arrr.length);
+			
+			if(int(_current)<0 || int(_total)<=0){
+				this.graphics.clear();
+				this.graphics.beginFill(0x333333);
+				this.graphics.drawRect(4,this.trueHeight/2,this.trueWidth-4,1);
+				this.graphics.endFill();
+				return;
+			}else{
+				this.graphics.clear();
+			}
+			
 			var skin:IStarSkin;
 			var hi:int =0;	
 			

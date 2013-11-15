@@ -24,12 +24,24 @@
 			super.createUI();	
 			
 			s_bar.y=int(s_left.height);
-			s_bar.x = int(bg.width/2);
+			s_bar.x =4;
 			
 			bg.height = this.trueHeight;			
 			s_right.y = this.trueHeight-s_right.height;		
 			
-		}	
+		}
+		
+		override protected function updateUI():void
+		{
+			
+			bg.height = this.trueHeight;			
+			s_right.y = this.trueHeight-s_right.height;	
+			
+			this.drawBorder(this.trueWidth,this.trueHeight);
+			
+		}
+		
+		
 		override public function setSize(w:Number, h:Number):void
 		{			
 			super.setSize(w, h);
@@ -46,7 +58,7 @@
 		
 		override protected function onBarDown(event:MouseEvent):void
 		{
-			s_bar.startDrag(false,new Rectangle(s_left.height/2,s_left.height,0,bg.height-s_right.height-s_bar.height-s_left.height));
+			s_bar.startDrag(false,new Rectangle(s_bar.x,s_left.height,0,bg.height-s_right.height-s_bar.height-s_left.height));
 			stage.addEventListener(MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
 			stage.addEventListener(MouseEvent.MOUSE_UP,onMouseUphadnelr);
 		}
@@ -59,7 +71,7 @@
 			maskmc.graphics.drawRect(0,0,-target.width,trueHeight);
 			maskmc.graphics.endFill();	
 			
-			target.x = this.x-target.width;
+			
 			target.y = this.y;			
 			
 			var kk:Number = maskmc.height/target.height;
@@ -67,14 +79,22 @@
 			
 			s_bar.height=0;
 			var ss:Number = trueHeight-s_right.height-s_bar.height-s_left.height;
-			//trace("trueHeight:"+trueHeight,s_right.height,s_bar.height,s_left.height,ss);
+			//Console.out("components"+"components"+"trueHeight:"+trueHeight,s_right.height,s_bar.height,s_left.height,ss);
 			
 			if(kk>=1){
 				this.visible = false;
+				//target.x = this.x-target.width;
+				
+				
+				
+				
 				disopose();
 				kk=1;
 			}else{
 				this.visible =true;
+				target.x = this.x-target.width;
+				
+				target.mask = maskmc;
 			}
 			
 			var minHeight:Number =trueHeight/3;
@@ -84,10 +104,10 @@
 				s_bar.height =ss*kk;
 			}	
 			
-			//trace("target.height:"+target.height,s_bar.height,(trueHeight),kk,ss);
+			//Console.out("components"+"components"+"target.height:"+target.height,s_bar.height,(trueHeight),kk,ss);
 			
 			
-			target.mask = maskmc;
+			
 			
 			if(target.parent!=null){
 				target.parent.setChildIndex(target,target.parent.numChildren-1);
@@ -101,7 +121,7 @@
 			tx=(Math.round(tx)/100);
 			//target.x=(-target.width*tx)+this.x;
 			target.y=this.y+(-(target.height-maskmc.height)*tx);
-			//trace((s_bar.x-s_left.width)/(this.width-s_right.width-s_bar.width-s_left.width));
+			//Console.out("components"+(s_bar.x-s_left.width)/(this.width-s_right.width-s_bar.width-s_left.width));
 			event.updateAfterEvent();
 		}
 		
@@ -122,7 +142,7 @@
 		}
 		override protected function onRightHandler(event:MouseEvent):void
 		{
-			//trace(event);			
+			//Console.out("components"+event);			
 			target.y -=pin;
 			
 			chackTargetXY();
@@ -142,7 +162,7 @@
 		override protected function moveXY(fx:int,fy:int):void
 		{
 			target.y = stage.mouseY-fy;
-		
+			
 			chackTargetXY();
 		}		
 		override protected function chackTargetXY():void{

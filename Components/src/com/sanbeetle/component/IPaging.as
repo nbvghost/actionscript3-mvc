@@ -1,17 +1,16 @@
 ﻿package com.sanbeetle.component
 {
 	
+	import com.sanbeetle.component.child.IPagingSkin;
 	import com.sanbeetle.core.FixedUIComponent;
 	import com.sanbeetle.events.ControlEvent;
-	import com.sanbeetle.skin.IPagingSkin;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
 	[Event(name = "page_paging_event",type = "com.sanbeetle.events.ControlEvent")]
 	public class IPaging extends FixedUIComponent
-	{
-		
+	{		
 		private var content:IPagingSkin;
 		
 		private var total:int;
@@ -20,20 +19,20 @@
 		private var totalPageCount:int = 0;
 		public function IPaging()
 		{
-			
+			content = new IPagingSkin();
 			//setTotal(500);
 			//setPaging(20);
 			//setdata();
 		}		
 		override protected function createUI():void
 		{			
-			content = new IPagingSkin();
-			//trace(content);
+			
+			//Console.out("components"+content);
 			//content = IPagingSkin(getChildByName("content"));
-			//trace(content);
+			//Console.out("components"+content);
 			this.addChild(content);
 			
-			//trace(this.numChildren+"------------");
+			//Console.out("components"+this.numChildren+"------------");
 			/*content.per_mc = SimpleButton(this.getChildByName("per_mc"));
 			
 			content.top_mc = SimpleButton(getChildByName("top_mc"));
@@ -46,7 +45,7 @@
 			
 			content.djy_txt = TextField(getChildByName("djy_txt")) ;*/
 			
-			//trace("sdfs");
+			//Console.out("components"+"components"+"sdfs");
 			content.per_mc.addEventListener(MouseEvent.MOUSE_DOWN,onPerMouseHandler);
 			content.top_mc.addEventListener(MouseEvent.MOUSE_DOWN,onTopMouseHandler);
 			content.last_mc.addEventListener(MouseEvent.MOUSE_DOWN,onLastMouseHandler);
@@ -65,9 +64,9 @@
 			this.dispatchEvent(ite);
 			//var eventssd:IEvent = new IEvent("dsfds");
 			
-			//trace(new IEvent("dsfds"));
+			//Console.out("components"+new IEvent("dsfds"));
 			//var ite:IEvent = new IEvent("dsfds");
-			//trace(ite);			
+			//Console.out("components"+ite);			
 			//this.dispatchEvent(new IEvent("dsfds"));
 		}
 		private function setdata():void
@@ -86,7 +85,7 @@
 		
 		protected function onPageIndexHandler(event:Event):void
 		{
-			//trace(int(content.pageindex_txt.text));
+			//Console.out("components"+int(content.pageindex_txt.text));
 			
 			if (int(content.pageindex_txt.text)==0)
 			{

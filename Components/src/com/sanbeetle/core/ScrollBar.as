@@ -1,20 +1,12 @@
 ﻿package com.sanbeetle.core
 {
-	import com.sanbeetle.skin.IHScrollBarSkin_bar;
-	import com.sanbeetle.skin.IHScrollBarSkin_bg;
-	import com.sanbeetle.skin.IHScrollBarSkin_left;
-	import com.sanbeetle.skin.IHScrollBarSkin_right;
-	import com.sanbeetle.skin.IVScrollBarSkin_bar;
-	import com.sanbeetle.skin.IVScrollBarSkin_bg;
-	import com.sanbeetle.skin.IVScrollBarSkin_buttom;
-	import com.sanbeetle.skin.IVScrollBarSkin_top;
-	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.InteractiveObject;
 	import flash.display.MovieClip;
 	import flash.display.Shape;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
@@ -35,7 +27,8 @@
 		protected var target:InteractiveObject;
 		
 		
-		protected var _source:DisplayObject;
+		protected var _source:Object="target";
+		
 		
 		
 		private var len:int = 0;
@@ -47,18 +40,11 @@
 		
 		public function ScrollBar()
 		{		
-			super();
+			super();			
+
+		}	
 			
-			/*var a1:IVScrollBarSkin_top;
-			var a2:IVScrollBarSkin_buttom;
-			var a3:IVScrollBarSkin_bar;
-			var a4:IVScrollBarSkin_bg;
-			
-			var a5:IHScrollBarSkin_left;
-			var a6:IHScrollBarSkin_right;
-			var a7:IHScrollBarSkin_bar;
-			var a8:IHScrollBarSkin_bg;*/
-		}
+		
 		private function onBarDownHandler(event:MouseEvent):void
 		{
 			this.removeEventListener(Event.ENTER_FRAME,onTweenEFHandler);
@@ -77,10 +63,15 @@
 		}
 		protected function upBarPoition():void{
 			
-		}
+		}	
+		
+		
 		override protected function createUI():void
 		{			
 			super.createUI();			
+			source = this._source;
+			
+			
 			
 			this.addChild(bg);
 			this.addChild(s_left);
@@ -110,15 +101,15 @@
 		
 		private function onOverHadneler(event:MouseEvent):void
 		{
-			//trace(event);
+			//Console.out("components"+event);
 			if(event.target == target){
 				//stage.stageFocusRect = true;
 				//stage.focus = target;
 			}
 		}
 		private function createTarget():void{
-			target = _source as InteractiveObject;
-			//trace("dsfdsfdsf:"+target);
+			
+			//Console.out("components"+"components"+"dsfdsfdsf:"+target);
 			if(target!=null){
 				target.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 				this.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
@@ -130,8 +121,9 @@
 		}
 		public function upDisplayList():void{
 			disopose();
-			//trace("更新目标！");
+			//Console.out("components"+"components"+"更新目标！");
 			createTarget();	
+			updateUI();
 		}		
 		protected function disopose():void{
 			if(target!=null){
@@ -143,7 +135,7 @@
 			
 		}
 		private function tweenTo(value:Number):void{
-			//trace(Math.round(value),Math.round((fp + len)));
+			//Console.out("components"+Math.round(value),Math.round((fp + len)));
 			if (Math.round(value) == Math.round((fp + len))){
 				this.removeEventListener(Event.ENTER_FRAME,onTweenEFHandler);
 			}			
@@ -197,7 +189,7 @@
 				len = (target.mouseX-point.x);
 				fp =target.x;
 			}
-			//trace(len);			
+			//Console.out("components"+len);			
 			if(len!=0){
 				
 				
@@ -213,7 +205,7 @@
 		
 		protected function onTweenEFHandler(event:Event):void
 		{
-			//trace(len);
+			//Console.out("components"+len);
 			
 			time = time * 0.8;
 			p = 1 - (time / sd);				
@@ -229,7 +221,7 @@
 			}	
 			
 			if((getTimer()-timer)>200){
-				//trace(":");
+				//Console.out("components"+"components"+":");
 				//moveXY(point.x,point.y);
 			}else{
 				
@@ -238,7 +230,7 @@
 		private var point:Point=new Point();
 		private function onMouseWheelHandler(event:MouseEvent):void
 		{
-			//trace(event.delta);
+			//Console.out("components"+event.delta);
 			onWheelDelta(event.delta);
 		}
 		protected function onWheelDelta(delta:int):void{
@@ -254,20 +246,30 @@
 			return _source;
 		}
 		override public function setSize(w:Number,h:Number):void{
-			this.trueWidth=w;
-			this.trueHeight=h;
-			
+			this.width=w;
+			this.height=h;			
 		}
 		public function set source(value:Object):void
 		{			
-			if(value is String){
-				_source = this.parent.getChildByName(String(value));
-			}else if(value is BitmapData){
-				_source = new Bitmap(value as BitmapData);
-			}else if(value is DisplayObject){
-				_source = value as DisplayObject;
-			}		
+			this._source = value;
 			
+			if(value is String){
+				target = this.parent.getChildByName(String(value)) as InteractiveObject;
+			}else if(value is DisplayObject){
+				//Console.out("components"+"components"+"a");
+				target = value as InteractiveObject;
+			}else if(value is BitmapData){
+				var te:Sprite =new Sprite();
+				te.addChild(new Bitmap(value as BitmapData));
+				target = te;
+			}else if(value is Object){
+				
+				target = this.parent.getChildByName(String(value.target)) as InteractiveObject;
+			}	
+			if(target==null){
+				
+				return;
+			}
 			this.upDisplayList();
 			
 		}

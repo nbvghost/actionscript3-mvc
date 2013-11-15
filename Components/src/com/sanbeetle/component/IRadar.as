@@ -1,14 +1,13 @@
 ﻿package com.sanbeetle.component {
 	
+	import com.sanbeetle.component.child.IRadarSkinLabel;
 	import com.sanbeetle.core.UIComponent;
-	import com.sanbeetle.skin.IRadarSkinLabel;
+	import com.sanbeetle.data.DataProvider;
 	import com.sanbeetle.skin.IRadarSkinMc;
 	
 	import flash.display.LineScaleMode;
 	import flash.display.MovieClip;
 	import flash.display.Shape;
-	
-	import fl.data.DataProvider;
 	
 	
 	public class IRadar extends UIComponent {
@@ -28,9 +27,10 @@
 		private const mcHeight:Number=44.5;
 		
 		public function IRadar() {
-			
+			mc = new IRadarSkinMc();			
+			labelmc=new IRadarSkinLabel();
 		}
-		[Collection(collectionClass="fl.data.DataProvider", identifier="item",collectionItem="fl.data.SimpleCollectionItem")]
+		[Collection(collectionClass="com.sanbeetle.data.DataProvider", identifier="item",collectionItem="com.sanbeetle.data.SimpleCollectionItem")]
 		public function get dataProvider():DataProvider
 		{
 			return _dataProvider;
@@ -43,7 +43,7 @@
 			labelmc.dataProvider(_dataProvider,this.mcHeight);
 			
 			_dataProvider=labelmc.dataPro;
-			
+			startTimer();
 		}		
 		[Inspectable(defaultValue = 0x000000)]
 		public function get lineColor():String
@@ -82,25 +82,24 @@
 		override protected function createUI():void
 		{
 			
-			/*_dataProvider.addItem({label:"速度",data:50});
-			_dataProvider.addItem({label:"进攻",data:50});
-			_dataProvider.addItem({label:"技术",data:50});
-			_dataProvider.addItem({label:"创造力",data:50});
-			_dataProvider.addItem({label:"精神",data:50});
-			_dataProvider.addItem({label:"防守",data:50});
-			_dataProvider.addItem({label:"制空",data:50});
-			_dataProvider.addItem({label:"身体",data:50});*/
-			
-			
-			
-			mc = new IRadarSkinMc();
-			
-			labelmc=new IRadarSkinLabel();
+			/*_dataProvider.addItem({label:"速度",data:50-12});
+			_dataProvider.addItem({label:"进攻",data:50-35});
+			_dataProvider.addItem({label:"技术",data:50-15});
+			_dataProvider.addItem({label:"创造",data:50-30});
+			_dataProvider.addItem({label:"精神",data:50-10});
+			_dataProvider.addItem({label:"防守",data:50-30});
+			_dataProvider.addItem({label:"制空",data:50-10});
+			_dataProvider.addItem({label:"身体",data:50-20});	*/
 			
 			
 			this.addChild(labelmc);
 			this.addChild(mc);
 			
+			mc.x = (trueWidth)/2;
+			mc.y = (trueHeight)/2;
+			
+			labelmc.x = (trueWidth)/2;
+			labelmc.y = (trueHeight)/2;
 			
 			mc.addChild(lineLayer);
 			
@@ -112,9 +111,18 @@
 			
 			startTimer();
 			
+		}	
+		
+		override protected function updateUI():void
+		{
+			// TODO Auto Generated method stub
+			super.updateUI();
+			
+			
 		}		
+		
 		private function startTimer():void{
-			//trace(this._lineColor);
+			//Console.out("components"+this._lineColor);
 			lineLayer.graphics.clear();
 			lineLayer.graphics.lineStyle(this.lineThickness,uint(_lineColor),1,true,LineScaleMode.NONE);
 			lineLayer.graphics.beginFill(0xffffff,0);
@@ -130,10 +138,8 @@
 					lineLayer.graphics.moveTo(xx,yy);
 				}else{
 					lineLayer.graphics.lineTo(xx,yy);
-				}
-				
-			}
-			
+				}				
+			}			
 			lineLayer.graphics.endFill();
 			
 		}		

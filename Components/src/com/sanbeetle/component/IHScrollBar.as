@@ -21,7 +21,7 @@
 			s_bar=new IHScrollBarSkin_bar;
 			bg=new IHScrollBarSkin_bg;
 			
-			s_bar.y=int(bg.height/2);
+			s_bar.y=4;
 			s_bar.x =int(s_left.width);
 		}
 		
@@ -59,7 +59,7 @@
 			maskmc.graphics.endFill();	
 			
 			target.x = this.x;
-			target.y = this.y-target.height;			
+					
 			
 			
 			var kk:Number = maskmc.width/target.width;
@@ -68,10 +68,17 @@
 			
 			if(kk>=1){
 				this.visible = false;
+				//target.y = this.y-target.height;	
+				
+			
+				
 				disopose();
 				kk=1;
 			}else{
 				this.visible =true;
+				target.y = this.y-target.height;	
+				
+				target.mask = maskmc;	
 			}
 			var minHeight:Number = trueWidth/3;
 			
@@ -79,12 +86,11 @@
 				s_bar.width =minHeight;
 			}else{
 				s_bar.width =ss*kk;
-			}
-			
+			}			
 			//s_bar.width =ss*kk;
-			//trace(this.width);
+			//Console.out("components"+this.width);
 			
-			target.mask = maskmc;	
+			
 			
 			if(target.parent!=null){
 				target.parent.setChildIndex(target,target.parent.numChildren-1);
@@ -107,11 +113,11 @@
 		override protected function chackTargetXY():void{
 			if(target.x>=this.x){
 				target.x =this.x;
-				//trace("--");
+				//Console.out("components"+"components"+"--");
 			}
 			if(target.x<=(this.x+(-(target.width-maskmc.width)))){
 				target.x = this.x+(-(target.width-maskmc.width));
-				//trace("--");
+				//Console.out("components"+"components"+"--");
 			}
 		}
 		protected function onMouseMoveHandler(event:MouseEvent):void
@@ -120,7 +126,7 @@
 			tx=(Math.round(tx)/100);
 			//target.x=(-target.width*tx)+this.x;
 			target.x=this.x+(-(target.width-maskmc.width)*tx);
-			//trace((s_bar.x-s_left.width)/(this.width-s_right.width-s_bar.width-s_left.width));
+			//Console.out("components"+(s_bar.x-s_left.width)/(this.width-s_right.width-s_bar.width-s_left.width));
 			event.updateAfterEvent();
 		}
 		
@@ -140,7 +146,7 @@
 		}
 		override protected function onRightHandler(event:MouseEvent):void
 		{
-			//trace(event);		
+			//Console.out("components"+event);		
 			
 			target.x -=pin;
 			this.chackTargetXY();
@@ -148,6 +154,13 @@
 			upBarPoition();
 		}
 		
+		override protected function updateUI():void
+		{
+			bg.width = this.trueWidth;			
+			s_right.x = this.trueWidth-s_right.width;
+			
+			this.drawBorder(this.trueWidth,this.trueHeight);
+		}		
 		override public function setSize(w:Number, h:Number):void
 		{			
 			super.setSize(w, h);
@@ -157,7 +170,7 @@
 		}	
 		override protected function onLeftHandler(event:MouseEvent):void
 		{
-			//trace(event);
+			//Console.out("components"+event);
 			target.x +=pin;
 			this.chackTargetXY();
 			upBarPoition();

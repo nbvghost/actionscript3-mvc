@@ -1,13 +1,13 @@
 ﻿package com.sanbeetle.events
 {
-	import fl.events.ComponentEvent;
+	import flash.events.Event;
 
 
 	/**
 	 *
 	 *@author sixf
 	 */
-	public class ControlEvent extends fl.events.ComponentEvent
+	public class ControlEvent extends Event
 	{
 		/**
 		 * 时间完成事件 
@@ -22,6 +22,11 @@
 		 * 修改 
 		 */
 		public static const CHANGE:String = "change";
+		public static const ITEM_OVER:String="item_over";
+		/**
+		 * ILabel 文本 a 标签 event:eventType 事件 
+		 */
+		public static const TEXT_LINK:String="text_link";
 
 		/**
 		 * 字体加载完成 

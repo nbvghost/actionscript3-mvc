@@ -11,7 +11,7 @@
 		private var skin:IArrowSkin;
 		
 		public function IArrow() {
-			
+			skin = new IArrowSkin();
 		}
 		[Inspectable(defaultValue =1)]	
 		public function get iconIndex():int
@@ -27,7 +27,7 @@
 		
 		override protected function createUI():void
 		{
-			skin = new IArrowSkin();
+		
 			this.addChild(skin);
 		}
 		

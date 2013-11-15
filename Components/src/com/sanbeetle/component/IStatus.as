@@ -1,7 +1,7 @@
 ﻿package com.sanbeetle.component {
 	
 	import com.sanbeetle.core.UIComponent;
-	import com.sanbeetle.skin.IListBoxBg;
+	import com.sanbeetle.skin.IListBoxBgA;
 	import com.sanbeetle.skin.image.IStatus_bruise;
 	import com.sanbeetle.skin.image.IStatus_lease;
 	import com.sanbeetle.skin.image.IStatus_red_card;
@@ -58,21 +58,17 @@
 		private var _pwidth:Number =100;
 		
 		private var rightDO:Sprite;
-		private var bg:IListBoxBg;
+		private var bg:IListBoxBgA;
 		private var show:Boolean =false;
 		public function IStatus() {
 			rightDO = new Sprite();
-			bg = new IListBoxBg();
-			bg.width = this._pwidth;
-			
-			
+			bg = new IListBoxBgA();
+			bg.width = this._pwidth;		
 			
 			this.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverHandler);
 			this.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);	
-			this.addEventListener(MouseEvent.MOUSE_MOVE,onMousehandler);
-			
-		}
-		
+			this.addEventListener(MouseEvent.MOUSE_MOVE,onMousehandler);			
+		}		
 		protected function onMousehandler(event:MouseEvent):void
 		{
 			rightDO.x = stage.mouseX+10;
@@ -132,19 +128,18 @@
 				return;
 				
 			}
-			//trace("_iconLabels",_iconLabels.length);
+			for(var o:int=0;o<arr.length;o++){				
+				if(DisplayObject(arr[o]).parent){
+					DisplayObject(arr[o]).parent.removeChild(arr[o]);	
+				}			
+			}
+			//Console.out("components"+"components"+"_iconLabels",_iconLabels.length);
 			if(_iconLabels.length<=0){
+				
 				return;
 				
 			}
-			for(var o:int=0;o<arr.length;o++){
-				
-				
-					DisplayObject(arr[o]).parent.removeChild(arr[o]);
-				
-				
-				
-			}
+			
 			arr.splice(0,arr.length);
 			
 			var ds:DisplayObject = getBitmapData(_iconLabels[0]);
@@ -160,7 +155,10 @@
 			var xx:int=0;
 			var total:int = 0;
 			var ww:Number=0;
-			for(var i:int=1;i<_iconLabels.length;i++){
+			for(var i:int=0;i<_iconLabels.length;i++){
+				if(i==0){
+					continue;
+				}
 				ds = getBitmapData(_iconLabels[i]);
 				ds.x = ((ds.width+5)*xx)+10;
 				
@@ -191,7 +189,7 @@
 				bg.width = ww;
 				
 			}
-			//trace(line);
+			//Console.out("components"+line);
 			//bg.height = total;
 			
 		}
