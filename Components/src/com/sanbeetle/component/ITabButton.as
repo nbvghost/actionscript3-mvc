@@ -1,6 +1,6 @@
 ﻿package com.sanbeetle.component
 {
-	import com.asvital.dev.Console;
+	import com.asvital.debug.Console;
 	import com.sanbeetle.component.child.ExtendButton;
 	import com.sanbeetle.component.child.IListBoxItem;
 	import com.sanbeetle.core.UIComponent;

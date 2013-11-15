@@ -1,6 +1,6 @@
 ﻿package com.sanbeetle.component.child{
 	
-	import com.asvital.dev.Console;
+	import com.asvital.debug.Console;
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.DataProvider;
 	import com.sanbeetle.events.ControlEvent;
