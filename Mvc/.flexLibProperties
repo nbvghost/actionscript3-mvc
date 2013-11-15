@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.game.framework.Launcher"/>
+    <classEntry path="com.game.framework.views.Mediator"/>
+    <classEntry path="com.game.framework.command.Command"/>
+    <classEntry path="com.game.framework.display.Picture"/>
+    <classEntry path="com.game.framework.views.CreateView"/>
+    <classEntry path="com.game.framework.events.AssetsEvent"/>
+    <classEntry path="com.game.framework.ifaces.IAssetsData"/>
+    <classEntry path="com.game.framework.net.MediaAssetItem"/>
+    <classEntry path="com.game.framework.net.StreamAssetItem"/>
+    <classEntry path="com.game.framework.logic.AssetsData"/>
+    <classEntry path="com.game.framework.ifaces.IMediator"/>
+    <classEntry path="com.game.framework.models.NotifyData"/>
+    <classEntry path="com.game.framework.models.proxy.Proxy"/>
+    <classEntry path="com.game.framework.models.vo.BaseVo"/>
+    <classEntry path="com.game.framework.ifaces.IProxy"/>
+    <classEntry path="com.game.framework.ifaces.IRegister"/>
+    <classEntry path="com.game.framework.ifaces.INotifyData"/>
+    <classEntry path="com.game.framework.ifaces.IUIManager"/>
+    <classEntry path="com.game.framework.error.OperateError"/>
+    <classEntry path="com.game.framework.ifaces.IUILayer"/>
+    <classEntry path="com.game.framework.display.BaseSprite"/>
+    <classEntry path="com.game.framework.display.UIComponent"/>
+    <classEntry path="com.game.framework.ifaces.IObtain"/>
+    <classEntry path="com.game.framework.ifaces.IAssetItem"/>
+    <classEntry path="com.game.framework.ifaces.IMultiAssetData"/>
+    <classEntry path="com.game.framework.net.MultiAssetData"/>
+    <classEntry path="com.game.framework.ifaces.IXMLCfg"/>
+    <classEntry path="com.game.framework.ifaces.ICreateView"/>
+    <classEntry path="com.game.framework.ifaces.IRander"/>
+    <classEntry path="com.game.framework.base.BaseNotify"/>
+    <classEntry path="com.game.framework.display.ToolTip"/>
+    <classEntry path="com.game.framework.display.ToolTipSprite"/>
+    <classEntry path="com.game.framework.ifaces.IResourceManager"/>
+    <classEntry path="com.game.framework.logic.Duplicating"/>
+    <classEntry path="com.game.framework.net.LoaderAssetItem"/>
+    <classEntry path="com.game.framework.utils.InteractiveUtils"/>
+    <classEntry path="com.game.framework.command.RegisterCommand"/>
+    <classEntry path="com.game.framework.net.SkinLoader"/>
+    <classEntry path="com.game.framework.views.InstantiationMediator"/>
+    <classEntry path="com.game.framework.events.FrameWorkEvent"/>
+    <classEntry path="com.game.framework.views.AlertDialog"/>
+    <classEntry path="com.game.framework.data.AlertDialogBuilder"/>
+    <classEntry path="com.game.framework.data.ConfigData"/>
+    <classEntry path="com.game.framework.net.DialogAssetItem"/>
+    <classEntry path="com.game.framework.ifaces.IDialog"/>
+    <classEntry path="com.game.framework.ifaces.IDialogData"/>
+    <classEntry path="com.game.framework.ifaces.IDialogID"/>
+    <classEntry path="com.game.framework.events.DialogEvent"/>
+    <classEntry path="com.game.framework.display.Layer"/>
+    <classEntry path="com.game.framework.display.LayerContainer"/>
+    <classEntry path="com.game.framework.display.BaseLayer"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
