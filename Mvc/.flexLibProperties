@@ -52,6 +52,7 @@
     <classEntry path="com.game.framework.display.Layer"/>
     <classEntry path="com.game.framework.display.LayerContainer"/>
     <classEntry path="com.game.framework.display.BaseLayer"/>
+    <classEntry path="com.game.framework.data.NetRequestFormat"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
