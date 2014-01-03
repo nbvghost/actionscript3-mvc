@@ -3,7 +3,7 @@
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
-	import flash.display.InteractiveObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -23,13 +23,15 @@
 		public var s_right:MovieClip;
 		public var bg:MovieClip;
 		
-		protected var maskmc:Shape=new Shape();
-		protected var target:InteractiveObject;
-		
-		
+		protected var maskmc:Shape;
+		protected var target:DisplayObjectContainer;		
 		protected var _source:Object="target";
 		
 		
+		
+		
+		private var _contentHeight:Number=0;
+		private var _contentWidth:Number=0;
 		
 		private var len:int = 0;
 		private var time:Number = 100;
@@ -40,10 +42,33 @@
 		
 		public function ScrollBar()
 		{		
-			super();			
-
-		}	
+			super();	
+			maskmc = new Shape();
 			
+			//maskmc.cacheAsBitmap =true;
+			//targetMouse.cacheAsBitmap=true;
+			
+		}	
+		
+		
+		public function get contentWidth():Number
+		{
+			if(this.target){
+				return this.target.width;
+			}else{
+				return 0;
+			}
+			
+		}
+		
+		public function get contentHeight():Number
+		{
+			if(this.target){
+				return this.target.height;
+			}else{
+				return 0;
+			}
+		}		
 		
 		private function onBarDownHandler(event:MouseEvent):void
 		{
@@ -66,7 +91,7 @@
 		}	
 		
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{			
 			super.createUI();			
 			source = this._source;
@@ -83,47 +108,50 @@
 			s_bar.buttonMode = true;				
 			
 			s_right.addEventListener(MouseEvent.CLICK,onRightHandler);
-			s_left.addEventListener(MouseEvent.CLICK,onLeftHandler);			
+			s_left.addEventListener(MouseEvent.CLICK,onLeftHandler);	
+			bg.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
 			
 			s_bar.addEventListener(MouseEvent.MOUSE_DOWN,onBarDownHandler);			
 			
 			createTarget();
 		}		
 		
-		override protected function onStageHandler(event:Event):void
-		{			
-			stage.addEventListener(MouseEvent.MOUSE_OVER,onOverHadneler);
+		protected function onMouseDownHandler(event:MouseEvent):void
+		{
+			if(isVScrollBarr){
+				
+				scrollBarPosition((bg.mouseY-s_left.height)/(bg.height-s_left.height-s_right.height));
+			}else{				
+				scrollBarPosition((bg.mouseX-s_left.width)/(bg.width-s_left.width-s_right.width));			
+				
+			}
+			
+			//Log.out(bg.mouseX,bg.mouseY);
 		}
 		
 		protected function moveXY(firstX:int,firstY:int):void{
 			
-		}
-		
-		private function onOverHadneler(event:MouseEvent):void
-		{
-			//Console.out("components"+event);
-			if(event.target == target){
-				//stage.stageFocusRect = true;
-				//stage.focus = target;
-			}
-		}
+		}	
 		private function createTarget():void{
 			
 			//Console.out("components"+"components"+"dsfdsfdsf:"+target);
 			if(target!=null){
 				target.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 				this.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
-				target.addEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);				
-				drawMask();				
-				this.addChild(maskmc);
+				target.addEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);		
+				
+				addChild(maskmc);				
+				
+				drawMask();	
 			}		
 			
 		}
 		public function upDisplayList():void{
 			disopose();
 			//Console.out("components"+"components"+"更新目标！");
-			createTarget();	
-			updateUI();
+			createTarget();
+			updateUI();			
+			
 		}		
 		protected function disopose():void{
 			if(target!=null){
@@ -132,7 +160,9 @@
 			}			
 			this.removeEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 			
-			
+		}
+		protected function scrollBarPosition(value:Number):void{
+			//Log.out(value);
 		}
 		private function tweenTo(value:Number):void{
 			//Console.out("components"+Math.round(value),Math.round((fp + len)));
@@ -154,6 +184,7 @@
 		}
 		private function onTargetDownHandler(event:MouseEvent):void
 		{
+			//target.mouseChildren = false;
 			timer = getTimer();
 			point.x = target.mouseX;
 			point.y = target.mouseY;
@@ -163,9 +194,28 @@
 			sd = time;
 			
 			this.addEventListener(Event.ENTER_FRAME,onTimerHandelr);
-			stage.addEventListener(MouseEvent.MOUSE_UP,onTargetTimerUPHadnler);
+			
+			if(stage){
+				stage.addEventListener(MouseEvent.MOUSE_UP,onTargetTimerUPHadnler);
+			}
+			
 			
 		}
+		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();		
+			
+			this.removeEventListener(Event.ENTER_FRAME,onTimerHandelr);
+			//stageLink.removeEventListener(MouseEvent.MOUSE_UP,onTargetTimerUPHadnler);	
+			
+			this.removeEventListener(Event.ENTER_FRAME,onTweenEFHandler);
+			this.removeEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
+			
+		}
+		
+		
 		/**
 		 *是否垂直滚动条
 		 *  
@@ -177,6 +227,14 @@
 		}
 		private function onTargetTimerUPHadnler(event:MouseEvent):void
 		{
+			
+			if(stage==null){
+				return;
+			}
+			
+			stage.removeEventListener(MouseEvent.MOUSE_UP,onTargetTimerUPHadnler);			
+			
+			//target.mouseChildren = true;
 			//point.x = target.mouseX;
 			//point.y = target.mouseY;
 			
@@ -197,7 +255,8 @@
 			this.addEventListener(Event.ENTER_FRAME,onTweenEFHandler);
 			
 			this.removeEventListener(Event.ENTER_FRAME,onTimerHandelr);
-			stage.removeEventListener(MouseEvent.MOUSE_UP,onTargetTimerUPHadnler);
+			
+			
 			point.x = 0;
 			point.y = 0;
 			timer=0;
@@ -218,14 +277,8 @@
 				
 				moveXY(point.x,point.y);
 				upBarPoition();
-			}	
-			
-			if((getTimer()-timer)>200){
-				//Console.out("components"+"components"+":");
-				//moveXY(point.x,point.y);
-			}else{
-				
 			}
+			
 		}
 		private var point:Point=new Point();
 		private function onMouseWheelHandler(event:MouseEvent):void
@@ -254,22 +307,24 @@
 			this._source = value;
 			
 			if(value is String){
-				target = this.parent.getChildByName(String(value)) as InteractiveObject;
+				target = this.parent.getChildByName(String(value)) as DisplayObjectContainer;
 			}else if(value is DisplayObject){
 				//Console.out("components"+"components"+"a");
-				target = value as InteractiveObject;
+				target = value as DisplayObjectContainer;
 			}else if(value is BitmapData){
 				var te:Sprite =new Sprite();
 				te.addChild(new Bitmap(value as BitmapData));
 				target = te;
 			}else if(value is Object){
 				
-				target = this.parent.getChildByName(String(value.target)) as InteractiveObject;
+				target = this.parent.getChildByName(String(value.target)) as DisplayObjectContainer;
 			}	
 			if(target==null){
 				
 				return;
 			}
+			
+			//Log.out(target);			
 			this.upDisplayList();
 			
 		}

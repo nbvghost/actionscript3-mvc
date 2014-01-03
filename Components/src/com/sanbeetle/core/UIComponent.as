@@ -1,29 +1,57 @@
 ﻿package com.sanbeetle.core
 {
+	import com.asvital.dev.Log;
 	import com.sanbeetle.Component;
-
-	import flash.display.LineScaleMode;
-	import flash.display.MovieClip;
+	import com.sanbeetle.component.IToolTip;
+	import com.sanbeetle.interfaces.IStage;
+	import com.sanbeetle.interfaces.ITimerRun;
+	import com.sanbeetle.interfaces.IUIComponent;
+	import com.sanbeetle.utils.TimerRun;
+	
 	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.geom.Point;
 
 
 	/**
 	 *
 	 *@author sixf
 	 */
-	public class UIComponent extends MovieClip
+	public class UIComponent extends ExtendMovieClip implements IUIComponent,IStage,ITimerRun
 	{
-		private var _trueWidth:int = -1;
-		private var _trueHeight:int = -1;
+		private var _trueWidth:Number = -1;
+		private var _trueHeight:Number = -1;
 
+		private var nw:Number=0;
+		private var nh:Number=0;
 		protected var component:Component;
-
-
+		
+		private var isInstage:Boolean =true;
+		
+		private var _toolTip:String=null;
+		
+		
+		
+		
 		public function UIComponent ()
 		{
 			stop ();
 			component = Component.component;
-
+			//Component.component;
+			if(component.contentContainer==null){
+				Log.info("组件的容器不能为空，请使用 Component.component.initContentContainer(_contentContainer) 进行设制。");	
+				
+				if(stage!=null){
+					component.initContentContainer(stage);
+				}				
+			}else{
+				
+				if(!component.contentContainer.isSetContainer){
+					Log.info("容器没有添加到显示列表中。");
+				}				
+			}		
+			
 
 			_trueWidth = super.width;
 			_trueHeight = super.height;
@@ -36,35 +64,178 @@
 			var xx:int = this.x;
 			var yy:int = this.y;
 
-			this.x = xx;
-			this.y = yy;
+			this.x = Math.round(xx);
+			this.y = Math.round(yy);
 
-			this.gotoAndStop (2);
+			//this.gotoAndStop (2);
+			
+			//this.cacheAsBitmap =true;
+			
 			this.scaleX = this.scaleY = 1;
 
 			//Console.out("components"+this.x,this.y);
 
-			drawBorder (trueWidth,trueHeight);
+			//drawBorder (trueWidth,trueHeight);
 
-
+			//this.addEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);
+			
 			this.addEventListener (Event.ENTER_FRAME,onEnterFrameHandler);
+			
+			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);	
+			
+			
+			//itooltip = CacheDispaly.iTooltip;
+			
+			
+			//this.addEventListener(MouseEvent.RELEASE_OUTSIDE,onMouseRoolOutHandler);
 
 		}
-		protected function drawBorder (w:int,h:int):void
+		//private var mousePoint:Point=new Point;
+		public function timerRun(event:TimerEvent):void
 		{
+			
+			if(stage){
+				
+				var op:Point = this.localToGlobal(new Point(mouseX,mouseY));
+				
+				CacheDispaly.iTooltip.x = op.x+16;
+				CacheDispaly.iTooltip.y = op.y+16;
+				CacheDispaly.iTooltip.textXML = _toolTip;
+				stage.addChild(CacheDispaly.iTooltip);
+				event.updateAfterEvent();
+				TimerRun.init().removeRun(this);
+			}
+		}
+		
+		
+		protected function onMouseRoolOutHandler(event:MouseEvent):void
+		{
+			
+			TimerRun.init().removeRun(this);
+			
+			if(CacheDispaly.iTooltip.parent){
+				CacheDispaly.iTooltip.parent.removeChild(CacheDispaly.iTooltip);
+			}
+		}
+		
+		protected function onMouseRoolOverHandler(event:MouseEvent):void
+		{
+			
+			TimerRun.init().addRun(this);
+		}
+		
+		/**
+		 * 提示窗口 
+		 */
+		public function get toolTip():String
+		{
+			return _toolTip;
+		}
 
-			this.graphics.clear ();
-			this.graphics.beginFill (0x0ff000,0);
-			if (component.debug)
-			{
-				this.graphics.lineStyle (1,0x000ff0,0.05,false, LineScaleMode.NONE);
+		/**
+		 * @private
+		 */
+		public function set toolTip(value:String):void
+		{
+			_toolTip = value;
+			
+			if(value!=null && value!=""){
+				this.addEventListener(MouseEvent.ROLL_OVER,onMouseRoolOverHandler);
+				this.addEventListener(MouseEvent.ROLL_OUT,onMouseRoolOutHandler);
+				//this.addEventListener(MouseEvent.MOUSE_OUT,onMouseRoolOutHandler);
+			}else{
+				this.removeEventListener(MouseEvent.ROLL_OVER,onMouseRoolOverHandler);
+				this.removeEventListener(MouseEvent.ROLL_OUT,onMouseRoolOutHandler);
+				//this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseRoolOutHandler);
 			}
-			else
-			{
-				this.graphics.lineStyle (1,0x000ff0,0,false, LineScaleMode.NONE);
+		}
+
+		override public function set x(value:Number):void
+		{
+			// TODO Auto Generated method stub
+			super.x = Math.round(value);
+		}
+		
+		override public function set y(value:Number):void
+		{
+			// TODO Auto Generated method stub
+			super.y = Math.round(value);
+		}
+		
+		
+		private function onAddStageHandler(event:Event):void
+		{
+			
+			
+			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
+			this.addEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);	
+			
+			this.onAddStage();
+			
+			//Log.out("add stage");
+			
+		}
+		[Inspectable(defaultValue=1)]
+		override public function get alpha():Number
+		{
+			// TODO Auto Generated method stub
+			return super.alpha;
+		}
+		
+		
+		
+		public function get inStage():Boolean
+		{
+			// TODO Auto Generated method stub
+			return isInstage;
+		}		
+		
+		override public function set alpha(value:Number):void
+		{
+			// TODO Auto Generated method stub
+			super.alpha = value;
+		}				
+		private function onRemoveStageHandler(event:Event):void
+		{		
+			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
+			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);
+			this.onRemoveStage();
+			this.dispose();				
+			//Log.out("remove stage");
+		}		
+		protected function onRemoveStage():void{
+			
+		}
+		protected function onAddStage():void{
+			
+		}
+		protected function changeTrueSize(w:Number,h:Number):void{
+			_trueWidth = Math.round(w);
+			_trueHeight = Math.round(h);
+		}
+		
+		
+		public function drawBorder (w:Number,h:Number):void
+		{
+			if(nw!=w || nh!=h){
+				nw =w;
+				nh = h;
+				if (component.debug)		
+				{
+					this.graphics.clear ();
+					this.graphics.beginFill (0xFF00FF,0.5);
+					this.graphics.drawRect (0,0,w,h);
+					this.graphics.drawRect(1,1,w-2,h-2);
+					this.graphics.endFill ();
+				}else{
+					this.graphics.clear ();
+					this.graphics.beginFill (0xFF00FF,0);
+					this.graphics.drawRect (0,0,w,h);
+					this.graphics.drawRect(1,1,w-2,h-2);
+					this.graphics.endFill ();
+				}
 			}
-			this.graphics.drawRect (0,0,w,h);
-			this.graphics.endFill ();
+			
 
 		}
 		override public function get height ():Number
@@ -84,6 +255,8 @@
 		}
 		override public function set height (value:Number):void
 		{
+			value= Math.round(value);
+			
 			if (_trueHeight!=value)
 			{
 				_trueHeight = value;
@@ -94,6 +267,8 @@
 		}
 		override public function set width (value:Number):void
 		{
+			value= Math.round(value);
+			
 			if (_trueWidth!=value)
 			{
 				_trueWidth = value;
@@ -106,7 +281,7 @@
 		 * @return 
 		 * 
 		 */
-		public function get trueHeight ():int
+		public function get trueHeight ():Number
 		{
 			return _trueHeight;
 		}
@@ -121,7 +296,7 @@
 		 * @param value
 		 * 
 		 */
-		public function get trueWidth ():int
+		public function get trueWidth ():Number
 		{
 			return _trueWidth;
 		}
@@ -131,7 +306,9 @@
 		}*/
 		private function onEnterFrameHandler (event:Event):void
 		{
+			
 			this.removeEventListener (Event.ENTER_FRAME,onEnterFrameHandler);
+			
 
 			if (this.stage == null)
 			{
@@ -141,21 +318,20 @@
 			{
 				stageHaveHandler (null);
 			}
-		}
+		}	
+	
 		/**
 		 * 更新 
 		 * 
 		 */
-		protected function updateUI ():void
+		public function updateUI ():void
 		{
 
 		}
 		public function dispose ():void
 		{
-
-
-		}
-
+			
+		}		
 
 		/**
 		 *  
@@ -164,7 +340,6 @@
 		 */
 		private function stageHaveHandler (event:Event):void
 		{
-
 			this.removeEventListener (Event.ADDED_TO_STAGE,stageHaveHandler);
 			createUI ();
 			onStageHandler (event);
@@ -174,7 +349,7 @@
 		 * @param event
 		 * 
 		 */
-		protected function onStageHandler (event:Event):void
+		public function onStageHandler (event:Event):void
 		{
 
 		}
@@ -182,7 +357,7 @@
 		 * 跳到第二帧时，开始构建 样式、界面 
 		 * 
 		 */
-		protected function createUI ():void
+		public function createUI ():void
 		{
 
 		}

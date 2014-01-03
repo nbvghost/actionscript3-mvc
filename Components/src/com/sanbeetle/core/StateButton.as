@@ -127,6 +127,12 @@ package com.sanbeetle.core
 		{
 			_enable = value;
 			this.mouseEnabled = _enable;	
+			if(_enable==false){
+				
+				_upState.alpha = 0.3;
+			}else{
+				_upState.alpha = 1;
+			}
 			updateUI();
 		}
 		private function updateUI():void{

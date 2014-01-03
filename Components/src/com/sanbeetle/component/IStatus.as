@@ -1,9 +1,10 @@
 ﻿package com.sanbeetle.component {
 	
 	import com.sanbeetle.core.UIComponent;
-	import com.sanbeetle.skin.IListBoxBgA;
+	import com.sanbeetle.skin.IListBoxBg;
 	import com.sanbeetle.skin.image.IStatus_bruise;
 	import com.sanbeetle.skin.image.IStatus_lease;
+	import com.sanbeetle.skin.image.IStatus_pre_sale;
 	import com.sanbeetle.skin.image.IStatus_red_card;
 	import com.sanbeetle.skin.image.IStatus_retire;
 	import com.sanbeetle.skin.image.IStatus_sale;
@@ -44,6 +45,10 @@
 		 */
 		public static const LEASE:String="lease";
 		/**
+		 * 预售 
+		 */
+		public static const PRE_SALE:String="pre_sale";
+		/**
 		 * 红牌
 		 */
 		public static const RED_CARD:String="red_card";
@@ -58,11 +63,11 @@
 		private var _pwidth:Number =100;
 		
 		private var rightDO:Sprite;
-		private var bg:IListBoxBgA;
+		private var bg:IListBoxBg;
 		private var show:Boolean =false;
 		public function IStatus() {
 			rightDO = new Sprite();
-			bg = new IListBoxBgA();
+			bg = new IListBoxBg();
 			bg.width = this._pwidth;		
 			
 			this.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverHandler);
@@ -111,7 +116,7 @@
 			updateUI();
 		}
 		
-		override protected function createUI():void {
+		override public function createUI():void {
 			
 			
 			rightDO.addChild(bg);
@@ -122,7 +127,7 @@
 			updateUI();
 		}
 		
-		override protected function updateUI():void
+		override public function updateUI():void
 		{
 			if(_iconLabels==null){
 				return;
@@ -219,6 +224,9 @@
 					break;
 				case IStatus.YELLOW_CARD:
 					currentBMD = new IStatus_yellow_card;
+					break;
+				case IStatus.PRE_SALE:
+					currentBMD = new IStatus_pre_sale;
 					break;
 				default :
 					currentBMD = new IStatus_red_card;

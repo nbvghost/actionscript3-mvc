@@ -2,7 +2,6 @@
 {
 	
 	import com.sanbeetle.component.child.ITimeScheduleSkin;
-	import com.sanbeetle.component.child.ProgressBarSkin;
 	import com.sanbeetle.core.FixedUIComponent;
 	import com.sanbeetle.events.ControlEvent;
 	import com.sanbeetle.interfaces.ITimerRun;
@@ -26,7 +25,7 @@
 	 date.setHours(0,1,0,0);
 	 to(date);<br/>
 	 */
-	public class ITimeSchedule extends FixedUIComponent implements ITimerRun
+	public class ITimeSchedule extends FixedUIComponent 
 	{
 		
 		private var initDate:Date;
@@ -52,6 +51,11 @@
 		private var _slipColor:String="0x234E02";
 		private var _backgroundColor:String="0xDDE6D6";
 		
+		private var isOver:Boolean = false;
+		private var isPause:Boolean = false;
+		
+		private var isstart:Boolean = false;
+		
 		public function ITimeSchedule()
 		{
 			
@@ -62,9 +66,12 @@
 			skin.sj_txt.color = _timeTextColor;
 			
 			
+			this.name = ""+TimerRun.TimeID;
+			
+			
 			
 			timer =TimerRun.init();
-			timer.addRun(this);
+			//timer.addRun(this);
 			
 			dateTxt = new Date();
 			
@@ -78,7 +85,21 @@
 			ite.currentValue = 0.5;
 			this.addChild(ite);*/
 			
-		}			
+		}	
+		private var _name:String = "";
+		override public function get name():String
+		{
+			// TODO Auto Generated method stub
+			return _name;
+		}
+		
+		override public function set name(value:String):void
+		{
+			// TODO Auto Generated method stub
+			_name = value;
+		}
+		
+		
 		[Inspectable(defaultValue=false)]
 		public function get hideText():Boolean
 		{
@@ -161,7 +182,8 @@
 		public function set onlyText(value:Boolean):void
 		{
 			_onlyText = value;			
-			skin.onlyText(value);
+			skin.onlyText(value);			
+			
 		}
 		
 		[Inspectable(defaultValue ="0xffffff")]	
@@ -175,26 +197,30 @@
 			_timeTextColor = value;
 			skin.sj_txt.color = _timeTextColor;
 		}
-		
+		private function stopTimeRun():void{
+			isRuning =false;
+			timer.removeRun(this);
+		}
 		/**
 		 * 暂停 
 		 * 运行中的，将停止，停止中的将运行
 		 */
 		public function pause():void
 		{
-			if (this.isRuning)
+			if (isRuning)
 			{
-				isRuning = false;				
-				timer.removeRun(this);
+				isPause = true;
+				stopTimeRun();
 			}
 			else
 			{
+				isPause=false;
 				isRuning = true;				
 				timer.addRun(this);
 			}
 		}
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{
 			
 			
@@ -202,16 +228,37 @@
 			
 		}		
 		
+		override protected function onAddStage():void
+		{
+			// TODO Auto Generated method stub
+			super.onAddStage();
+			//isRuning =true;
+			//timer.addRun(this);
+			if(!isPause && isstart==true){
+				start();
+			}
+		}
+		
+		override protected function onRemoveStage():void
+		{
+			// TODO Auto Generated method stub
+			super.onRemoveStage();
+			
+			isRuning =false;
+			timer.removeRun(this);
+		}
+		
+		
 		override public function dispose():void
 		{
 			// TODO Auto Generated method stub
 			super.dispose();
 			
-			timer.removeRun(this);
 		}
 		
-		public function timerRun(event:TimerEvent):void
+		override public function timerRun(event:TimerEvent):void
 		{			
+			super.timerRun(event);
 			
 			currentTime = currentTime - (getTimer()-runTime);
 			
@@ -222,30 +269,65 @@
 				//skin.jdt_mc.scaleX = 0;
 				//this.removeEventListener(Event.ENTER_FRAME,onTimerHandler);
 				timer.removeRun(this);
-				this.isRuning = false;
+				this.isRuning = false;				
 				this.dispatchEvent(new ControlEvent(ControlEvent.TIME_COMPLETE));
 			}else{
 				setTimerTxt();
 				
 			}
+			//trace(currentTime);
 			runTime = getTimer();
 		}
+		
 		public function start():void{
-			isRuning = true;			
-			runTime = getTimer();
-			//this.addEventListener(Event.ENTER_FRAME,onTimerHandler);
-			timer.addRun(this);
+			
+			isstart = true;
+			if(isOver==false){
+				
+				isRuning = true;			
+				runTime = getTimer();
+				//this.addEventListener(Event.ENTER_FRAME,onTimerHandler);
+				timer.addRun(this);
+			}
 			
 		}
 		private function setTimerTxt():void{
 			skin.progressBar.currentValue =(currentTime /totalTime);
 			dateTxt.setTime(currentTime);
+			
+			//trace((currentTime /totalTime));
 			//Console.out("components"+dateTxt);
 			//dateTxt.setTime(dateTxt.getTime()+(totalTime-(currentTime)));
 			//dateTxt.setTime(dateTxt.getTime()+currentTime);
 			//Console.out("components"+dateTxt.getMinutes()+1,dateTxt.getSeconds()+1,dateTxt.getMilliseconds()+1);
 			
-			skin.sj_txt.text = Utils.TimeDataPrefix(int(currentTime/1000/60/60)) + ":" + Utils.TimeDataPrefix(dateTxt.getMinutes()) + ":" + Utils.TimeDataPrefix(dateTxt.getSeconds());
+			var a:String = Utils.TimeDataPrefix(int(currentTime/1000/60/60));
+			var b:String =  Utils.TimeDataPrefix(dateTxt.getMinutes());
+			var c:String = Utils.TimeDataPrefix(dateTxt.getSeconds());
+			if(a!="--" || b!="--" || c!="--"){
+				
+				
+					if(a=="--"){
+						a="00";
+					}
+					if(b=="--"){
+						b="00";
+					}
+					if(c=="--"){
+						c="00";
+					}			
+				
+				
+			}else{
+				if(dateTxt.milliseconds>0){
+					a="00";
+					b="00";
+					c="00";
+				}
+			}
+			skin.sj_txt.text = a + ":" +b + ":" + c;
+			
+			
 			
 		}
 		/**
@@ -262,7 +344,7 @@
 			//var cu:Number = initDate.getTime();	
 			
 			//initDate.setHours(0,0,0,0);			
-			totalTime = total;	
+			totalTime = total+1000;	
 			//Console.out("components"+"components"+"总时间长度为："+totalTime+"毫秒");			
 		}
 		/**
@@ -287,11 +369,13 @@
 			//Console.out("components"+"components"+"开始倒计时的时间长度为："+currentTime+"毫秒");	
 			if(currentTime>totalTime){
 				
+				isOver = true;
 				this.isRuning = false;
+				timer.removeRun(this);
 				this.dispatchEvent(new ControlEvent(ControlEvent.TIME_COMPLETE));				
 				return;
 			}
-			
+			//isOver = false;
 			//skin.jdt_mc.width = (1 - (currentTime /totalTime)) * skin.bbl_mc.width;			
 			
 			setTimerTxt();		

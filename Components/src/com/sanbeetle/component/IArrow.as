@@ -25,7 +25,7 @@
 			skin.gotoAndStop(_iconIndex);
 		}
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{
 		
 			this.addChild(skin);

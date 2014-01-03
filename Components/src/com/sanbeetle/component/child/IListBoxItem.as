@@ -1,182 +1,245 @@
 ﻿package com.sanbeetle.component.child {
 	
-	import com.sanbeetle.component.ILabel;
-	import com.sanbeetle.interfaces.IFListItem;
+	import com.sanbeetle.core.DisplayItem;
+	import com.sanbeetle.core.TextBox;
+	import com.sanbeetle.data.LineCollectionItem;
+	import com.sanbeetle.data.ListChildItem;
 	import com.sanbeetle.skin.IListBoxItemBg;
+	import com.sanbeetle.skin.ListSkinsChildArrow;
 	
 	import flash.display.CapsStyle;
 	import flash.display.LineScaleMode;
-	import flash.display.MovieClip;
-	import flash.events.MouseEvent;
-	import flash.text.TextFieldAutoSize;
+	
+	import flashx.textLayout.formats.VerticalAlign;
 	
 	
-	public class IListBoxItem extends MovieClip {
+	public class IListBoxItem extends DisplayItem {
 		
-		private var label:ILabel;
-		private var _bg:IListBoxItemBg;
-		
-		private var _data:IFListItem;
-		
-		private var _index:int =-1;	
-		
-		private var _textWidth:int =0;
+		private var label:TextBox;
+		private var bg:IListBoxItemBg;
+		private var chidlAroww:ListSkinsChildArrow;
 		
 		public function IListBoxItem() {
 			this.buttonMode =true;
-			label = new ILabel();
+			label = new TextBox();
 			
-			_bg = ItemBg;
+			chidlAroww = new ListSkinsChildArrow;
+			
+			bg = new IListBoxItemBg;
 			this.addChild(bg);
+			bg.cacheAsBitmap = true;
+			
 			bg.mouseEnabled = false;
 			bg.mouseChildren =false;
 			label.mouseChildren = false;
-			label.mouseEnabled = false;
-			label.leading = 0;
+			label.mouseEnabled = false;			
+			label.multiline = false;
+			label.autoBound = true;		
+			
+			
+			//label.leading = 0;
 			//label.border =true;
-			label.autoSize = TextFieldAutoSize.LEFT;
+			//label.autoSize = TextFieldAutoSize.LEFT;
 			//label.color = color;
 			
 			//label.width = 100;
 			//label.align = TextFormatAlign.LEFT;			
 			//label.autoSize = TextFieldAutoSize.LEFT;
 			//Console.out("components"+"components"+"iladel"+iladel.width);
-			label.fontSize = "12";			
+			label.fontSize = "12";
 			
-			label.height=20;			
-			label.mouseEnabled =false;
-			label.mouseChildren = false;
+			label.verticalAlign = VerticalAlign.MIDDLE;
+			
+			label.height=bg.height;			
+			
+			//label.mouseEnabled =false;
+			//label.mouseChildren = false;
 			//iladel.border =true;
 			label.x = 8;
+			
+			//chidlAroww.x =bg.width-chidlAroww.width-30;
+			//chidlAroww.y = (bg.height-chidlAroww.height)/2;
 			
 			this.addChild(label);
 			//this.width = 100;
 			//this.height =20;
 			
-			this.addEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
-			this.addEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
 		}
 		
-		
-		
-		public function get bg():IListBoxItemBg
+		override public function mouseOut():void
 		{
-			return _bg;
+			
+			bg.gotoAndStop(1);
+			label.color = data.itemColor;
 		}
-
-		public function get textWidth():int
+		
+		override public function mouseOver():void
 		{
-			return this.label.width;
+			
+			bg.gotoAndStop(2);
+			label.color = data.itemOverColor;
 		}		
-		public function get index():int
+		override public function doAction(actionType:String, actonComplete:Function,age:Array=null):void
 		{
-			return _index;
-		}
-		
-		public function set index(value:int):void
-		{
-			_index = value;
-		}
-		
-		protected function get ItemBg():IListBoxItemBg{
-			
-			return new IListBoxItemBg();
-		}
-		override public function get height():Number
-		{
-			// TODO Auto Generated method stub
-			return bg.height;
-		}
-		
-		override public function set height(value:Number):void
-		{
-			// TODO Auto Generated method stub
-			bg.height = value;
-		}
-		
-		override public function set width(value:Number):void
-		{
-			// TODO Auto Generated method stub
-			bg.width = value;
-			//label.width =value;
-			drawLine();
-		}
-		
-		override public function get width():Number
-		{
-			// TODO Auto Generated method stub
-			return bg.width;
-		}
-		
-		
-		public function get data():IFListItem
-		{
-			return _data;
-		}
-		
-		public function set data(value:IFListItem):void
-		{
-			_data = value;		
-			
-			drawLine();	
-			
-			this.mouseEnabled = value.enable;
-			//Console.out("components"+value.itemColor);
-			label.color=_data.itemColor;
-			//label.color = "0xffffff";
-			label.text = _data.label;
-			
-			
-			//Console.out("components"+textMaxWidth);
-		}
-		private function drawLine():void{			
-			if(_data==null){
-				return;
+			if(data.enable){
+				actonComplete.apply(this,age);
 			}
-			if(_data.label=="-" || _data.data=="-"){
-				if(label.parent){
-					label.parent.removeChild(label);
+			
+		}
+		
+		override protected function drawLayout(cw:Number, ch:Number,autoLayOut:Boolean=false):void
+		{
+			
+			this.addChild(bg);
+			this.addChild(label);
+			
+			var lci:ListChildItem = data as ListChildItem;
+			
+			if(lci){
+				if(lci.childs!=null){
+					if(lci.childs.length>0){
+						
+						this.addChild(chidlAroww);
+					}
+					
+					
+				}else{
+					if(chidlAroww.parent){
+						chidlAroww.parent.removeChild(chidlAroww);
+					}
 				}
-				if(bg.parent){
-					bg.parent.removeChild(bg);
-				}			
+			}else{
+				if(chidlAroww.parent){
+					chidlAroww.parent.removeChild(chidlAroww);
+				}
+			}
+			
+			
+			if(isLineAndDraw()){
+				this.bg.width = cw;
+				drawLine();
 				
-				bg.height = 9;
+				this.mouseChildren = false;
+				this.mouseEnabled = false;
 				
-				this.graphics.clear();
-				this.graphics.lineStyle(1,0x000000,0.24,false,LineScaleMode.VERTICAL,CapsStyle.NONE);
-				this.graphics.moveTo(0,4);
-				this.graphics.lineTo(this.width,4);
+			}else{
+				this.mouseChildren = true;
+				this.mouseEnabled = true;
+				//this.mouseChildren = data.enable;
+				//this.mouseEnabled = data.enable;
+				
+				if(data.enable==false){
+					this.bg.alpha = 0.3;
+					label.alpha = 0.3;
+				}else{
+					this.bg.alpha = 1;
+					label.alpha=1;
+				}
+				
+				
+				
+				if(autoLayOut){
+					label.autoBound = true;
+					label.multiline = false;
+					this.bg.width = label.width+8;
+					chidlAroww.x =bg.width-chidlAroww.width-10;
+					chidlAroww.y = (bg.height-chidlAroww.height)/2;				
+					this.label.width = cw-8;
+					
+					
+				}else{
+					label.autoBound = false;
+					label.multiline = false;
+					this.bg.width = cw;
+					chidlAroww.x =bg.width-chidlAroww.width-10;
+					chidlAroww.y = (bg.height-chidlAroww.height)/2;				
+					this.label.width = cw-8;			
+					
+				}
+				
+				
+				
+				label.y = (bg.height-label.height)/2;
+				
+			}			
+		}	
+		override public function get contentWidth():Number
+		{
+			return this.bg.width;
+		}		
+		override public function get contentHeight():Number{
+			return this.bg.height;
+		}	
+		
+		override protected function createUI():void
+		{
+			this.graphics.clear();
+			
+			if(isLineAndDraw()){
+				//this.removeChild(chidlAroww);
+				drawLine();
 				
 			}else{
 				
-				return;
+			
+				//this.mouseEnabled = data.enable;
+//				/this.mouseChildren = data.enable;
+				
+				
+				
+				label.color=data.itemColor;
+				
+				label.text = data.label;
+			
+				
+				//bg.height = label.height;
+				
+				this.bg.width = 8+label.width;
 			}
 			
-		}
-		/**
-		 * 项的字体颜色
-		 * @param value
-		 * @return 
-		 * 
-		 */
-		protected function itemColor(value:IFListItem):String{
-			return value.itemColor;
-		}
-		protected function itemOverColor(value:IFListItem):String{
-			return value.itemOverColor;
-		}
-		private function onOverHandler(event:MouseEvent):void
-		{
-			bg.gotoAndStop(2);
-			label.color = itemOverColor(_data);
+			
+		}		
+		
+		private function drawLine():void{
+			
+			if(label.parent){
+				label.parent.removeChild(label);
+			}
+			if(bg.parent){
+				bg.parent.removeChild(bg);
+			}			
+			
+			bg.height = 9;
+			
+			this.graphics.clear();
+			this.graphics.lineStyle(1,0x000000,0.3,false,LineScaleMode.VERTICAL,CapsStyle.NONE);
+			this.graphics.moveTo(0,4);
+			this.graphics.lineTo(this.contentWidth,4);
+			
 		}
 		
-		private function onOutHandler(event:MouseEvent):void
-		{
-			bg.gotoAndStop(1);
-			label.color = itemColor(_data);
-		}
+		private function isLineAndDraw():Boolean{	
+			
+			var isLine:Boolean = false;
+			
+			if(data!=null){
+				if(data is LineCollectionItem){
+					isLine = true;
+				}else if(data.label=="-" || data.data=="-"){					
+					
+					isLine = true;
+				}else{
+					
+					isLine = false;
+				}
+			}	
+			if(isLine==false){
+				bg.scaleY = 1;
+			}
+			
+			return isLine;
+		}		
+		
 		
 	}
 	

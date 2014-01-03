@@ -1,106 +1,254 @@
 ﻿package com.sanbeetle.component
 {
-
-	import com.sanbeetle.component.child.LeftLibelButton;
+	
+	import com.sanbeetle.component.child.ComboBoxBar;
+	import com.sanbeetle.core.DisplayItem;
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.DataProvider;
+	import com.sanbeetle.data.ListData;
 	import com.sanbeetle.events.ControlEvent;
-	import com.sanbeetle.skin.ComboBox_downSkin;
-	import com.sanbeetle.skin.ComboBox_overSkin;
-	import com.sanbeetle.skin.ComboBox_upSkin;
+	import com.sanbeetle.interfaces.ICellRenderer;
+	import com.sanbeetle.interfaces.IFListItem;
 	import com.sanbeetle.utils.Utils;
 	
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-
+	
 	/**
 	 *  
 	 * 当项发生改变时。调度
 	 * 
 	 */	
 	[Event(name="change",type="com.sanbeetle.events.ControlEvent")]	
+	/**
+	 * 项里面的内容 的事件 
+	 */	
+	[Event(name="item_renderer_select",type="com.sanbeetle.events.ControlEvent")]
 	public class ComboBox extends UIComponent
 	{
-
-		private var _dataProvider:DataProvider;
-
-		private var btnUp:ComboBox_upSkin;
-		private var btnOver:ComboBox_overSkin;
-		private var btnDown:ComboBox_downSkin;
-
+		
+		private var _dataProvider:DataProvider=new DataProvider();
+		
 		private var _selectedIndex:int = -1;
-		private var _selectedItem:Object = null;
-
-		private var btn:LeftLibelButton;
-		private var list:List;
+		private var _selectedItem:IFListItem = null;
 		
-		private var _label:String="下拉框";
+		private var _listData:ListData;
 		
-		private var _listHeight:int = 100;
+		private var _fontSize:String = "10";
+		private var _fontColor:String = "0xffffff";
 		
-
+		
+		private var list:ListChild;
+		
+		private var _label:String="default label";
+		
+		
+		
+		/**
+		 * 默认背景
+		 */
+		public static const background_default:String="background_default";
+		/**
+		 *  没有背景
+		 */
+		public static const background_none:String="background_none";
+		/**
+		 * 有背景，但只有鼠标滑过的时候有
+		 */
+		public static const background_over:String="background_over";
+		
+		/**
+		 * 有背景，并且右边有一个小按钮
+		 */
+		public static const backround_rb:String="backround_rb";
+		
+		
+		private var _backgroundType:String=background_default;
+		
+		
+		private var cbbar:ComboBoxBar;
+		
+		private var _ilable:ILabel;
+		
+		private var ItemCellRenaderer:Class;	
+		
+		
 		public function ComboBox ()
 		{
-			btnUp = new ComboBox_upSkin();
-			btnOver = new ComboBox_overSkin();
-			btnDown = new ComboBox_downSkin();
-
-			btn = new LeftLibelButton(btnUp,btnOver,btnDown);
-			//btn.mouseChildren = false;
-			btn.addEventListener (MouseEvent.CLICK,onMouseListHandler);
-			/*btn.autoSize = TextFieldAutoSize.NONE;
-			btn.align = TextFormatAlign.LEFT;
-			btn.label="dsfds";*/
-			list= new List();
+			
+			
+			cbbar = new ComboBoxBar();
+			//cbbar.fontColor = _fontColor;
+			//cbbar.fontSize = _fontSize;
+			cbbar.backgroundType = this._backgroundType;
+			
+			
+			cbbar.addEventListener(ControlEvent.SELECT,onBarSelectHandler);
+			
+			
+			
+			cbbar.defaultLabel = _label;		
+					
+			//_maxHeight = this.component.getMaxListHeight();
+		
+			list= new ListChild();
+			
+			
 			list.visible = false;
 			//addEventListener (Event.CHANGE,onChangeHandler);
 			list.addEventListener(ControlEvent.CHANGE,onChangeHandler);
+			list.addEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRenderereHandler);
+			
 		}
-		[Inspectable(defaultValue = 100)]
-		public function get listHeight():int
+		private var _maxHeight:int =-1;
+
+		public function get itemCellRenaderer():Class
 		{
-			return _listHeight;
+			if(list.itemCellRenaderer){
+				return list.itemCellRenaderer;
+			}
+			return ItemCellRenaderer;
 		}
 
-		public function set listHeight(value:int):void
-		{
-			if(_listHeight!=value){
-				_listHeight = value;
+		public function setMaxHeight(h:int=-1):void{
+			if(_maxHeight != h){
+				_maxHeight = h;					
 				this.updateUI();
-			}			
+			}
+			
 		}
-
-		[Inspectable(defaultValue = "下拉框")]
-		public function get label():String
+		private function onItemRenderereHandler(event:ControlEvent):void
 		{
-			return _label;
+			this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_RENDERER_SELECT,event.data));
 		}
-
-		public function set label(value:String):void
+		
+		public function set itemCellRenaderer(value:Class):void
 		{
-			if(_label!=value){
-				_label = value;
+			if(ItemCellRenaderer != value){
+				ItemCellRenaderer = value;
 				this.updateUI();
 			}
 			
 		}
 
-		private function onChangeHandler (event:ControlEvent):void
+		public function get listData():ListData
 		{
-			_selectedIndex = list.selectedIndex;
-			selectedIndex = _selectedIndex;
-			list.visible = false;
-			this.dispatchEvent(new ControlEvent(event.type,event.data));
+			return _listData;
 		}
 
+		/**
+		 * ILabel  的引用  
+		 * @return 
+		 * 
+		 */
+		/*public function get ilable():ILabel
+		{
+			return cbbar.labelTxt;
+		}*/
+
+	
+
+		[Inspectable(enumeration="background_default,background_none,background_over,backround_rb",defaultValue="background_default")]
+		/**
+		 * 背景类型 
+		 */
+		public function get backgroundType():String
+		{
+			return _backgroundType;
+		}
+		
+		/**
+		 * @private
+		 */
+		public function set backgroundType(value:String):void
+		{
+			if(_backgroundType!=value){
+				_backgroundType = value;				
+				cbbar.backgroundType = _backgroundType;
+			}			
+		}
+		
+		/*public function set selectedItem(value:IFListItem):void
+		{
+			_selectedItem = value;
+		}*/	
+		
+		[Inspectable(defaultValue ="default label")]
+		public function get label():String
+		{
+			return _label;
+		}
+		
+		public function set label(value:String):void
+		{
+			if(_label!=value){
+				_label = value;
+				
+				this.cbbar.defaultLabel = _label;
+				//this.updateUI();
+			}
+			
+		}
+		
+		
+		[Inspectable(defaultValue="0xffffff")]
+		public function get fontColor():String
+		{
+			return _fontColor;
+		}
+		
+		public function set fontColor(value:String):void
+		{
+			
+			_fontColor = value;
+			cbbar.fontColor = _fontColor;
+		}
+		[Inspectable(defaultValue="10")]
+		public function get fontSize():String
+		{
+			return _fontSize;
+		}
+		
+		public function set fontSize(value:String):void
+		{
+			_fontSize = value;
+			//cbbar.fontSize = _fontSize;
+		}
+
+		private function onChangeHandler (event:ControlEvent):void
+		{
+			
+			//Console.out(list,list.currentList,list.currentList.currentItem,list.currentList.currentItem.data,list.currentList.currentItem.data.label);
+			_selectedIndex = list.currentList.selectedIndex;			
+			_selectedItem= list.currentList.currentItem.data;
+			
+			_listData = list.currentList.currentItem.listData;
+			
+			//this.label = list.currentList.currentItem.data.label;
+			//selectedIndex = _selectedIndex;
+			
+			if(_selectedItem){				
+				//cbbar.label = _selectedItem.label;				
+			}			
+			//Log.out(list.currentList.currentItem is DisplayItem);
+			
+			this.cbbar.displayItem = list.currentList.currentItem as DisplayItem;
+			
+			list.visible = false;
+			
+			
+			this.dispatchEvent(new ControlEvent(event.type,event.data));
+			
+		}
+		
 		/**
 		 * 下拉的 List 实例 
 		 * @see com.sanbeetle.component.List
 		 * @return 
 		 * 
 		 */
-		public function get dropdown ():List
+		public function get dropdown ():ListChild
 		{
 			return list;
 		}
@@ -112,57 +260,68 @@
 		public function get selectedItem ():Object
 		{
 			return _selectedItem;
-		}
-		[Inspectable(defaultValue = -1)]
+		}		
 		/**
 		 * 选中的索引号， 如果为 -1 时，没有选中，默认为 数据的第0元素
 		 * @return 
 		 * 
 		 */
+		[Inspectable(defaultValue=-1)]
 		public function get selectedIndex ():int
 		{
 			return _selectedIndex;
 		}
-
+		
 		public function set selectedIndex (value:int):void
 		{
-			_selectedIndex = value;		
-			this.updateUI();
+			if(_selectedIndex!==value){
+				_selectedIndex = value;		
+				this.updateUI();
+			}
+			
 		}
-		private function onMouseListHandler (event:MouseEvent):void
+		private function onBarSelectHandler (event:ControlEvent):void
 		{
+			
 			if (list.visible)
 			{
+				list.visible = false;
+				if(list.parent){
+					list.parent.removeChild(list);
+				}
 				return;
 			}
+			
 			list.visible = true;
-			list.x = 0;
-			list.y = this.trueHeight;
-			this.addChild (list);
+			list.x = cbbar.cx;
+			list.y = this.trueHeight+4;
+			//this.addChild (list);
 			var point:Point = this.localToGlobal(new Point(list.x,list.y));
-			stage.addChild (list);
 			list.x = point.x;
 			list.y = point.y;
+			stage.addChild (list);		
+		
+			//list.x = point.x;
+			//	list.y = point.y;
 			stage.addEventListener (MouseEvent.MOUSE_DOWN,onStageDownHandler);
+				
+			
+			
 		}
-
+		
 		private function onStageDownHandler (event:MouseEvent):void
 		{
 			if(!Utils.isChild(list,DisplayObject(event.target)) && !Utils.isChild(this,DisplayObject(event.target))){
+				if(stage){
+					stage.removeEventListener (MouseEvent.MOUSE_DOWN,onStageDownHandler);
+				}
 				
-				stage.removeEventListener (MouseEvent.MOUSE_DOWN,onStageDownHandler);
 				list.visible = false;
-			}
-			/*if (!(event.target is IListBoxItem) && !(event.target is NonePaddinIListBox) &&
-			!(event.target is IVScrollBarSkin_top)&& 
-			!(event.target is IVScrollBarSkin_bar)&& 
-			!(event.target is SimpleButton)&& 
-			!(event.target is IListBoxBgB)&&
-			!(event.target is IVScrollBarSkin_buttom))
-			{
-				
-			}*/
-
+				if(list.parent){
+					list.parent.removeChild(list);
+				}
+			}		
+			
 		}
 		[Collection(collectionClass = "com.sanbeetle.data.DataProvider",identifier = "item",collectionItem = "com.sanbeetle.data.SimpleCollectionItem")]
 		/**
@@ -174,31 +333,54 @@
 		{
 			return _dataProvider;
 		}
-
+		
 		public function set dataProvider (value:DataProvider):void
 		{
-			_dataProvider = value;
-			this.updateUI ();
-		}
-
-
-		override protected function createUI ():void
+			
+			if(_dataProvider != value && _dataProvider!=null){
+				_dataProvider = value;
+				this.updateUI ();
+			}
+			
+		}		
+		override public function createUI ():void
 		{
-			this.addChild (btn);
+			this.addChild (cbbar);
+			list.setMinWidth(trueWidth);
+			//list.height = 100;
+			list.y = 4;			
 			updateUI ();
 		}
-
-		override protected function updateUI ():void
+		
+		override public function updateUI ():void
 		{
-			btn.width = this.trueWidth;
-			btn.height = this.trueHeight;
-
-			list.width = this.trueWidth;
-			list.height =_listHeight;
-
-			this.list.dataProvider = this.dataProvider;			
+			//list.width = 100;
 			
-			btn.label = _label;
+			//list.height = 50;
+			
+			
+			list.setMaxHeight(_maxHeight);
+			
+			//list.setMaxHeight(50);
+			
+			cbbar.width = this.trueWidth;
+			cbbar.height = this.trueHeight;
+			
+			
+			
+		
+			//list.width = this.trueWidth;
+			
+			if(ItemCellRenaderer!=null){
+				list.itemCellRenaderer = ItemCellRenaderer;
+			}
+			
+			this.list.dataProvider = this._dataProvider;
+			
+			
+			
+			
+			//list.width = 500;
 			
 			if (dataProvider!=null)
 			{
@@ -210,25 +392,37 @@
 				if(_selectedIndex==-1){
 					return;
 				}
-				if (_selectedIndex>dataProvider.length)
+				if (_selectedIndex>dataProvider.length-1)
 				{
 					_selectedIndex = dataProvider.length - 1;
-				}
+				}	
 				
-				_selectedItem = this.dataProvider.getItemAt(_selectedIndex);
+				_selectedItem = this.dataProvider.getItemAt(_selectedIndex) as IFListItem;
 				if (_selectedItem==null)
 				{
-					btn.label = "";
+					//cbbar.label = _label;
+					//btn.label = "";
+					//Log.out(this.itemCellRenaderer,0);
+					cbbar.defaultLabel = _label;
 				}
 				else
 				{
-					btn.label = _selectedItem.label;
+					if(itemCellRenaderer!=null){
+						var te:ICellRenderer = new itemCellRenaderer();
+						
+						//te.data = _selectedItem as IFListItem;
+						cbbar.displayItem = te.createItem(_selectedItem,new ListData(_selectedItem,0,_selectedIndex,null)) as DisplayItem;
+						
+						//Log.out(this.itemCellRenaderer,1);
+						//cbbar.label = _selectedItem.label;
+					}
+					
 				}				
 			}
-
+			
 		}
-
-
+		
+		
 	}
-
+	
 }

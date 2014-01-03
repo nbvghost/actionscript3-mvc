@@ -5,7 +5,7 @@ package com.sanbeetle.model
 	 *
 	 *@author sixf
 	 */
-	public class LocationRect
+	public class LocationRect 
 	{
 		private var _left:int=0;
 		private var _right:int=0;
@@ -57,6 +57,11 @@ package com.sanbeetle.model
 		public function set left(value:int):void
 		{
 			_left = value;
+		}
+		
+		public function toString():String{
+		
+			return "[top:"+top+",right:"+right+",buttom:"+buttom+",left:"+left+"]";
 		}
 
 	}

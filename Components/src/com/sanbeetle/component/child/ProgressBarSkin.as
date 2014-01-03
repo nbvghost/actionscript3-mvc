@@ -126,7 +126,7 @@ package com.sanbeetle.component.child
 			c.graphics.clear();
 			c.graphics.lineStyle(_border,_borderColor,_borderAlpha);
 			c.graphics.beginFill(_slipColor);
-			c.graphics.drawRect(0,0,ww*_currentValue,hh);
+			c.graphics.drawRect(0,0,ww*(int(_currentValue*100))/100,hh);
 			
 		}
 	}

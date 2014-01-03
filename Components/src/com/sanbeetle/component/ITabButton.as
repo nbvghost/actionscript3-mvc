@@ -1,11 +1,11 @@
 ﻿package com.sanbeetle.component
 {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	import com.sanbeetle.component.child.ExtendButton;
-	import com.sanbeetle.component.child.IListBoxItem;
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.DataProvider;
 	import com.sanbeetle.data.ListChildItem;
+	import com.sanbeetle.data.SimpleCollectionItem;
 	import com.sanbeetle.events.ChangeIndexEvent;
 	import com.sanbeetle.events.ControlEvent;
 	import com.sanbeetle.skin.TabButton_left_down_gray;
@@ -54,11 +54,11 @@
 		
 		private var _childData:Array=[];
 		
-		private var list:List;
+		private var list:ListChild;
 		
-		private var childList:List;
+		//private var childList:List;
 		
-		private var ListClass:Class;
+		//private var ListClass:Class;
 		
 
 		private var _bold:Boolean = true;
@@ -68,11 +68,39 @@
 		{
 			super();
 			
-			list=new List();
-			childList = new List();
-			childList.addEventListener(ControlEvent.CHANGE,onChildListChangeHandler);
+			list=new ListChild();
+			
 			list.addEventListener(ControlEvent.CHANGE,onListChangeHandler);
-			list.addEventListener(ControlEvent.ITEM_OVER,onItemOverHandler);
+			
+			
+			/*var data:DataProvider = new DataProvider();
+			data.addItem(new SimpleCollectionItem("sdas ","dsfsdf"));
+			data.addItem(new SimpleCollectionItem("sf","dsfsdf"));
+			data.addItem(new SimpleCollectionItem("fdsf","dsfsdf"));
+			data.addItem(new SimpleCollectionItem("","dsfsdf"));
+			data.addItem(new SimpleCollectionItem("ssf","dsfsdf"));
+			data.addItem(new SimpleCollectionItem("sdf","dsfsdf"));
+			data.addItem(new SimpleCollectionItem("ssd","dsfsdf"));
+			data.addItem(new SimpleCollectionItem("ssdf","dsfsdf"));
+			
+			
+			var ite:ListChildItem = new ListChildItem("dsfsd","dsfsd");
+			
+			ite.childs = data;
+			
+			data.addItem(ite);
+			
+			
+			
+			var arr:Array = new Array;
+			
+			arr.push(data);
+			arr.push(data);
+			arr.push(data);
+			
+			this.childData = arr;	*/	
+		
+			
 		}
 		[Inspectable(defaultValue=true)]
 		public function get requestSelect():Boolean
@@ -104,50 +132,17 @@
 			
 		}
 
-		protected function onChildListChangeHandler(event:ControlEvent):void
-		{
-			this.list.visible =false;
-			this.childList.visible =false;
-			this.dispatchEvent(new ControlEvent(event.type,event.data));
-		}
+		
 		
 		protected function onListChangeHandler(event:ControlEvent):void
 		{
+			this.list.clear();
 			this.list.visible =false;
-			this.childList.visible =false;
+			
 			this.dispatchEvent(new ControlEvent(event.type,event.data));
 		}
 		
-		private function onItemOverHandler(event:ControlEvent):void
-		{
-			var item:IListBoxItem = list.currentItem;
-			
-			var cu:Point = item.parent.localToGlobal(new Point(item.x,item.y));
-			
-			var listChildItem:ListChildItem = list.currentItem.data as ListChildItem;
-			if(listChildItem!=null){
-				
-				if(listChildItem.childs!=null){
-					/*childList.x = cu.x+list.width;
-					childList.y = cu.y;	*/
-					childList.x =list.x+list.width;
-					childList.y = cu.y;	
-					
-					childList.dataProvider = listChildItem.childs;
-					childList.visible =true;
-					stage.addChild(childList);
-				}else{
-					if(childList.parent){
-						childList.parent.removeChild(childList);
-					}
-					
-				}
-				
-				
-			}
-			
-			
-		}
+		
 		//[Collection(collectionClass="com.sanbeetle.data.DataProvider", identifier="item", collectionItem="com.sanbeetle.data.ListChildItem")]
 		public function get childData():Array
 		{
@@ -169,9 +164,14 @@
 		
 		public function set selectIndex(value:int):void
 		{
+			
+			var oldIndex:int = _selectIndex;
+			
 			_selectIndex = value;
 			
 			this.updateUI();
+			
+			this.dispatchEvent(new ChangeIndexEvent(ChangeIndexEvent.CHANGE_INDEX,_selectIndex,oldIndex));	
 		}
 		
 		[Inspectable(defaultValue="10")]
@@ -184,6 +184,9 @@
 		{
 			_fontSize = value;
 			this.updateUI();
+			
+		
+			
 		}
 		
 		private function onClickHandle(event:MouseEvent):void
@@ -208,9 +211,9 @@
 				this.dispatchEvent(new ChangeIndexEvent(ChangeIndexEvent.CHANGE_INDEX,_selectIndex,oldIndex));				
 				
 				if(_oldButton!=item){						
-					
-					//index = item.index;
+
 					_oldButton= item;
+					
 				}			
 				
 			}
@@ -218,33 +221,50 @@
 		
 		private function showList(current:ExtendButton):void
 		{
+			if(list){
+				if(list.parent){
+					list.parent.removeChild(list);
+				}
+			}
 			
 			if(_childData==null){
 				return;
 			}else{
+				this.list.clear();
+				this.list.visible =false;		
 				
-				this.list.visible =false;
-				this.childList.visible =false;
 			}
 			var dataProvider:DataProvider =_childData[current.index];	
 			
 			if(dataProvider==null){
+				this.list.clear();
 				this.list.visible =false;
-				this.childList.visible =false;
+				
 				return;
 			}	
-			this.list.dataProvider = dataProvider;
-			list.width = current.width*2;
-			list.y = current.height;
+			
+			if(current.width<this.component.getMinListWidth()){
+				list.setMinWidth(this.component.getMinListWidth());
+			}else{
+				list.setMinWidth(current.width);
+			}
+			//list.setMaxHeight(current.width);
+		
+			
+			this.list.dataProvider = dataProvider;		
+			this.list.upDisplayList();
+			
+			
+		
+			list.y = current.height+4;
 			list.x = current.x;
 			this.addChild(list);
 			var cu:Point = this.localToGlobal(new Point(list.x,list.y));
 			list.x = cu.x;
 			list.y = cu.y;
 			stage.addChild(list);
-			list.visible =true;
-			
-			
+			list.visible =true;	
+		
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);				
 			
@@ -278,17 +298,23 @@
 		{	
 			
 			var tie:DisplayObject = event.target as DisplayObject;
-			while(tie.parent){
-				if(tie is ITabButton || tie is List){
-					return;
-				}else{
-					tie = tie.parent;
-				}
-			}			
+			if(tie){
+				while(tie.parent){
+					if(tie is ITabButton || tie is List){
+						return;
+					}else{
+						tie = tie.parent;
+					}
+				}			
+			}
 			
+			this.list.clear();
 			list.visible =false;
-			childList.visible =false;
-			stage.removeEventListener(MouseEvent.MOUSE_OUT,onMouseDoaneHadnler);
+			
+			if(stage){
+				stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);
+			}
+			
 		}
 		[Inspectable(defaultValue="0x000000")]
 		public function get backgroundColor():String
@@ -314,7 +340,7 @@
 			this.updateUI();
 		}
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{		
 			
 			
@@ -322,15 +348,12 @@
 			updateUI();
 			
 			
-			
-			/*var list:List = new List();
-			this.addChild(list);*/
-			
 		}	
 		
-		override protected function updateUI():void
+		override public function updateUI():void
 		{
 			
+		
 			for each(var btn:ExtendButton in  btnArr){
 				if(btn.parent!=null){
 					btn.parent.removeChild(btn);
@@ -363,7 +386,7 @@
 				left.width = itew;			
 				left.height = this.trueHeight;		
 				left.label = _data[0];	
-				Console.out("components"+this.trueHeight);
+				//Log.out("components"+this.trueHeight);
 				addChild(left);			
 				left.index = 0;
 				w = left.width-1;
@@ -427,45 +450,15 @@
 		
 		protected function createLeftButton():ExtendButton{
 			return new ExtendButton(new TabButton_left_up_gray,new TabButton_left_over_gray,new TabButton_left_down_gray);
-			/*switch(sideType){
-				case SIDE_BUTTOM:
-				case SIDE_TOP:
-					
-					break;
-				case SIDE_RIGHT:
-				case SIDE_LEFT:
-					return new ExtendButton(new TabButton_left_left_up,new TabButton_left_left_over,new TabButton_left_left_down);
-					break;
-			}
-			return null;*/
+			
 		}
 		protected function createMidButton():ExtendButton{
 			return new ExtendButton(new TabButton_mid_up_gray,new TabButton_mid_over_gray,new TabButton_mid_down_gray);
-			/*switch(sideType){
-				case SIDE_BUTTOM:
-				case SIDE_TOP:
-					
-					break;
-				case SIDE_RIGHT:
-				case SIDE_LEFT:
-					return new ExtendButton(new TabButton_left_mid_up,new TabButton_left_mid_over,new TabButton_left_mid_down);
-					break;
-			}
-			return null;*/
+			
 		}
 		protected function createRightButton():ExtendButton{
 			return new ExtendButton(new TabButton_right_up_gray,new TabButton_right_over_gray,new TabButton_right_down_gray);
-			/*switch(sideType){
-				case SIDE_BUTTOM:
-				case SIDE_TOP:
-					
-					break;
-				case SIDE_RIGHT:
-				case SIDE_LEFT:
-					return new ExtendButton(new TabButton_left_right_up,new TabButton_left_right_over,new TabButton_left_right_down);
-					break;
-			}
-			return null;*/
+			
 		}
 	
 		protected function setButonStyle(btn:ExtendButton):void{	

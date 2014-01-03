@@ -35,7 +35,6 @@
 		{
 			return _dataProvider;
 		}
-
 		public function set dataProvider(value:DataProvider):void
 		{
 			_dataProvider = value;			
@@ -79,7 +78,7 @@
 			startTimer();
 		}
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{
 			
 			/*_dataProvider.addItem({label:"速度",data:50-12});
@@ -113,7 +112,7 @@
 			
 		}	
 		
-		override protected function updateUI():void
+		override public function updateUI():void
 		{
 			// TODO Auto Generated method stub
 			super.updateUI();

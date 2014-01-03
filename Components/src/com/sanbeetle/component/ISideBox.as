@@ -1,19 +1,21 @@
 ﻿package com.sanbeetle.component {
 	
-	import com.asvital.debug.Console;
 	import com.sanbeetle.component.child.IListBox;
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.DataProvider;
 	import com.sanbeetle.data.SimpleCollectionItem;
 	import com.sanbeetle.events.ControlEvent;
-	import com.sanbeetle.skin.IListBoxBgA;
+	import com.sanbeetle.skin.IListBoxBg;
 	import com.sanbeetle.skin.ISideBoxBtn;
 	
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
 	[Event(name="change", type="com.sanbeetle.events.ControlEvent")]
+	
+	[Event(name="item_select", type="com.sanbeetle.events.ControlEvent")]
 	
 	public class ISideBox extends UIComponent {
 		
@@ -21,53 +23,56 @@
 		private var _dataProvider:DataProvider;
 		
 		private var sideBoxSkin:IListBox;		
-		private var _boxWidth:int = 120;
 		
 		private var tels:ISideBoxBtn;
 		
+		private var bg:IListBoxBg;
+		
+		private var box:Sprite;
+		
 		public function ISideBox() {
+			
+			bg = new IListBoxBg();
+			
 			tels = new ISideBoxBtn();
 			tels.mouseChildren =false;
 			tels.stop();
-			sideBoxSkin = new IListBox(new IListBoxBgA);	
+			sideBoxSkin = new IListBox(null);	
 			sideBoxSkin.addEventListener(ControlEvent.CHANGE,onContentClickHandler);
-			
-			
-			
+			sideBoxSkin.addEventListener(ControlEvent.ITEM_SELECT,onConteseleHane);
+			//sideBoxSkin.ItemCellRender = BlackColorListCellRenderer;
+			sideBoxSkin.autoSize =true;
+			sideBoxSkin.setMinWidth(this.component.getMinListWidth());
 			//this.trueWidth = 52;
 			//this.trueHeight =32;
 			this.width = 52;
-			this.height=32;
+			this.height=32;		
 			
-		}		
-		[Inspectable(defaultValue = 120)]
-		public function get boxWidth():int
-		{
-			return _boxWidth;
-		}
+			
+			
+			
+			
+			box=new Sprite();
+		}	
 		
-		public function set boxWidth(value:int):void
+		protected function onConteseleHane(event:ControlEvent):void
 		{
-			
-			_boxWidth = value;	
-			
-			sideBoxSkin.width = _boxWidth;	
-			sideBoxSkin.listWidth = _boxWidth;
-			
-			this.updateUI();
-			
+			// TODO Auto-generated method stub
+			this.dispatchEvent(new ControlEvent(event.type,event.data));
 		}
-		
-		override protected function updateUI():void
+		override public function updateUI():void
 		{
-			Console.out("components"+_boxWidth);
-			sideBoxSkin.width = _boxWidth;	
-			sideBoxSkin.listWidth = _boxWidth;
 			
+			//sideBoxSkin.listWidth = _boxWidth;
+			/*bg.bg.width = sideBoxSkin.width;
+			bg.bg.height = sideBoxSkin.height;*/
+			
+			bg.bg.width = sideBoxSkin.width+2;
+			bg.bg.height = sideBoxSkin.height+18;
 		}
 		
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{	
 			
 			this.addChild(tels);
@@ -76,24 +81,29 @@
 			this.buttonMode =true;						
 			
 			
-			addChild(sideBoxSkin);		
+				
 			
 			
 			//resetPoint();
 			
 			
-			//sideBoxSkin.width = _boxWidth;	
-			//sideBoxSkin.listWidth = _boxWidth;
 			
-			sideBoxSkin.visible =false;
+			
+			
+			box.addChild(bg);
+			box.addChild(sideBoxSkin);
+			
+			
 			
 			tels.addEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);
 			tels.addEventListener(MouseEvent.MOUSE_OUT,onMouseHandler);
 			tels.addEventListener(MouseEvent.MOUSE_OVER,onMouseHandler);
 			//tels.addEventListener(MouseEvent.MOUSE_UP,onMouseHandler);
-			tels.addEventListener(MouseEvent.CLICK,onManinClickHandler);			
+			tels.addEventListener(MouseEvent.CLICK,onManinClickHandler);	
 			
-			sideBoxSkin.filters=this.component.isideBoxFilters;
+			//sideBoxSkin.filters=this.component.isideBoxFilters;
+			
+			updateUI();
 		}
 		
 		protected function onMouseHandler(event:MouseEvent):void
@@ -127,25 +137,36 @@
 		
 		protected function onManinClickHandler(event:MouseEvent):void
 		{
-			//Console.out("components"+event);		
-			sideBoxSkin.visible =true;
+			//Console.out("components"+event);
+			
+		
 			stage.addEventListener(MouseEvent.MOUSE_UP,onStageUpHandler);
 			resetPoint();
+			
+			updateUI();
 		}
 		
-		override protected function onStageHandler(event:Event):void
+		override public function onStageHandler(event:Event):void
 		{		
 			
-			resetPoint();
+			//resetPoint();
 		}
 		
+		override protected function onAddStage():void
+		{
+			// TODO Auto Generated method stub
+			super.onAddStage();
+			
+			sideBoxSkin.upDisplayList();
+		}	
 		
 		protected function onStageUpHandler(event:MouseEvent):void
 		{
 			//Console.out("components"+event.toString());
-			if(sideBoxSkin!=null){
-				sideBoxSkin.visible =false;
-			}
+		
+				if(box.parent){
+					box.parent.removeChild(box);
+				}		
 			
 			stage.removeEventListener(MouseEvent.MOUSE_UP,onStageUpHandler);
 			
@@ -180,7 +201,7 @@
 			sideBoxSkin.dataProvider =  value;			
 			
 			
-			
+			updateUI();
 		}
 		
 		private function resetPoint():void{
@@ -188,30 +209,45 @@
 			if(this.stage==null){
 				return;
 			}
-			sideBoxSkin.x = -(sideBoxSkin.width+2);
+			
+			//box.addChild(bg);
+			//box.addChild(sideBoxSkin);
+			
+			sideBoxSkin.x=1;
+			sideBoxSkin.y = 9;
+			
+			
+			
+		
+			
+			addChild(box);	
+			
+			
+			box.x = -(box.width+2);
 			//Console.out("components"+sideBoxContent.width);
 			//return;
-			sideBoxSkin.y = 0;
-			this.addChild(sideBoxSkin);
+			box.y = 0;
+			
 			//Console.out("components"+sideBoxContent.y);
-			var localPoint:Point = this.localToGlobal(new Point(sideBoxSkin.x,sideBoxSkin.y));
+			var localPoint:Point = this.localToGlobal(new Point(box.x,box.y));
 			//return;
-			stage.addChild(sideBoxSkin);
+			stage.addChild(box);
 			//Console.out("components"+stage.numChildren);
-			stage.setChildIndex(sideBoxSkin,stage.numChildren-1);
+			stage.setChildIndex(box,stage.numChildren-1);
 			
-			sideBoxSkin.x = localPoint.x;
-			sideBoxSkin.y = localPoint.y;
+			box.x = localPoint.x;
+			box.y = localPoint.y;
 			
-			if((sideBoxSkin.y+sideBoxSkin.height)>stage.stageHeight){
-				sideBoxSkin.y = stage.stageHeight-sideBoxSkin.height;
+			if((box.y+box.height)>stage.stageHeight){
+				box.y = stage.stageHeight-box.height;
 			}
-			if((sideBoxSkin.x)<0){
+			if((box.x)<0){
 				localPoint = this.localToGlobal(new Point(tels.x,tels.y));
 				
-				//sideBoxSkin.x = localPoint.x+this.width;
-				sideBoxSkin.x =localPoint.x+tels.width;
+				//box.x = localPoint.x+this.width;
+				box.x =localPoint.x+tels.width;
 			}
+			updateUI();
 		}
 	}
 	

@@ -51,7 +51,7 @@
 			createStar();
 		}
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{
 			//Console.out("components"+57%10);
 			
@@ -80,11 +80,13 @@
 			
 			arrr.splice(0,arrr.length);
 			
-			if(int(_current)<0 || int(_total)<=0){
+			if((_current)<0 || (_total)<=0){
 				this.graphics.clear();
 				this.graphics.beginFill(0x333333);
 				this.graphics.drawRect(4,this.trueHeight/2,this.trueWidth-4,1);
 				this.graphics.endFill();
+				
+				
 				return;
 			}else{
 				this.graphics.clear();
@@ -97,7 +99,7 @@
 				for(i=0;i<int(_total);i++){					
 					
 					skin = new IStarSkin();
-					skin.x = skin.width*i;
+					skin.x = (skin.width+1)*i;
 					skin.gotoAndStop(1);
 					this.addChild(skin);
 					arrr.push(skin);
@@ -106,7 +108,7 @@
 				}
 				if((_total%1)>0){
 					skin = new IStarSkin();
-					skin.x = skin.width*i;
+					skin.x = (skin.width+1)*i;
 					skin.gotoAndStop(4);
 					this.addChild(skin);
 					arrr.push(skin);
@@ -120,14 +122,14 @@
 				
 				if(int(_current)>i){
 					skin = new IStarSkin();
-					skin.x = skin.width*i;
+					skin.x = (skin.width+1)*i;
 					skin.gotoAndStop(1);
 					this.addChild(skin);
 					arrr.push(skin);
 					hi =i;
 				}else{
 					skin = new IStarSkin();
-					skin.x = skin.width*i;
+					skin.x =(skin.width+1)*i;
 					skin.gotoAndStop(3);
 					this.addChild(skin);
 					arrr.push(skin);
@@ -140,7 +142,7 @@
 				
 				
 				skin = new IStarSkin();
-				skin.x = skin.width*i;
+				skin.x = (skin.width+1)*i;
 				if(_current>_total){
 					skin.gotoAndStop(4);
 				}else{
@@ -164,7 +166,7 @@
 					if(_current>_total){
 						skin.x = skin.width*0;
 					}else{
-						skin.x = skin.width*(hi+1);
+						skin.x = (skin.width+1)*(hi+1);
 					}					
 					skin.gotoAndStop(4);
 					this.addChild(skin);

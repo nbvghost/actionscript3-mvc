@@ -25,7 +25,14 @@
 			s_bar.x =int(s_left.width);
 		}
 		
-		override protected function createUI():void
+		override protected function scrollBarPosition(value:Number):void
+		{
+			// TODO Auto Generated method stub
+			this.setHScrollBarPosition(value);
+		}
+		
+		
+		override public function createUI():void
 		{
 			super.createUI();
 			
@@ -33,6 +40,31 @@
 			bg.width = this.trueWidth;			
 			s_right.x = this.trueWidth-s_right.width;
 			
+			this.setHScrollBarPosition(this.hscrollbarposition);
+			
+		}
+		private var hscrollbarposition:Number=0;
+		public function setHScrollBarPosition(values:Number):void{
+			hscrollbarposition = values;
+			if(hscrollbarposition<0){
+				hscrollbarposition = 0;
+			}
+			if(hscrollbarposition>1){
+				hscrollbarposition =1;
+			}
+			if (target)
+			{
+				var tx:Number=(s_bar.x-s_left.width)/(trueWidth-s_right.width-s_bar.width-s_left.width)*100;
+				tx = (hscrollbarposition / 100);
+				//target.x=(-target.width*tx)+this.x;
+				target.x=Math.round(this.x+(-(target.width-maskmc.width)*hscrollbarposition));
+				//Log.out(target.y);
+				//Console.out("components"+(s_bar.x-s_left.width)/(this.width-s_right.width-s_bar.width-s_left.width));
+				//s_bar.y = (this.trueHeight-s_left.height-s_right.height-s_bar.height);	
+				//s_bar.x = ((trueWidth-s_right.width-s_bar.width)*value ) +s_left.width-s_right.width;
+				s_bar.x = (s_left.width+((trueWidth-s_bar.width-s_right.width-s_left.width)*hscrollbarposition))+s_left.width-s_right.width;	
+				//Log.out(s_bar.y);				
+			}
 		}
 		override protected function get isVScrollBarr():Boolean
 		{
@@ -42,7 +74,8 @@
 		private var pin:int =10;
 		override protected function onWheelDelta(delta:int):void
 		{
-			pin = Math.abs(delta)*(target.height/this.bg.height);
+			//pin = Math.abs(delta)*(target.height/this.bg.height);
+			pin = Math.abs(delta)*(this.bg.width/ Math.abs(delta));
 			if(delta>0){
 				onLeftHandler(null);
 			}else{
@@ -53,7 +86,7 @@
 		{
 			
 			maskmc.graphics.clear();
-			maskmc.graphics.lineStyle(1,0xff0000);
+			//maskmc.graphics.lineStyle(1,0xff0000);
 			maskmc.graphics.beginFill(0xff0000);
 			maskmc.graphics.drawRect(0,0,this.trueWidth,-target.height);
 			maskmc.graphics.endFill();	
@@ -90,7 +123,7 @@
 			//s_bar.width =ss*kk;
 			//Console.out("components"+this.width);
 			
-			
+			pin = this.trueWidth;
 			
 			if(target.parent!=null){
 				target.parent.setChildIndex(target,target.parent.numChildren-1);
@@ -122,12 +155,15 @@
 		}
 		protected function onMouseMoveHandler(event:MouseEvent):void
 		{
-			var tx:Number=(s_bar.x-s_left.width)/(this.trueWidth-s_right.width-s_bar.width-s_left.width)*100;
-			tx=(Math.round(tx)/100);
-			//target.x=(-target.width*tx)+this.x;
-			target.x=this.x+(-(target.width-maskmc.width)*tx);
-			//Console.out("components"+(s_bar.x-s_left.width)/(this.width-s_right.width-s_bar.width-s_left.width));
-			event.updateAfterEvent();
+			if(target){
+				var tx:Number=(s_bar.x-s_left.width)/(this.trueWidth-s_right.width-s_bar.width-s_left.width)*100;
+				tx=(Math.round(tx)/100);
+				//target.x=(-target.width*tx)+this.x;
+				target.x=this.x+(-(target.width-maskmc.width)*tx);
+				//Console.out("components"+(s_bar.x-s_left.width)/(this.width-s_right.width-s_bar.width-s_left.width));
+				event.updateAfterEvent();
+			}
+			
 		}
 		
 		protected function onMouseUphadnelr(event:MouseEvent):void
@@ -154,7 +190,7 @@
 			upBarPoition();
 		}
 		
-		override protected function updateUI():void
+		override public function updateUI():void
 		{
 			bg.width = this.trueWidth;			
 			s_right.x = this.trueWidth-s_right.width;

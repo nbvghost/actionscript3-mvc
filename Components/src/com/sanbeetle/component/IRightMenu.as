@@ -1,28 +1,58 @@
 ﻿package com.sanbeetle.component {
 	
-	import com.sanbeetle.component.child.IListBox;
-	import com.sanbeetle.skin.IListBoxBgA;
+	import com.sanbeetle.renderer.BlackColorListCellRenderer;
+	import com.sanbeetle.skin.IListBoxBg;
 	
 	
-	public class IRightMenu extends IListBox {
+	public class IRightMenu extends ListChild {
 		
-		private var _boxWidth:int = 0;
+		private var _ItemCellRender:Class;		
+		private var bg:IListBoxBg;		
+		
+				
 		public function IRightMenu() {
-			super(new IListBoxBgA);
 			
-			boxWidth = this.listWidth;
+			//bg = new IListBoxBg;
+			
+			//this.autoSize =true;
+			
+			setMinWidth(100);
+			
+			//this.addChild(bg);
+			
+			//list = new IListBox();
+			
+			//this.addChild(list);
+			
+			
+			//super(new IListBoxBgA);
+			_ItemCellRender = BlackColorListCellRenderer;
+			//this.autoSize =true;
+			//list.autoSize =true;
+			
+			//boxWidth = this.listWidth;			
+			
 		}
-		[Inspectable(defaultValue = 120)]
-		public function get boxWidth():int
+		/*override public function get autoSize():Boolean
 		{
-			return _boxWidth;
+			// TODO Auto Generated method stub
+			return true;
+		}
+		*/	
+		
+		/*[Collection(collectionClass="com.sanbeetle.data.DataProvider", identifier="item", collectionItem="com.sanbeetle.data.SimpleCollectionItem")]
+		public function get dataProvider():DataProvider
+		{
+			return _dataProvider;
 		}
 
-		public function set boxWidth(value:int):void
+		public function set dataProvider(value:DataProvider):void
 		{
-			_boxWidth = value;
+			_dataProvider = value;
+			list.dataProvider = _dataProvider;
 		}
-
+*/
+		
 		/**
 		 distance 阴影的偏移距离，以像素为单位。
 		 angle 阴影的角度，0 到 360 度（浮点）。
@@ -43,12 +73,30 @@
 		 
 		 * 
 		 */		
-		override protected function createUI():void
+		override public function createUI():void
 		{
-			// TODO Auto Generated method stub
+			
+			
 			super.createUI();
-			filters=this.component.irightMenuFilters;
+			
+			
 		}
+		
+		override public function updateUI():void
+		{
+			
+			super.updateUI();
+			
+			/*this.content.x =1;
+			this.content.y = 9;			
+			this.setChildIndex(bg,0);			
+			
+			bg.bg.width = content.width+2;
+			bg.bg.height = content.height+18;
+			
+			this.drawBorder(bg.bg.width,bg.bg.height);*/
+		}
+		
 		
 	}
 	

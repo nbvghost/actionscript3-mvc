@@ -1,18 +1,17 @@
 ﻿package com.sanbeetle.component {
 	
+	import com.sanbeetle.core.TextBox;
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.skin.IProgressBarSkinBg;
 	import com.sanbeetle.skin.IProgressBarSkinProgress;
-	
-	import flash.text.TextFieldAutoSize;
 	
 	
 	public class IProgressBar extends UIComponent {
 		
 		private var bgSkin:IProgressBarSkinBg;
 		private var progressSKin:IProgressBarSkinProgress;		
-		private var nameTxt:ILabel;
-		private var progressTxt:ILabel;		
+		private var nameTxt:TextBox;
+		private var progressTxt:TextBox;		
 		private var _showLabel:Boolean =true;		
 		private var _label:String="名称";
 		private var _progress:Number = 0.5;
@@ -21,22 +20,23 @@
 			bgSkin = new IProgressBarSkinBg();
 			progressSKin = new IProgressBarSkinProgress();
 			
-			nameTxt =new ILabel();			
+			nameTxt =new TextBox();			
 			nameTxt.multiline = false;
-			nameTxt.autoSize = TextFieldAutoSize.LEFT;
-			nameTxt.border =false;
+			//nameTxt.autoSize = TextFieldAutoSize.LEFT;
+			nameTxt.autoBound = true;
+			//nameTxt.border =false;
 			nameTxt.fontSize="10";
 			nameTxt.color ="0x373b40";
 			nameTxt.bold =true;
-			nameTxt.leading = 0;
+			//nameTxt.leading = 0;
 			
-			progressTxt = new ILabel();
-			progressTxt.autoSize = TextFieldAutoSize.RIGHT;
+			progressTxt = new TextBox();
+			progressTxt.autoBound = true;
 			progressTxt.multiline = nameTxt.multiline;		
-			progressTxt.border =nameTxt.border;
+			//progressTxt.border =nameTxt.border;
 			progressTxt.fontSize=nameTxt.fontSize;
 			progressTxt.bold =nameTxt.bold;
-			progressTxt.leading = nameTxt.leading;
+			//progressTxt.leading = nameTxt.leading;
 			progressTxt.color =nameTxt.color;
 			progressTxt.y = nameTxt.y;
 			
@@ -84,24 +84,24 @@
 			}			
 		}	
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{
 			this.addChild(bgSkin);
 			this.addChild(progressSKin);
 			
-			bgSkin.y = nameTxt.y+nameTxt.height;
-			progressSKin.y = nameTxt.y+nameTxt.height;
+			bgSkin.y = Math.round(nameTxt.y+nameTxt.height);
+			progressSKin.y = Math.round(nameTxt.y+nameTxt.height);
 			
 			this.addChild(nameTxt);
 			this.addChild(progressTxt);
 			
 			updateUI();
 		}		
-		override protected function updateUI():void
+		override public function updateUI():void
 		{
-			progressTxt.x = trueWidth-progressTxt.width;
 			
-			bgSkin.width = trueWidth;
+			
+			bgSkin.width = Math.round(trueWidth);
 			
 			if(_progress>1){
 				_progress = 1;
@@ -110,11 +110,13 @@
 				_progress = 0;
 			}
 			
-			this.progressSKin.width = int(this.trueWidth * _progress);
+			this.progressSKin.width = Math.round(this.trueWidth * _progress);
 			
 			nameTxt.text = _label;		
 			
 			progressTxt.text = int(_progress*100)+"%";
+			
+			progressTxt.x = trueWidth-progressTxt.width;
 			
 			if(_showLabel==false){
 				progressTxt.visible=false;
@@ -124,8 +126,8 @@
 			}else{
 				progressTxt.visible=true;
 				nameTxt.visible = true;
-				bgSkin.y = nameTxt.y+nameTxt.height;
-				progressSKin.y = nameTxt.y+nameTxt.height;
+				bgSkin.y = Math.round(nameTxt.y+nameTxt.height);
+				progressSKin.y = Math.round(nameTxt.y+nameTxt.height);
 			}
 			
 		}

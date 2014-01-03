@@ -28,10 +28,11 @@
 			//sj_txt.autoSize = TextFieldAutoSize.LEFT;
 			sj_txt.text = "--:--:--";
 			sj_txt.fontSize ="11";
-			sj_txt.leading =0;
+			//sj_txt.leading =0;
 			//sj_txt.height =10;
 			//sj_txt.border =true;
-			sj_txt.wordWrap =false;
+			//sj_txt.wordWrap =false;
+			sj_txt.multiline = false;
 			sj_txt.multiline =false;
 			sj_txt.x = 69.2;			
 			sj_txt.y = 0;
@@ -42,12 +43,15 @@
 		public function onlyText(value:Boolean):void{
 			
 			if(value){
-				progressBar.visible = false;
+				if(progressBar.parent){
+					progressBar.parent.removeChild(progressBar);
+				}
+				//progressBar.visible = false;
 				
 				sj_txt.x =0;
 			}else{
-				progressBar.visible = true;
-				
+				//progressBar.visible = true;
+				this.addChild(progressBar);				
 				sj_txt.x = 69.2;
 			}
 				

@@ -12,6 +12,9 @@ package com.sanbeetle.interfaces
 		function get data():Object;
 		function set data(value:Object):void;
 		
+		function get type():String;
+		function set type(value:String):void;
+		
 		function get itemColor():String;	
 		function set itemColor(value:String):void;
 		

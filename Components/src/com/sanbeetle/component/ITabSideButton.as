@@ -1,6 +1,6 @@
 ﻿package com.sanbeetle.component
 {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	import com.sanbeetle.component.child.ExtendButton;
 	import com.sanbeetle.component.child.SideExtendButton;
 	import com.sanbeetle.skin.TabButton_left_left_down;
@@ -35,15 +35,15 @@
 		override public function set childData(value:Array):void
 		{
 			
-		}		
+		}	
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{
 			updateUI();
 		}
 		
 		
-		override protected function updateUI():void
+		override public function updateUI():void
 		{
 			for each(var btn:ExtendButton in  btnArr){
 				if(btn.parent!=null){
@@ -58,7 +58,7 @@
 			
 			var w:Number = 0;
 			var itew:Number = trueHeight / _data.length;		
-			Console.out("components"+itew);
+			//Log.out("components"+itew);
 			
 			if(_data.length==1){
 				//var one:ExtendButton = new ExtendButton(new TabButton_mid_up_gray,new TabButton_mid_over_gray,new TabButton_mid_down_gray);
@@ -85,7 +85,7 @@
 				setButonStyle(left);
 			}					
 			
-			if(data.length==2){
+			if(_data.length==2){
 				
 				//var right:ExtendButton = new ExtendButton(new TabButton_right_up_gray,new TabButton_right_over_gray,new TabButton_right_down_gray);
 				var right:ExtendButton =  createRightButton();
@@ -103,19 +103,19 @@
 				return;
 			}
 			
-			for(var i:int=1;i<data.length-1;i++){
+			for(var i:int=1;i<_data.length-1;i++){
 				
 				//var mid:ExtendButton = new ExtendButton(new TabButton_mid_up_gray,new TabButton_mid_over_gray,new TabButton_mid_down_gray);	
 				var mid:ExtendButton = createMidButton();
 				mid.width = trueWidth;
 				mid.height = itew;	
-				mid.label = data[i];
+				mid.label = _data[i];
 				
 				mid.index = i;				
 				addChild(mid);
 				mid.x = 0;
 				mid.y =w;
-				Console.out("components"+w);
+				//Log.out("components"+w);
 				w +=  mid.height-1;
 				btnArr.push(mid);
 				setButonStyle(mid);
@@ -123,7 +123,7 @@
 			}	
 			
 			//Console.out("components"+"components"+"-----------------------"+_data.length);			
-			if(data.length>0){
+			if(_data.length>0){
 				
 				//var right_a:ExtendButton = new ExtendButton(new TabButton_right_up_gray,new TabButton_right_over_gray,new TabButton_right_down_gray);		
 				var right_a:ExtendButton =  createRightButton();
@@ -134,7 +134,7 @@
 				addChild(right_a);
 				right_a.y = w;
 				right_a.x = 0;
-				right_a.index = data.length-1;
+				right_a.index = _data.length-1;
 				btnArr.push(right_a);	
 				setButonStyle(right_a);
 			}

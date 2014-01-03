@@ -17,14 +17,43 @@
 		private var paging:int = 20;
 		private var currentIndex:int = 1;
 		private var totalPageCount:int = 0;
+		
+		private var _color:String="0x373B40";
+		private var _colorOver:String="0x373B40";
+		
 		public function IPaging()
 		{
 			content = new IPagingSkin();
+			//content.color = "0x587998";
+			//content.colorOver ="0x0000ff";
 			//setTotal(500);
 			//setPaging(20);
 			//setdata();
-		}		
-		override protected function createUI():void
+		}
+		[Inspectable(defaultValue="0x373B40")]
+		public function get colorOver():String
+		{
+			return _colorOver;
+		}
+		[Inspectable(defaultValue="0x373B40")]
+		public function set colorOver(value:String):void
+		{
+			_colorOver = value;
+			content.colorOver = _colorOver;
+		}
+		[Inspectable]
+		public function get color():String
+		{
+			return _color;
+		}
+		
+		public function set color(value:String):void
+		{
+			_color = value;			
+			content.color = _color;
+		}
+		
+		override public function createUI():void
 		{			
 			
 			//Console.out("components"+content);
@@ -46,10 +75,10 @@
 			content.djy_txt = TextField(getChildByName("djy_txt")) ;*/
 			
 			//Console.out("components"+"components"+"sdfs");
-			content.per_mc.addEventListener(MouseEvent.MOUSE_DOWN,onPerMouseHandler);
-			content.top_mc.addEventListener(MouseEvent.MOUSE_DOWN,onTopMouseHandler);
-			content.last_mc.addEventListener(MouseEvent.MOUSE_DOWN,onLastMouseHandler);
-			content.next_mc.addEventListener(MouseEvent.MOUSE_DOWN,onNextMouseHandler);			
+			content.controlBar.per_mc.addEventListener(MouseEvent.MOUSE_DOWN,onPerMouseHandler);
+			content.controlBar.top_mc.addEventListener(MouseEvent.MOUSE_DOWN,onTopMouseHandler);
+			content.controlBar.last_mc.addEventListener(MouseEvent.MOUSE_DOWN,onLastMouseHandler);
+			content.controlBar.next_mc.addEventListener(MouseEvent.MOUSE_DOWN,onNextMouseHandler);			
 			//pageindex_com.addEventListener(TextEvent,onPageIndexHandler);
 			content.pageindex_txt.addEventListener(Event.CHANGE,onPageIndexHandler);			
 		}
@@ -60,6 +89,8 @@
 			
 			var datadd:Object = {"currentIndex":currentIndex,"totalPageCount":totalPageCount};
 			var ite:ControlEvent = new ControlEvent(ControlEvent.PAGE_PAGING_EVENT,datadd);
+			
+			
 			
 			this.dispatchEvent(ite);
 			//var eventssd:IEvent = new IEvent("dsfds");
@@ -79,6 +110,8 @@
 			{
 				currentIndex = totalPageCount;
 			}
+			content.pageindex_txt.text = "";
+			content.djy_txt.text="";
 			content.pageindex_txt.text = String(currentIndex);
 			content.djy_txt.text = "第" + currentIndex + "页，共" + totalPageCount + "页";
 		}
@@ -128,6 +161,15 @@
 		public function setCurrentPage(page:int):void{
 			currentIndex = page;
 			setDataDis();
+		}
+		/**
+		 * 在  page_paging_event 事件之后读
+		 * @see com.sanbeetle.events.ControlEvent#PAGE_PAGING_EVENT
+		 * @return 
+		 * 
+		 */
+		public function getCurrentPage():int{
+			return currentIndex;
 		}
 		protected function onPerMouseHandler(event:MouseEvent):void
 		{

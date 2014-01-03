@@ -25,7 +25,9 @@ package com.sanbeetle.data{
 		private var _data:Object;
 		private var _itemColor:String="0x000000";
 		private var _itemOverColor:String="0xffffff";
-		private var _enable:Boolean =true;		
+		private var _enable:Boolean =true;
+		
+		private var _type:String;
 		
 		
 		/**
@@ -44,7 +46,7 @@ package com.sanbeetle.data{
 		}		
 		
 		
-		
+
 		[Inspectable()]
 		/**
 		 * The <code>label</code> property of the object.
@@ -68,8 +70,17 @@ package com.sanbeetle.data{
 		{
 			_label = value;
 		}
+		[Inspectable]		
+		public function get type():String
+		{
+			return _type;
+		}
 		
-		[Inspectable()]
+		public function set type(value:String):void
+		{
+			_type = value;
+		}
+		[Inspectable]
 		/**
 		 * The <code>data</code> property of the object.
 		 *

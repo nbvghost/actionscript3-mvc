@@ -1,76 +1,150 @@
 ﻿package com.sanbeetle.component {
 	
 	import com.sanbeetle.core.UIComponent;
-	import com.sanbeetle.skin.IIConSkin;
+	import com.sanbeetle.skin.IICon_HZ1;
+	import com.sanbeetle.skin.IICon_HZ2;
+	import com.sanbeetle.skin.IICon_HZ3;
+	import com.sanbeetle.skin.IICon_HZ4;
+	import com.sanbeetle.skin.IICon_HZ5;
+	import com.sanbeetle.skin.IICon_HZ6;
+	import com.sanbeetle.skin.IICon_HZ7;
+	import com.sanbeetle.skin.IICon_HZ8;
+	import com.sanbeetle.skin.IICon_N;
+	import com.sanbeetle.skin.IICon_VIP1;
+	import com.sanbeetle.skin.IICon_VIP2;
+	import com.sanbeetle.skin.IICon_VIP3;
+	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.geom.Matrix;
+	
 	
 	
 	public class IICon extends UIComponent {
 		
-		public static const HZ_1:int=20;
-		public static const HZ_2:int=21;
-		public static const HZ_3:int=22;
-		public static const HZ_4:int=23;
-		public static const HZ_5:int=24;
-		public static const HZ_6:int=25;
-		public static const HZ_7:int=26;
-		public static const HZ_8:int=27;
-		public static const N:int=28;
+		public static const HZ_1:BitmapData=new IICon_HZ1;
+		public static const HZ_2:BitmapData=new IICon_HZ2;
+		public static const HZ_3:BitmapData=new IICon_HZ3;
+		public static const HZ_4:BitmapData=new IICon_HZ4;
+		public static const HZ_5:BitmapData=new IICon_HZ5;
+		public static const HZ_6:BitmapData=new IICon_HZ6;
+		public static const HZ_7:BitmapData=new IICon_HZ7;
+		public static const HZ_8:BitmapData=new IICon_HZ8;
+		public static const N:BitmapData=new IICon_N;
 		
-		public static const VIP_1:int=1;
-		public static const VIP_2:int=2;
+		public static const VIP_1:BitmapData=new IICon_VIP1;
+		public static const VIP_2:BitmapData=new IICon_VIP2;
+		public static const VIP_3:BitmapData = new IICon_VIP3;
 		
-		private var skin:IIConSkin;
+		
+		private var _icons:Array = [];		
+		
+		private var _index:int =0;
 		
 		
-		private var _index:int=1;
 		
+		private var bitMapData:BitmapData;
+		private var bitMap:Bitmap;
+		private var dis:Array = [];
 		public function IICon() {
-			skin = new IIConSkin();
+			bitMap=new Bitmap();
+			bitMapData = new BitmapData(16,16,false,0xff0000);
+			bitMap.bitmapData = bitMapData;
+			this.addChild(bitMap);
 		}
-		[Inspectable(defaultValue=1)]
-		/**
-		 * IICon.HZ_1
-		 */
+		[Deprecated(message="这个不在使用了")]
 		public function get index():int
 		{
 			return _index;
 		}
+		
 		public function set index(value:int):void
 		{
-			_index = value;			
-			skin.gotoAndStop(_index);
-			//Console.out("components"+skin.width,skin.height);
-			//trueWidth = skin.width;
-			//trueHeight = skin.height;		
-			this.updateUI();
+			_index = value;
+		}
+		
+		public function get icons():Array{
+			return _icons;
+		}
+		
+		public function set icons(value:Array):void{
+			_icons =value;
 			
-		}		
-		override protected function updateUI():void
+			if(_icons==null){
+				
+				_icons = [];
+				
+				bitMapData = new BitmapData(16,16,true,0xff0000);
+				bitMap.bitmapData = bitMapData;
+			}			
+			
+			for(var i:int=0;i<_icons.length;i++){
+				push(_icons[i]);
+			}
+		}
+		private var w:int=0;
+		private var maxH:int = 0;
+		/**
+		 * 
+		 * @param index IICon 静态属性
+		 * 
+		 */		
+		private function push(index:BitmapData):void{
+			/*	if(_icons.indexOf(index)!=-1){
+			return;
+			}*/
+			//_icons.push(index);			
+			w = w+index.width;			
+			maxH = Math.max(maxH,index.height);	
+			
+			drawIcon();
+		}
+		private function drawIcon():void{			
+			
+			bitMapData = new BitmapData(w+(_icons.length*2),maxH,true,0xffff00);			
+			
+			var xx:int = 0;
+			
+			for(var i:int=0;i<_icons.length;i++){
+				
+				var cut:BitmapData = _icons[i];
+				
+				
+				
+				
+				var mxx:Matrix = new Matrix();
+				mxx.translate(xx,0);
+				bitMapData.draw(cut,mxx);		
+				bitMap.bitmapData = bitMapData;				
+				xx=xx+cut.width+2;
+			}	
+		}
+		override public function updateUI():void
 		{
 			//trueWidth = skin.width;
 			//trueHeight = skin.height;
 			
-			skin.x =(trueWidth-skin.width)/2;
-			skin.y =(trueHeight-skin.height)/2;
+			//skin.x =(trueWidth-skin.width)/2;
+			//skin.y =(trueHeight-skin.height)/2;
 			
 		}
 		
 		override public function get height():Number
 		{
 			// TODO Auto Generated method stub
-			return 56;
+			return bitMap.height;
 		}
 		
 		override public function get width():Number
 		{
 			// TODO Auto Generated method stub
-			return 50;
+			return bitMap.width;
 		}
 		
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{
-			this.addChild(skin);
+			//this.addChild(skin);
 			updateUI();
 		}
 		

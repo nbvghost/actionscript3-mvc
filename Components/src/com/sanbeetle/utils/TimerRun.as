@@ -15,13 +15,20 @@ package com.sanbeetle.utils
 		private var timerArr:Array;
 		private static var timerrun:TimerRun;
 		private var timer:Timer;
+		
+		private static var timeID:uint = 0;
+		
 		public function TimerRun()
 		{
 			timerArr= new Array();
 			
 			timer = new Timer(component.TimerRunTime);
 			timer.addEventListener(TimerEvent.TIMER,onTimerHandler);
-		}		
+		}	
+		public static function get TimeID():uint{
+			
+			return timeID++;
+		}
 		private function onTimerHandler(event:TimerEvent):void
 		{
 			var lent:int =timerArr.length;
@@ -40,6 +47,7 @@ package com.sanbeetle.utils
 		}
 		public function removeRun(target:ITimerRun):void{
 			var index:int = timerArr.indexOf(target);
+			
 			timerArr.splice(index,1);			
 			if(timerArr.length==0){
 				timer.stop();

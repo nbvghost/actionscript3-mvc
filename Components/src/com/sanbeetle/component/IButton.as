@@ -1,20 +1,31 @@
 ﻿package com.sanbeetle.component {
 	
 	import com.sanbeetle.core.StateButton;
+	import com.sanbeetle.core.TextBox;
 	import com.sanbeetle.core.UIComponent;
+	import com.sanbeetle.events.ControlEvent;
 	import com.sanbeetle.skin.IButtonSkin_down_blue;
 	import com.sanbeetle.skin.IButtonSkin_down_default;
 	import com.sanbeetle.skin.IButtonSkin_down_gary;
 	import com.sanbeetle.skin.IButtonSkin_down_green;
+	import com.sanbeetle.skin.IButtonSkin_down_red;
+	import com.sanbeetle.skin.IButtonSkin_down_sea_blue;
+	import com.sanbeetle.skin.IButtonSkin_down_yellow;
 	import com.sanbeetle.skin.IButtonSkin_icon;
 	import com.sanbeetle.skin.IButtonSkin_over_blue;
 	import com.sanbeetle.skin.IButtonSkin_over_default;
 	import com.sanbeetle.skin.IButtonSkin_over_gary;
 	import com.sanbeetle.skin.IButtonSkin_over_green;
+	import com.sanbeetle.skin.IButtonSkin_over_red;
+	import com.sanbeetle.skin.IButtonSkin_over_sea_blue;
+	import com.sanbeetle.skin.IButtonSkin_over_yellow;
 	import com.sanbeetle.skin.IButtonSkin_up_blue;
 	import com.sanbeetle.skin.IButtonSkin_up_default;
 	import com.sanbeetle.skin.IButtonSkin_up_gary;
 	import com.sanbeetle.skin.IButtonSkin_up_green;
+	import com.sanbeetle.skin.IButtonSkin_up_red;
+	import com.sanbeetle.skin.IButtonSkin_up_sea_blue;
+	import com.sanbeetle.skin.IButtonSkin_up_yellow;
 	
 	import flash.display.DisplayObject;
 	import flash.display.GradientType;
@@ -25,6 +36,8 @@
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormatAlign;
 	
+	import flashx.textLayout.formats.TextAlign;
+	
 	/**
 	 * 按钮
 	 *@author sixf
@@ -34,7 +47,7 @@
 		protected var button:StateButton;
 		private var _label:String="Label";
 		//private var labelText:TextField;
-		protected var btnlabel:ILabel;
+		protected var btnlabel:TextBox;
 		private var _color:String="0xffffff";
 		
 		protected var buttonSkin_up:DisplayObject;				
@@ -51,8 +64,12 @@
 		public static const STYLE_GRAY:String="gray";
 		public static const STYLE_GREEN:String="green";
 		public static const STYLE_BLUE:String="blue";
+		public static const STYLE_RED:String="red";
+		public static const STYLE_SEA_BLUE:String="sea_blue";
+		public static const STYLE_YELLOW:String="yellow";
 		
 		
+		protected var sf:Number =(0xffffff-0xd0cccc);
 		private var _select:Boolean = false;
 		
 		private var _backgroundColor:String="0x000000";
@@ -73,11 +90,19 @@
 		 */
 		public function IButton(upw:DisplayObject=null,overw:DisplayObject=null,downw:DisplayObject=null) {	
 			
-			btnlabel = new ILabel();	
+			btnlabel = new TextBox();	
+			btnlabel.addEventListener(ControlEvent.FONT_LOADED,onFontLoadedHandler);
 			btnlabel.multiline =false;
-			btnlabel.leading = 0;
+			//btnlabel.leading = 0;
 			btnlabel.mouseEnabled = false;
 			btnlabel.mouseChildren = false;
+			btnlabel.autoBound = true;
+			btnlabel.textAlign = TextAlign.CENTER;
+			
+			//btnlabel.paddingTop = 0;
+			//btnlabel.paddingLeft = 0;
+			
+			//btnlabel.textAlign = TextAlign.CENTER;
 			
 			//btnlabel.autoSize = TextFieldAutoSize.LEFT;
 			//btnlabel.border =true;
@@ -85,6 +110,7 @@
 				buttonSkin_up = upw;
 				buttonSkin_over = overw;
 				buttonSkin_down = downw;
+				ico = new IButtonSkin_icon;
 				
 			}else{
 				buttonSkin_up=new IButtonSkin_up_default;
@@ -99,6 +125,27 @@
 			this.addEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);			
 		
 		}		
+		private var _enabled:Boolean = false;
+		override public function get enabled():Boolean
+		{
+			
+			return _enabled;
+		}
+		
+		override public function set enabled(value:Boolean):void
+		{
+			
+			_enabled = value;
+			button.enable = _enabled;
+			this.mouseEnabled = _enabled;
+			
+		}
+		
+		
+		protected function onFontLoadedHandler(event:ControlEvent):void
+		{
+			this.updateUI();
+		}
 		
 		private function onMouseHandler(event:MouseEvent):void
 		{
@@ -109,11 +156,13 @@
 				case MouseEvent.MOUSE_DOWN:
 					textMask.y = textMask.y+1;
 					btnlabel.y = btnlabel.y+1;
+					ico.y=ico.y+1;
 					stage.addEventListener(MouseEvent.MOUSE_UP,onMouseHandler);
 					break;				
 				case MouseEvent.MOUSE_UP:
 					textMask.y = textMask.y-1;
 					btnlabel.y = btnlabel.y-1;
+					ico.y = ico.y-1;
 					stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseHandler);
 					break;
 			}
@@ -154,8 +203,12 @@
 			
 			updateUI();
 		}
-
-		[Inspectable(enumeration = "default,gray,green,blue,side",defaultValue = "default")]
+		/**
+		 * IButton 的静态属性 
+		 * @return 
+		 * 
+		 */	
+		[Inspectable(enumeration = "default,gray,green,blue,red,sea_blue,yellow",defaultValue = "default")]
 		public function get styleType():String
 		{
 			return _styleType;
@@ -185,7 +238,22 @@
 					buttonSkin_up=new IButtonSkin_up_blue;
 					buttonSkin_over =new IButtonSkin_over_blue;	
 					buttonSkin_down =new IButtonSkin_down_blue;
-					break;				
+					break;		
+				case STYLE_RED:
+					buttonSkin_up=new IButtonSkin_up_red;
+					buttonSkin_over =new IButtonSkin_over_red;	
+					buttonSkin_down =new IButtonSkin_down_red;
+					break;		
+				case STYLE_SEA_BLUE:
+					buttonSkin_up=new IButtonSkin_up_sea_blue;
+					buttonSkin_over =new IButtonSkin_over_sea_blue;	
+					buttonSkin_down =new IButtonSkin_down_sea_blue;
+					break;		
+				case STYLE_YELLOW:
+					buttonSkin_up=new IButtonSkin_up_yellow;
+					buttonSkin_over =new IButtonSkin_over_yellow;	
+					buttonSkin_down =new IButtonSkin_down_yellow;
+					break;		
 			}
 			button.upState = buttonSkin_up;
 			button.overState = buttonSkin_over;
@@ -206,7 +274,7 @@
 			updateUI();
 			
 		}
-		override protected function createUI():void
+		override public function createUI():void
 		{	
 			
 			
@@ -216,7 +284,7 @@
 			
 			this.addChild(btnlabel);
 			
-			
+			this.addChild(textMask);
 			
 			
 			
@@ -231,10 +299,8 @@
 			
 			textMask.cacheAsBitmap =true;
 			
-			btnlabel.cacheAsBitmap =true;			
-			
-			this.addChild(textMask);			
-			
+			btnlabel.cacheAsBitmap =true;		
+		
 			
 			
 			maskTarget();
@@ -245,22 +311,26 @@
 		}
 		protected function maskTarget():void{
 			textMask.mask = btnlabel;
-			//textMask.alpha = 0.5;				
 			textMask.filters=component.ibuttonFilters;
+			//textMask.alpha = 0.5;				
 		}
 		
-		override protected function updateUI():void
-		{		
+		override public function updateUI():void
+		{	
+			
+			//btnlabel.width = trueWidth;
 			
 			btnlabel.fontSize = fontSize;
-			btnlabel.autoSize = autoSize;
-			btnlabel.align =align;
+			//btnlabel.autoSize = autoSize;
+			//btnlabel.align =align;
 			btnlabel.color = this.color;
 			btnlabel.bold = bold;
 			btnlabel.text = this.label;				
 			
 			button.width = trueWidth;
 			button.height = trueHeight;
+			
+			
 			
 			btnlabel.y =((trueHeight-btnlabel.height)/2);
 			
@@ -282,7 +352,7 @@
 						return;
 						
 					}
-					btnlabel.align = align;			
+					//btnlabel.align = align;			
 					
 					var conw:Number = ico.width+10+btnlabel.width;
 					
@@ -291,9 +361,9 @@
 					
 					btnlabel.x = ico.x+10;
 				}else{
-					if(ico!=null){
-						ico.visible =false;
-					}				
+					
+					ico.visible =false;
+								
 					btnlabel.x=(this.trueWidth-btnlabel.width)/2;
 				}				
 				
@@ -302,9 +372,12 @@
 			}
 			this.reDrawMask();
 			
+			//btnlabel.x=0;
+			
 			//Console.out("components"+btnlabel.width);
 			drawBorder(this.trueWidth,this.trueHeight);
-			
+		
+			//Log.out(btnlabel.width);
 		}
 		
 		[Inspectable(defaultValue =false)]	
@@ -398,9 +471,28 @@
 			this.updateUI();
 			
 		}
-		protected var sf:Number =(0xffffff-0xd0cccc);
 		protected function reDrawMask():void{
+			textMask.scaleY = 1;
+			var matixg:Matrix =new Matrix()//矩阵  
+			matixg.createGradientBox(btnlabel.height+1,trueWidth,0,0,0);
+			//matixg.translate(-(trueWidth/2),-(trueHeight/2));
+			matixg.rotate(Math.PI/2);
 			
+			
+			var beCo:uint = uint(color);
+			var enCo:uint = beCo-sf;	
+			
+			
+			textMask.graphics.beginGradientFill(GradientType.LINEAR,[beCo,enCo],[1,1],[0x00,0xff],matixg);
+			textMask.graphics.drawRect(0,0,trueWidth,btnlabel.height+1);
+			textMask.graphics.endFill();
+			
+			//textMask.height=9;
+			//textMask.y =(trueHeight-textMask.height)/2;
+			textMask.y = btnlabel.y-1;
+			textMask.x = 0;
+			
+			/*return;
 			var matixg:Matrix =new Matrix()//矩阵  
 			matixg.createGradientBox(trueHeight,trueWidth,0,0,0);
 			//matixg.translate(-(trueWidth/2),-(trueHeight/2));
@@ -419,7 +511,7 @@
 			textMask.height =int(btnlabel.fontSize)+1;
 			
 			textMask.y =(trueHeight-textMask.height)/2;
-			textMask.x = 0;
+			textMask.x = 0;*/
 			
 			
 		}			

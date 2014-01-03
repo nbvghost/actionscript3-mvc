@@ -3,8 +3,11 @@
 	import flash.display.DisplayObject;
 	import flash.display.GradientType;
 	import flash.geom.Matrix;
+	import flash.geom.Rectangle;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormatAlign;
+	
+	import flashx.textLayout.formats.BlockProgression;
 	
 	
 	/**
@@ -17,17 +20,23 @@
 		{
 			super(up, over, down);
 			
+			btnlabel.autoBound = true;
 			//this.btnlabel.border =true;
-			btnlabel.wordWrap =true;			
-			btnlabel.multiline = true;		
-			btnlabel.leading = 0;
+			//btnlabel.wordWrap =true;			
+			btnlabel.multiline = false;
+			
+			//btnlabel.multiline = true;
+			//btnlabel.leading = 0;
+			this.btnlabel.blockProgression = BlockProgression.RL;
+			
+			//btnlabel.paddingBottom =0;
 		}
 		
 		override protected function reDrawMask():void
 		{
 			
 			var matixg:Matrix =new Matrix()//矩阵  
-			matixg.createGradientBox(trueHeight,trueWidth,0,0,0);
+			matixg.createGradientBox(btnlabel.height,trueWidth,0,0,0);
 			//matixg.translate(-(trueWidth/2),-(trueHeight/2));
 			matixg.rotate(Math.PI/2);
 			
@@ -38,13 +47,13 @@
 			textMask.graphics.clear();
 			//textMask.graphics.lineStyle(1,0xff0000);
 			textMask.graphics.beginGradientFill(GradientType.LINEAR,[beCo,enCo],[1,1],[0x00,0xff],matixg);
-			textMask.graphics.drawRect(0,0,trueWidth,trueHeight);
+			textMask.graphics.drawRect(0,0,trueWidth,btnlabel.height);
 			textMask.graphics.endFill();		
 			
 			//textMask.height =int(btnlabel.fontSize)+1;
 			
 			textMask.y =(trueHeight-textMask.height)/2;
-			textMask.x = 0;
+			
 		}
 		
 		override protected function maskTarget():void
@@ -54,7 +63,7 @@
 		}
 		
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{
 			// TODO Auto Generated method stub
 			super.createUI();
@@ -73,13 +82,22 @@
 			return TextFieldAutoSize.NONE;
 		}
 		
-		override protected function updateUI():void
+		override public function updateUI():void
 		{
 			// TODO Auto Generated method stub
 			super.updateUI();
 			
-			btnlabel.width = trueWidth-11;
-			btnlabel.height = trueHeight-15;
+			//btnlabel.width = trueWidth-11;
+			//btnlabel.height = trueHeight-15;
+			btnlabel.x = (trueWidth/2)-((btnlabel.width/2+9)/2);
+			//btnlabel.x=trueWidth-btnlabel.height;
+			//btnlabel.x = 0;
+			textMask.x = 0;
+			var rect:Rectangle= btnlabel.getBounds(textMask);
+			
+			
+			
+			
 		}
 		
 		

@@ -27,40 +27,5 @@
 		{
 			_index = value;
 		}
-
-		/*
-		override public function get height():Number
-		{
-			
-			return trueHeight;
-		}
-		
-		override public function set height(value:Number):void
-		{
-			
-			this.trueHeight = value;
-		
-			this.updateUI();
-		}
-		
-		override public function get width():Number
-		{
-			
-			return trueWidth;
-		}
-		
-		override public function set width(value:Number):void
-		{
-			
-			this.trueWidth = value;
-			
-			this.updateUI();
-		}	*/
-		/*override protected function createUI():void
-		{
-			super.createUI();
-			
-			
-		}*/
 	}
 }

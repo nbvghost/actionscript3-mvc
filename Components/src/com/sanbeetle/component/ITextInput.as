@@ -4,7 +4,12 @@
 	
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
-	import flash.text.TextFieldType;
+	
+	import flashx.textLayout.edit.EditManager;
+	import flashx.textLayout.edit.EditingMode;
+	import flashx.textLayout.edit.ISelectionManager;
+	import flashx.textLayout.events.FlowOperationEvent;
+	import flashx.undo.UndoManager;
 	
 	
 	
@@ -14,7 +19,7 @@
 		private var upSkin:ITextInputSkin_up;
 		private var overSkin:ITextInputSkin_over;
 		
-		private var _maxChars:int=0;
+		
 		
 		private var currentSkin:DisplayObject;
 		private var _displayAsPassword:Boolean=false;
@@ -22,15 +27,81 @@
 		
 		private var _background:Boolean =true;
 		
+		
+		
+		
 		public function ITextInput() {
+			
 			upSkin = new ITextInputSkin_up;
 			overSkin = new ITextInputSkin_over;
 			
-			this.addEventListener(MouseEvent.MOUSE_OVER,onMouseHandler);
-			this.addEventListener(MouseEvent.MOUSE_OUT,onMouseHandler);
 			
-			currentSkin =upSkin;
+			upSkin.mouseChildren = false;
+			upSkin.mouseEnabled = false;
+			
+			
+			overSkin.mouseChildren = false;
+			overSkin.mouseEnabled = false;
+			
+			
+			
+			//this.addEventListener(MouseEvent.MOUSE_OVER,onMouseHandler);
+			//this.addEventListener(MouseEvent.MOUSE_OUT,onMouseHandler);
+			
+			currentSkin =upSkin;	
+			
+			multiline = false;
+			
+			
+			//textfield.type = TextFieldType.INPUT;
+			
 		}		
+		
+		
+		override protected function onFlowOperationBedginHandler(event:FlowOperationEvent):void
+		{
+			super.onFlowOperationBedginHandler(event);
+	
+			
+			/*var intotxt:InsertTextOperation = event.operation as InsertTextOperation;
+			
+			var str:String;
+			
+			if(intotxt){
+				str = text+intotxt.text;
+				if(_regExp!=null){
+					//Log.out(_text+intotxt.text);
+					if(!_regExp.test(str)){
+						//editManager.undoManager.undo();
+						event.preventDefault();
+					}
+				}
+				
+				var txtlent:int = getStringBytesLength(str,"gb2312");
+				//Log.out(txtlent,str);
+				if(txtlent > maxChars && maxChars > 0)  
+				{  
+					event.preventDefault();				
+				}
+			}*/
+			
+			
+			
+			
+			
+		}
+		
+		
+		override protected function interactionManager():ISelectionManager
+		{
+			
+			textContainerManager.editingMode = EditingMode.READ_WRITE;
+			return new EditManager(new UndoManager());
+		}
+		protected function get editManager():EditManager{
+			return this.textFlow.interactionManager as EditManager;
+		}
+		
 		[Inspectable(defaultValue = true)]
 		public function get background():Boolean
 		{
@@ -41,50 +112,42 @@
 			_background = value;
 			this.updateUI();
 			/*if(_background){
-				upSkin.visible =true;
-				overSkin.visible =true;
+			upSkin.visible =true;
+			overSkin.visible =true;
 			}else{
-				upSkin.visible =false;
-				overSkin.visible =false;
+			upSkin.visible =false;
+			overSkin.visible =false;
 			}*/
 		}
-
-		[Inspectable()]
+		
+		//[Inspectable()]
 		public function get restrict():String
 		{
 			return _restrict;
 		}
-
+		
+		[Deprecated(message="这不用了，请使用，请使用  ITextInput.regExp 默认过滤非 int 类型")]
 		public function set restrict(value:String):void
 		{
-			_restrict = value;
-			this.updateUI();
-			
+			if(_restrict !== value && value!=null){
+				_restrict = value;
+				//this.regExp=RegExpType.INT;
+				//this.updateUI();
+			}			
 		}
 		[Inspectable(defaultValue = false)]
 		public function get displayAsPassword():Boolean
 		{
 			return _displayAsPassword;
-		}
-
+		}		
 		public function set displayAsPassword(value:Boolean):void
 		{
 			_displayAsPassword = value;
 			
 			this.updateUI();
 		}
-		[Inspectable(defaultValue =0)]
-		public function get maxChars():int
-		{
-			return _maxChars;
-		}
-
-		public function set maxChars(value:int):void
-		{
-			_maxChars = value;
-			updateUI();
-		}
-
+		
+		
 		private function onMouseHandler(event:MouseEvent):void
 		{			
 			switch(event.type){
@@ -96,18 +159,17 @@
 					break;
 			}
 			
-			currentSkin.width = this.trueWidth;
-			currentSkin.height = this.trueHeight;	
+			//currentSkin.width = this.trueWidth;
+			//currentSkin.height = this.trueHeight;	
 			
 			updateUI();
 		}
 		
-		override protected function updateUI():void
+		override public function updateUI():void
 		{
 			
 			currentSkin.width = this.trueWidth;
-			currentSkin.height = this.trueHeight;	
-			
+			currentSkin.height = this.trueHeight;			
 			
 			
 			if(background){
@@ -121,37 +183,48 @@
 				
 			}	
 			
-			this.addChild(textfield);
+			
 			super.updateUI();
 			
-			
+			//this.addChild(container);
 			//textfield.width = this.trueWidth;
 			//textfield.height = this.trueHeight;
 			
+			
+			
+			
 			if(_restrict==""){
-				this.textfield.restrict=null;
+				//this.textfield.restrict=null;
 			}else{
-				this.textfield.restrict=_restrict;
+				//this.textfield.restrict=_restrict;
 			}
-			this.textfield.maxChars =_maxChars;
-			this.textfield.displayAsPassword = _displayAsPassword;
+			
+			
+			//this.textfield.maxChars =_maxChars;
+			//this.textfield.displayAsPassword = _displayAsPassword;
 			
 		}		
 		
-		override protected function createUI():void
+		override public function createUI():void
 		{
-			textfield.type = TextFieldType.INPUT;
+			
 			this.selectable =true;
 			
 			currentSkin.width = this.trueWidth;
 			currentSkin.height = this.trueHeight;
 			
-			this.addChild(currentSkin);
+			paddingTop = 6;
+			paddingLeft = 3;
+			paddingBottom = 3;
+			paddingRight = 3;
+			
+			this.addChildAt(currentSkin,0);
+			
+			
 			
 			super.createUI();			
 			
-		}
+		}		
 		
 	}
-	
 }

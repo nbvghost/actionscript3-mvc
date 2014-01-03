@@ -15,15 +15,15 @@
 			skin = new ICheckBoxSkin();
 			skin.icon.visible =_select;
 			this.addChild(skin);
-			this.addEventListener(MouseEvent.CLICK,onClickHandler);
-			this.addEventListener(MouseEvent.MOUSE_DOWN,onMouseEventHandler);
+			this.addEventListener(MouseEvent.MOUSE_DOWN,onClickHandler);
+			//this.addEventListener(MouseEvent.MOUSE_DOWN,onMouseEventHandler);
 			this.addEventListener(MouseEvent.MOUSE_OUT,onMouseEventHandler);
 			this.addEventListener(MouseEvent.MOUSE_OVER,onMouseEventHandler);
 			this.addEventListener(MouseEvent.MOUSE_UP,onMouseEventHandler);
 			
 		}
 		
-		protected function onMouseEventHandler(event:MouseEvent):void
+		private function onMouseEventHandler(event:MouseEvent):void
 		{
 			switch(event.type){
 				case MouseEvent.MOUSE_DOWN:
@@ -48,6 +48,7 @@
 			}else{
 				this.select = true;
 			}
+			onMouseEventHandler(event);
 			this.dispatchEvent(new ControlEvent(ControlEvent.CHANGE));
 		}
 		[Inspectable(defaultValue = false)]
