@@ -1,7 +1,9 @@
 package com.game.framework.display {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	
+	import flash.display.GradientType;
 	import flash.display.Sprite;
+	import flash.geom.Matrix;
 	
 	import flashx.textLayout.container.ContainerController;
 	import flashx.textLayout.conversion.TextConverter;
@@ -22,7 +24,7 @@ package com.game.framework.display {
 		
 		/**
 		 *
-		 *  <xml>
+		 *  <html>
 		 <title>333</title>
 		 <width>400</width>
 		 <height>300</height>
@@ -38,7 +40,7 @@ package com.game.framework.display {
 		 <span><img src="http://s1.bdstatic.com/r/www/cache/static/global/img/icons_2f167d8f.png"/><a href="dsfd">dsfdsfds</a></span>
 		 <span><img src="http://s1.bdstatic.com/r/www/cache/static/global/img/icons_2f167d8f.png"/><a href="dsfdsd">dsfdsfds</a></span>
 		 </body>
-		 </xml>
+		 </html>
 		 *
 		 *
 		 * @param html
@@ -47,26 +49,17 @@ package com.game.framework.display {
 		 */
 		public static function createFromHtml(xml:XML, displayTarget:Sprite):ToolTipSprite {
 			
-			var cont:ToolTipSprite = new ToolTipSprite();
-			cont.graphics.beginFill(0xff0000);
-			cont.graphics.drawRect(0, 0, xml.@width, xml.@height);
-			cont.graphics.endFill();
 			
 			
-			var sp:Sprite = new Sprite();
-			cont.addChild(sp);
 			
-			displayTarget.addChild(cont);
-			
-			
-			var _textFlow:TextFlow = TextConverter.importToFlow(xml, TextConverter.TEXT_FIELD_HTML_FORMAT);
-			var cc:ContainerController = new ContainerController(sp, xml.@width, xml.@height);
+			var _textFlow:TextFlow = TextConverter.importToFlow(xml, TextConverter.TEXT_LAYOUT_FORMAT);
+			var cc:ContainerController = new ContainerController(displayTarget, 50, 50);
 			_textFlow.flowComposer.addController(cc);
 			_textFlow.flowComposer.updateAllControllers();
 			_textFlow.addEventListener(FlowElementMouseEvent.MOUSE_DOWN, onFlowElementDownHandler);
 			
 			
-			//Console.out(_textFlow.getElementsByTypeName("a"));
+			//Log.out(_textFlow.getElementsByTypeName("a"));
 			
 			_textFlow.addEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE, graphicStatusChangeEvent);
 			function graphicStatusChangeEvent(e:StatusChangeEvent):void {
@@ -78,14 +71,14 @@ package com.game.framework.display {
 			}
 			
 			function onFlowElementDownHandler(event:FlowElementMouseEvent):void {
-				//Console.out(event.flowElement);
+				//Log.out(event.flowElement);
 				var le:LinkElement = event.flowElement as LinkElement;
 				if (le) {
-					Console.out(le);
+					Log.out(le);
 				}
 			}
 			
-			return cont;
+			return null;
 		}
 		
 		

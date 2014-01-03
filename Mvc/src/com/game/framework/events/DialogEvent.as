@@ -23,6 +23,10 @@ package com.game.framework.events
 		 * 窗口被打开
 		 */
 		public static const SHOW:String ="show";
+		/**
+		 * 点了关闭窗口按钮 
+		 */
+		public static const CLOSE_DIALOG:String="close_dialog";
 		public var dialogBuilder:AlertDialogBuilder;
 		public function DialogEvent(type:String,dialogBuilder:AlertDialogBuilder)
 		{

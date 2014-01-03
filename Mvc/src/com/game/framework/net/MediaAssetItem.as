@@ -3,6 +3,7 @@ package com.game.framework.net {
 	import com.game.framework.Launcher;
 	import com.game.framework.error.OperateError;
 	import com.game.framework.events.AssetsEvent;
+	import com.game.framework.events.DissolveEvent;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.INotifyData;
 	import com.game.framework.ifaces.ISwfFile;
@@ -14,6 +15,14 @@ package com.game.framework.net {
 	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.geom.Point;
+	
+	/**
+	 * 
+	 * 消息事件，当 Mediator 层，被告知要消失。
+	 * 
+	 */	
+	[Event(name="dissolve", type="com.game.framework.events.DissolveEvent")]
 	
 	/**
 	 * 仅用于模块的加载
@@ -34,6 +43,7 @@ package com.game.framework.net {
 		private var _isLoadSuccess:Boolean = false;
 		private var skinLoader:SkinLoader;
 		private var swfFile:ISwfFile;
+		private var isINType:Boolean =false;
 		
 		/**
 		 * 
@@ -44,9 +54,38 @@ package com.game.framework.net {
 		public function MediaAssetItem(url:IURL, currentDomain:Boolean = true) {
 			super(url, currentDomain);
 			
+			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
+			this.addEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);			
 			
-		}	
-		
+		}		
+		protected function onAddStageHandler(event:Event):void
+		{
+			
+			if(mediator){
+				mediator.handerNotify(Mediator.IN_TYPE,null);
+			}else{
+				isINType =true;
+			}
+		}
+		protected function onRemovedStageHandler(event:Event):void
+		{
+			
+			if(mediator){
+				mediator.handerNotify(Mediator.OUT_TYPE,null);
+			}			
+			
+		}
+		/**
+		 * 用于修改 Mediator 
+		 * @param mediator
+		 * @return 
+		 * 
+		 */
+		protected function newMediator(mediator:Mediator):Mediator{
+			
+			
+			return mediator;
+		}
 		
 		/**
 		 *内部的资源是否加载完成,不统计其内部其它线程的加载
@@ -71,8 +110,7 @@ package com.game.framework.net {
 				getDatainterface.netError(event,data);
 			}
 			skinLoader.setDatainterface = assite;
-			skinLoader.initView();
-			
+			skinLoader.initView();			
 		}
 		
 		private function onSkinloaderOver(data:IAssetItem):void {
@@ -80,29 +118,49 @@ package com.game.framework.net {
 			createView = swfFile.getCreateView;
 			
 			mediator = swfFile.getMediator;
+			mediator.addEventListener(DissolveEvent.DISSOLVE,onDissolveHandler);
 			mediator.addEventListener(AssetsEvent.COMPLETE_LOAD, onSkinLoadCompleteHandler);
 			mediator.FW::view = createView;
 			
-			Launcher.FW::launcher.registerMediator(mediator);
 			
-			//createView.FW::contentLoaderInfo = data.contentLoaderInfo;
+			Launcher.FW::launcher.registerMediator(mediator);
+				
+			
+		
 			createView.FW::setContentContainer(this,data as AssetItem);
 			
 			if(getDatainterface){
-				this.getDatainterface.asssetComplete(this);	
-			}
-			
-			
-			//this.addChild(createView);
-			
+				this.getDatainterface.asssetComplete(this);					
+			}		
 			
 			_isinitView = true;
 			_isLoadSuccess = true;
 		}
 		
+		protected function onDissolveHandler(event:DissolveEvent):void
+		{
+			
+			this.dispatchEvent(new DissolveEvent(DissolveEvent.DISSOLVE,this));
+		}		
+		
+		
 		private function onSkinLoadCompleteHandler(e:AssetsEvent):void {
+			this.addEventListener(Event.ENTER_FRAME,onEnterFrameHandler);			
+			
+		}	
+		
+		protected function onEnterFrameHandler(event:Event):void
+		{
+			
+				this.removeEventListener(Event.ENTER_FRAME,onEnterFrameHandler);
+				notifyMediator();
+		
+		
+			
+		}
+		protected function notifyMediator():void{
 			mediator.removeEventListener(AssetsEvent.COMPLETE_LOAD, onSkinLoadCompleteHandler);
-			this.getDatainterface.asssetAllComplete(this);
+			this.getDatainterface.asssetAllComplete(this);		
 			
 			
 			
@@ -111,30 +169,13 @@ package com.game.framework.net {
 			}		
 			mediator.handerNotify(Mediator.INIT_TYPE,notify);
 			
-			
-			
-			//有可能在 init 可能还有一个 为  Mediator.RE_INIT_TYPE 类型的消息。也要发送。默认情况下，Mediator.RE_INIT_TYPE  消息数据为  Mediator.RE_INIT_NOTIFY。
-			/* if (notifyType != Mediator.RE_INIT_TYPE) {
-			if (notifyType != null && notify!=null) {
-			
-			mediator.handerNotify(notifyType, notify);
-			
+			if(isINType){
+				onAddStageHandler(null);
+				isINType =false;
 			}
-			}else{
-			if(notify!=Mediator.RE_INIT_NOTIFY){
-			if (notifyType != null && notify!=null) {					
-			mediator.handerNotify(notifyType, notify);					
-			}
-			}
-			}	*/
 			
 			this.notifyType = null;
 			this.notify = null;
-		}
-		private function sendInitNotify():void{
-			if(notifyType!=null && notifyType!=Mediator.RE_INIT_TYPE && notifyType!=Mediator.INIT_TYPE){
-				mediator.handerNotify(notifyType, notify);
-			}
 		}
 		/**
 		 * 初始时，也就是执行一个资源的加载，此时可以向  Mediator 层发信息,加载到当前域中</br>
@@ -157,6 +198,7 @@ package com.game.framework.net {
 				if (this.notify == null) {
 					notify = Mediator.RE_INIT_NOTIFY;
 				}
+				mediator.FW::isdissolve = false;
 				mediator.handerNotify(Mediator.RE_INIT_TYPE, notify);		
 				
 				this.notifyType = null;
@@ -168,7 +210,8 @@ package com.game.framework.net {
 			if (this.parent == null) {
 				throw new OperateError("先添加到显示列表中，UIManager.addMediaView(MediaAssetItem) 加载的地址：" + this.url.url, this);
 				return;
-			}
+			}			
+			
 			//如果资源没有衩释放，将不重新加载
 			if (_isLoadSuccess == true) {
 				return;
@@ -187,6 +230,7 @@ package com.game.framework.net {
 			super.dispose();
 			
 			if(mediator){
+				mediator.removeEventListener(DissolveEvent.DISSOLVE,onDissolveHandler);
 				mediator.dispose();
 			}		
 			if(skinLoader){
@@ -197,6 +241,9 @@ package com.game.framework.net {
 			
 			_isLoadSuccess = false;
 			_isinitView = false;
+			
+			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
+			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);
 		}
 		
 		

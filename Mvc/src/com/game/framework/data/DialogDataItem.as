@@ -1,6 +1,6 @@
 package com.game.framework.data
 {
-	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	
@@ -15,14 +15,13 @@ package com.game.framework.data
 	{
 		public static const viewChange:String="viewChange";
 		public static const labelChange:String="labelChange";
-		private var _view:DisplayObject;
-		private var _label:String;
+		private var _view:DisplayObjectContainer;
+		private var _label:String="undefined";
 		
-		public function DialogDataItem(label:String,view:DisplayObject)
+		public function DialogDataItem(label:String,view:DisplayObjectContainer)
 		{
 			this._label = label;
-			this._view = view;
-			
+			this._view = view;	
 			
 		}	
 		
@@ -42,12 +41,12 @@ package com.game.framework.data
 		}
 
 		[Bindable(event=viewChange)]
-		public function get view():DisplayObject
+		public function get view():DisplayObjectContainer
 		{
 			return _view;
 		}
 
-		public function set view(value:DisplayObject):void
+		public function set view(value:DisplayObjectContainer):void
 		{
 			if( _view !== value)
 			{

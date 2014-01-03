@@ -12,18 +12,20 @@ package com.game.framework.ifaces
 	public interface IDialog
 	{
 		/**
-		 * 可以得到， AssetItem 与 AlertDialog 实例，
+		 * 可以得到， AssetItem 与 AlertDialog 实例，  frist
 		 * @param mediaAssetItem
 		 * @param alert
 		 * 
 		 */
 		function setDislogContent(mediaAssetItem:AssetItem,alert:AlertDialog):void;
 		/**
-		 * 得到  AlertDialogBuilder 对象的引用
+		 * 得到  AlertDialogBuilder 对象的引用 second
 		 * @param builder
-		 * 
-		 */
-		function setAlertDialogBuilder(builder:AlertDialogBuilder):void;
+		 * @param dialogContentIF 被调用者
+		 */		
+		function setAlertDialogBuilder(builder:AlertDialogBuilder,dialogContentIF:IDialogData):void;
+		
+		
 		
 	}
 }

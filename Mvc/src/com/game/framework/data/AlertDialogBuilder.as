@@ -1,13 +1,19 @@
 package com.game.framework.data
 {
+	import com.asvital.dev.Log;
+	import com.game.framework.error.OperateError;
 	import com.game.framework.ifaces.INotifyData;
 	import com.game.framework.ifaces.IURL;
 	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	
+	[Event(name="sideSelectIndexChange", type="com.game.framework.data.AlertDialogBuilder")]
 	/**
 	 * AlerDialog 描述对象
 	 *@author sixf
 	 */
-	public class AlertDialogBuilder
+	public class AlertDialogBuilder extends EventDispatcher
 	{
 		private var _titleData:DialogDataItem;
 		private var _view:IURL;		
@@ -23,13 +29,50 @@ package com.game.framework.data
 		private var _isShadow:Boolean =true;
 		private var _modal:Boolean =true;
 		
-		private var _titleCenter:Boolean =true;		
+		public static const sideSelectIndexChange:String="sideSelectIndexChange";
+		
+		private var _titleCenter:Boolean =true;
+		
+		private var _sideSelectIndex:int = -1;
 				
 		public function AlertDialogBuilder()
 		{
 			_titleData = new DialogDataItem("undefined",null);
+		}		
+
+		[Bindable(event="sideSelectIndexChange")]
+		/**
+		 * 侧边按钮的选中 
+		 */
+		public function get sideSelectIndex():int
+		{
+			return _sideSelectIndex;
 		}
-		[Bindable(event="titleChange")]
+
+		/**
+		 * @private
+		 */
+		public function set sideSelectIndex(value:int):void
+		{
+			if( _sideSelectIndex !== value)
+			{								
+				_sideSelectIndex = value;
+				if(_sideSelectIndex<0){
+					Log.error("多个视图的弹出窗口，必须选中一个。 sideSelectIndex 属性不能为 -1。");
+					_sideSelectIndex = 0;
+				}
+				dispatchEvent(new Event("sideSelectIndexChange"));
+			}
+		}
+
+		public function set sideBtnData(value:Vector.<DialogDataItem>):void
+		{
+			if(value==null){
+				throw new OperateError("sideBtnData 参数不能为 null",this);
+			}
+			_sideBtnData = value;
+		}
+
 		public function get titleData():DialogDataItem
 		{
 			
@@ -165,15 +208,9 @@ package com.game.framework.data
 		public function get sideBtnData():Vector.<DialogDataItem>
 		{
 			return _sideBtnData;
-		}
+		}	
 
-		/**
-		 * @private
-		 */
-		public function set sideBtnData(value:Vector.<DialogDataItem>):void
-		{
-			_sideBtnData = value;
-		}
+		
 
 		/**
 		 * 传成被调用者的消息 

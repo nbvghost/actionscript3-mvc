@@ -9,7 +9,8 @@ import flash.events.Event;
  */
 public class FrameWorkEvent extends Event {
     public static const COMMAND_EXECUTE:String = "command_execute";
-    public static const HANDER_NOTIFY:String = "hander_notify";
+    public static const HANDER_NOTIFY:String = "hander_notify";	
+	
 
 
     public var notifyName:String;

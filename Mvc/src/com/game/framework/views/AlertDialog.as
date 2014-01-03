@@ -1,10 +1,12 @@
 package com.game.framework.views
 {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	import com.game.framework.data.AlertDialogBuilder;
 	import com.game.framework.data.ConfigData;
+	import com.game.framework.display.Layer;
 	import com.game.framework.events.DialogEvent;
-	import com.game.framework.ifaces.IDialogID;
+	import com.game.framework.ifaces.ITargetID;
+	import com.game.framework.logic.TargetID;
 	import com.game.framework.net.DialogAssetItem;
 	
 	import flash.events.EventDispatcher;
@@ -24,28 +26,41 @@ package com.game.framework.views
 	 */
 	[Event(name="dismissing",type="com.game.framework.events.DialogEvent")]
 	/**
+	 * 点了关闭窗口按钮 
+	 */	
+	[Event(name="close_dialog",type="com.game.framework.events.DialogEvent")]
+	/**
 	 * 窗口实例 
 	 *@author sixf
 	 */
 	public class AlertDialog extends EventDispatcher
 	{
-		private static var builder:AlertDialogBuilder;
+		private static var callerBuilder:AlertDialogBuilder;
 		private var dialogAssetItem:DialogAssetItem;
 		private var mediator:Mediator;
 		
-		private var ID:IDialogID;
+		private var _ID:ITargetID;
 		
 		public static var DialogPool:Object=new Object;
-		public static var IDPool:int =0;
+		
+		
+		private var dialogOver:Boolean =true;
 		
 		private var _isDismiss:Boolean = false;
 		public function AlertDialog(mediator:Mediator)
 		{	
-			this.ID = AlertDialog.dialogID;
-			builder = new AlertDialogBuilder();
+			
+			_ID = AlertDialog.dialogID;
+			callerBuilder = new AlertDialogBuilder();
 			this.mediator = mediator;
 			
 		}
+		
+		public function get ID():ITargetID
+		{
+			return _ID;
+		}
+		
 		public static function dismissAll():void{
 			for(var key:String in DialogPool){
 				var alertdialog:AlertDialog = DialogPool[key];
@@ -61,7 +76,7 @@ package com.game.framework.views
 		 * @return 
 		 * 
 		 */
-		public static function getAlertDialog(ID:IDialogID):AlertDialog{
+		public static function getAlertDialog(ID:ITargetID):AlertDialog{
 			return DialogPool[ID.id];
 		}
 		/**
@@ -69,10 +84,10 @@ package com.game.framework.views
 		 * @return 
 		 * 
 		 */
-		public static function get dialogID():IDialogID{
-			return new DialogID(IDPool++);
+		public static function get dialogID():ITargetID{
+			return TargetID.NewTargetID;
 		}
-
+		
 		/**
 		 * 这个窗口是否被关闭了。
 		 * @return 
@@ -82,54 +97,68 @@ package com.game.framework.views
 		{
 			return _isDismiss;
 		}
-
+		
 		public function set isDismiss(value:Boolean):void
 		{
 			_isDismiss = value;
 		}
-
+		
 		/**
 		 *  Builder 永远也不会为 null
 		 * @return 
 		 * 
 		 */
 		public function get Builder():AlertDialogBuilder{
-			if(builder==null){
-				builder = new AlertDialogBuilder();
+			if(callerBuilder==null){
+				callerBuilder = new AlertDialogBuilder();
 			}			
-			return builder;			
+			return callerBuilder;			
 		}
 		public function set Builder(value:AlertDialogBuilder):void{
-			builder = value;
+			callerBuilder = value;
 		}
-		public function show(ID:IDialogID=null):AlertDialog{		
+		public function show(ID:ITargetID=null):AlertDialog{		
 			if(ID!=null){
-				this.ID = ID;
+				_ID = ID;
 			}else{
-				this.ID = AlertDialog.dialogID;
+				_ID = AlertDialog.dialogID;
 			}
-			if(builder==null){
-				Console.out("AlertDialog.Builder 不能为空！ ");
+			if(callerBuilder==null){
+				Log.out("AlertDialog.Builder 不能为空！ ");
 				return this;
 			}else{
-				if(builder.view==null){
-					Console.out("AlertDialog.view 不能为空！ ");
+				if(callerBuilder.view==null){
+					Log.out("AlertDialog.view 不能为空！ ");
 					return this;
 				}
 			}			
-			dialogAssetItem= new DialogAssetItem(ConfigData.getDialogView(),this);
 			
-			//dialogAssetItem= mediator.uimanager.uiLayer.secondFrontLayerContainer.midLayer
+			var midLayer:Layer=mediator.uimanager.uiLayer.secondFrontLayerContainer.midLayer;
 			
-			dialogAssetItem=mediator.uimanager.uiLayer.secondFrontLayerContainer.midLayer.addChild(dialogAssetItem) as DialogAssetItem;
+			if(dialogAssetItem==null){
+				dialogAssetItem= new DialogAssetItem(ConfigData.getDialogView(),this);	
+				//dialogAssetItem=mediator.uimanager.uiLayer.secondFrontLayerContainer.midLayer.addChild(dialogAssetItem) as DialogAssetItem;
+				midLayer.addChild(dialogAssetItem);
+				dialogAssetItem.callerBuilder = callerBuilder;
+			}else{
+				dialogAssetItem = midLayer.getChildByName(ConfigData.getDialogView().url) as DialogAssetItem;
+				
+				if(dialogAssetItem==null){
+					dialogAssetItem= new DialogAssetItem(ConfigData.getDialogView(),this);	
+					
+				}
+				
+			}			
 			
+			if(midLayer.numChildren!=0){
+				midLayer.setChildIndex(dialogAssetItem,midLayer.numChildren-1);
+			}
 			
-			
-			dialogAssetItem.alertDialogBuilder = builder;
 			dialogAssetItem.initView();			
-		
+			
 			DialogPool[ID.id] =this;	
-			this.dispatchEvent(new DialogEvent(DialogEvent.SHOW,builder));
+			this.dispatchEvent(new DialogEvent(DialogEvent.SHOW,callerBuilder));
+			
 			return this;
 		}	
 		/**
@@ -137,7 +166,7 @@ package com.game.framework.views
 		 * 
 		 */
 		public function dismiss():void{
-			this.dispatchEvent(new DialogEvent(DialogEvent.DISMISSING,builder));
+			this.dispatchEvent(new DialogEvent(DialogEvent.DISMISSING,callerBuilder));
 			
 			if(dialogAssetItem){
 				dialogAssetItem.dispose();			
@@ -148,31 +177,8 @@ package com.game.framework.views
 			mediator =null;
 			_isDismiss =true;
 			
-			this.dispatchEvent(new DialogEvent(DialogEvent.DISMISS,builder));
+			this.dispatchEvent(new DialogEvent(DialogEvent.DISMISS,callerBuilder));
 			
 		}
-	}
-}
-import com.game.framework.ifaces.IDialogID;
-
-/**
- * 窗口ID 对象类。
- * @author sixf
- * 
- */
-class DialogID implements IDialogID{
-	private var _id:int = -1;
-
-	public function get id():int
-	{
-		return _id;
-	}
-	public function DialogID(pid:int){
-		_id =pid;
-	}
-
-	public function set id(value:int):void
-	{
-		_id = value;
 	}
 }

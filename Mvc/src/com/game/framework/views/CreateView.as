@@ -1,5 +1,5 @@
 package com.game.framework.views {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	import com.game.framework.FW;
 	import com.game.framework.events.AssetsEvent;
 	import com.game.framework.ifaces.ICreateView;
@@ -13,6 +13,7 @@ package com.game.framework.views {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
+	import flash.events.TimerEvent;
 	
 	[Event(name="complete_load", type="com.game.framework.events.AssetsEvent")]
 	/**
@@ -27,12 +28,19 @@ package com.game.framework.views {
 		private var _resourceManager:IResourceManager;
 		
 		private var _contentContainer:AssetItem;
-		
+		private var _skinContainer:AssetItem;
 		private var _hasLoad:Boolean = true;
 		
 		public function CreateView() {
 			super();
 		}
+		
+		public function timerRun(event:TimerEvent):void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
 		/**
 		 * CreateView 视图容器。 
 		 * @return 
@@ -42,17 +50,22 @@ package com.game.framework.views {
 		{
 			return _contentContainer;
 		}
+		FW function get skinContainer():AssetItem{
+			return _skinContainer;
+		}
 		FW function setContentContainer(cc:AssetItem,skin:AssetItem):void
 		{
 			_contentContainer = cc;	
+			_skinContainer= skin;
+			
+			//_contentContainer.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);
 			
 			childName = _contentContainer.contentLoaderInfo.applicationDomain.getQualifiedDefinitionNames();
 			
 			initBefore(skin.contentLoaderInfo);
 			init(MovieClip(skin.contentLoaderInfo.content));
 			this.dispatchEvent(new AssetsEvent(AssetsEvent.COMPLETE_LOAD));
-		}
-		
+		}		
 		public function enterFrame(e:Event):void
 		{
 			// TODO Auto Generated method stub
@@ -137,6 +150,9 @@ package com.game.framework.views {
 			if (this.parent != null) {
 			this.parent.removeChild(this);
 			}*/
+			if(_contentContainer){
+				_contentContainer.removeChildren();
+			}
 			
 			_contentContainer = null;
 			_uimanager = null;
@@ -185,7 +201,7 @@ package com.game.framework.views {
 		protected function get getChildName():Vector.<String> {
 			if (childName == null) {
 				childName = new Vector.<String>;
-				Console.out("getChildName 属性必须 在init 之后调用！");
+				Log.out("getChildName 属性必须 在init 之后调用！");
 			}
 			return childName;
 		}

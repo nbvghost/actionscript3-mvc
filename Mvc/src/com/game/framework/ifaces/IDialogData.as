@@ -21,5 +21,12 @@ package com.game.framework.ifaces
 		 * 
 		 */
 		function setAlertDialog(value:AlertDialog):void;
+		
+		/**
+		 * 窗口关闭时的一个回调，这时窗口还没有关闭，只是告诉你要关闭了， 
+		 * @return  如果返回 true 则关闭窗口，false 不关闭窗口。
+		 * 
+		 */
+		function closeCallBack():Boolean;
 	}
 }

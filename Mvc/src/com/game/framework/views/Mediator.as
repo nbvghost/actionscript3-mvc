@@ -1,12 +1,20 @@
 package com.game.framework.views {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	import com.game.framework.FW;
 	import com.game.framework.data.AlertDialogBuilder;
 	import com.game.framework.error.OperateError;
 	import com.game.framework.events.AssetsEvent;
-	import com.game.framework.ifaces.IDialogID;
+	import com.game.framework.events.DissolveEvent;
 	import com.game.framework.ifaces.INotifyData;
+	import com.game.framework.ifaces.ITargetID;
 	import com.game.framework.models.NotifyData;
+	
+	/**
+	 * 
+	 * Mediiator 被执行消失了。
+	 * 
+	 */
+	[Event(name="dissolve", type="com.game.framework.events.DissolveEvent")]
 	
 	/**
 	 * MediaAssetItem.intiView() 被执行将发送 （Mediator.DEFAULT_TYPE，DEFAULT_NOTIFY）消息。
@@ -19,10 +27,24 @@ package com.game.framework.views {
 		private var _notiys:Vector.<Object>;
 		
 		protected var isSkinLoad:Boolean = false;
+		
+		/**
+		 * 为空
+		 */
+		public static const NONE:String="none";
+		
 		/**
 		 * 默认 Mediator 又被初始化的消息类型,主要用于模块的初始化
 		 */
 		public static const RE_INIT_TYPE:String = "mediator_re_init_type";
+		/**
+		 * 暂时离开了。 
+		 */
+		public static const OUT_TYPE:String="out_type";
+		/**
+		 *  
+		 */
+		public static const IN_TYPE:String="in_type";
 		/**
 		 * 默认 Mediator 又被初始化的消息
 		 */
@@ -37,6 +59,10 @@ package com.game.framework.views {
 		 */
 		public static const INIT_NOTIFY:NotifyData = new NotifyData(INIT_TYPE, "Mediator 被 initView ！");
 		
+		
+			
+		FW var isdissolve:Boolean = false;
+		
 		/**
 		 *  实例化时，传入 ICreateView 视图对象
 		 * @param view
@@ -45,21 +71,54 @@ package com.game.framework.views {
 		public function Mediator() {
 			_notiys = new Vector.<Object>();
 			
-		}			
+		}	
+		
 		override protected function onViewCompleteHandler(event:AssetsEvent):void {
 			view.removeEventListener(AssetsEvent.COMPLETE_LOAD, onViewCompleteHandler);
 			
+			viewOver();
+		}
+		protected function viewOver():void{
 			reSendNotify();
 			isSkinLoad = true;
-			viewDrawed(view);
-			
+			viewDrawed(view);			
 			this.dispatchEvent(new AssetsEvent(AssetsEvent.COMPLETE_LOAD));
-		}		
-		protected function showDialog(dialogID:IDialogID):void{		
+		}
+		
+		/**
+		 * 消失</br>
+		 * 模块消失，但并不释放内存，释放内存还是会根据，Mediator 周期来的。要释放内存很使用，dispose 方法 </br>
+		 * 
+		 * 
+		 */
+		protected function dissolve():void{
+			if(FW::isdissolve==false){
+				if(this.uimanager && this.view){				
+					uimanager.removeEnterFrame(view);
+					uimanager.removeReSize(view);
+					uimanager.removeTimerRun(view);
+				}
+				FW::isdissolve=true;
+				this.dispatchEvent(new DissolveEvent(DissolveEvent.DISSOLVE));
+			}		
 			
-			var alertdialog:AlertDialog = new AlertDialog(this); 
-			alertdialog.Builder=onCreateDialog(dialogID);			
-			//var builder:AlertDialogBuilder = alertdialog.Builder;				
+			
+		}	
+		
+		/**
+		 * 弹出一个窗口， 
+		 * @param dialogID 指定窗口的ID，
+		 * @param isNewCreate 是否新创建实例，还是用旧的、。
+		 * 
+		 */
+		protected function showDialog(dialogID:ITargetID):void{		
+			var alertdialog:AlertDialog;			
+			alertdialog = AlertDialog.getAlertDialog(dialogID);
+			if(alertdialog==null){
+				alertdialog = new AlertDialog(this); 
+				alertdialog.Builder=onCreateDialog(dialogID);
+			}							
+			
 			alertdialog.show(dialogID);	
 			
 		}	
@@ -68,12 +127,12 @@ package com.game.framework.views {
 		 * @param dialogID
 		 * 
 		 */
-		protected function dismiss(dialogID:IDialogID):void{
+		protected function dismiss(dialogID:ITargetID):void{
 			var alertdialog:AlertDialog = AlertDialog.getAlertDialog(dialogID);
 			if(alertdialog!=null){
 				alertdialog.dismiss();				
 			}else{
-				Console.out(" 没有找到 dialogID:"+dialogID+"的弹出框！");
+				Log.out(" 没有找到 dialogID:"+dialogID+"的弹出框！");
 			}
 		}
 		/**
@@ -83,7 +142,7 @@ package com.game.framework.views {
 		protected function dismissAll():void{
 			AlertDialog.dismissAll();
 		}
-		protected function onCreateDialog(dialogID:IDialogID):AlertDialogBuilder{
+		protected function onCreateDialog(dialogID:ITargetID):AlertDialogBuilder{
 			throw new OperateError("请重写 onCreateDialog 方法，因为 showDialog 方法。",this);
 			return null;
 		}
@@ -93,7 +152,8 @@ package com.game.framework.views {
 		 * 
 		 */
 		override public function dispose():void
-		{			
+		{	
+			
 			super.dispose();
 			//dialog.dispose();
 			

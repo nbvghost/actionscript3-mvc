@@ -1,7 +1,12 @@
 package com.game.framework.net
 {
+	import com.game.framework.FW;
 	import com.game.framework.data.AlertDialogBuilder;
+	import com.game.framework.data.ConfigData;
+	import com.game.framework.data.DialogDataItem;
+	import com.game.framework.error.ErrorType;
 	import com.game.framework.error.OperateError;
+	import com.game.framework.events.DissolveEvent;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.IDialog;
 	import com.game.framework.ifaces.IDialogData;
@@ -12,6 +17,9 @@ package com.game.framework.net
 	import com.game.framework.views.CreateView;
 	import com.game.framework.views.Mediator;
 	
+	import flash.display.MovieClip;
+	import flash.events.Event;
+	
 	
 	/**
 	 *
@@ -19,110 +27,196 @@ package com.game.framework.net
 	 */
 	public class DialogAssetItem extends MediaAssetItem
 	{
-		private var callBack:AssetsData = new AssetsData();
 		
-		private var _dialogContent:DialogAssetItem;
+		
+		/**
+		 * 窗口内容
+		 */
+		private var _dialogContent:DialogContentAssetItem;
 		private var _view:IURL;
 		
 		private var _notify:INotifyData;
-		private var _alertDialogBuilder:AlertDialogBuilder;
+		private var _callerBuilder:AlertDialogBuilder;
 		private var alertDialog:AlertDialog;
+		private var calleeBuilder:AlertDialogBuilder;
 		public function DialogAssetItem(url:IURL,alert:AlertDialog,currentDomain:Boolean=true)
 		{
 			super(url, currentDomain);			
+			var callBack:AssetsData = new AssetsData();
 			callBack.asssetAllCompleteFunc = dialogLogComple;
+			//callBack.asssetCompleteFunc = dialogLogComple;
 			setDatainterface = callBack;
 			this.alertDialog =alert;
-		}
-		
-		public function get dialogContent():DialogAssetItem
+		}			
+		/**
+		 * 窗口内容
+		 * @return 
+		 * 
+		 */
+		public function get dialogContent():DialogContentAssetItem
 		{
 			return _dialogContent;
 		}
 
-		public function set dialogContent(value:DialogAssetItem):void
+		public function get callerBuilder():AlertDialogBuilder
 		{
-			_dialogContent = value;
+			return _callerBuilder;
 		}
 
-		public function get alertDialogBuilder():AlertDialogBuilder
+		public function set callerBuilder(value:AlertDialogBuilder):void
 		{
-			return _alertDialogBuilder;
+			_callerBuilder = value;
 		}
-
-		public function set alertDialogBuilder(value:AlertDialogBuilder):void
+		
+		/**
+		 * 在 dialog 里， DissolveEvent。DISSOLVE 无效
+		 * @param event
+		 * 
+		 */
+		override protected function onDissolveHandler(event:DissolveEvent):void
 		{
-			_alertDialogBuilder = value;
+			
 		}
+		
 		
 		public function getCreateView():CreateView{
 			return this.createView;	
 		}
 		public function getMediator():Mediator{
 			return this.mediator;
-		}
-		//dialog 窗口加载完后，加载 dialog 里的内容。
-		private function dialogLogComple(data:IAssetItem):void{		
-			if(_alertDialogBuilder==null){
+		}		
+		private var cacheDialogContent:Object = new Object();
+		/**
+		 * dialog 窗口加载完后，加载 dialog 里的内容。
+		 * 窗口皮肤，那个外面的框框   
+		 * @param data
+		 * 
+		 */		
+		private function dialogLogComple(data:IAssetItem):void{	
+			
+			if(_callerBuilder==null){
 				return;				
 			}
-			dialogContent = new DialogAssetItem(_alertDialogBuilder.view,alertDialog);
+			var callBack:AssetsData = new AssetsData();
+			_dialogContent = new DialogContentAssetItem(_callerBuilder.view);
 			var dialog:IDialog = mediator as IDialog;
 			if(dialog==null){
 				throw new OperateError("Dialog Content not IDialog,Please implement IDialog!",this);
 			}
-			dialog.setDislogContent(dialogContent,alertDialog);
-			//this.addChild(dialogContent);
+			dialog.setDislogContent(_dialogContent,alertDialog);			
 			
-			if(dialogContent.parent==null){
+			if(_dialogContent.parent==null){
 				throw new OperateError("override setDislogContent(),and ");
 			}
-			callBack.asssetAllCompleteFunc = dialogContentComplete;
-			dialogContent.setDatainterface = callBack;
-			dialogContent.initView(_alertDialogBuilder.notify);
-			//dialogContent=
+			//callBack.asssetAllCompleteFunc = dialogContentComplete;
+			callBack.asssetAllCompleteFunc  =null;
+			callBack.asssetCompleteFunc = dialogContentComplete;
+			_dialogContent.setDatainterface = callBack;
+			_dialogContent.initView(_callerBuilder.notify);			
 		}
 		
 		override public function dispose():void
 		{
-			if(dialogContent!=null){
-				dialogContent.dispose();
+			if(alertDialog){
+				if(alertDialog.Builder){
+					alertDialog.Builder.titleData.removeEventListener(DialogDataItem.labelChange,onChangeHandler);				
+					alertDialog.Builder.titleData.removeEventListener(DialogDataItem.viewChange,onChangeHandler);
+				}
+			}
+			
+			if(_dialogContent!=null){
+				_dialogContent.dispose();
 				//dialogContent.setDatainterface = null;
-				dialogContent=null;
+				_dialogContent=null;
 			}
 			super.dispose();
 		}
+		private function dialogContentComplete(data:DialogContentAssetItem):void{
 		
-		private function dialogContentComplete(data:DialogAssetItem):void{
-			
-			var adbuil:IDialogData = data.getMediator() as IDialogData;
-			if(adbuil==null){
+			var dialogContentIF:IDialogData = data.getMediator() as IDialogData;
+			if(dialogContentIF==null){
 				throw new OperateError("var adbuil:IDialogData = data.getMediator() as IDialogData; 转换出错。",this);
 				return;
 			}
 			var view:CreateView = data.getCreateView();
 			
-			var alertdialogBuilder:AlertDialogBuilder = adbuil.getDialogBuilder();
+			calleeBuilder = dialogContentIF.getDialogBuilder();
 			
-			if(alertdialogBuilder==null){
-				alertdialogBuilder = new AlertDialogBuilder;
-				alertdialogBuilder.titleData = _alertDialogBuilder.titleData;
+			if(calleeBuilder==null){
+				calleeBuilder = new AlertDialogBuilder;
+				calleeBuilder.titleData = _callerBuilder.titleData;
+				calleeBuilder.modal = _callerBuilder.modal;
+				calleeBuilder.isShadow = _callerBuilder.isShadow;
+				calleeBuilder.titleCenter = _callerBuilder.titleCenter;
+				calleeBuilder.sideSelectIndex = _callerBuilder.sideSelectIndex;	
+			}else{
+				if(calleeBuilder.sideSelectIndex==-1){
+					calleeBuilder.sideSelectIndex = _callerBuilder.sideSelectIndex;
+				}
 			}
 			
+			if(calleeBuilder.titleCenter==false || _callerBuilder.titleCenter==false){
+				calleeBuilder.titleCenter = false;
+			}		
 			
 			
-			alertdialogBuilder.setDiaLogButtons(_alertDialogBuilder.getDiaLogButtons());			
+			if(calleeBuilder.sideBtnData.length<=0){
+				
+				try{
+					var content:MovieClip=MovieClip(view.FW::skinContainer.content);
+					var dialogBound:MovieClip = content.getChildByName(ConfigData.getDialogContentBoundName()) as MovieClip;
+					dialogBound.x = 0;
+					dialogBound.y = 0;
+					dialogBound.mouseChildren = false;
+					dialogBound.mouseEnabled = false;
+					dialogBound.stop();
+					dialogBound.visible =false;
+					if(dialogBound.parent){
+						dialogBound.parent.setChildIndex(dialogBound,0);
+					}
+					calleeBuilder.width = dialogBound.width
+					calleeBuilder.height = dialogBound.height;
+				}catch(e:Error){
+					throw new OperateError("没有找到名为"+ConfigData.getDialogContentBoundName()+"的影片剪辑。",this,ErrorType.not_dialog_content_bound_si_target);
+				}
+				
+				//Log.out(MovieClip(view.FW::skinContainer.content),MovieClip(view.FW::skinContainer.content).getChildByName("dialogBound"));
+			}
+			
+			calleeBuilder.setDiaLogButtons(_callerBuilder.getDiaLogButtons());			
+			
+			
 		
-			
-			alertdialogBuilder.width = view.contentContainer.width
-			alertdialogBuilder.height = view.contentContainer.height;		
-					
 			
 			var dialog:IDialog = mediator as IDialog;
 			
-			dialog.setAlertDialogBuilder(alertdialogBuilder);
-			adbuil.setAlertDialog(alertDialog);	
+			dialog.setAlertDialogBuilder(calleeBuilder,dialogContentIF);
+			dialogContentIF.setAlertDialog(alertDialog);	
+			
+			
+			
+			alertDialog.Builder.titleData.addEventListener(DialogDataItem.labelChange,onChangeHandler);
+			alertDialog.Builder.titleData.addEventListener(DialogDataItem.viewChange,onChangeHandler);
+			alertDialog.Builder.addEventListener(AlertDialogBuilder.sideSelectIndexChange,onChangeHandler);
+			//alertdialogBuilder.titleData.addEventListener(DialogDataItem.labelChange,onChangeHandler);
+			//alertdialogBuilder.titleData.addEventListener(DialogDataItem.viewChange,onChangeHandler);
 		}		
+		
+		protected function onChangeHandler(event:Event):void
+		{
+			switch(event.type){
+				case DialogDataItem.labelChange:
+					calleeBuilder.titleData.label = alertDialog.Builder.titleData.label;
+					break;
+				case DialogDataItem.viewChange:
+					calleeBuilder.titleData.view = alertDialog.Builder.titleData.view;
+					break;
+				case AlertDialogBuilder.sideSelectIndexChange:
+					calleeBuilder.sideSelectIndex = alertDialog.Builder.sideSelectIndex;
+					break;
+			}
+			
+		}
 		
 	}
 }

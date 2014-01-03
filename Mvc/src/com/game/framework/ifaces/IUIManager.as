@@ -6,6 +6,7 @@ package com.game.framework.ifaces {
 	
 	import com.game.framework.display.AppStage;
 	
+	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
 	
 	/**
@@ -17,7 +18,20 @@ package com.game.framework.ifaces {
 		function getLayerRect():Rectangle;
 		
 		function get appStage():AppStage;		
-		function get uiLayer():IUILayer;
+		function get uiLayer():IUILayer;	
+		
+		
+		function addEnterFrame(rander:IRander):IUIManager;
+		
+		function addReSize(rander:IRander):IUIManager;
+		
+		function addTimerRun(rander:IRander):IUIManager;
+		
+		function removeEnterFrame(rander:IRander):IUIManager;
+		
+		function removeReSize(rander:IRander):IUIManager;
+		
+		function removeTimerRun(rander:IRander):IUIManager;	
 		
 	}
 }

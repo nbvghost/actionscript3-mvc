@@ -5,6 +5,7 @@ package com.game.framework.display
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	
 	
 	/**
@@ -34,6 +35,13 @@ package com.game.framework.display
 			
 			parentContainer.addChild(container);		
 		}
+		
+		public function timerRun(event:TimerEvent):void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
 		
 		public function get graphics():Graphics
 		{

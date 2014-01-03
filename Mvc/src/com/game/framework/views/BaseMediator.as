@@ -6,15 +6,19 @@ package com.game.framework.views {
 	import com.game.framework.ifaces.IMediator;
 	import com.game.framework.ifaces.IObtain;
 	import com.game.framework.ifaces.IProxy;
+	import com.game.framework.ifaces.IRander;
 	import com.game.framework.ifaces.IResourceManager;
 	import com.game.framework.ifaces.IUIManager;
+	
+	import flash.events.Event;
+	import flash.events.TimerEvent;
 	
 	/**
 	 *
 	 *@author sixf
 	 */
 	
-	public class BaseMediator extends BaseNotify implements IMediator,IObtain {
+	public class BaseMediator extends BaseNotify implements IMediator,IObtain,IRander{
 		use namespace FW;
 		
 		private var _view:CreateView;
@@ -25,6 +29,25 @@ package com.game.framework.views {
 		public function BaseMediator() {
 			
 		}
+		
+		public function enterFrame(e:Event):void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
+		public function reSize(e:Event):void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
+		public function timerRun(event:TimerEvent):void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
 		
 		public function get uimanager():IUIManager
 		{
@@ -85,6 +108,11 @@ package com.game.framework.views {
 		
 		public function dispose():void {
 			if (_view) {
+				if(this.uimanager){				
+					uimanager.removeEnterFrame(_view);
+					uimanager.removeReSize(_view);
+					uimanager.removeTimerRun(_view);
+				}
 				_view.dispose();
 				_view = null;
 			}

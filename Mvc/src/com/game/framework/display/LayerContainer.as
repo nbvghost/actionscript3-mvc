@@ -160,7 +160,12 @@ package com.game.framework.display
 			// TODO Auto Generated method stub
 			container.removeChildren(beginIndex, endIndex);
 		}
-		
+		public function globalToLocal(point:Point):Point{
+			return container.globalToLocal(point);
+		}
+		public function localToGlobal(point:Point):Point{
+			return container.localToGlobal(point);
+		}
 		public function setChildIndex(child:DisplayObject, index:int):void
 		{
 			// TODO Auto Generated method stub

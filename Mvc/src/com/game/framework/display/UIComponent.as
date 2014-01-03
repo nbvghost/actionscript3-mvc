@@ -2,6 +2,7 @@ package com.game.framework.display {
 	import com.game.framework.ifaces.IRander;
 	
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	
 	/**
 	 * 视觉组件的基类
@@ -19,6 +20,12 @@ package com.game.framework.display {
 		}
 		
 		public function reSize(e:Event):void {
+			// TODO Auto Generated method stub
+			
+		}
+		
+		public function timerRun(event:TimerEvent):void
+		{
 			// TODO Auto Generated method stub
 			
 		}

@@ -1,5 +1,5 @@
 package com.game.framework {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	import com.game.framework.command.Command;
 	import com.game.framework.error.OperateError;
 	import com.game.framework.ifaces.INotify;
@@ -76,7 +76,11 @@ package com.game.framework {
 		 */
 		public function registerMediator(mediator:BaseMediator):void {
 			if (dictionaryMediator[mediator.name] == undefined) {
-				dictionaryMediator[mediator.name] = mediator;
+				
+				if(mediator.name!=Mediator.NONE && mediator.name!="" && mediator.name!=null){
+					dictionaryMediator[mediator.name] = mediator;
+				}				
+				
 				mediator.FW::initMediator(_uimanager, _resourceManager);
 			} else {
 				throw new OperateError("Mediator 出现重名了！名字：" + mediator.name, mediator);
@@ -112,7 +116,7 @@ package com.game.framework {
 				StartCommand = null;
 				
 			} else {
-				Console.out("Launcher.start 出现的多次调用!");
+				Log.out("Launcher.start 出现的多次调用!");
 			}
 			
 		}
@@ -153,14 +157,14 @@ package com.game.framework {
 			var notify:NotifyData;
 			
 			if ((executeMediator(name, notifyData) == false) && (executeProxy(name, notifyData) == false) && (executeCommand(name, notifyData) == false)) {
-				Console.out("消息发送都没有找到目标！" + name);
+				Log.info("消息发送都没有找到目标！" + name);
 				isfind = false;
 			}
 			time = (getTimer() - time);
-			Console.out("发送消息处理用时：" + time + "毫秒");
+			Log.info("发送消息处理用时：" + time + "毫秒");
 			if (Capabilities.isDebugger) {
 				if (time > 700) {
-					Console.out(new OperateError("消息处理时间大于 700，请优化程序。消息类型：" + name + "消息包类型：" + notifyData.type, this));
+					Log.info(new OperateError("消息处理时间大于 700，请优化程序。消息类型：" + name + "消息包类型：" + notifyData.type, this));
 				}
 			}
 			return isfind;
@@ -208,6 +212,8 @@ package com.game.framework {
 					if ((notifyData as NotifyData).FW::target != mediator.name) {
 						mediator.push(name, notifyData);
 						isfind = true;
+					}else{
+						Log.error("自己不能给自己发信息，要发请使用 handerNotify 方法。",mediator);
 					}
 				}
 			}
@@ -224,7 +230,7 @@ package com.game.framework {
 		public function executeCommand(name:String, notifyData:INotifyData):Boolean {
 			var CommandClass:Class = dictionaryCommand[name] as Class;
 			if (CommandClass == null) {
-				Console.out(name + " 在 dictionaryCommand 找不到 ,目标：" + notifyData.message + "," + notifyData.type);
+				Log.out(name + " 在 dictionaryCommand 找不到 ,目标：" + notifyData.message + "," + notifyData.type);
 				return false;
 			}
 			var command:Command = new CommandClass();

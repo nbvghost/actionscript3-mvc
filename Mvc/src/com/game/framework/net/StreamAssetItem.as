@@ -1,5 +1,5 @@
 package com.game.framework.net {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.IAssetsData;
 	import com.game.framework.ifaces.INotifyData;
@@ -48,7 +48,7 @@ package com.game.framework.net {
 		}
 		
 		public function get contentLoaderInfo():LoaderInfo {
-			Console.out("流对象加载时，为null," + this);
+			Log.out("流对象加载时，为null," + this);
 			return null;
 		}
 		
@@ -62,13 +62,13 @@ package com.game.framework.net {
 		
 		public function onIOErrorHandler(event:IOErrorEvent):void {
 			// TODO Auto Generated method stub
-			Console.out(event.toString());
+			Log.out(event.toString());
 			assetsData.netError(event, this);
 		}
 		
 		public function onProgressHandler(event:ProgressEvent):void {
 			// TODO Auto Generated method stub
-			//Console.out(event.toString());
+			//Log.out(event.toString());
 			assetsData.progress(event, this);
 		}
 		

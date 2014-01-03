@@ -1,5 +1,5 @@
 package com.game.framework.net {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	import com.game.framework.display.UIComponent;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.IAssetsData;
@@ -61,16 +61,16 @@ package com.game.framework.net {
 		private function uncaughtErrorHandler(event:UncaughtErrorEvent):void {
 			if (event.error is Error) {
 				var error:Error = event.error as Error;
-				Console.out(error.getStackTrace());
+				Log.out(error.getStackTrace());
 				// do something with the error
 			}
 			else if (event.error is ErrorEvent) {
 				var errorEvent:ErrorEvent = event.error as ErrorEvent;
 				// do something with the error
-				Console.out(errorEvent.toString());
+				Log.out(errorEvent.toString());
 			}
 			else {
-				Console.out(event.toString());
+				Log.out(event.toString());
 				// a non-Error, non-ErrorEvent type was thrown and uncaught
 			}
 		}
@@ -118,7 +118,7 @@ package com.game.framework.net {
 			_datainterface = value;
 		}
 		public function onCompleteHandler(event:Event):void {		
-			// Console.out(_datainterface);
+			// Log.out(_datainterface);
 			if(_datainterface==null){			
 				
 			}  else{
@@ -128,8 +128,8 @@ package com.game.framework.net {
 		}
 		public function onIOErrorHandler(event:IOErrorEvent):void {
 			// TODO Auto Generated method stub
-			//Console.out(event);
-			Console.out("加载出错："+event);
+			//Log.out(event);
+			Log.out("加载出错："+event);
 			_datainterface.netError(event, this);
 		}
 		
@@ -142,7 +142,7 @@ package com.game.framework.net {
 			
 			if (this.parent != null) {
 				this.parent.removeChild(this);
-				//Console.out(this.parent,this.parent.contains(this));
+				//Log.out(this.parent,this.parent.contains(this));
 				
 			}
 			_datainterface = null;
@@ -157,7 +157,7 @@ package com.game.framework.net {
 				try{
 					loader.close();
 				}catch(e:Error){
-					//Console.out(e.getStackTrace());
+					//Log.out(e.getStackTrace());
 				}
 				loader.unloadAndStop();
 				loader = null;

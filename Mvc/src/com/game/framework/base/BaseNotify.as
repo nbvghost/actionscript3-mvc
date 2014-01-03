@@ -1,5 +1,5 @@
 package com.game.framework.base {
-	import com.asvital.debug.Console;
+	import com.asvital.dev.Log;
 	import com.game.framework.FW;
 	import com.game.framework.Launcher;
 	import com.game.framework.error.OperateError;
@@ -35,11 +35,19 @@ package com.game.framework.base {
 			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.HANDER_NOTIFY, notifyData, type));
 		}
 		
+		/**
+		 *  name == Mediator.NONE 将不被注册到 MVC 框架中。 
+		 * @return 
+		 * 
+		 */
 		public function get name():String {
-			throw new OperateError("重写 name 目标：" + this);
+			throw new OperateError("重写 name, 或为 Mediator.NONE 值 目标： " + this);
+			
 			return _name;
 		}
-		
+		/*public function set name(value:String):void{
+			this._name =value;
+		}*/
 		public function sendNotify(type:String, notifyData:INotifyData):Boolean {
 			
 			if (notifyData == null) {
@@ -61,7 +69,7 @@ package com.game.framework.base {
 		}
 		
 		public function registerNotify():Array {
-			//Console.out(this+"该Mediator没有订阅消息，将不会收到任何的消息。如果想接收消息请重写 registerNotify 方法！");
+			//Log.out(this+"该Mediator没有订阅消息，将不会收到任何的消息。如果想接收消息请重写 registerNotify 方法！");
 			return [];
 		}
 		
@@ -72,7 +80,7 @@ package com.game.framework.base {
 		
 		public function handerNotify(type:String, notifyData:INotifyData):void {
 			if (Capabilities.isDebugger) {
-				Console.out(new OperateError("未处理的消息：" + type, this));
+				Log.out(new OperateError("未处理的消息：" + type, this));
 			}
 		}
 	}

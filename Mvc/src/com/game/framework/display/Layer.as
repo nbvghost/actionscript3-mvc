@@ -18,8 +18,24 @@ package com.game.framework.display
 		
 		public function Layer(parentContainer:DisplayObjectContainer)
 		{
-			super(parentContainer);	
-			
+			super(parentContainer);			
+		}
+
+		public function get visible():Boolean
+		{
+			return container.visible;
+		}
+
+		public function set visible(value:Boolean):void
+		{
+			container.visible = value;
+		}
+
+		public function globalToLocal(point:Point):Point{
+			return container.globalToLocal(point);
+		}
+		public function localToGlobal(point:Point):Point{
+			return container.localToGlobal(point);
 		}
 
 		public function get mask():DisplayObject
@@ -74,6 +90,9 @@ package com.game.framework.display
 		
 		public function addChildAt(child:DisplayObject, index:int):DisplayObject
 		{
+			if(index<0){
+				index=0;
+			}
 			// TODO Auto Generated method stub
 			return container.addChildAt(child, index);
 		}
