@@ -148,6 +148,8 @@ package com.game.framework.views
 					
 				}
 				
+				dialogAssetItem.callerBuilder = callerBuilder;
+				
 			}			
 			
 			if(midLayer.numChildren!=0){

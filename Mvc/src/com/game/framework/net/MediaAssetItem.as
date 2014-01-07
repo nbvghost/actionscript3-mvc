@@ -204,6 +204,7 @@ package com.game.framework.net {
 				this.notifyType = null;
 				this.notify = null;	
 				this.getDatainterface.asssetComplete(this);
+				//this.getDatainterface.asssetAllComplete(this);		
 				return;
 			}
 			

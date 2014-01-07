@@ -2,58 +2,117 @@
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="com.game.framework.Launcher"/>
-    <classEntry path="com.game.framework.views.Mediator"/>
+    <classEntry path="com.game.framework.base.BaseNotify"/>
     <classEntry path="com.game.framework.command.Command"/>
+    <classEntry path="com.game.framework.command.RegisterCommand"/>
+    <classEntry path="com.game.framework.data.AlertDialogBuilder"/>
+    <classEntry path="com.game.framework.data.ConfigData"/>
+    <classEntry path="com.game.framework.display.BaseLayer"/>
+    <classEntry path="com.game.framework.display.BaseSprite"/>
+    <classEntry path="com.game.framework.display.Layer"/>
+    <classEntry path="com.game.framework.display.LayerContainer"/>
     <classEntry path="com.game.framework.display.Picture"/>
-    <classEntry path="com.game.framework.views.CreateView"/>
+    <classEntry path="com.game.framework.display.ToolTip"/>
+    <classEntry path="com.game.framework.display.ToolTipSprite"/>
+    <classEntry path="com.game.framework.display.UIComponent"/>
+    <classEntry path="com.game.framework.error.ErrorType"/>
+    <classEntry path="com.game.framework.error.OperateError"/>
     <classEntry path="com.game.framework.events.AssetsEvent"/>
+    <classEntry path="com.game.framework.events.DialogEvent"/>
+    <classEntry path="com.game.framework.events.FrameWorkEvent"/>
+    <classEntry path="com.game.framework.ifaces.IAssetItem"/>
     <classEntry path="com.game.framework.ifaces.IAssetsData"/>
-    <classEntry path="com.game.framework.net.MediaAssetItem"/>
-    <classEntry path="com.game.framework.net.StreamAssetItem"/>
-    <classEntry path="com.game.framework.logic.AssetsData"/>
+    <classEntry path="com.game.framework.ifaces.ICreateView"/>
+    <classEntry path="com.game.framework.ifaces.IDialog"/>
+    <classEntry path="com.game.framework.ifaces.IDialogData"/>
     <classEntry path="com.game.framework.ifaces.IMediator"/>
+    <classEntry path="com.game.framework.ifaces.IMultiAssetData"/>
+    <classEntry path="com.game.framework.ifaces.INotifyData"/>
+    <classEntry path="com.game.framework.ifaces.IObtain"/>
+    <classEntry path="com.game.framework.ifaces.IProxy"/>
+    <classEntry path="com.game.framework.ifaces.IRander"/>
+    <classEntry path="com.game.framework.ifaces.IRegister"/>
+    <classEntry path="com.game.framework.ifaces.IResourceManager"/>
+    <classEntry path="com.game.framework.ifaces.ITargetID"/>
+    <classEntry path="com.game.framework.ifaces.IUILayer"/>
+    <classEntry path="com.game.framework.ifaces.IUIManager"/>
+    <classEntry path="com.game.framework.ifaces.IXMLCfg"/>
+    <classEntry path="com.game.framework.logic.AssetsData"/>
+    <classEntry path="com.game.framework.logic.Duplicating"/>
+    <classEntry path="com.game.framework.logic.Rander"/>
+    <classEntry path="com.game.framework.logic.TargetID"/>
     <classEntry path="com.game.framework.models.NotifyData"/>
     <classEntry path="com.game.framework.models.proxy.Proxy"/>
     <classEntry path="com.game.framework.models.vo.BaseVo"/>
-    <classEntry path="com.game.framework.ifaces.IProxy"/>
-    <classEntry path="com.game.framework.ifaces.IRegister"/>
-    <classEntry path="com.game.framework.ifaces.INotifyData"/>
-    <classEntry path="com.game.framework.ifaces.IUIManager"/>
-    <classEntry path="com.game.framework.error.OperateError"/>
-    <classEntry path="com.game.framework.ifaces.IUILayer"/>
-    <classEntry path="com.game.framework.display.BaseSprite"/>
-    <classEntry path="com.game.framework.display.UIComponent"/>
-    <classEntry path="com.game.framework.ifaces.IObtain"/>
-    <classEntry path="com.game.framework.ifaces.IAssetItem"/>
-    <classEntry path="com.game.framework.ifaces.IMultiAssetData"/>
-    <classEntry path="com.game.framework.net.MultiAssetData"/>
-    <classEntry path="com.game.framework.ifaces.IXMLCfg"/>
-    <classEntry path="com.game.framework.ifaces.ICreateView"/>
-    <classEntry path="com.game.framework.ifaces.IRander"/>
-    <classEntry path="com.game.framework.base.BaseNotify"/>
-    <classEntry path="com.game.framework.display.ToolTip"/>
-    <classEntry path="com.game.framework.display.ToolTipSprite"/>
-    <classEntry path="com.game.framework.ifaces.IResourceManager"/>
-    <classEntry path="com.game.framework.logic.Duplicating"/>
-    <classEntry path="com.game.framework.net.LoaderAssetItem"/>
-    <classEntry path="com.game.framework.utils.InteractiveUtils"/>
-    <classEntry path="com.game.framework.command.RegisterCommand"/>
-    <classEntry path="com.game.framework.net.SkinLoader"/>
-    <classEntry path="com.game.framework.views.InstantiationMediator"/>
-    <classEntry path="com.game.framework.events.FrameWorkEvent"/>
-    <classEntry path="com.game.framework.views.AlertDialog"/>
-    <classEntry path="com.game.framework.data.AlertDialogBuilder"/>
-    <classEntry path="com.game.framework.data.ConfigData"/>
     <classEntry path="com.game.framework.net.DialogAssetItem"/>
-    <classEntry path="com.game.framework.ifaces.IDialog"/>
-    <classEntry path="com.game.framework.ifaces.IDialogData"/>
-    <classEntry path="com.game.framework.ifaces.IDialogID"/>
-    <classEntry path="com.game.framework.events.DialogEvent"/>
-    <classEntry path="com.game.framework.display.Layer"/>
-    <classEntry path="com.game.framework.display.LayerContainer"/>
-    <classEntry path="com.game.framework.display.BaseLayer"/>
-    <classEntry path="com.game.framework.data.NetRequestFormat"/>
+    <classEntry path="com.game.framework.net.LoaderAssetItem"/>
+    <classEntry path="com.game.framework.net.MediaAssetItem"/>
+    <classEntry path="com.game.framework.net.MultiAssetData"/>
+    <classEntry path="com.game.framework.net.SkinLoader"/>
+    <classEntry path="com.game.framework.net.StreamAssetItem"/>
+    <classEntry path="com.game.framework.utils.InteractiveUtils"/>
+    <classEntry path="com.game.framework.views.AlertDialog"/>
+    <classEntry path="com.game.framework.views.CreateView"/>
+    <classEntry path="com.game.framework.views.InstantiationMediator"/>
+    <classEntry path="com.game.framework.views.Mediator"/>
+    <classEntry path="com.game.framework.events.DissolveEvent"/>
   </includeClasses>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="docs/eventsGeneratedSummary.xml" sourcePath="docs/eventsGeneratedSummary.xml"/>
+    <resourceEntry destPath="docs/index.html" sourcePath="docs/index.html"/>
+    <resourceEntry destPath="docs/Classes.xml" sourcePath="docs/Classes.xml"/>
+    <resourceEntry destPath="docs/package.xslt" sourcePath="docs/package.xslt"/>
+    <resourceEntry destPath="docs/packagemap.xml" sourcePath="docs/packagemap.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.base.xml" sourcePath="docs/com.game.framework.base.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.debug.xml" sourcePath="docs/com.game.framework.debug.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.net.xml" sourcePath="docs/com.game.framework.net.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.utils.xml" sourcePath="docs/com.game.framework.utils.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.models.vo.xml" sourcePath="docs/com.game.framework.models.vo.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.events.xml" sourcePath="docs/com.game.framework.events.xml"/>
+    <resourceEntry destPath="docs/methodSummary.xml" sourcePath="docs/methodSummary.xml"/>
+    <resourceEntry destPath="docs/ASDoc_terms.xml" sourcePath="docs/ASDoc_terms.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.enum.xml" sourcePath="docs/com.game.framework.enum.xml"/>
+    <resourceEntry destPath="docs/ClassHeader.xslt" sourcePath="docs/ClassHeader.xslt"/>
+    <resourceEntry destPath="docs/class-files.xslt" sourcePath="docs/class-files.xslt"/>
+    <resourceEntry destPath="docs/package-list.xslt" sourcePath="docs/package-list.xslt"/>
+    <resourceEntry destPath="docs/eventsGeneratedSummary.xslt" sourcePath="docs/eventsGeneratedSummary.xslt"/>
+    <resourceEntry destPath="docs/package-summary.xslt" sourcePath="docs/package-summary.xslt"/>
+    <resourceEntry destPath="docs/class-parts.xslt" sourcePath="docs/class-parts.xslt"/>
+    <resourceEntry destPath="docs/ASDoc_Config.xml" sourcePath="docs/ASDoc_Config.xml"/>
+    <resourceEntry destPath="docs/processHTML.xslt" sourcePath="docs/processHTML.xslt"/>
+    <resourceEntry destPath="docs/com.game.framework.command.xml" sourcePath="docs/com.game.framework.command.xml"/>
+    <resourceEntry destPath="docs/packages.dita" sourcePath="docs/packages.dita"/>
+    <resourceEntry destPath="docs/title-bar.html" sourcePath="docs/title-bar.html"/>
+    <resourceEntry destPath="docs/methodSummary.xslt" sourcePath="docs/methodSummary.xslt"/>
+    <resourceEntry destPath="docs/all-index.xslt" sourcePath="docs/all-index.xslt"/>
+    <resourceEntry destPath="docs/class-summary.xslt" sourcePath="docs/class-summary.xslt"/>
+    <resourceEntry destPath="docs/fieldSummary.xml" sourcePath="docs/fieldSummary.xml"/>
+    <resourceEntry destPath="docs/package-frame.html" sourcePath="docs/package-frame.html"/>
+    <resourceEntry destPath="docs/class-list.xslt" sourcePath="docs/class-list.xslt"/>
+    <resourceEntry destPath="docs/com.game.framework.display.xml" sourcePath="docs/com.game.framework.display.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.data.xml" sourcePath="docs/com.game.framework.data.xml"/>
+    <resourceEntry destPath="docs/PostProcessing.xslt" sourcePath="docs/PostProcessing.xslt"/>
+    <resourceEntry destPath="docs/com.game.framework.models.proxy.xml" sourcePath="docs/com.game.framework.models.proxy.xml"/>
+    <resourceEntry destPath="docs/pp_methodSummary.xml" sourcePath="docs/pp_methodSummary.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.models.xml" sourcePath="docs/com.game.framework.models.xml"/>
+    <resourceEntry destPath="docs/asdoc-util.xslt" sourcePath="docs/asdoc-util.xslt"/>
+    <resourceEntry destPath="docs/all-classes.xslt" sourcePath="docs/all-classes.xslt"/>
+    <resourceEntry destPath="docs/effectsSummary.xslt" sourcePath="docs/effectsSummary.xslt"/>
+    <resourceEntry destPath="docs/pp_fieldSummary.xml" sourcePath="docs/pp_fieldSummary.xml"/>
+    <resourceEntry destPath="docs/effectsSummary.xml" sourcePath="docs/effectsSummary.xml"/>
+    <resourceEntry destPath="docs/overviews.xml" sourcePath="docs/overviews.xml"/>
+    <resourceEntry destPath="docs/ClassHeader.xml" sourcePath="docs/ClassHeader.xml"/>
+    <resourceEntry destPath="docs/package-detail.xslt" sourcePath="docs/package-detail.xslt"/>
+    <resourceEntry destPath="docs/com.game.framework.xml" sourcePath="docs/com.game.framework.xml"/>
+    <resourceEntry destPath="docs/stylesSummary.xslt" sourcePath="docs/stylesSummary.xslt"/>
+    <resourceEntry destPath="docs/com.game.framework.ifaces.xml" sourcePath="docs/com.game.framework.ifaces.xml"/>
+    <resourceEntry destPath="docs/Classes.xslt" sourcePath="docs/Classes.xslt"/>
+    <resourceEntry destPath="docs/stylesSummary.xml" sourcePath="docs/stylesSummary.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.error.xml" sourcePath="docs/com.game.framework.error.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.logic.xml" sourcePath="docs/com.game.framework.logic.xml"/>
+    <resourceEntry destPath="docs/com.game.framework.views.xml" sourcePath="docs/com.game.framework.views.xml"/>
+    <resourceEntry destPath="docs/fieldSummary.xslt" sourcePath="docs/fieldSummary.xslt"/>
+    <resourceEntry destPath="docs/merge_dita_xml.xslt" sourcePath="docs/merge_dita_xml.xslt"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>

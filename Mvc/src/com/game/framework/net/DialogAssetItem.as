@@ -43,11 +43,20 @@ package com.game.framework.net
 		{
 			super(url, currentDomain);			
 			var callBack:AssetsData = new AssetsData();
-			callBack.asssetAllCompleteFunc = dialogLogComple;
-			//callBack.asssetCompleteFunc = dialogLogComple;
+			callBack.asssetAllCompleteFunc = dialogLogComple;		
+			
+			
+			callBack.asssetCompleteFunc = reinitComplete;
 			setDatainterface = callBack;
 			this.alertDialog =alert;
 		}			
+		
+		private function reinitComplete(data:IAssetItem):void
+		{
+			if(_dialogContent!=null && _callerBuilder!=null){
+				_dialogContent.initView(_callerBuilder.notify);				
+			}
+		}
 		/**
 		 * 窗口内容
 		 * @return 
@@ -57,12 +66,12 @@ package com.game.framework.net
 		{
 			return _dialogContent;
 		}
-
+		
 		public function get callerBuilder():AlertDialogBuilder
 		{
 			return _callerBuilder;
 		}
-
+		
 		public function set callerBuilder(value:AlertDialogBuilder):void
 		{
 			_callerBuilder = value;
@@ -132,7 +141,7 @@ package com.game.framework.net
 			super.dispose();
 		}
 		private function dialogContentComplete(data:DialogContentAssetItem):void{
-		
+			
 			var dialogContentIF:IDialogData = data.getMediator() as IDialogData;
 			if(dialogContentIF==null){
 				throw new OperateError("var adbuil:IDialogData = data.getMediator() as IDialogData; 转换出错。",this);
@@ -186,7 +195,7 @@ package com.game.framework.net
 			calleeBuilder.setDiaLogButtons(_callerBuilder.getDiaLogButtons());			
 			
 			
-		
+			
 			
 			var dialog:IDialog = mediator as IDialog;
 			

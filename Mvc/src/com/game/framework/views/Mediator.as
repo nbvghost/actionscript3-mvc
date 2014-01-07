@@ -116,9 +116,9 @@ package com.game.framework.views {
 			alertdialog = AlertDialog.getAlertDialog(dialogID);
 			if(alertdialog==null){
 				alertdialog = new AlertDialog(this); 
-				alertdialog.Builder=onCreateDialog(dialogID);
+				
 			}							
-			
+			alertdialog.Builder=onCreateDialog(dialogID);
 			alertdialog.show(dialogID);	
 			
 		}	
