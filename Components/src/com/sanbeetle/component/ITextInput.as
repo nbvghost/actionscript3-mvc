@@ -28,6 +28,8 @@
 		private var _background:Boolean =true;
 		
 		
+		private var _enableEdit:Boolean = true;
+		
 		
 		
 		public function ITextInput() {
@@ -56,7 +58,30 @@
 			//textfield.type = TextFieldType.INPUT;
 			
 		}		
-		
+
+		public function get enableEdit():Boolean
+		{
+			return _enableEdit;
+		}
+
+		public function set enableEdit(value:Boolean):void
+		{
+			_enableEdit = value;
+			if(_enableEdit){
+				textContainerManager.editingMode = EditingMode.READ_WRITE;
+			}else{
+				textContainerManager.editingMode = EditingMode.READ_ONLY;
+			}
+		}
+
+		/**
+		 * 可编辑管理器 
+		 * @return 
+		 * 
+		 */
+		public function get editManager():EditManager{
+			return this.textContainerManager.getTextFlow().interactionManager as EditManager;
+		}
 		
 		override protected function onFlowOperationBedginHandler(event:FlowOperationEvent):void
 		{
@@ -94,12 +119,14 @@
 		
 		override protected function interactionManager():ISelectionManager
 		{
-			
+			if(_enableEdit){
 			textContainerManager.editingMode = EditingMode.READ_WRITE;
+				
+			}else{
+				textContainerManager.editingMode = EditingMode.READ_ONLY;
+			}
+			
 			return new EditManager(new UndoManager());
-		}
-		protected function get editManager():EditManager{
-			return this.textFlow.interactionManager as EditManager;
 		}
 		
 		[Inspectable(defaultValue = true)]

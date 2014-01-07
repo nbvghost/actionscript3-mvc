@@ -17,6 +17,9 @@ package com.sanbeetle.component
 		private var _roundSize:Number = 0;
 		private var _contentColorBegin:String="0xff0000";
 		private var _contentColorEnd:String="0x00ff00";
+		
+		private var _contentColorBeginAlpha:Number = 1;
+		private var _contentColorEndAlpha:Number = 1;
 	
 		
 		private var _contentColorRotate:Number = 90;
@@ -26,6 +29,27 @@ package com.sanbeetle.component
 			super();
 			
 		}
+		[Inspectable(defaultValue=1)]
+		public function get contentColorEndAlpha():Number
+		{
+			return _contentColorEndAlpha;
+		}
+
+		public function set contentColorEndAlpha(value:Number):void
+		{
+			_contentColorEndAlpha = value;
+		}
+		[Inspectable(defaultValue=1)]
+		public function get contentColorBeginAlpha():Number
+		{
+			return _contentColorBeginAlpha;
+		}
+
+		public function set contentColorBeginAlpha(value:Number):void
+		{
+			_contentColorBeginAlpha = value;
+		}
+
 		[Inspectable(defaultValue=90)]
 		public function get contentColorRotate():Number
 		{
@@ -123,7 +147,7 @@ package com.sanbeetle.component
 			if(lineSize>0){
 				this.graphics.lineStyle(lineSize,uint(lineColor),lineAlpha,true,LineScaleMode.NONE,CapsStyle.ROUND,JointStyle.MITER);		
 			}				
-			this.graphics.beginGradientFill(GradientType.LINEAR,[_contentColorBegin,_contentColorEnd],[1,1],[0,255],matixg);
+			this.graphics.beginGradientFill(GradientType.LINEAR,[_contentColorBegin,_contentColorEnd],[_contentColorBeginAlpha,_contentColorEndAlpha],[0,255],matixg);
 			this.graphics.drawRoundRect(0,0,this.trueWidth,this.trueHeight,_roundSize,_roundSize);
 			this.graphics.endFill();
 			

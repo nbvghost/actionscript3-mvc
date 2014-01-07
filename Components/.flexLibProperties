@@ -6,6 +6,26 @@
     <classEntry path="com.sanbeetle.component.ITabButton"/>
     <classEntry path="com.sanbeetle.events.ControlEvent"/>
     <classEntry path="com.sanbeetle.core.FixedUIComponent"/>
+    <classEntry path="com.sanbeetle.model.AMark"/>
+    <classEntry path="com.sanbeetle.data.AttributeSimpleItem"/>
+    <classEntry path="com.sanbeetle.interfaces.IFListItem"/>
+    <classEntry path="com.sanbeetle.events.ChangeIndexEvent"/>
+    <classEntry path="com.sanbeetle.component.child.LeftLibelButton"/>
+    <classEntry path="com.sanbeetle.data.ListChildItem"/>
+    <classEntry path="com.sanbeetle.core.StateButton"/>
+    <classEntry path="com.sanbeetle.interfaces.ITimerRun"/>
+    <classEntry path="com.sanbeetle.utils.TimerRun"/>
+    <classEntry path="com.sanbeetle.bases.BaseObject"/>
+    <classEntry path="com.sanbeetle.model.LocationRect"/>
+    <classEntry path="com.sanbeetle.component.child.SideExtendButton"/>
+    <classEntry path="com.sanbeetle.component.child.ProgressBarSkin"/>
+    <classEntry path="com.sanbeetle.core.TextBox"/>
+    <classEntry path="com.sanbeetle.data.RegExpType"/>
+    <classEntry path="com.sanbeetle.data.LineCollectionItem"/>
+    <classEntry path="com.sanbeetle.core.CacheDispaly"/>
+    <classEntry path="com.sanbeetle.interfaces.IStage"/>
+    <classEntry path="com.sanbeetle.data.Version"/>
+    <classEntry path="com.sanbeetle.component.IColorBox"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

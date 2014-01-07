@@ -91,12 +91,7 @@
 			
 			//_textFlow.removeEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,graphicStatusChangeEvent);
 		}
-		public function setFocus():void{
-			if(textContainerManager.getTextFlow().interactionManager){
-				textContainerManager.getTextFlow().interactionManager.setFocus();
-			}	
-			
-		}
+		
 		override public function updateUI():void
 		{
 			super.updateUI();

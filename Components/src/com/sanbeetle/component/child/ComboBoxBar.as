@@ -81,9 +81,10 @@ package com.sanbeetle.component.child
 			_displayItem = new DClass();	
 			
 			var data:IFListItem = new SimpleCollectionItem(value.data.label,value.data.data);
-			data.enable  = false;
+			data.enable  = true;
 			data.itemColor = this._fontColor;		
-			
+			_displayItem.mouseEnabled = false;
+			_displayItem.mouseChildren = false;
 			_displayItem.data = data;
 			_displayItem.setSize(value.contentWidth,value.contentHeight,true);
 		//	Log.out(value.contentWidth,value.contentHeight);
@@ -119,6 +120,9 @@ package com.sanbeetle.component.child
 			var data:SimpleCollectionItem = new SimpleCollectionItem("defautl","defautl");
 			data.itemColor = _fontColor;
 			_displayItem.data = data;
+			
+			_displayItem.mouseEnabled = false;
+			_displayItem.mouseChildren = false;
 			
 			_displayItem.listData =new ListData(_displayItem.data,0,-1,null);		
 			//this.addChild(_displayItem);			
@@ -161,6 +165,7 @@ package com.sanbeetle.component.child
 		
 		private function onmouseclickHandler(event:MouseEvent):void
 		{
+			
 			this.dispatchEvent(new ControlEvent(ControlEvent.SELECT));
 		}
 		

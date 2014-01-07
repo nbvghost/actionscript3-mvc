@@ -244,10 +244,11 @@
 						
 					}else{
 						isExtChild =false;
+						removeListFormList(list);
 					}
 				}else{
 					isExtChild =false;
-					removeListFormList(list);					
+					removeListFormList(list);		
 				}				
 				
 			}

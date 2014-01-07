@@ -286,7 +286,12 @@
 			}
 			
 		}
-		
+		public function setFocus():void{
+			if(textContainerManager.getTextFlow().interactionManager){
+				textContainerManager.getTextFlow().interactionManager.setFocus();
+			}	
+			
+		}
 		protected function addTextFlowEvent():void{
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_BEGIN,onFlowOperationBedginHandler);
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_COMPLETE,onFlowOperationCompleteHandler);
@@ -295,6 +300,8 @@
 			textContainerManager.addEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
 			textContainerManager.addEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
 			textContainerManager.addEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
+			
+			
 			
 		}	
 		
@@ -1376,6 +1383,8 @@
 			textContext.text="";
 			cc.setTextFlow(_textFlow);
 			cc.compose();*/
+			
+			
 		}
 		public function set text(value:String):void
 		{
@@ -1401,6 +1410,7 @@
 				_text = value;	
 				//textContext.text = _text;
 				textContainerManager.setText(_text);
+				
 				//cc.setText(_text);
 				//cc.getTextFlow().fontLookup = FontLookup.EMBEDDED_CFF;
 				_textLayoutFormat.blockProgression = _blockProgression;
