@@ -30,6 +30,13 @@ package com.game.framework.ifaces {
 		function getString(key:String):String;
 		
 		/**
+		 * 设获取接口 
+		 * @param iobtain
+		 * 
+		 */
+		function setIObtain(iobtain:IObtain):void;
+		
+		/**
 		 *
 		 * @param key
 		 * @param parms

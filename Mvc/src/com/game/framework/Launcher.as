@@ -110,6 +110,7 @@ package com.game.framework {
 				_launcher = new Launcher(new Singleton());
 				_launcher._resourceManager = resourceManager;
 				_launcher._uimanager = uimanager;
+				resourceManager.setIObtain(_launcher);
 				var mainCommand:Command = new StartCommand();
 				mainCommand.execute(new NotifyData());
 				mainCommand = null;

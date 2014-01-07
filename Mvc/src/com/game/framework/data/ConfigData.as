@@ -11,7 +11,7 @@ package com.game.framework.data
 		private static var dialogView:IURL;
 		private static var _delayTime:uint = 100;
 		private static var _dialogContentBoundName:String="dialogBound";
-		private static var _MaxRecodePage:int = 10;
+		private static var _MaxRecodePage:int = 50;
 		public function ConfigData()
 		{
 			
