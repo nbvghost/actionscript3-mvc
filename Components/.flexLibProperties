@@ -10,7 +10,6 @@
     <classEntry path="com.sanbeetle.data.AttributeSimpleItem"/>
     <classEntry path="com.sanbeetle.interfaces.IFListItem"/>
     <classEntry path="com.sanbeetle.events.ChangeIndexEvent"/>
-    <classEntry path="com.sanbeetle.component.child.LeftLibelButton"/>
     <classEntry path="com.sanbeetle.data.ListChildItem"/>
     <classEntry path="com.sanbeetle.core.StateButton"/>
     <classEntry path="com.sanbeetle.interfaces.ITimerRun"/>
@@ -26,6 +25,7 @@
     <classEntry path="com.sanbeetle.interfaces.IStage"/>
     <classEntry path="com.sanbeetle.data.Version"/>
     <classEntry path="com.sanbeetle.component.IColorBox"/>
+    <classEntry path="com.sanbeetle.core.ExtendsTextContainerManager"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
