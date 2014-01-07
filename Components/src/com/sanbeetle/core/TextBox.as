@@ -9,6 +9,7 @@
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TextEvent;
 	import flash.geom.Rectangle;
 	import flash.net.URLVariables;
@@ -32,7 +33,6 @@
 	import flashx.textLayout.edit.SelectionState;
 	import flashx.textLayout.elements.Configuration;
 	import flashx.textLayout.elements.LinkElement;
-	import flashx.textLayout.elements.SpanElement;
 	import flashx.textLayout.elements.TextFlow;
 	import flashx.textLayout.events.FlowElementMouseEvent;
 	import flashx.textLayout.events.FlowOperationEvent;
@@ -112,7 +112,7 @@
 		
 		//private var textContext:SpanElement;
 		
-		protected var textContainerManager:TextContainerManager;
+		protected var textContainerManager:ExtendsTextContainerManager;
 		
 		private var _autoBound:Boolean = false;
 		
@@ -141,7 +141,7 @@
 			
 			_textLayoutFormat = new TextLayoutFormat();
 			_textLayoutFormat.fontFamily = FontNames.MS_YaHei_Local;
-		
+			
 			_textLayoutFormat.fontSize = _fontSize;
 			_textLayoutFormat.whiteSpaceCollapse = WhiteSpaceCollapse.COLLAPSE;
 			
@@ -149,66 +149,31 @@
 			_textLayoutFormat.lineBreak = LineBreak.EXPLICIT;
 			
 			
-			//this.selectable = true;
-			container= new Sprite();
-			//container.cacheAsBitmap =true;
-			
-			//textContext =new SpanElement();
-			//textContext.text = _text;
+		
+			container= new Sprite();	
 			
 			
-			configuration = new Configuration(true);
+			configuration = new Configuration();
 			configuration.manageEnterKey =false;
-			configuration.textFlowInitialFormat = _textLayoutFormat;
-			
-			//textTextFlow = new TextFlow(configuration);
-			
-			textContainerManager = new TextContainerManager(container,configuration);		
-			
-			//textTextFlow = cc.getTextFlow();
 			
 			
-			//_textFlow.color = uint(0xff0000);
+			textContainerManager = new ExtendsTextContainerManager(container,configuration);		
+			textContainerManager.hostFormat = _textLayoutFormat;		
 			
-			//multiline = false;
-			
-			//paddingBottom = _paddingBottom;
-			//paddingLeft = _paddingLeft;
-			//paddingRight = _paddingRight;
-			//paddingTop = _paddingTop;
 			
 			lineHeight = _lineHeight;
-			//multiline = _multiline;
-			
-			//p=new ParagraphElement();
-			
-			//p.addChild(textContext);
-			
-			//textTextFlow.addChild(p);	
-			
-			
-			//cc.setTextFlow(textTextFlow);
 			textContainerManager.editingMode = EditingMode.READ_ONLY;
 			
+			addTextFlowEvent();			
 			
-			//textTextFlow.flowComposer.addController(cc);
-			
-			//_textFlow.flowComposer.updateAllControllers();
-			
-			//_textFlow = textTextFlow;
-			
-			//this.addChild(container);
-			addTextFlowEvent();
-			
-			
-			
-		}	
+		}		
+	
 		
 		public function get textLayoutFormat():TextLayoutFormat
 		{
 			return _textLayoutFormat;
 		}
-
+		
 		override protected function onAddStage():void
 		{
 			// TODO Auto Generated method stub
@@ -317,11 +282,10 @@
 			textContainerManager.removeEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
 			
 			
-			
 		}		
 		protected function onFlowElementOverHandler(event:FlowElementMouseEvent):void
 		{
-			// TODO Auto-generated method stub
+		
 			var lin:LinkElement = event.flowElement as LinkElement;
 			if(lin){
 				
@@ -467,7 +431,7 @@
 			
 			
 			
-			xmlTextFlow = TextConverter.importToFlow(disstr, TextConverter.TEXT_LAYOUT_FORMAT);		
+			xmlTextFlow = TextConverter.importToFlow(disstr, TextConverter.TEXT_LAYOUT_FORMAT,configuration);		
 			
 			
 			
@@ -544,13 +508,6 @@
 			
 			
 			
-			
-			///
-			
-			
-			
-			
-			
 			for(var i:int=0;i<linkArr.length;i++){
 				var link:LinkElement = linkArr[i];
 				if(link){
@@ -611,42 +568,24 @@
 						
 					}else{
 						
-					}				
-					
-					//linkHoverFormat.textDecoration = TextDecoration.UNDERLINE;
-					
-					
-					
-					//linkActiveFormat.paddingTop
+					}
 					
 				}
-			}
+			}			
 			
 			
-			
-			
-			
-			//trace(csss.styleNames);
-			
-			
-			var span:SpanElement;
 			
 			_textLayoutFormat.blockProgression = _blockProgression;
 			
-			xmlTextFlow.format = _textLayoutFormat;
-			//.hostFormat =textformat;
 			
-			//_textFlow.fontLookup = FontLookup.EMBEDDED_CFF;	
+			//xmlTextFlow.format = _textLayoutFormat;	
 			
-			//cc = new ContainerController(container);
-			//_textFlow.flowComposer.addController(cc);
 			
-			//_textFlow.addChild(p);
 			this.addTextFlowEvent();
 			this.updateUI();
 			
-			XML.prettyPrinting = false;
-			XML.ignoreWhitespace = false;
+			XML.prettyPrinting = true;
+			XML.ignoreWhitespace = true;
 		}	
 		protected function onFlowElementMouseDownHandler(event:FlowElementMouseEvent):void
 		{			
@@ -665,11 +604,16 @@
 				if(tarte.length>=2){
 					_currentLinkData.target=tarte[1];
 				}		
-				if(lin.styles["pam"]==undefined){
-					_currentLinkData.parameters =new URLVariables();
+				if(lin.styles!=null){
+					if(lin.styles["pam"]==undefined){
+						_currentLinkData.parameters =new URLVariables();
+					}else{
+						_currentLinkData.parameters = new URLVariables(String(lin.styles["pam"]));
+					}
 				}else{
-					_currentLinkData.parameters = new URLVariables(String(lin.styles["pam"]));
-				}				
+					_currentLinkData.parameters =new URLVariables();
+				}
+				
 				
 				this.dispatchEvent(new ControlEvent(eventType,_currentLinkData));
 			}else{
@@ -686,7 +630,7 @@
 			
 			if(event.operation is DeleteTextOperation){
 				/*if(p.parent==null){
-					this.clearnAddText();					
+				this.clearnAddText();					
 				}*/
 			}
 			
@@ -852,7 +796,7 @@
 				_paddingTop = value;
 				_textLayoutFormat.paddingTop = _paddingTop;
 				textContainerManager.hostFormat = _textLayoutFormat;
-			//	cc.updateContainer();
+				//	cc.updateContainer();
 				//_textFlow.flowComposer.updateAllControllers();
 			}
 		}
@@ -1009,7 +953,7 @@
 				}	
 				textContainerManager.hostFormat =_textLayoutFormat;
 				textContainerManager.getTextFlow().format = _textLayoutFormat;
-				//this.updateUI();
+				this.updateUI();
 			}		
 		}
 		
@@ -1233,7 +1177,8 @@
 				}
 				
 				textContainerManager.hostFormat =_textLayoutFormat;
-				//this.updateUI();
+				//textContainerManager.updateContainer();
+				this.updateUI();
 			}		
 			
 		}	
@@ -1303,10 +1248,9 @@
 		{
 			if(_color!= value){
 				_color = value;
-				_textLayoutFormat.color = uint(value);
-				//textFormat.color = this.color;	
-				//this.updateUI();
+				_textLayoutFormat.color = uint(value);			
 				textContainerManager.hostFormat= _textLayoutFormat;
+				textContainerManager.updateContainer();
 			}	
 			
 		}			
@@ -1346,10 +1290,15 @@
 		public function set fontSize(value:String):void
 		{
 			if(_fontSize!= value){			
-				_fontSize = value;
-				_textLayoutFormat.fontSize = _fontSize;
-				textContainerManager.hostFormat= _textLayoutFormat;
-				//updateUI();
+				_fontSize = value;				
+				_textLayoutFormat.fontSize = _fontSize;				
+				textContainerManager.hostFormat=_textLayoutFormat;
+				updateUI();	
+				//textContainerManager.updateContainer();
+				//textContainerManager.compose();
+				/*textContainerManager.updateContainer();
+				textContainerManager.compose();
+				textContainerManager.hostFormat=_textLayoutFormat;	*/	
 			}			
 			
 		}			
@@ -1370,11 +1319,11 @@
 			
 		}		
 		protected function clearnAddText():void{
-		/*	while(_textFlow.numChildren>0){
-				_textFlow.removeChildAt(0);
+			/*	while(_textFlow.numChildren>0){
+			_textFlow.removeChildAt(0);
 			}
 			while(p.numChildren>0){
-				p.removeChildAt(0);
+			p.removeChildAt(0);
 			}
 			
 			p.addChild(textContext);
@@ -1388,35 +1337,23 @@
 		}
 		public function set text(value:String):void
 		{
-			//clearnText();
 			if(isXMLText==true){
 				this.removeTextFlowEvent();	
 				
 				
-				//_textFlow = textTextFlow;
-				//_textFlow.addChild(p);	
-				//cc = new ContainerController(container);
-				//_textFlow.flowComposer.addController(cc);
-				//textContainerManager.setTextFlow(new TextFlow(configuration));
 				textContainerManager.hostFormat = this._textLayoutFormat;
 				this.addTextFlowEvent();
 			}
-			//clearnAddText();
 			isXMLText = false;
 			if(_text!= value){
 				if(value==null){
 					value="";
 				}
 				_text = value;	
-				//textContext.text = _text;
 				textContainerManager.setText(_text);
-				
-				//cc.setText(_text);
-				//cc.getTextFlow().fontLookup = FontLookup.EMBEDDED_CFF;
 				_textLayoutFormat.blockProgression = _blockProgression;
 				updateUI();	
 			}	
-			//trace(exportText(TextConverter.TEXT_LAYOUT_FORMAT,ConversionType.STRING_TYPE));	
 			
 		}
 		[Inspectable(defaultValue = "default label")]
@@ -1439,7 +1376,7 @@
 		 */		
 		public function exportText(type:String,conversionType:String):Object{
 			
-		return TextConverter.export(textContainerManager.getTextFlow(),type,conversionType);				
+			return TextConverter.export(textContainerManager.getTextFlow(),type,conversionType);				
 			
 			
 		}

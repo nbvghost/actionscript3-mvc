@@ -63,6 +63,7 @@
 			initDate=new Date();
 			
 			skin =new ITimeScheduleSkin();
+			skin.timerRunFunc = timerRunFunc;
 			skin.sj_txt.color = _timeTextColor;
 			
 			
@@ -199,7 +200,7 @@
 		}
 		private function stopTimeRun():void{
 			isRuning =false;
-			timer.removeRun(this);
+			timer.removeRun(skin);
 		}
 		/**
 		 * 暂停 
@@ -216,7 +217,7 @@
 			{
 				isPause=false;
 				isRuning = true;				
-				timer.addRun(this);
+				timer.addRun(skin);
 			}
 		}
 		
@@ -245,7 +246,7 @@
 			super.onRemoveStage();
 			
 			isRuning =false;
-			timer.removeRun(this);
+			timer.removeRun(skin);
 		}
 		
 		
@@ -256,9 +257,9 @@
 			
 		}
 		
-		override public function timerRun(event:TimerEvent):void
+		private function timerRunFunc(event:TimerEvent):void
 		{			
-			super.timerRun(event);
+			
 			
 			currentTime = currentTime - (getTimer()-runTime);
 			
@@ -268,8 +269,9 @@
 				setTimerTxt();
 				//skin.jdt_mc.scaleX = 0;
 				//this.removeEventListener(Event.ENTER_FRAME,onTimerHandler);
-				timer.removeRun(this);
+				timer.removeRun(skin);
 				this.isRuning = false;				
+				skin.progressBar.currentValue =0;
 				this.dispatchEvent(new ControlEvent(ControlEvent.TIME_COMPLETE));
 			}else{
 				setTimerTxt();
@@ -287,7 +289,7 @@
 				isRuning = true;			
 				runTime = getTimer();
 				//this.addEventListener(Event.ENTER_FRAME,onTimerHandler);
-				timer.addRun(this);
+				timer.addRun(skin);
 			}
 			
 		}
@@ -371,7 +373,8 @@
 				
 				isOver = true;
 				this.isRuning = false;
-				timer.removeRun(this);
+				timer.removeRun(skin);
+				skin.progressBar.currentValue =0;
 				this.dispatchEvent(new ControlEvent(ControlEvent.TIME_COMPLETE));				
 				return;
 			}

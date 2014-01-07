@@ -1,17 +1,27 @@
 ﻿package com.sanbeetle.component.child {
 	
 	import com.sanbeetle.component.ILabel;
+	import com.sanbeetle.interfaces.ITimerRun;
 	
 	import flash.display.MovieClip;
+	import flash.events.TimerEvent;
 	
 	
-	public class ITimeScheduleSkin extends MovieClip {
+	public class ITimeScheduleSkin extends MovieClip implements ITimerRun {
 		
 		
 		public var sj_txt:ILabel;
 	
+		public var timerRunFunc:Function;
 		
 		public var progressBar:ProgressBarSkin;
+		
+		public function timerRun(event:TimerEvent):void
+		{
+			if(timerRunFunc!=null){
+				timerRunFunc(event);
+			}			
+		}
 		
 		
 		public function ITimeScheduleSkin() {

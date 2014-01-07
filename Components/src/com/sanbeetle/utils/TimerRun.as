@@ -42,6 +42,7 @@ package com.sanbeetle.utils
 		public function addRun(target:ITimerRun):void{
 			timerArr.push(target);
 			if(timerArr.length==1){
+				timer.reset();
 				timer.start();
 			}
 		}

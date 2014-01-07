@@ -48,12 +48,17 @@ package com.sanbeetle.utils
 		 *  
 		 * @param textCom
 		 * @param text 不带  p 标签
+		 * @param isWhiteSpace default false  是否包含空格
 		 * @return 
 		 * 
 		 */
-		public static function copyTextFlowStyle(textCom:TextFlow,text:XMLList):String{
+		public static function copyTextFlowStyle(textCom:TextFlow,text:XMLList,isWhiteSpace:Boolean=false):String{
 			var textXML:XML = XML(TextConverter.export(getTextFlow(textCom),TextConverter.TEXT_LAYOUT_FORMAT,ConversionType.STRING_TYPE));
-			textXML.@whiteSpaceCollapse = "collapse";
+			if(isWhiteSpace){				
+				textXML.@whiteSpaceCollapse = "collapse";
+			}else{
+				textXML.@whiteSpaceCollapse = "preserve";
+			}
 			var xmll:XMLList = textXML.children();
 			
 			for(var i:int=xmll.length()-1;i>=0;i--){
@@ -93,8 +98,8 @@ package com.sanbeetle.utils
 			//trace("sdfds",point,new Point(disTarget.x,disTarget.y));
 			
 			var ccLocalPoint:Point = cc.localToGlobal(point);
-					
-		
+			
+			
 			rect.top = ccLocalPoint.y;
 			rect.left = ccLocalPoint.x;
 			rect.right = cc.width-rect.left-disTarget.width;

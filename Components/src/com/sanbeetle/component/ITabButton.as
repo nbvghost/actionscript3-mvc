@@ -165,6 +165,8 @@
 		public function set selectIndex(value:int):void
 		{
 			
+			
+			
 			var oldIndex:int = _selectIndex;
 			
 			_selectIndex = value;
@@ -172,6 +174,7 @@
 			this.updateUI();
 			
 			this.dispatchEvent(new ChangeIndexEvent(ChangeIndexEvent.CHANGE_INDEX,_selectIndex,oldIndex));	
+			
 		}
 		
 		[Inspectable(defaultValue="10")]
@@ -191,7 +194,7 @@
 		
 		private function onClickHandle(event:MouseEvent):void
 		{
-			var oldIndex:int=-1;
+			var oldIndex:int=_selectIndex;
 			
 			var item:ExtendButton = event.currentTarget as ExtendButton;
 			if(item){	
@@ -208,13 +211,12 @@
 				showList(item);
 				_selectIndex = item.index;			
 				
-				this.dispatchEvent(new ChangeIndexEvent(ChangeIndexEvent.CHANGE_INDEX,_selectIndex,oldIndex));				
-				
 				if(_oldButton!=item){						
 
 					_oldButton= item;
 					
 				}			
+				this.dispatchEvent(new ChangeIndexEvent(ChangeIndexEvent.CHANGE_INDEX,_selectIndex,oldIndex));				
 				
 			}
 		}

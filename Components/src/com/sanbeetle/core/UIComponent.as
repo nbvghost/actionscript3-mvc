@@ -2,7 +2,6 @@
 {
 	import com.asvital.dev.Log;
 	import com.sanbeetle.Component;
-	import com.sanbeetle.component.IToolTip;
 	import com.sanbeetle.interfaces.IStage;
 	import com.sanbeetle.interfaces.ITimerRun;
 	import com.sanbeetle.interfaces.IUIComponent;
@@ -67,27 +66,15 @@
 			this.x = Math.round(xx);
 			this.y = Math.round(yy);
 
-			//this.gotoAndStop (2);
-			
-			//this.cacheAsBitmap =true;
+		
 			
 			this.scaleX = this.scaleY = 1;
 
-			//Console.out("components"+this.x,this.y);
-
-			//drawBorder (trueWidth,trueHeight);
-
-			//this.addEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);
 			
 			this.addEventListener (Event.ENTER_FRAME,onEnterFrameHandler);
 			
-			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);	
-			
-			
-			//itooltip = CacheDispaly.iTooltip;
-			
-			
-			//this.addEventListener(MouseEvent.RELEASE_OUTSIDE,onMouseRoolOutHandler);
+			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);			
+		
 
 		}
 		//private var mousePoint:Point=new Point;
@@ -139,7 +126,7 @@
 		{
 			_toolTip = value;
 			
-			if(value!=null && value!=""){
+			if(value!=null && value!="" && value!=" "){
 				this.addEventListener(MouseEvent.ROLL_OVER,onMouseRoolOverHandler);
 				this.addEventListener(MouseEvent.ROLL_OUT,onMouseRoolOutHandler);
 				//this.addEventListener(MouseEvent.MOUSE_OUT,onMouseRoolOutHandler);
