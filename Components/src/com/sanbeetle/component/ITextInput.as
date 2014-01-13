@@ -81,6 +81,7 @@
 		 */
 		public function get editManager():EditManager{
 			return this.textContainerManager.getTextFlow().interactionManager as EditManager;
+			
 		}
 		
 		override protected function onFlowOperationBedginHandler(event:FlowOperationEvent):void

@@ -56,6 +56,11 @@
 		 */
 		public static const FONT_LOADED:String="font_loaded";
 		
+		/**
+		 * 当组件执行 create 方法时，调度 
+		 */
+		public static const COMPONENT_CREATE_UI:String="component_create_ui";
+		
 		public var data:Object;
 				
 		public function ControlEvent(type:String,data:Object=null)

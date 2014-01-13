@@ -289,6 +289,7 @@
 				if(list.parent){
 					list.parent.removeChild(list);
 				}
+				list.cleanUp();
 				return;
 			}
 			
@@ -320,6 +321,7 @@
 				if(list.parent){
 					list.parent.removeChild(list);
 				}
+				list.cleanUp();
 			}		
 			
 		}
@@ -345,10 +347,11 @@
 		}		
 		override public function createUI ():void
 		{
-			this.addChild (cbbar);
+			this.addChild (cbbar);			
+			
 			list.setMinWidth(trueWidth);
-			//list.height = 100;
-			list.y = 4;			
+			list.y = 4;	
+			
 			updateUI ();
 		}
 		
@@ -360,6 +363,7 @@
 			
 			
 			list.setMaxHeight(_maxHeight);
+			
 			
 			//list.setMaxHeight(50);
 			

@@ -78,7 +78,7 @@
 		{
 			rightDO.x = stage.mouseX+10;
 			rightDO.y = stage.mouseY+10;
-			stage.addChild(rightDO);
+		
 			event.updateAfterEvent();
 		}
 		
@@ -86,7 +86,10 @@
 		{
 			
 			rightDO.visible =false;
-			this.addChild(rightDO);
+			if(rightDO.parent){
+				rightDO.parent.removeChild(rightDO);
+			}
+			
 		}
 		
 		protected function onMouseOverHandler(event:MouseEvent):void
@@ -95,6 +98,7 @@
 			
 			updateUI();
 			rightDO.visible =true;
+			stage.addChild(rightDO);
 			
 		}
 		[Inspectable(type = "Array",defaultValue = "red_card")]
@@ -122,7 +126,7 @@
 			rightDO.addChild(bg);
 			rightDO.visible = false;
 			
-			this.addChild(rightDO);
+			//this.addChild(rightDO);
 			
 			updateUI();
 		}

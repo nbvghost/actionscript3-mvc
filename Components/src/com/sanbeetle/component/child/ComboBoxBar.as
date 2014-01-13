@@ -83,14 +83,15 @@ package com.sanbeetle.component.child
 			var data:IFListItem = new SimpleCollectionItem(value.data.label,value.data.data);
 			data.enable  = true;
 			data.itemColor = this._fontColor;		
-			_displayItem.mouseEnabled = false;
-			_displayItem.mouseChildren = false;
 			_displayItem.data = data;
 			_displayItem.setSize(value.contentWidth,value.contentHeight,true);
 		//	Log.out(value.contentWidth,value.contentHeight);
 			this.addChild(_displayItem);
 			
 			_displayItem.listData = value.listData;
+			_displayItem.mouseEnabled = false;
+			_displayItem.mouseChildren = false;
+			_displayItem.buttonMode = false;
 			//_displayItem.data = value.data;
 			//_displayItem.setSize(value.contentWidth,value.contentHeight);			
 		//	Log.out(_displayItem,"555");
@@ -121,8 +122,7 @@ package com.sanbeetle.component.child
 			data.itemColor = _fontColor;
 			_displayItem.data = data;
 			
-			_displayItem.mouseEnabled = false;
-			_displayItem.mouseChildren = false;
+			
 			
 			_displayItem.listData =new ListData(_displayItem.data,0,-1,null);		
 			//this.addChild(_displayItem);			
@@ -205,10 +205,12 @@ package com.sanbeetle.component.child
 						
 						var btn:StateButton = new StateButton(btnUp,btnOver,btnDown);						
 						//btn.addEventListener (MouseEvent.CLICK,onMouseListHandler);	
+						btn.buttonMode = true;
 						this.addChild(btn);
 						
 						this.addChild(_displayItem);
 						
+						_displayItem.mouseEnabled = false;
 						
 						
 						
@@ -334,6 +336,7 @@ package com.sanbeetle.component.child
 				}			
 				
 			}			
+			
 		}
 		
 		/*public function get label():String
@@ -359,7 +362,9 @@ package com.sanbeetle.component.child
 				randFunc();
 			}
 			
-			
+			_displayItem.mouseEnabled = false;
+			_displayItem.mouseChildren = false;
+			_displayItem.buttonMode = false;
 			//_labelTxt.height = this.height;
 		}
 		override public function set height(value:Number):void

@@ -184,9 +184,14 @@
 		{
 			
 			maskmc.graphics.clear ();
-			maskmc.graphics.beginFill (0xff0000);
+			maskmc.graphics.beginFill (0xff0000,0);
 			maskmc.graphics.drawRect (0,0,-target.width,trueHeight);
 			maskmc.graphics.endFill ();
+			
+			rectBackGround.graphics.clear();
+			rectBackGround.graphics.beginFill(0xff0000,0);
+			rectBackGround.graphics.drawRect(0,0,target.width,trueHeight);
+			rectBackGround.graphics.endFill();
 			
 			target.y = this.y;
 			
@@ -223,6 +228,9 @@
 			
 			pin = this.trueHeight;
 			
+			
+			rectBackGround.x = target.x;
+			rectBackGround.y = target.y;			
 			
 		}
 		override protected function chackTargetXY ():void

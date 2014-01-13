@@ -156,8 +156,7 @@
 			if(ItemCellRenderClass !== value && value!=null){
 				ItemCellRenderClass = value;
 				isNewItemCellrender = true;
-				renderData();
-				this.updateUI();
+				this.upDisplayList();
 			}
 			
 		}
@@ -211,7 +210,7 @@
 		override public function createUI():void
 		{
 			//renderData();
-			updateUI();
+			//updateUI();
 		}
 		
 		
@@ -251,16 +250,16 @@
 		
 		override protected function onAddStage():void
 		{
-			// TODO Auto Generated method stub
+			
 			super.onAddStage();
-			this.upDisplayList();
+			//this.upDisplayList();
 		}
 		
 		override protected function onRemoveStage():void
 		{
-			// TODO Auto Generated method stub
+			
 			super.onRemoveStage();
-			this.clearn();
+			this.cleanUp();
 		}
 		
 		
@@ -300,13 +299,11 @@
 			}
 			
 		}		
-		private function clearn():void{
+		public function cleanUp():void{
 			var itemcellrenderer:ICellRenderer;
 			
-			var item:DisplayItem;
-			
-			//var ob:DisplayObject;
-			
+			var item:DisplayItem;			
+						
 			var cache:Object = CacheDispaly.cachePool;
 			
 			for(var o:int=0;o<itemArr.length;o++){
@@ -321,14 +318,13 @@
 						}
 						//item.removeFromStage();
 					}
+					item.setStage(false);
 					//如果是线的话，就删除了
-					if(item.data is LineCollectionItem){
+					if(item.data is LineCollectionItem){						
 						
-						//itemArr.splice(o,1);
-					}
-					//itemcellrenderer.removeFromStage();
-				}				
-				//content.removeChild(ICellRenderer(itemArr[o]).getItem() as DisplayObject);				
+					}					
+				}			
+						
 			}
 			itemArr.splice(0,itemArr.length);
 			item =null;
@@ -351,7 +347,7 @@
 			var itemcellrenderer:ICellRenderer;			
 			var item:DisplayItem;
 			
-			clearn();
+			cleanUp();
 			
 			
 			var h:Number=_paddingRect.top;
@@ -392,31 +388,7 @@
 					}else{
 						item = itemcellrenderer.createItem(itemData,listdata);
 						//Log.info("renderDatab",(getTimer()-t));
-					}
-					//itemcellrenderer.addFromStage();
-					//item.addFromStage();
-					/*if(isNewItemCellrender || itemcellrenderer==null){
-						itemcellrenderer =new ItemCellRenderClass();
-						if(itemcellrenderer==null){
-							Log.error("ItemCellRender 要实现 ICellRenderer 接口。");
-							return;
-						}						
-						
-						if(itemData is IFListItem){
-							listdata = new ListData(itemData.label,this._column,i);
-							item = itemcellrenderer.createItem(itemData,listdata);				
-						}else {					
-							Log.out("components"+itemData+" 不是相关类型的 IFListItem,List 的数据项必须是相关的 IFListItem 对象、 SimpleCollectionItem 类或是其子类。");
-							return;
-						}
-						isNewItemCellrender = false;
-					}else{
-						//itemcellrenderer = itemArr[i];						
-						listdata = new ListData(itemData.label,this._column,i);						
-						itemcellrenderer.upData(itemData,listdata);						
-						item = itemcellrenderer.getItem();				
-						
-					}	*/				
+					}								
 					
 					item.setSize(this.trueWidth-_paddingRect.right,item.contentHeight,_autoSize);
 					
@@ -427,6 +399,8 @@
 					item.x = _paddingRect.left;
 					
 					h =h+item.contentHeight;
+					
+					itemcellrenderer.setStage(true);
 					
 					content.addChild(item);
 					itemArr.push(itemcellrenderer);						
@@ -491,6 +465,9 @@
 			var dite:IDisplayItem;
 			var f:int=0;
 			
+		
+			
+			
 			if(_autoSize==false){
 				for(f=0;f<itemArr.length;f++){	
 					dite = ICellRenderer(itemArr[f]).getItem();
@@ -538,7 +515,7 @@
 			}
 			
 			
-			//Log.info("reDrawLayout",(getTimer()-t));
+			Log.info("reDrawLayout",(getTimer()-t));
 			
 		}		
 		override public function updateUI():void

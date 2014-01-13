@@ -37,6 +37,15 @@
 		public function ListChild() {
 			
 			
+			if(parnList==null){
+				parnList = new List(null);
+				parnList.autoSize =true;	
+				parnList.addEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
+				parnList.addEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);	
+				parnList.addEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
+				parnList.addEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);					
+				this._childList = parnList;
+			}
 		}
 		
 		public function get itemCellRenaderer():Class
@@ -63,26 +72,19 @@
 		
 		override protected function onAddStage():void
 		{
-			// TODO Auto Generated method stub
-			super.onAddStage();			
-			/*var rect:LocationRect = Utils.getBounds(this);
 			
-			if(rect.buttom<0){
-				//_childList.setMaxHeight(_maxHeight-rect.buttom);
-				var ite:int = _maxHeight +rect.buttom;
-				parnList.setMaxHeight(ite);
-			}		
-			trace(rect);*/
-			this.updateUI();
+			super.onAddStage();			
+			this.upDisplayList();
+			//this.updateUI();
 		}
 		
 		override protected function onRemoveStage():void
 		{
-			// TODO Auto Generated method stub
+			
 			super.onRemoveStage();
-		}
-		
-		
+			this.cleanUp();
+			
+		}		
 		public function set dataProvider(value:DataProvider):void
 		{
 			
@@ -94,7 +96,7 @@
 						_dataProvider.removeEventListener(DataChangeEvent.DATA_CHANGE,onDataChangeHadnler);					
 						_dataProvider.addEventListener(DataChangeEvent.DATA_CHANGE,onDataChangeHadnler);
 					}
-					this.upDisplayList();
+					
 					
 				}
 			}else{
@@ -103,20 +105,21 @@
 					_dataProvider.removeEventListener(DataChangeEvent.DATA_CHANGE,onDataChangeHadnler);				
 					
 				}
-				this.clear();				
+				this.cleanUp();				
 				_dataProvider =null;
 			}
 			
 		}
 		private var _minWidth:int = -1;
+		private var _maxHeight:int = -1;
 		public function setMinWidth(w:int=-1):void{
 			if(_minWidth != w){
 				_minWidth = w;				
-				this.updateUI();
+				//this.updateUI();
+				parnList.setMinWidth(this._minWidth);
 			}
 			
 		}
-		private var _maxHeight:int = -1;
 		public function setMaxHeight(h:int=-1):void{
 			if(_maxHeight != h){
 				_maxHeight = h;				
@@ -139,17 +142,17 @@
 		}
 		public function upDisplayList():void{
 			
-			if(parnList){
-				parnList.upDisplayList();
-			}			
 			this.updateUI();
+			/*if(parnList){
+			parnList.upDisplayList();
+			}	*/	
+			
 		}
 		public function get currentList():List
 		{
 			return _childList;
 		}		
-		
-		public function clear():void{
+		public function cleanUp():void{
 			var list:List;
 			for(var i:int=0;i<listArr.length;i++){
 				list = listArr[i];
@@ -157,11 +160,11 @@
 					if(list.parent){
 						list.parent.removeChild(list);
 					}					
+					list.cleanUp();
 					//list.removeFromStage();
 				}
 			}			
-			listArr.splice(0,listArr.length);
-			
+			listArr.splice(0,listArr.length);			
 			
 		}
 		private var isExtChild:Boolean = false;
@@ -210,7 +213,7 @@
 						
 						childList.x =list.listWidth+list.x;
 						childList.y = teee.y;
-						
+						childList.upDisplayList();
 						
 						childList.visible =true;
 						this.addChild(childList);	
@@ -321,19 +324,12 @@
 		override public function updateUI():void
 		{
 			//Log.out("b");
-			this.clear();
+			this.cleanUp();
 			
 			this.indexList =0;	
 			
-			if(parnList==null){
-				parnList = new List(null);
-				parnList.autoSize =true;	
-				parnList.addEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
-				parnList.addEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);	
-				parnList.addEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
-				parnList.addEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);					
-			}		
-					
+			
+			
 			
 			if(_maxHeight==-1){
 				_maxHeight=component.contentContainer.height;	
@@ -344,17 +340,24 @@
 			}
 			
 			parnList.setMaxHeight(_maxHeight);
-			parnList.setMinWidth(this._minWidth);
 			
 			
-			parnList.dataProvider = _dataProvider;		
+			
+			
+			
+			parnList.dataProvider = _dataProvider;
+			
+			this.addChild(parnList);
+			
+			parnList.upDisplayList();
 			
 			
 			parnList.ItemCellRender = _itemCellRenaderer;
 			parnList.column= indexList;		
-			parnList.name = String(indexList);
+			parnList.name = String(indexList);			
 			
-			this.addChild(parnList);
+			
+			
 			listArr.push(parnList);
 			
 			//Log.out(parnList.width,parnList.height,"listchild parent List");

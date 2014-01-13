@@ -376,6 +376,14 @@
 			
 			//Console.out("components"+btnlabel.width);
 			drawBorder(this.trueWidth,this.trueHeight);
+			
+			if(label=="" || label==null){
+				btnlabel.visible = false;
+				textMask.visible = false;
+			}else{
+				btnlabel.visible = true;
+				textMask.visible = true;
+			}
 		
 			//Log.out(btnlabel.width);
 		}

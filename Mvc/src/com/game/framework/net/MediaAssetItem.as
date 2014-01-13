@@ -15,7 +15,6 @@ package com.game.framework.net {
 	
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
-	import flash.geom.Point;
 	
 	/**
 	 * 
@@ -124,9 +123,9 @@ package com.game.framework.net {
 			
 			
 			Launcher.FW::launcher.registerMediator(mediator);
-				
 			
-		
+			
+			
 			createView.FW::setContentContainer(this,data as AssetItem);
 			
 			if(getDatainterface){
@@ -152,15 +151,14 @@ package com.game.framework.net {
 		protected function onEnterFrameHandler(event:Event):void
 		{
 			
-				this.removeEventListener(Event.ENTER_FRAME,onEnterFrameHandler);
-				notifyMediator();
-		
-		
+			this.removeEventListener(Event.ENTER_FRAME,onEnterFrameHandler);
+			notifyMediator();			
 			
 		}
 		protected function notifyMediator():void{
+			
+			
 			mediator.removeEventListener(AssetsEvent.COMPLETE_LOAD, onSkinLoadCompleteHandler);
-			this.getDatainterface.asssetAllComplete(this);		
 			
 			
 			
@@ -168,6 +166,9 @@ package com.game.framework.net {
 				notify = Mediator.INIT_NOTIFY;
 			}		
 			mediator.handerNotify(Mediator.INIT_TYPE,notify);
+			
+			this.getDatainterface.asssetAllComplete(this);
+			
 			
 			if(isINType){
 				onAddStageHandler(null);
@@ -204,7 +205,7 @@ package com.game.framework.net {
 				this.notifyType = null;
 				this.notify = null;	
 				this.getDatainterface.asssetComplete(this);
-				//this.getDatainterface.asssetAllComplete(this);		
+				this.getDatainterface.asssetAllComplete(this);		
 				return;
 			}
 			

@@ -90,6 +90,7 @@
 		override protected function drawLayout(cw:Number, ch:Number,autoLayOut:Boolean=false):void
 		{
 			
+			
 			this.addChild(bg);
 			this.addChild(label);
 			
@@ -113,7 +114,7 @@
 					chidlAroww.parent.removeChild(chidlAroww);
 				}
 			}
-			
+			this.graphics.clear();
 			
 			if(isLineAndDraw()){
 				this.bg.width = cw;
@@ -123,10 +124,10 @@
 				this.mouseEnabled = false;
 				
 			}else{
+				
 				this.mouseChildren = true;
 				this.mouseEnabled = true;
-				//this.mouseChildren = data.enable;
-				//this.mouseEnabled = data.enable;
+			
 				
 				if(data.enable==false){
 					this.bg.alpha = 0.3;
@@ -135,8 +136,6 @@
 					this.bg.alpha = 1;
 					label.alpha=1;
 				}
-				
-				
 				
 				if(autoLayOut){
 					label.autoBound = true;
@@ -153,12 +152,9 @@
 					this.bg.width = cw;
 					chidlAroww.x =bg.width-chidlAroww.width-10;
 					chidlAroww.y = (bg.height-chidlAroww.height)/2;				
-					this.label.width = cw-8;			
+					this.label.width = cw-8;
 					
-				}
-				
-				
-				
+				}				
 				label.y = (bg.height-label.height)/2;
 				
 			}			
@@ -235,6 +231,7 @@
 			}	
 			if(isLine==false){
 				bg.scaleY = 1;
+				//label.height=bg.height;
 			}
 			
 			return isLine;

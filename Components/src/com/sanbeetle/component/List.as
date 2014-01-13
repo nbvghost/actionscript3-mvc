@@ -57,9 +57,11 @@
 			ivbar = new IVScrollBar;
 			
 			//_maxHeight = this.component.getMaxListHeight();
-		
-			this.addChild(bg);			
+			
+			this.addChild(bg);		
+			this.addChild(content);
 			this.addChild(ivbar);
+			
 			
 			ivbar.source = this.content;
 			
@@ -72,18 +74,32 @@
 		{
 			return _listHeight;
 		}
-				
+		
 		public function get listWidth():int
 		{
 			return _listWidth;
 		}
-
 		
-
+		override public function upDisplayList():void
+		{
+			// TODO Auto Generated method stub
+			super.upDisplayList();
+			
+			if(ivbar){
+				ivbar.upDisplayList();
+			}
+			
+		}
+		
+		
+		
 		public function setMaxHeight(h:int=-1):void{
 			if(_maxHeight!=h){
 				_maxHeight = h;
 				this.updateUI();				
+			}
+			if(ivbar){
+				ivbar.upDisplayList();
 			}
 		}
 		public function get padding():LocationRect
@@ -96,11 +112,11 @@
 			_padding = value;
 		}
 		
-	/*	override public function createUI():void
+		/*	override public function createUI():void
 		{
-				
-			
-			updateUI();
+		
+		
+		updateUI();
 		}	*/
 		
 		override public function get height():Number
@@ -139,9 +155,9 @@
 		override public function updateUI():void
 		{	
 			
-					
+			
 			super.updateUI();
-				
+			
 			
 			//var rect:LocationRect = Utils.getBounds(this);
 			
@@ -164,7 +180,7 @@
 				}
 				
 			}
-					
+			
 			//ivbar.height = 50;
 			
 			ivbar.x = content.width+_padding.left;			
@@ -173,13 +189,11 @@
 			//ivbar.height = _maxHeight-_padding.top-_padding.buttom;
 			
 			this.setChildIndex(ivbar,0);
+			this.setChildIndex(this.content,0);
 			this.setChildIndex(bg,0);
 			
 			
 			
-			//ivbar.height = ivbar.height+rect.buttom;
-			//ivbar.upDisplayList();			
-		
 			
 			ivbar.upDisplayList();
 			
@@ -199,6 +213,8 @@
 			
 			_listHeight = bg.bg.height;
 			_listWidth = bg.bg.width;
+			
+			
 			
 			
 		}

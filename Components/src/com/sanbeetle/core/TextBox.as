@@ -160,6 +160,8 @@
 			textContainerManager = new ExtendsTextContainerManager(container,configuration);		
 			textContainerManager.hostFormat = _textLayoutFormat;		
 			
+			textContainerManager.setText(_text);
+			
 			
 			lineHeight = _lineHeight;
 			textContainerManager.editingMode = EditingMode.READ_ONLY;
@@ -1136,11 +1138,10 @@
 			}
 			
 			
-			//_textFlow.flowComposer.updateAllControllers();
+			//trace(container.height);
 			
-			textContainerManager.updateContainer();
 			
-			//trace(width);
+			textContainerManager.updateContainer();	
 			
 			
 		}	

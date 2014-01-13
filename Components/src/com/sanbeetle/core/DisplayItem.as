@@ -5,7 +5,6 @@ package com.sanbeetle.core
 	import com.sanbeetle.interfaces.IFListItem;
 	
 	import flash.display.Sprite;
-	import flash.events.Event;
 	
 	public class DisplayItem extends Sprite implements IDisplayItem
 	{
@@ -21,30 +20,20 @@ package com.sanbeetle.core
 		public function DisplayItem()
 		{
 			super();
-			this.addEventListener(Event.ADDED_TO_STAGE,onStageHandler);
-		}
-		
-		private function onStageHandler(event:Event):void
-		{
-			this.removeEventListener(Event.ADDED_TO_STAGE,onStageHandler);
-			this.addEventListener(Event.REMOVED_FROM_STAGE,onremoveStageHandler);
-			isInstage = true;
-			//trace("on stage");
-		}		
-		
-		private function onremoveStageHandler(event:Event):void
-		{
-			this.addEventListener(Event.ADDED_TO_STAGE,onStageHandler);
-			this.removeEventListener(Event.REMOVED_FROM_STAGE,onremoveStageHandler);
-			isInstage = false;
-			//trace("remove stage");
-		}
-		
-		public function get inStage():Boolean
-		{
-			return isInstage;
 			
 		}		
+		public function get haveStage():Boolean
+		{
+			// TODO Auto Generated method stub
+			return isInstage;
+		}
+		
+		public function setStage(value:Boolean):void
+		{
+			// TODO Auto Generated method stub
+			isInstage = value;
+		}	
+		
 		public function get data():IFListItem
 		{
 			return _data;

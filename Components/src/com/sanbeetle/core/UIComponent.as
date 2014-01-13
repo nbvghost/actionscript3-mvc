@@ -2,6 +2,7 @@
 {
 	import com.asvital.dev.Log;
 	import com.sanbeetle.Component;
+	import com.sanbeetle.events.ControlEvent;
 	import com.sanbeetle.interfaces.IStage;
 	import com.sanbeetle.interfaces.ITimerRun;
 	import com.sanbeetle.interfaces.IUIComponent;
@@ -12,6 +13,7 @@
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 
+	[Event(name="component_create_ui", type="com.sanbeetle.events.ControlEvent")]
 
 	/**
 	 *
@@ -77,6 +79,8 @@
 		
 
 		}
+		
+		
 		//private var mousePoint:Point=new Point;
 		public function timerRun(event:TimerEvent):void
 		{
@@ -152,14 +156,14 @@
 		
 		private function onAddStageHandler(event:Event):void
 		{
-			
+			isInstage = true;
 			
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.addEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);	
 			
 			this.onAddStage();
 			
-			//Log.out("add stage");
+			
 			
 		}
 		[Inspectable(defaultValue=1)]
@@ -169,13 +173,21 @@
 			return super.alpha;
 		}
 		
-		
-		
-		public function get inStage():Boolean
+		public function get haveStage():Boolean
 		{
 			// TODO Auto Generated method stub
 			return isInstage;
-		}		
+		}
+		
+		public function setStage(value:Boolean):void
+		{
+			// TODO Auto Generated method stub
+			isInstage = value;
+		}
+		
+		
+		
+		
 		
 		override public function set alpha(value:Number):void
 		{
@@ -184,10 +196,11 @@
 		}				
 		private function onRemoveStageHandler(event:Event):void
 		{		
+			isInstage = false;
 			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);
 			this.onRemoveStage();
-			this.dispose();				
+			this.dispose();			
 			//Log.out("remove stage");
 		}		
 		protected function onRemoveStage():void{
@@ -329,6 +342,7 @@
 		{
 			this.removeEventListener (Event.ADDED_TO_STAGE,stageHaveHandler);
 			createUI ();
+			this.dispatchEvent(new ControlEvent(ControlEvent.COMPONENT_CREATE_UI));
 			onStageHandler (event);
 		}
 		/**

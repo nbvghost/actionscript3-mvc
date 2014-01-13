@@ -9,6 +9,7 @@
 	import flash.display.DisplayObjectContainer;
 	import flash.display.InteractiveObject;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	
 	[Event(name="change", type="com.sanbeetle.events.ControlEvent")]
 	
@@ -32,7 +33,7 @@
 			list =new ListChild();
 			list.addEventListener(ControlEvent.CHANGE,onChangeHandler);
 			list.addEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);
-			this.addChild(list);
+			
 		}
 		
 		protected function onItemRendererHandler(event:ControlEvent):void
@@ -42,13 +43,14 @@
 			
 		}
 		private function hide():void{
-			if(parentDisp.contains(this)){
-				parentDisp.removeChild(this);
-				
-				if(parentDisp.stage){
-					parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
-				}
+			/*if(parentDisp.contains(this)){
+			parentDisp.removeChild(this);
+			
+			if(parentDisp.stage){
+			parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
 			}
+			}*/
+			stage.removeChild(list);
 		}
 		protected function onChangeHandler(event:ControlEvent):void
 		{
@@ -61,13 +63,13 @@
 		{
 			return _dataProvider;
 		}
-
+		
 		public function set dataProvider(value:DataProvider):void
 		{
 			_dataProvider = value;
 			list.dataProvider = _dataProvider;
 		}
-
+		
 		[Inspectable(defaultValue="target")]
 		public function get targetName():String
 		{
@@ -82,46 +84,68 @@
 			}						
 		}
 		
-		private var parentDisp:DisplayObjectContainer;
+		
 		override public function createUI():void
 		{
-			parentDisp = this.parent;			
 			
-			if(parentDisp){
-				this.targetDisplay  = parentDisp.getChildByName(_targetName) as InteractiveObject;				
-				//Log.out(targetDisplay);
-				if(targetDisplay){
-					this.x = targetDisplay.x;
-					this.y = targetDisplay.y+targetDisplay.height;
-					//this.visible=false;					
-					parentDisp.removeChild(this);
-					list.setMinWidth(targetDisplay.width+15);
-					list.setMaxHeight(300);
-					targetDisplay.addEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
-				}else{
-					Log.out(" 没有找到 "+_targetName+" 实例！");
-				}
+			
+			if(this.parent==null){
+				return;
 			}
+			this.targetDisplay  = this.parent.getChildByName(_targetName) as InteractiveObject;				
+			//Log.out(targetDisplay);
+			if(targetDisplay){
+				//this.x = targetDisplay.x;
+				//this.y = targetDisplay.y+targetDisplay.height;
+				
+				var point:Point = this.parent.localToGlobal(new Point(targetDisplay.x,targetDisplay.y+targetDisplay.height));
+				
+				list.x = point.x;
+				list.y = point.y;
+				
+				//this.visible=false;					
+				//parentDisp.removeChild(this);
+				list.setMinWidth(targetDisplay.width+25);
+				list.setMaxHeight(300);
+				targetDisplay.addEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
+			}else{
+				Log.out(" 没有找到 "+_targetName+" 实例！");
+			}
+			
 			
 		}
 		
 		protected function onTargetDownHandler(event:MouseEvent):void
 		{	
 			
-			parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
-			if(parentDisp.contains(this)){
-				
-				parentDisp.removeChild(this);
-				
-				//parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
+			if(stage.contains(list)){
+				stage.removeChild(list);
+				stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
 			}else{
-				this.x = targetDisplay.x;
-				this.y = targetDisplay.y+targetDisplay.height;
-				parentDisp.addChild(this);
-				//this.visible=true;				
-				parentDisp.stage.addEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
 				
+				var point:Point = this.parent.localToGlobal(new Point(targetDisplay.x,targetDisplay.y+targetDisplay.height));
+				
+				list.x = point.x;
+				list.y = point.y;
+				stage.addChild(list);
+				stage.addEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
 			}
+			
+			
+			/*parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
+			if(parentDisp.contains(this)){
+			
+			parentDisp.removeChild(this);
+			
+			//parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
+			}else{
+			this.x = targetDisplay.x;
+			this.y = targetDisplay.y+targetDisplay.height;
+			parentDisp.addChild(this);
+			//this.visible=true;				
+			parentDisp.stage.addEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
+			
+			}*/
 			
 			
 			
@@ -129,17 +153,22 @@
 		
 		protected function onMouseUphandler(event:MouseEvent):void
 		{
+			
 			if(!Utils.isChild(this,event.target as DisplayObject) && !Utils.isChild(targetDisplay,event.target as DisplayObject)){
-				if(parentDisp.contains(this)){
-					parentDisp.removeChild(this);
-					
-					if(parentDisp.stage){
-						parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
-					}
+				/*if(parentDisp.contains(this)){
+				parentDisp.removeChild(this);
+				
+				if(parentDisp.stage){
+				parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
 				}
+				}*/
+				if(stage.contains(list)){
+					
+					stage.removeChild(list);
+				}
+				stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
 			}			
-			//Log.out(Utils.isChild(this,event.target as DisplayObject));
-			//Log.out(event.target,event.currentTarget);
+			
 		}
 	}
 	

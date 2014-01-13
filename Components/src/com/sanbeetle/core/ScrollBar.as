@@ -24,6 +24,7 @@
 		public var bg:MovieClip;
 		
 		protected var maskmc:Shape;
+		protected var rectBackGround:Sprite;
 		protected var target:DisplayObjectContainer;		
 		protected var _source:Object="target";
 		
@@ -44,6 +45,7 @@
 		{		
 			super();	
 			maskmc = new Shape();
+			rectBackGround=new Sprite();
 			
 			//maskmc.cacheAsBitmap =true;
 			//targetMouse.cacheAsBitmap=true;
@@ -97,6 +99,8 @@
 			source = this._source;
 			
 			
+			this.parent.addChildAt(rectBackGround,0);
+			this.setBackGroundIndex();
 			
 			this.addChild(bg);
 			this.addChild(s_left);
@@ -132,34 +136,78 @@
 		protected function moveXY(firstX:int,firstY:int):void{
 			
 		}	
+		private var _enableDarg:Boolean = true;
+		public function enableDarg(value:Boolean):void{
+			
+			_enableDarg =value;
+			
+			this.upDisplayList();
+		}
 		private function createTarget():void{
 			
 			//Console.out("components"+"components"+"dsfdsfdsf:"+target);
 			if(target!=null){
+				
+				if(this._enableDarg){
+					target.addEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);				
+					rectBackGround.addEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);	
+				}else{
+					target.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);				
+					rectBackGround.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
+				}
+				
 				target.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 				this.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
-				target.addEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);		
+				rectBackGround.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
+				
+				
 				
 				addChild(maskmc);				
-				
 				drawMask();	
 			}		
 			
 		}
+		
+		override protected function onAddStage():void
+		{
+			
+			setBackGroundIndex();
+		}
+		
+		private function setBackGroundIndex():void{
+			var index:int = 0;
+			if(this.target){
+				if(this.target.parent){
+					
+					if(this.parent && rectBackGround.parent){
+						//this.parent.setChildIndex(rectBackGround,this.target.parent.getChildIndex(this.target));
+						index = this.target.parent.getChildIndex(this.target)-1;
+						if((index)<0){
+							index=0;
+						}
+						this.parent.setChildIndex(rectBackGround,index);
+					}					
+				}
+			}
+		}
+		
 		public function upDisplayList():void{
-			disopose();
-			//Console.out("components"+"components"+"更新目标！");
+			disopose();	
 			createTarget();
-			updateUI();			
+			updateUI();		
+			
+			setBackGroundIndex();
 			
 		}		
 		protected function disopose():void{
 			if(target!=null){
 				target.removeEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 				target.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
+				
+				rectBackGround.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
 			}			
 			this.removeEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
-			
+			rectBackGround.removeEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 		}
 		protected function scrollBarPosition(value:Number):void{
 			//Log.out(value);

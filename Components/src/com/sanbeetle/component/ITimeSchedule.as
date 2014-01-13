@@ -4,7 +4,6 @@
 	import com.sanbeetle.component.child.ITimeScheduleSkin;
 	import com.sanbeetle.core.FixedUIComponent;
 	import com.sanbeetle.events.ControlEvent;
-	import com.sanbeetle.interfaces.ITimerRun;
 	import com.sanbeetle.utils.TimerRun;
 	import com.sanbeetle.utils.Utils;
 	

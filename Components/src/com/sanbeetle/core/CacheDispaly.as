@@ -54,7 +54,7 @@ package com.sanbeetle.core
 				
 				for(var i:int=seachIndex;i<arr.length;i++){
 					ite = arr[i] as IStage;
-					if(ite.inStage==false){
+					if(ite.haveStage==false){
 						//seachIndex= i;
 						return ite;
 					}else{

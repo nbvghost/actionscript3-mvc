@@ -22,16 +22,15 @@ package com.sanbeetle.renderer
 			
 		}	
 		
-		public function get inStage():Boolean
-		{
+		public function get haveStage():Boolean
+		{			
+			return item.haveStage;
+		}
 		
-			if(item.inStage){
-				return true;
-			}else{
-				return false;
-			}			
+		public function setStage(value:Boolean):void
+		{			
+			item.setStage(value);
 		}		
-		
 		public function createItem(itemData:IFListItem, listData:ListData):DisplayItem
 		{
 			

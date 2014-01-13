@@ -5,11 +5,13 @@
 	import flashx.textLayout.edit.EditManager;
 	import flashx.textLayout.edit.EditingMode;
 	import flashx.textLayout.edit.ISelectionManager;
+	import flashx.textLayout.edit.SelectionState;
+	import flashx.textLayout.elements.InlineGraphicElement;
 	import flashx.textLayout.elements.InlineGraphicElementStatus;
 	import flashx.textLayout.events.FlowElementMouseEvent;
 	import flashx.textLayout.events.StatusChangeEvent;
 	
-	
+	[Event(name="inlineGraphicStatusChange", type="flashx.textLayout.events.StatusChangeEvent")]
 	public class IRichText extends TextBox {
 	
 	
@@ -25,7 +27,14 @@
 		{
 			return _enableEdit;
 		}
-		
+		/**
+		 * 可编辑管理器 
+		 * @return 
+		 * 
+		 */
+		public function get editManager():EditManager{
+			return this.textContainerManager.getTextFlow().interactionManager as EditManager;
+		}
 		public function set enableEdit(value:Boolean):void
 		{
 			if(_enableEdit!=value){
@@ -89,6 +98,7 @@
 				textContainerManager.updateContainer();
 			}
 			
+			this.dispatchEvent(new StatusChangeEvent(e.type,e.bubbles,e.cancelable,e.element,e.status,e.errorEvent));
 			//_textFlow.removeEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,graphicStatusChangeEvent);
 		}
 		
@@ -122,26 +132,20 @@
 		}		
 		
 		
-		public function addImage(url:Object,w:int=20,h:int=20):void{
+		public function addImage(url:Object,w:int=20,h:int=20,options:Object=null,operationState:SelectionState=null):InlineGraphicElement{
 			
 			var em:EditManager = textContainerManager.getTextFlow().interactionManager as EditManager;
 			
-			//trace(_textFlow.interactionManager);
-			//var img:InlineGraphicElement = new InlineGraphicElement();
-			//img.source = url;
-			//img.width = w;
-			//img.height = h;			
-			//_textFlow.addChild(img);
-			//p.addChild(img);
-			//trace(_textFlow.getParagraph());
+			
+			var returnob:InlineGraphicElement;
 			if(em){
-				em.insertInlineGraphic(url,w,h);	
 				textContainerManager.addEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,graphicStatusChangeEvent);
-				textContainerManager.addEventListener("inlineGraphicStatusChanged",graphicStatusChangeEvent);
+				returnob=em.insertInlineGraphic(url,w,h);	
+				//textContainerManager.addEventListener("inlineGraphicStatusChanged",graphicStatusChangeEvent);
 				//_textFlow.flowComposer.updateAllControllers();
 				this.updateUI();
 			}
-			
+			return returnob;
 			
 			
 			

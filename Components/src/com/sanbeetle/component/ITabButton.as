@@ -1,11 +1,8 @@
 ﻿package com.sanbeetle.component
 {
-	import com.asvital.dev.Log;
 	import com.sanbeetle.component.child.ExtendButton;
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.DataProvider;
-	import com.sanbeetle.data.ListChildItem;
-	import com.sanbeetle.data.SimpleCollectionItem;
 	import com.sanbeetle.events.ChangeIndexEvent;
 	import com.sanbeetle.events.ControlEvent;
 	import com.sanbeetle.skin.TabButton_left_down_gray;
@@ -136,8 +133,11 @@
 		
 		protected function onListChangeHandler(event:ControlEvent):void
 		{
-			this.list.clear();
+			this.list.cleanUp();
 			this.list.visible =false;
+			if(list.parent){
+				list.parent.removeChild(list);
+			}
 			
 			this.dispatchEvent(new ControlEvent(event.type,event.data));
 		}
@@ -224,23 +224,23 @@
 		private function showList(current:ExtendButton):void
 		{
 			if(list){
+				list.cleanUp();
+				list.visible =false;
 				if(list.parent){
 					list.parent.removeChild(list);
+					list.setMinWidth(trueWidth);
+					list.cleanUp();
 				}
 			}
 			
 			if(_childData==null){
-				return;
-			}else{
-				this.list.clear();
-				this.list.visible =false;		
 				
+				return;
 			}
+			
 			var dataProvider:DataProvider =_childData[current.index];	
 			
 			if(dataProvider==null){
-				this.list.clear();
-				this.list.visible =false;
 				
 				return;
 			}	
@@ -260,7 +260,7 @@
 		
 			list.y = current.height+4;
 			list.x = current.x;
-			this.addChild(list);
+			//this.addChild(list);
 			var cu:Point = this.localToGlobal(new Point(list.x,list.y));
 			list.x = cu.x;
 			list.y = cu.y;
@@ -310,8 +310,11 @@
 				}			
 			}
 			
-			this.list.clear();
+			this.list.cleanUp();
 			list.visible =false;
+			if(list.parent){
+				list.parent.removeChild(list);
+			}
 			
 			if(stage){
 				stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);

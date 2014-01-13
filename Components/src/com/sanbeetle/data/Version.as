@@ -3,7 +3,7 @@ package com.sanbeetle.data
 	public class Version
 	{
 		private var _name:String="性能优化";
-		private var _code:uint=27;
+		private var _code:uint=35;
 		
 		public function Version()
 		{

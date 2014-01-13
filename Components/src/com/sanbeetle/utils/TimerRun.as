@@ -40,7 +40,10 @@ package com.sanbeetle.utils
 			}
 		}
 		public function addRun(target:ITimerRun):void{
-			timerArr.push(target);
+			if(timerArr.indexOf(target)==-1){
+				
+				timerArr.push(target);
+			}
 			if(timerArr.length==1){
 				timer.reset();
 				timer.start();
@@ -49,7 +52,10 @@ package com.sanbeetle.utils
 		public function removeRun(target:ITimerRun):void{
 			var index:int = timerArr.indexOf(target);
 			
-			timerArr.splice(index,1);			
+			if(index!=-1){
+				timerArr.splice(index,1);			
+				
+			}
 			if(timerArr.length==0){
 				timer.stop();
 			}

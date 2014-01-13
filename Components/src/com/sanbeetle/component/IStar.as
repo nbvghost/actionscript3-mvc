@@ -13,9 +13,26 @@
 		
 		private var arrr:Array = new Array();
 		
+		private var _startOrientation:String="left";
+		
+		public static const left_orientation:String="left";
+		public static const right_orientation:String="right";
+		
 		public function IStar() {
 			
 		}
+		[Inspectable(enumeration = "left,right",defaultValue ="left")]
+		public function get startOrientation():String
+		{
+			return _startOrientation;
+		}
+		
+		public function set startOrientation(value:String):void
+		{
+			_startOrientation = value;
+			createStar();
+		}
+		
 		[Inspectable(defaultValue =false)]	
 		public function get isShowCurrent():Boolean
 		{
@@ -61,15 +78,41 @@
 			//timetr.start();
 			createStar();
 			
-		}		
+			if(skin){
+				
+				this.drawBorder(stCount*skin.width,skin.height);
+			}
+			
+		}	
+		private function changeX(xx:Number):Number{
+			if(_startOrientation==IStar.left_orientation){
+				
+				return xx;
+			}else{
+				return -xx;
+			}
+		}
+		
+		override protected function onAddStage():void
+		{
+			// TODO Auto Generated method stub
+			super.onAddStage();
+			if(skin){
+				
+				this.drawBorder(stCount*skin.width,skin.height);
+			}
+		}
+		
 		/*protected function onsdfs(event:TimerEvent):void
 		{
-			_total = int(Math.random()*10);
-			_current = int(Math.random()*_total);
-			
-			Console.out("components"+_current,_total);
-			createStar();
+		_total = int(Math.random()*10);
+		_current = int(Math.random()*_total);
+		
+		Console.out("components"+_current,_total);
+		createStar();
 		}*/
+		private var stCount:int =0;
+		private var skin:IStarSkin;
 		private function createStar():void{
 			
 			var i:int=0;
@@ -86,34 +129,36 @@
 				this.graphics.drawRect(4,this.trueHeight/2,this.trueWidth-4,1);
 				this.graphics.endFill();
 				
-				
+				this.drawBorder(this.width,this.height);
 				return;
 			}else{
 				this.graphics.clear();
 			}
 			
-			var skin:IStarSkin;
+			
 			var hi:int =0;	
+			stCount =0;
 			
 			if(_isShowCurrent==false){
 				for(i=0;i<int(_total);i++){					
 					
 					skin = new IStarSkin();
-					skin.x = (skin.width+1)*i;
+					skin.x = changeX((skin.width+1)*i);
 					skin.gotoAndStop(1);
 					this.addChild(skin);
 					arrr.push(skin);
-							
+					stCount++;
 					
 				}
 				if((_total%1)>0){
 					skin = new IStarSkin();
-					skin.x = (skin.width+1)*i;
+					skin.x = changeX((skin.width+1)*i);
 					skin.gotoAndStop(4);
 					this.addChild(skin);
 					arrr.push(skin);
+					stCount++;
 				}
-				
+				this.drawBorder(this.width,this.height);
 				return;
 			}
 			
@@ -122,17 +167,19 @@
 				
 				if(int(_current)>i){
 					skin = new IStarSkin();
-					skin.x = (skin.width+1)*i;
+					skin.x = changeX((skin.width+1)*i);
 					skin.gotoAndStop(1);
 					this.addChild(skin);
 					arrr.push(skin);
+					stCount++;
 					hi =i;
 				}else{
 					skin = new IStarSkin();
-					skin.x =(skin.width+1)*i;
+					skin.x =changeX((skin.width+1)*i);
 					skin.gotoAndStop(3);
 					this.addChild(skin);
 					arrr.push(skin);
+					stCount++;
 				}
 				
 			}
@@ -142,7 +189,7 @@
 				
 				
 				skin = new IStarSkin();
-				skin.x = (skin.width+1)*i;
+				skin.x = changeX((skin.width+1)*i);
 				if(_current>_total){
 					skin.gotoAndStop(4);
 				}else{
@@ -150,31 +197,37 @@
 				}
 				
 				this.addChild(skin);
+				stCount++;
 				arrr.push(skin);
 			}
 			
 			if(_current>0 && _current<1){
 				skin = new IStarSkin();
-				skin.x = skin.width*0;
+				skin.x = changeX(skin.width*0);
 				skin.gotoAndStop(4);
 				this.addChild(skin);
+				stCount++;
 				arrr.push(skin);
 			}else{
 				
 				if((_current%1)>0){
 					skin = new IStarSkin();
 					if(_current>_total){
-						skin.x = skin.width*0;
+						skin.x = changeX(skin.width*0);
 					}else{
-						skin.x = (skin.width+1)*(hi+1);
+						skin.x = changeX((skin.width+1)*(hi+1));
 					}					
 					skin.gotoAndStop(4);
 					this.addChild(skin);
+					stCount++;
 					arrr.push(skin);
 				}
 				
 			}		
+			if(skin){
 			
+				this.drawBorder(stCount*skin.width,skin.height);
+			}
 			
 		}
 		

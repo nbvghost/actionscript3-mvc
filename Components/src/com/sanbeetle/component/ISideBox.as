@@ -143,6 +143,9 @@
 			stage.addEventListener(MouseEvent.MOUSE_UP,onStageUpHandler);
 			resetPoint();
 			
+			
+			
+			this.sideBoxSkin.upDisplayList();
 			updateUI();
 		}
 		
