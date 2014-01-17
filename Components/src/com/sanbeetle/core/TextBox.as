@@ -9,7 +9,6 @@
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import flash.events.TextEvent;
 	import flash.geom.Rectangle;
 	import flash.net.URLVariables;
@@ -22,7 +21,6 @@
 	import flash.utils.ByteArray;
 	import flash.utils.getTimer;
 	
-	import flashx.textLayout.container.TextContainerManager;
 	import flashx.textLayout.conversion.ConversionType;
 	import flashx.textLayout.conversion.TextConverter;
 	import flashx.textLayout.edit.EditManager;
@@ -149,7 +147,7 @@
 			_textLayoutFormat.lineBreak = LineBreak.EXPLICIT;
 			
 			
-		
+			
 			container= new Sprite();	
 			
 			
@@ -169,7 +167,7 @@
 			addTextFlowEvent();			
 			
 		}		
-	
+		
 		
 		public function get textLayoutFormat():TextLayoutFormat
 		{
@@ -255,20 +253,22 @@
 		}
 		public function setFocus():void{
 			if(textContainerManager.getTextFlow().interactionManager){
+				
 				textContainerManager.getTextFlow().interactionManager.setFocus();
+				textContainerManager.getTextFlow().interactionManager.flushPendingOperations();
 			}	
 			
 		}
 		protected function addTextFlowEvent():void{
+			
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_BEGIN,onFlowOperationBedginHandler);
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_COMPLETE,onFlowOperationCompleteHandler);
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_END,onFlowOperationEndHandler);
 			textContainerManager.addEventListener(FlowElementMouseEvent.MOUSE_DOWN,onFlowElementMouseDownHandler);			
-			textContainerManager.addEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
-			textContainerManager.addEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
-			textContainerManager.addEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
 			
-			
+			textContainerManager.getTextFlow().addEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
+			textContainerManager.getTextFlow().addEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
+			textContainerManager.getTextFlow().addEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
 			
 		}	
 		
@@ -279,15 +279,16 @@
 			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_COMPLETE,onFlowOperationCompleteHandler);
 			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_END,onFlowOperationEndHandler);			
 			textContainerManager.removeEventListener(FlowElementMouseEvent.MOUSE_DOWN,onFlowElementMouseDownHandler);			
-			textContainerManager.removeEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
-			textContainerManager.removeEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
-			textContainerManager.removeEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
+			
+			textContainerManager.getTextFlow().removeEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
+			textContainerManager.getTextFlow().removeEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
+			textContainerManager.getTextFlow().removeEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
 			
 			
 		}		
 		protected function onFlowElementOverHandler(event:FlowElementMouseEvent):void
 		{
-		
+			
 			var lin:LinkElement = event.flowElement as LinkElement;
 			if(lin){
 				
@@ -617,10 +618,15 @@
 				}
 				
 				
-				this.dispatchEvent(new ControlEvent(eventType,_currentLinkData));
+				
 			}else{
-				this.dispatchEvent(new ControlEvent(eventType,new URLVariables()));
-			}		
+				_currentLinkData.parameters = new URLVariables();
+			}
+			
+				
+			this.dispatchEvent(new ControlEvent(eventType,_currentLinkData));
+			
+			
 		}
 		private var _regExp:RegExp;
 		protected function onFlowOperationCompleteHandler(event:FlowOperationEvent):void
@@ -1081,13 +1087,17 @@
 		
 		private function changeCCSize(w:Number,h:Number):void{
 			
+			
 			if(ccw!=w || cch!=h){
 				ccw=w;
 				cch=h;
-				//cc.setCompositionSize(w,h);
+				
 				textContainerManager.compositionWidth =w;
 				textContainerManager.compositionHeight = h;
-				textContainerManager.compose();
+				if(textContainerManager.isDamaged()){
+					
+					textContainerManager.compose();
+				}
 			}
 			
 		}
@@ -1096,11 +1106,14 @@
 		{
 			
 			
+			//var t:Number = getTimer();
+			
 			textContainerManager.hostFormat = _textLayoutFormat;
 			
-			//var rect:Rectangle  = cc.getContentBounds();	
+			
 			var rect:Rectangle  = textContainerManager.getContentBounds();
 			
+			var containerRect:Rectangle = new Rectangle();
 			
 			
 			if(_autoBound){
@@ -1109,24 +1122,36 @@
 				}else{
 					changeCCSize(NaN,NaN);
 				}				
-				//_textFlow.flowComposer.updateAllControllers();
+				
+				
 				textContainerManager.updateContainer();
+				//trace("text updata:",getTimer()-t);
 				rect  = textContainerManager.getContentBounds();	
-				changeCCSize(rect.width,NaN);
+				changeCCSize(rect.width,NaN);		
 				textContainerManager.updateContainer();
-				container.graphics.clear();
-				container.graphics.beginFill(0x00ff00,0);
-				container.graphics.drawRect(0,0,rect.width,rect.height);
-				container.graphics.endFill();				
-				drawBorder(rect.width,rect.height);
+				
+				containerRect.x = 0;
+				containerRect.y = 0;
+				containerRect.width = rect.width;
+				containerRect.height = rect.height;
+				
+				
 			}else{
 				changeCCSize(this.trueWidth,this.trueHeight);
-				container.graphics.clear();
-				container.graphics.beginFill(0x00ff00,0);
-				container.graphics.drawRect(0,0,trueWidth,trueHeight);
-				container.graphics.endFill();				
-				drawBorder(trueWidth,trueHeight);	
+				
+				containerRect.x = 0;
+				containerRect.y = 0;
+				containerRect.width = trueWidth;
+				containerRect.height = trueHeight;
+				
+				
 			}
+			
+			container.graphics.clear();
+			container.graphics.beginFill(0x00ff00,0);
+			container.graphics.drawRect(containerRect.x,containerRect.y,containerRect.width,containerRect.height);
+			container.graphics.endFill();				
+			drawBorder(containerRect.width,containerRect.height);
 			
 			
 			if(this._dropShadow){
@@ -1136,10 +1161,6 @@
 				container.cacheAsBitmap =false;
 				container.filters=null;
 			}
-			
-			
-			//trace(container.height);
-			
 			
 			textContainerManager.updateContainer();	
 			

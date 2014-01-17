@@ -61,7 +61,8 @@ package com.game.framework.net {
 		{
 			
 			if(mediator){
-				mediator.handerNotify(Mediator.IN_TYPE,null);
+				//mediator.handerNotify(Mediator.IN_TYPE,null);
+				mediator.push(Mediator.IN_TYPE,null);
 			}else{
 				isINType =true;
 			}
@@ -70,7 +71,8 @@ package com.game.framework.net {
 		{
 			
 			if(mediator){
-				mediator.handerNotify(Mediator.OUT_TYPE,null);
+				//mediator.handerNotify(Mediator.OUT_TYPE,null);
+				mediator.push(Mediator.OUT_TYPE,null);
 			}			
 			
 		}
@@ -100,7 +102,9 @@ package com.game.framework.net {
 			}
 			var url:IURL = swfFile.getSkinURL;
 			
-			
+			if(skinLoader!=null){
+				return;
+			}
 			skinLoader = new SkinLoader(url);
 			
 			var assite:AssetsData = new AssetsData();
@@ -132,6 +136,17 @@ package com.game.framework.net {
 				this.getDatainterface.asssetComplete(this);					
 			}		
 			
+			
+			//-----------start----解决多必加载的问题。------
+			if (this.notify == null) {
+				notify = Mediator.INIT_NOTIFY;
+				//trace("-dsfdsf----------------ss------------------");
+			}		
+			//mediator.handerNotify(Mediator.INIT_TYPE,notify);
+			mediator.push(Mediator.INIT_TYPE,notify);
+			//-------------end----------
+			
+			
 			_isinitView = true;
 			_isLoadSuccess = true;
 		}
@@ -160,12 +175,6 @@ package com.game.framework.net {
 			
 			mediator.removeEventListener(AssetsEvent.COMPLETE_LOAD, onSkinLoadCompleteHandler);
 			
-			
-			
-			if (this.notify == null) {
-				notify = Mediator.INIT_NOTIFY;
-			}		
-			mediator.handerNotify(Mediator.INIT_TYPE,notify);
 			
 			this.getDatainterface.asssetAllComplete(this);
 			
@@ -200,7 +209,9 @@ package com.game.framework.net {
 					notify = Mediator.RE_INIT_NOTIFY;
 				}
 				mediator.FW::isdissolve = false;
-				mediator.handerNotify(Mediator.RE_INIT_TYPE, notify);		
+				//mediator.handerNotify(Mediator.RE_INIT_TYPE, notify);	
+				mediator.push(Mediator.RE_INIT_TYPE,notify);
+				
 				
 				this.notifyType = null;
 				this.notify = null;	
@@ -246,6 +257,11 @@ package com.game.framework.net {
 			
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);
+			
+			mediator=null;
+			skinLoader =null;
+			swfFile=null;
+			createView=null;
 		}
 		
 		

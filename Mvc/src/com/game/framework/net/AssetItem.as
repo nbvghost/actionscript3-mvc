@@ -138,15 +138,6 @@ package com.game.framework.net {
 		}
 		
 		public function dispose():void {
-			this.removeChildren();
-			
-			if (this.parent != null) {
-				this.parent.removeChild(this);
-				//Log.out(this.parent,this.parent.contains(this));
-				
-			}
-			_datainterface = null;
-			_content = null;
 			
 			if(loader){
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteHandler);
@@ -160,8 +151,24 @@ package com.game.framework.net {
 					//Log.out(e.getStackTrace());
 				}
 				loader.unloadAndStop();
+				loader.unload();
 				loader = null;
 			}
+						
+			this.removeChildren();
+			
+			
+			
+			
+			if (this.parent != null) {
+				this.parent.removeChild(this);
+				//Log.out(this.parent,this.parent.contains(this));
+				
+			}
+			_datainterface = null;
+			_content = null;
+			
+			
 			
 		}
 		

@@ -137,20 +137,22 @@ package com.game.framework.views
 			
 			if(dialogAssetItem==null){
 				dialogAssetItem= new DialogAssetItem(ConfigData.getDialogView(),this);	
-				//dialogAssetItem=mediator.uimanager.uiLayer.secondFrontLayerContainer.midLayer.addChild(dialogAssetItem) as DialogAssetItem;
 				midLayer.addChild(dialogAssetItem);
-				dialogAssetItem.callerBuilder = callerBuilder;
 			}else{
-				dialogAssetItem = midLayer.getChildByName(ConfigData.getDialogView().url) as DialogAssetItem;
+				//  dialogAssetItem 这对象已经是 AlertDialog 本身的对象，不用再去列表去获取一次。
+				//var childIndex:int=midLayer.getChildIndex(dialogAssetItem);
+				//dialogAssetItem=midLayer.getChildAt(childIndex);
+				//dialogAssetItem = midLayer.getChildByName(ConfigData.getDialogView().url) as DialogAssetItem;
 				
 				if(dialogAssetItem==null){
 					dialogAssetItem= new DialogAssetItem(ConfigData.getDialogView(),this);	
 					
 				}
 				
-				dialogAssetItem.callerBuilder = callerBuilder;
+				
 				
 			}			
+			dialogAssetItem.callerBuilder = callerBuilder;
 			
 			if(midLayer.numChildren!=0){
 				midLayer.setChildIndex(dialogAssetItem,midLayer.numChildren-1);
@@ -171,7 +173,7 @@ package com.game.framework.views
 			this.dispatchEvent(new DialogEvent(DialogEvent.DISMISSING,callerBuilder));
 			
 			if(dialogAssetItem){
-				dialogAssetItem.dispose();			
+				dialogAssetItem.dispose();		
 				delete DialogPool[ID.id];
 			}			
 			

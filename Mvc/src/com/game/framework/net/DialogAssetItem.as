@@ -106,6 +106,10 @@ package com.game.framework.net
 			if(_callerBuilder==null){
 				return;				
 			}
+			//如果不为空的话，说明已经被加载过了。将不会再加载，但会执行，reinitComplete
+			if(_dialogContent!=null){
+				return;
+			}
 			var callBack:AssetsData = new AssetsData();
 			_dialogContent = new DialogContentAssetItem(_callerBuilder.view);
 			var dialog:IDialog = mediator as IDialog;
@@ -130,6 +134,7 @@ package com.game.framework.net
 				if(alertDialog.Builder){
 					alertDialog.Builder.titleData.removeEventListener(DialogDataItem.labelChange,onChangeHandler);				
 					alertDialog.Builder.titleData.removeEventListener(DialogDataItem.viewChange,onChangeHandler);
+					alertDialog.Builder.removeEventListener(AlertDialogBuilder.sideSelectIndexChange,onChangeHandler);
 				}
 			}
 			

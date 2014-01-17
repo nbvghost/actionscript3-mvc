@@ -1,6 +1,6 @@
 package com.asvital.dev
 {
-	
+	import flash.trace.Trace;
 	
 	
 	/**
@@ -8,9 +8,9 @@ package com.asvital.dev
 	 * 日期：2013-11-15 下午1:05:55 2013
 	 * Administrator
 	 */
-	public class Log
+	public class Log extends flash.trace.Trace
 	{
-		
+		private static var _setOutCallBack:Function;
 		private static var _callBack:Function;
 		
 		
@@ -32,10 +32,29 @@ package com.asvital.dev
 		public static function setLeve(value:uint):void{
 			leve = value;
 		}
+
+		public static function getCallBack():Function
+		{
+			
+			return _callBack;
+		}
+
 		public static function setCallBack(value:Function):void
 		{
 			_callBack = value;
-		}		
+		}
+
+	
+	
+		public static function getOutCallBack():Function
+		{
+			return _setOutCallBack;
+		}
+
+		public static function setOutCallBack(value:Function):void
+		{
+			_setOutCallBack = value;
+		}
 		public function Log()
 		{
 			super();
@@ -69,9 +88,14 @@ package com.asvital.dev
 		}
 		private static function export(...ages):void{
 			trace.apply(null,ages);			
-			if(_callBack!=null){
-				_callBack.apply(null,ages);
+			if(_setOutCallBack!=null){
+				_setOutCallBack(ages);
 			}
-		}		
+		}
+		public static function callBack(...ages):void{
+			if(_callBack!=null){
+				_callBack(ages);
+			}
+		}
 	}
 }

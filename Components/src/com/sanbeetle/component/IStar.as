@@ -127,9 +127,7 @@
 				this.graphics.clear();
 				this.graphics.beginFill(0x333333);
 				this.graphics.drawRect(4,this.trueHeight/2,this.trueWidth-4,1);
-				this.graphics.endFill();
-				
-				this.drawBorder(this.width,this.height);
+				this.graphics.endFill();				
 				return;
 			}else{
 				this.graphics.clear();

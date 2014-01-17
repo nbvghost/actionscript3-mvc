@@ -1,13 +1,10 @@
 package com.game.framework.net
 {
-	import com.game.framework.events.AssetsEvent;
 	import com.game.framework.ifaces.IURL;
-	import com.game.framework.net.MediaAssetItem;
 	import com.game.framework.views.CreateView;
 	import com.game.framework.views.Mediator;
 	
 	import flash.events.TimerEvent;
-	import flash.utils.Timer;
 	
 	/**
 	 * @author sixf
