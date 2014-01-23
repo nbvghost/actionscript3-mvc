@@ -9,14 +9,20 @@ package com.game.framework.display {
 	 *@author sixf
 	 */
 	public class UIComponent extends BaseSprite implements IRander {
+		
+		public static var appStage:AppStage;
+		
 		public function UIComponent() {
 			super();
 			
+			
+		}
+		public static function setAppStage(_appStage:AppStage):void{
+			appStage = _appStage;
 		}
 		
 		public function enterFrame(e:Event):void {
-			// TODO Auto Generated method stub
-			
+			// TODO Auto Generated method stub			
 		}
 		
 		public function reSize(e:Event):void {

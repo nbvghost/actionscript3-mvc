@@ -63,11 +63,25 @@
 			_index = value;
 		}
 		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			if(bitMapData){				
+				bitMapData.dispose();
+			}		
+			
+		}
+		
+		
 		public function get icons():Array{
 			return _icons;
 		}
 		
 		public function set icons(value:Array):void{
+			if(_icons){
+				_icons.splice(0,_icons.length);
+			}
 			_icons =value;
 			
 			if(_icons==null){
@@ -101,6 +115,12 @@
 		}
 		private function drawIcon():void{			
 			
+			if(bitMapData){
+				bitMap.bitmapData.dispose();
+				bitMap.bitmapData = null;
+				bitMapData.dispose();
+				bitMapData=null;
+			}
 			bitMapData = new BitmapData(w+(_icons.length*2),maxH,true,0xffff00);			
 			
 			var xx:int = 0;
@@ -115,9 +135,9 @@
 				var mxx:Matrix = new Matrix();
 				mxx.translate(xx,0);
 				bitMapData.draw(cut,mxx);		
-				bitMap.bitmapData = bitMapData;				
 				xx=xx+cut.width+2;
 			}	
+			bitMap.bitmapData = bitMapData;
 		}
 		override public function updateUI():void
 		{

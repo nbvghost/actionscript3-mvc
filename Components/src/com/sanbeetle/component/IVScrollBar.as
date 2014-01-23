@@ -65,6 +65,18 @@
 			return true;
 		}
 		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			
+			if (stage)
+			{
+				stage.removeEventListener (MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
+				stage.removeEventListener (MouseEvent.MOUSE_UP,onMouseUphadnelr);
+			}
+		}
+		
 		
 		override protected function onBarDown (event:MouseEvent):void
 		{
@@ -185,7 +197,7 @@
 			
 			maskmc.graphics.clear ();
 			maskmc.graphics.beginFill (0xff0000,0);
-			maskmc.graphics.drawRect (0,0,-target.width,trueHeight);
+			maskmc.graphics.drawRect (0,0,-(target.width+Math.abs(scrollBeginPoint.x)),trueHeight+scrollBeginPoint.y);
 			maskmc.graphics.endFill ();
 			
 			rectBackGround.graphics.clear();

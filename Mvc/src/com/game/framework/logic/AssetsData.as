@@ -34,7 +34,20 @@ public class AssetsData implements IAssetsData {
 
         _asssetAllComplete = asssetAllCompleteFunc;
     }
-
+	
+	public function dispose():void
+	{
+		_asssetComplete = null;
+		
+		_netError = null;
+		
+		_progress = null;
+		
+		_asssetAllComplete = null;
+		
+	}
+	
+	
     public function get progressFunc():Function {
         return _progress;
     }

@@ -17,7 +17,7 @@ package com.game.framework.display
 
 		private var _graphics:Graphics;
 	
-		protected var container:UIComponent;
+		protected var _container:UIComponent;
 		
 		
 		/**
@@ -29,13 +29,15 @@ package com.game.framework.display
 		{
 			super();	
 			
-			container=new UIComponent();
+			_container=new UIComponent();
 			
-			_graphics = container.graphics;
+			_graphics = _container.graphics;
 			
-			parentContainer.addChild(container);		
+			parentContainer.addChild(_container);		
 		}
-		
+		public function get container():UIComponent{
+			return _container;
+		}
 		public function timerRun(event:TimerEvent):void
 		{
 			// TODO Auto Generated method stub

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.sanbeetle.utils"><apiName>com.sanbeetle.utils</apiName><apiDetail/><apiClassifier id="com.sanbeetle.utils:FontNames"><apiName>FontNames</apiName><shortdesc>
+	 字体名称
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 字体名称
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.sanbeetle.utils:FontNames:FontNames"><apiName>FontNames</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiValue id="com.sanbeetle.utils:FontNames:MS_YaHeiBold"><apiName>MS_YaHeiBold</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>MicrosoftYaHeiBold</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.utils:FontNames:MS_YaHei_Local"><apiName>MS_YaHei_Local</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>微软雅黑</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.utils:FontNames:MS_YaHei"><apiName>MS_YaHei</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>MicrosoftYaHei</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.utils:TimerRun"><apiName>TimerRun</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.sanbeetle.bases:BaseObject</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.sanbeetle.utils:TimerRun:TimerRun"><apiName>TimerRun</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.sanbeetle.utils:TimerRun:addRun"><apiName>addRun</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>com.sanbeetle.interfaces:ITimerRun</apiOperationClassifier></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.sanbeetle.utils:TimerRun:init"><apiName>init</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiOperationClassifier>com.sanbeetle.utils:TimerRun</apiOperationClassifier></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.sanbeetle.utils:TimerRun:removeRun"><apiName>removeRun</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>target</apiItemName><apiOperationClassifier>com.sanbeetle.interfaces:ITimerRun</apiOperationClassifier></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="com.sanbeetle.utils:TimerRun:TimeID:get"><apiName>TimeID</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.utils:Utils"><apiName>Utils</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.sanbeetle.utils:Utils:Utils"><apiName>Utils</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.sanbeetle.utils:Utils:NumberPrefix"><apiName>NumberPrefix</apiName><shortdesc>
+		 个位数前面加0， 转成字符
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>number</apiItemName><apiType value="Number"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 个位数前面加0， 转成字符
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.sanbeetle.utils:Utils:TimeDataPrefix"><apiName>TimeDataPrefix</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="String"/></apiReturn><apiParam><apiItemName>number</apiItemName><apiType value="Number"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.sanbeetle.utils:Utils:copyTextFlowStyle"><apiName>copyTextFlowStyle</apiName><shortdesc>
+		  
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiType value="String"/></apiReturn><apiParam><apiItemName>textCom</apiItemName><apiType value="flashx.textLayout.elements:TextFlow"/><apiDesc>	 </apiDesc></apiParam><apiParam><apiItemName>text</apiItemName><apiType value="XMLList"/><apiDesc>不带  p 标签
+		 </apiDesc></apiParam><apiParam><apiItemName>isWhiteSpace</apiItemName><apiType value="Boolean"/><apiData>false</apiData><apiDesc>default false  是否包含空格
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.sanbeetle.utils:Utils:getBounds"><apiName>getBounds</apiName><shortdesc>
+		  
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>上下左右各边的距离
+		 </apiDesc><apiOperationClassifier>com.sanbeetle.model:LocationRect</apiOperationClassifier></apiReturn><apiParam><apiItemName>disTarget</apiItemName><apiType value="flash.display:DisplayObjectContainer"/><apiDesc>对象的注册点都必须在左上角上。 这个是根据注册点来计算的，如果注册不在左上角 0，0 位置上，计算出来的结果将不准确。
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.model.xml#LocationRect"><linktext>com.sanbeetle.model.LocationRect</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.utils:Utils:isChild"><apiName>isChild</apiName><shortdesc>
+		  child 是否是 obj 的子对象
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiType value="Boolean"/></apiReturn><apiParam><apiItemName>obj</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>
+		 </apiDesc></apiParam><apiParam><apiItemName>child</apiItemName><apiType value="flash.display:DisplayObject"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  child 是否是 obj 的子对象
+		 </apiDesc></apiOperationDetail></apiOperation></apiClassifier></apiPackage>

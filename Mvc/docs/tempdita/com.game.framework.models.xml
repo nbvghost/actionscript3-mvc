@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.game.framework.models"><apiName>com.game.framework.models</apiName><apiDetail/><apiClassifier id="com.game.framework.models:NotifyData"><apiName>NotifyData</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>com.game.framework.ifaces:INotifyData</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.game.framework.models:NotifyData:NotifyData"><apiName>NotifyData</apiName><shortdesc>
+		 
+		 </shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>数据类型
+		 </apiDesc></apiParam><apiParam><apiItemName>message</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>数据体
+		 
+		 </apiDesc></apiParam><apiParam><apiItemName>target</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam></apiConstructorDef><apiDesc>
+		 
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.game.framework.models:NotifyData:toString"><apiName>toString</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="String"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="com.game.framework.models:NotifyData:message:get"><apiName>message</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.models:NotifyData:FW:target:get"><apiName>target</apiName><shortdesc>
+		 消息发送者，名称 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="FW"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+		 消息发送者，名称 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.models:NotifyData:type:get"><apiName>type</apiName><shortdesc>
+		 息类型
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+		 息类型
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage>

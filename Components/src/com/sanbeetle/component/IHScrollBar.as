@@ -88,7 +88,7 @@
 			maskmc.graphics.clear();
 			//maskmc.graphics.lineStyle(1,0xff0000);
 			maskmc.graphics.beginFill(0xff0000);
-			maskmc.graphics.drawRect(0,0,this.trueWidth,-target.height);
+			maskmc.graphics.drawRect(scrollBeginPoint.x,scrollBeginPoint.y,this.trueWidth,-target.height);
 			maskmc.graphics.endFill();	
 			
 			target.x = this.x;
@@ -127,6 +127,17 @@
 			
 			if(target.parent!=null){
 				target.parent.setChildIndex(target,target.parent.numChildren-1);
+			}
+		}
+		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			if (stage) 
+			{
+				stage.removeEventListener(MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
+				stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseUphadnelr);
 			}
 		}
 		

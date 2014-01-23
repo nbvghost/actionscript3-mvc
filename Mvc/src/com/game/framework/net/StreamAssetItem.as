@@ -47,6 +47,19 @@ package com.game.framework.net {
 			
 		}
 		
+		public function get bytesLoaded():uint
+		{
+			// TODO Auto Generated method stub
+			return urlloaer.bytesLoaded;
+		}
+		
+		public function get bytesTotal():uint
+		{
+			// TODO Auto Generated method stub
+			return urlloaer.bytesTotal;
+		}
+		
+		
 		public function get contentLoaderInfo():LoaderInfo {
 			Log.out("流对象加载时，为null," + this);
 			return null;

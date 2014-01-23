@@ -35,6 +35,7 @@
 		
 		protected function onReHande(event:ControlEvent):void
 		{
+			contentTxt.removeEventListener(ControlEvent.FONT_LOADED,onReHande);
 			this.updateUI();
 			
 		}

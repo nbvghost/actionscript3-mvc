@@ -100,7 +100,23 @@
 			this.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);	
 			
 		}
-
+		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			
+			if(_dataProvider){
+				_dataProvider.removeEventListener(DataChangeEvent.DATA_CHANGE,onDataChangeHandler);
+				_dataProvider.removeAll();
+			}
+			
+			this.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);			
+			this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
+			this.removeEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);	
+		}
+		
+		
 		public function get parentList():List
 		{
 			return _parentList;
@@ -515,7 +531,7 @@
 			}
 			
 			
-			Log.info("reDrawLayout",(getTimer()-t));
+			
 			
 		}		
 		override public function updateUI():void

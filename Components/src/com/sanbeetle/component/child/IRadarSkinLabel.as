@@ -1,12 +1,9 @@
 ﻿package com.sanbeetle.component.child {
 	
-	import com.sanbeetle.component.ILabel;
 	import com.sanbeetle.core.TextBox;
 	import com.sanbeetle.data.DataProvider;
 	
 	import flash.display.MovieClip;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormatAlign;
 	
 	import flashx.textLayout.formats.TextAlign;
 	
@@ -28,7 +25,7 @@
 		{
 			
 			for(var y:int;y<labelArr.length;y++){
-				labelArr[y].dispose();
+				//labelArr[y].dispose();
 				this.removeChild(labelArr[y]);
 			}
 			labelArr.splice(0,labelArr.length);

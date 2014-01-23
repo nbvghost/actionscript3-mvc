@@ -6,7 +6,6 @@
 	import com.sanbeetle.utils.FontNames;
 	import com.sanbeetle.utils.Utils;
 	
-	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.TextEvent;
@@ -19,7 +18,6 @@
 	import flash.text.engine.FontLookup;
 	import flash.text.engine.FontWeight;
 	import flash.utils.ByteArray;
-	import flash.utils.getTimer;
 	
 	import flashx.textLayout.conversion.ConversionType;
 	import flashx.textLayout.conversion.TextConverter;
@@ -59,31 +57,23 @@
 	public class TextBox extends UIComponent
 	{
 		
-		//protected var textfield:TextField;
 		protected var _text:String = "default label";
 		private var _align:String = "left";
 		private var _wordWrap:Boolean=false;	
 		
 		private var _dropShadow:Boolean = false;
 		
-		//private var textFormat:TextFormat;
-		//private var _gridFitType:String=GridFitType.NONE;
 		
-		private var fontLoader:Loader;
 		
 		private var _fontSize:String = "14";
-		private var _color:String = "0x333333";
+		private var _color:String = "0x333333";		
 		
-		
-		
-		private var aMarkData:Object = new Object;
-		
+		private var aMarkData:Object = new Object;		
 		
 		private var _leading:Number =6;
 		private var _border:Boolean=false;			
 		private var _autoSize:String="none";
 		private var _scrollText:Boolean =false;		
-		private var styleSheet:StyleSheet = new StyleSheet();
 		
 		
 		
@@ -97,33 +87,23 @@
 		private var _paddingRight:Number = 0;
 		private var _paddingTop:Number = 0;
 		
-		private var _textLayoutFormat:TextLayoutFormat;
 		
-		private var _textAlign:String="start";
+		private var _textAlign:String="start";		
 		
-		//protected var _textFlow:TextFlow;
-		
-		/**
-		 * 纯文本的 textflow 
-		 */
-		//private var textTextFlow:TextFlow;
-		
-		//private var textContext:SpanElement;
 		
 		protected var textContainerManager:ExtendsTextContainerManager;
+		protected var container:Sprite;
+		private var _textLayoutFormat:TextLayoutFormat;
+		private var configuration:Configuration;
+		private var styleSheet:StyleSheet = new StyleSheet();
 		
-		private var _autoBound:Boolean = false;
-		
+		private var _autoBound:Boolean = false;		
 		
 		
 		private var ccw:Number;
-		private var cch:Number;
+		private var cch:Number;		
 		
 		
-		
-		protected var container:Sprite;
-		private var teim:Number = getTimer();
-		//protected var p:ParagraphElement;
 		private var _verticalAlign:String="inherit";
 		
 		private var _currentLinkData:AMark;
@@ -132,7 +112,6 @@
 		
 		private var isXMLText:Boolean = false;	
 		
-		private var configuration:Configuration;
 		
 		public function TextBox()
 		{
@@ -260,7 +239,9 @@
 			
 		}
 		protected function addTextFlowEvent():void{
-			
+			if(textContainerManager==null){
+				return;
+			}
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_BEGIN,onFlowOperationBedginHandler);
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_COMPLETE,onFlowOperationCompleteHandler);
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_END,onFlowOperationEndHandler);
@@ -274,7 +255,9 @@
 		
 		protected function removeTextFlowEvent():void{
 			
-			
+			if(textContainerManager==null){
+			return;
+			}
 			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_BEGIN,onFlowOperationBedginHandler);
 			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_COMPLETE,onFlowOperationCompleteHandler);
 			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_END,onFlowOperationEndHandler);			
@@ -294,6 +277,7 @@
 				
 				disTextEvent(lin,ControlEvent.TEXT_LINK_OVER);
 			}
+			
 			
 		}
 		
@@ -444,6 +428,16 @@
 				throw new Error("TextFlow 的 XML 不正确！");
 				
 			}
+			
+			if(textContainerManager){
+				if(textContainerManager.getTextFlow()){
+					while(textContainerManager.getTextFlow().numChildren>0){
+						textContainerManager.getTextFlow().removeChildAt(0);
+					}
+					//textContainerManager.getTextFlow().flowComposer.removeAllControllers();
+				}
+			}
+			
 			
 			textContainerManager.setTextFlow(xmlTextFlow);
 			//xmlTextFlow.whiteSpaceCollapse=WhiteSpaceCollapse.COLLAPSE;
@@ -864,6 +858,9 @@
 		private var _maxChars:int=0;
 		public function get textFlow():TextFlow
 		{
+			if(textContainerManager==null){
+				return null;
+			}
 			return textContainerManager.getTextFlow();
 		}
 		[Inspectable(defaultValue =0)]
@@ -1065,13 +1062,32 @@
 		
 		override public function dispose():void
 		{
-			// TODO Auto Generated method stub
-			super.dispose();
+			_currentLinkData = null;
+			removeTextFlowEvent();
 			
+			styleSheet.clear();
+			
+			while(textContainerManager.getTextFlow().numChildren>0){
+				textContainerManager.getTextFlow().removeChildAt(0);
+			}
+		
+			//textContainerManager.getTextFlow().flowComposer.removeAllControllers();
+			textContainerManager.getTextFlow().flowComposer = null;
+			textContainerManager.getTextFlow().interactionManager = null;
+			textContainerManager.hostFormat = null;
+			container.removeChildren();
+			container.graphics.clear();
+					
 			if(stage!=null){
 				stage.removeEventListener(ControlEvent.FONT_LOADED,onYaheiFontLoadedHandelr);
 			}
-			//this.removeTextFlowEvent();
+			_textLayoutFormat =null;
+			configuration=null;
+			textContainerManager =null;
+			container=null;
+			container = null;
+			aMarkData=null;
+			super.dispose();
 		}	
 		protected function interactionManager():ISelectionManager{
 			
@@ -1222,6 +1238,9 @@
 		
 		protected function onYaheiFontLoadedHandelr(event:Event):void
 		{
+			if(textContainerManager==null || _textLayoutFormat==null){
+				return;
+			}
 			var fontArr:Array = Font.enumerateFonts();
 			
 			if(fontArr.length==0){

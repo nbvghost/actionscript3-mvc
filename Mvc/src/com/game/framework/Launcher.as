@@ -1,6 +1,7 @@
 package com.game.framework {
 	import com.asvital.dev.Log;
 	import com.game.framework.command.Command;
+	import com.game.framework.display.UIComponent;
 	import com.game.framework.error.OperateError;
 	import com.game.framework.ifaces.INotify;
 	import com.game.framework.ifaces.INotifyData;
@@ -108,6 +109,7 @@ package com.game.framework {
 			
 			if (_launcher == null) {
 				_launcher = new Launcher(new Singleton());
+				
 				_launcher._resourceManager = resourceManager;
 				_launcher._uimanager = uimanager;
 				resourceManager.setIObtain(_launcher);
@@ -235,9 +237,9 @@ package com.game.framework {
 				return false;
 			}
 			var command:Command = new CommandClass();
-			command.FW::disExecute(notifyData);
+			//command.FW::disExecute(notifyData);
 			//改成事件调试
-			//command.execute(notifyData);
+			command.execute(notifyData);
 			command = null;
 			CommandClass = null;
 			return true;
@@ -261,8 +263,8 @@ package com.game.framework {
 					if (notifys.indexOf(name) != -1) {
 						if (proxy.name != (notifyData as NotifyData).FW::target) {
 							//改用事件驱动
-							proxy.FW::disHanderNotify(name, notifyData);
-							//proxy.handerNotify(name,notifyData);
+							//proxy.FW::disHanderNotify(name, notifyData);
+							proxy.handerNotify(name,notifyData);
 							isfind = true;
 						}
 					}

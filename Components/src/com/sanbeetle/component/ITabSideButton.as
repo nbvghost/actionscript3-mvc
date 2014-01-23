@@ -1,6 +1,5 @@
 ﻿package com.sanbeetle.component
 {
-	import com.asvital.dev.Log;
 	import com.sanbeetle.component.child.ExtendButton;
 	import com.sanbeetle.component.child.SideExtendButton;
 	import com.sanbeetle.skin.TabButton_left_left_down;
@@ -12,6 +11,8 @@
 	import com.sanbeetle.skin.TabButton_left_right_down;
 	import com.sanbeetle.skin.TabButton_left_right_over;
 	import com.sanbeetle.skin.TabButton_left_right_up;
+	
+	import flash.events.MouseEvent;
 	
 	/**
 	 *
@@ -47,8 +48,10 @@
 		{
 			for each(var btn:ExtendButton in  btnArr){
 				if(btn.parent!=null){
+					
 					btn.parent.removeChild(btn);
 				}
+				btn.removeEventListener(MouseEvent.MOUSE_DOWN,onClickHandle);
 			}
 			
 			btnArr.splice(0,btnArr.length);		

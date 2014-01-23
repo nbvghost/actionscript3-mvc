@@ -45,8 +45,7 @@
 	public class IButton extends UIComponent {
 		
 		protected var button:StateButton;
-		private var _label:String="Label";
-		//private var labelText:TextField;
+		private var _label:String="Label";	
 		protected var btnlabel:TextBox;
 		private var _color:String="0xffffff";
 		
@@ -78,7 +77,7 @@
 		private var _styleType:String="default";
 		private var _align:String=TextFormatAlign.CENTER;
 		private var _autoSize:String= TextFieldAutoSize.LEFT;
-	
+		
 		protected var textMask:Shape = new Shape();
 		
 		/**
@@ -123,8 +122,45 @@
 			this.buttonMode =true;
 			
 			this.addEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);			
-		
+			
 		}		
+		
+		override public function dispose():void
+		{
+			
+			super.dispose();
+			
+			
+			this.removeChildren();
+			
+			
+			this.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);		
+			
+			
+			if(stage){
+				
+				stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseHandler);		
+			}
+			
+			
+			if(btnlabel){
+				
+				btnlabel.removeEventListener(ControlEvent.FONT_LOADED,onFontLoadedHandler);			
+				
+			}
+			button=null;
+			btnlabel = null;
+			if(ico){
+				
+				ico.stop();			
+				
+				ico = null;
+			}
+			
+			
+		}
+		
+		
 		private var _enabled:Boolean = false;
 		override public function get enabled():Boolean
 		{
@@ -173,30 +209,30 @@
 		{
 			return _select;
 		}
-
+		
 		public function set select(value:Boolean):void
 		{
 			_select = value;			
 			this.button.select = _select;
 		}
-
+		
 		public function get autoSize():String
 		{
 			return _autoSize;
 		}
-
+		
 		public function set autoSize(value:String):void
 		{
 			_autoSize = value;
 			
 			updateUI();
 		}
-
+		
 		public function get align():String
 		{
 			return _align;
 		}
-
+		
 		public function set align(value:String):void
 		{
 			_align = value;
@@ -300,7 +336,7 @@
 			textMask.cacheAsBitmap =true;
 			
 			btnlabel.cacheAsBitmap =true;		
-		
+			
 			
 			
 			maskTarget();
@@ -363,7 +399,7 @@
 				}else{
 					
 					ico.visible =false;
-								
+					
 					btnlabel.x=(this.trueWidth-btnlabel.width)/2;
 				}				
 				
@@ -384,7 +420,7 @@
 				btnlabel.visible = true;
 				textMask.visible = true;
 			}
-		
+			
 			//Log.out(btnlabel.width);
 		}
 		

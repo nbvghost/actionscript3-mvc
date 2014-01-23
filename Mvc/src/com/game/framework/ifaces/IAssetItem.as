@@ -35,6 +35,9 @@ package com.game.framework.ifaces {
 		 */
 		function get content():Object;
 		
+		function get bytesLoaded():uint;
+		function get bytesTotal():uint;
+		
 		/**
 		 * 与显示对象有关的加载时，有这个信息
 		 * @return

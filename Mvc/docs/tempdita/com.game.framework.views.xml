@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.game.framework.views"><apiName>com.game.framework.views</apiName><apiDetail/><apiClassifier id="com.game.framework.views:SpriteView"><apiName>SpriteView</apiName><shortdesc>
+	 一个空的视图，不需要加载任何东东。
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.views:CreateView</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 一个空的视图，不需要加载任何东东。
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.game.framework.views:SpriteView:SpriteView"><apiName>SpriteView</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiValue id="com.game.framework.views:SpriteView:needToLoad:get"><apiName>needToLoad</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:Mediator"><apiName>Mediator</apiName><shortdesc>
+	 MediaAssetItem.intiView() 被执行将发送 （Mediator.DEFAULT_TYPE，DEFAULT_NOTIFY）消息。
+	 MVC 的 父级 ，要重写  viewDrawed 方法和 name 方法
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.views:BaseMediator</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 MediaAssetItem.intiView() 被执行将发送 （Mediator.DEFAULT_TYPE，DEFAULT_NOTIFY）消息。
+	 MVC 的 父级 ，要重写  viewDrawed 方法和 name 方法
+	 </apiDesc></apiClassifierDetail><related-links><link href="com.game.framework.net.xml#MediaAssetItem/initView()"><linktext>author sixf</linktext></link></related-links><adobeApiEvent id="com.game.framework.views:Mediator_com.game.framework.events.DissolveEvent_dissolve"><apiName>dissolve</apiName><shortdesc>
+	 
+	 Mediiator 被执行消失了。
+	 
+	 </shortdesc><prolog/><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>com.game.framework.events.DissolveEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+	 
+	 Mediiator 被执行消失了。
+	 
+	 </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="com.game.framework.views:Mediator:Mediator"><apiName>Mediator</apiName><shortdesc>
+		  实例化时，传入 ICreateView 视图对象
+		 </shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef><apiDesc>
+		  实例化时，传入 ICreateView 视图对象
+		 </apiDesc></apiConstructorDetail><related-links><link href="" invalidHref="com.game.framework.interfaces.ICreateView.xml"><linktext>com.game.framework.interfaces.ICreateView</linktext></link></related-links></apiConstructor><apiOperation id="com.game.framework.views:Mediator:protected:dismissAll"><apiName>dismissAll</apiName><shortdesc>
+		 关闭所有的出现的窗口 
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 关闭所有的出现的窗口 
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:Mediator:protected:dismiss"><apiName>dismiss</apiName><shortdesc>
+		 关闭窗口 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dialogID</apiItemName><apiOperationClassifier>com.game.framework.ifaces:ITargetID</apiOperationClassifier><apiDesc>	 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 关闭窗口 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:Mediator:dispose"><apiName>dispose</apiName><shortdesc>
+		 终极释放，什么都没有了。 
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 终极释放，什么都没有了。 
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:Mediator:protected:dissolve"><apiName>dissolve</apiName><shortdesc>
+		 消失
+		 模块消失，但并不释放内存，释放内存还是会根据，Mediator 周期来的。要释放内存很使用，dispose 方法 
+		 
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 消失
+		 模块消失，但并不释放内存，释放内存还是会根据，Mediator 周期来的。要释放内存很使用，dispose 方法 
+		 
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:Mediator:protected:onCreateDialog"><apiName>onCreateDialog</apiName><shortdesc>
+		  根据 dialogID  返回 给 AlertDialog 用的 AlertDialogBuilder
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiOperationClassifier>com.game.framework.data:AlertDialogBuilder</apiOperationClassifier></apiReturn><apiParam><apiItemName>dialogID</apiItemName><apiOperationClassifier>com.game.framework.ifaces:ITargetID</apiOperationClassifier><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  根据 dialogID  返回 给 AlertDialog 用的 AlertDialogBuilder
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:Mediator:protected:onViewCompleteHandler"><apiName>onViewCompleteHandler</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiIsOverride/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>com.game.framework.events:AssetsEvent</apiOperationClassifier></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:Mediator:push"><apiName>push</apiName><shortdesc>
+		 信息列队,用于在资源没有加载完成时，存储消息，该列对消息，会在资源加载完成后，被执行。
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>	 
+		 </apiDesc></apiParam><apiParam><apiItemName>notify</apiItemName><apiOperationClassifier>com.game.framework.ifaces:INotifyData</apiOperationClassifier></apiParam></apiOperationDef><apiDesc>
+		 信息列队,用于在资源没有加载完成时，存储消息，该列对消息，会在资源加载完成后，被执行。
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:Mediator:protected:showDialog"><apiName>showDialog</apiName><shortdesc>
+		 弹出一个窗口， 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>dialogID</apiItemName><apiOperationClassifier>com.game.framework.ifaces:ITargetID</apiOperationClassifier><apiDesc>指定窗口的ID，
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 弹出一个窗口， 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:Mediator:protected:viewOver"><apiName>viewOver</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="com.game.framework.views:Mediator:INIT_NOTIFY"><apiName>INIT_NOTIFY</apiName><shortdesc>
+		 默认 Mediator 又被初始化的消息
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiValueClassifier>com.game.framework.models:NotifyData</apiValueClassifier></apiValueDef><apiDesc>
+		 默认 Mediator 又被初始化的消息
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:INIT_TYPE"><apiName>INIT_TYPE</apiName><shortdesc>
+		 默认 Mediator 又被初始化的消息类型
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>mediator_init_type</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 默认 Mediator 又被初始化的消息类型
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:IN_TYPE"><apiName>IN_TYPE</apiName><shortdesc>
+		  
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>in_type</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:NONE"><apiName>NONE</apiName><shortdesc>
+		 为空
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 为空
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:OUT_TYPE"><apiName>OUT_TYPE</apiName><shortdesc>
+		 暂时离开了。 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>out_type</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 暂时离开了。 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:RE_INIT_NOTIFY"><apiName>RE_INIT_NOTIFY</apiName><shortdesc>
+		 默认 Mediator 又被初始化的消息
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiValueClassifier>com.game.framework.models:NotifyData</apiValueClassifier></apiValueDef><apiDesc>
+		 默认 Mediator 又被初始化的消息
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:RE_INIT_TYPE"><apiName>RE_INIT_TYPE</apiName><shortdesc>
+		 默认 Mediator 又被初始化的消息类型,主要用于模块的初始化
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>mediator_re_init_type</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 默认 Mediator 又被初始化的消息类型,主要用于模块的初始化
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:protected:isSkinLoad"><apiName>isSkinLoad</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:FW:isdissolve"><apiName>isdissolve</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="FW"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:isOutStage:get"><apiName>isOutStage</apiName><shortdesc>
+		 是否离开了 Stage ,如果这个显示不在显示列表 ，则不会在发消息。default:false
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 是否离开了 Stage ,如果这个显示不在显示列表 ，则不会在发消息。default:false
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:keepLiveMsg:get"><apiName>keepLiveMsg</apiName><shortdesc>
+		 当模块 不可见时，是否还继续收到消息？》 default:false
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 当模块 不可见时，是否还继续收到消息？》 default:false
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:CreateView"><apiName>CreateView</apiName><shortdesc>
+	 CreateView 改成。非显示对象（被 CreateView.containerContent 代替）。但一然实现了 IRander 接口
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:ICreateView</apiBaseInterface><apiBaseInterface>com.game.framework.ifaces:IRander</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 CreateView 改成。非显示对象（被 CreateView.containerContent 代替）。但一然实现了 IRander 接口
+	 author sixf
+	 </apiDesc></apiClassifierDetail><adobeApiEvent id="com.game.framework.views:CreateView_com.game.framework.events.AssetsEvent_complete_load"><apiName>complete_load</apiName><shortdesc/><prolog/><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>com.game.framework.events.AssetsEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc></apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="com.game.framework.views:CreateView:CreateView"><apiName>CreateView</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.game.framework.views:CreateView:dispose"><apiName>dispose</apiName><shortdesc>
+		  CreateView 改成 不是显示对象， CreateView 没有可视化的东西。但是可以调试事件。
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		  CreateView 改成 不是显示对象， CreateView 没有可视化的东西。但是可以调试事件。
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:CreateView:enterFrame"><apiName>enterFrame</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>e</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:CreateView:protected:getAssetByName"><apiName>getAssetByName</apiName><shortdesc>
+		 取资源实例
+		 var Asset:Class = viewLoader.contentLoaderInfo.applicationDomain.getDefinition(name) as Class;
+		 
+		 return new Asset();
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>实例化后，返回
+		 
+		 </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 取资源实例
+		 var Asset:Class = viewLoader.contentLoaderInfo.applicationDomain.getDefinition(name) as Class;
+		 
+		 return new Asset();
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:CreateView:protected:getAssetClassByName"><apiName>getAssetClassByName</apiName><shortdesc>
+		 viewLoader.contentLoaderInfo.applicationDomain.getDefinition(name) as Class;
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiType value="Class"/></apiReturn><apiParam><apiItemName>name</apiItemName><apiType value="String"/><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 viewLoader.contentLoaderInfo.applicationDomain.getDefinition(name) as Class;
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:CreateView:protected:initBefore"><apiName>initBefore</apiName><shortdesc>
+		 执行在 init 方法之前
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>loaderinfo</apiItemName><apiType value="flash.display:LoaderInfo"/><apiDesc>	 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 执行在 init 方法之前
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:CreateView:protected:init"><apiName>init</apiName><shortdesc>
+		 肤资源加载完，初始化界面元素。
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>content</apiItemName><apiType value="flash.display:MovieClip"/><apiDesc>	 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 肤资源加载完，初始化界面元素。
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:CreateView:protected:onProgressHandler"><apiName>onProgressHandler</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:ProgressEvent"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:CreateView:reSize"><apiName>reSize</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>e</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:CreateView:FW:setContentContainer"><apiName>setContentContainer</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="FW"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>cc</apiItemName><apiOperationClassifier>com.game.framework.net:AssetItem</apiOperationClassifier></apiParam><apiParam><apiItemName>skin</apiItemName><apiOperationClassifier>com.game.framework.net:AssetItem</apiOperationClassifier></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:CreateView:timerRun"><apiName>timerRun</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:TimerEvent"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="com.game.framework.views:CreateView:contentContainer:get"><apiName>contentContainer</apiName><shortdesc>
+		 CreateView 视图容器。 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.net:AssetItem</apiValueClassifier></apiValueDef><apiDesc>
+		 CreateView 视图容器。 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:CreateView:protected:getChildName:get"><apiName>getChildName</apiName><shortdesc>
+		 获取资源里的子项内容列表
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Vector$String"/></apiValueDef><apiDesc>
+		 获取资源里的子项内容列表
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:CreateView:needToLoad:get"><apiName>needToLoad</apiName><shortdesc>
+		 CreateView 是要必须进行 加载 的 View,所以 needToLoad 等于 true,如果不想加载 请使用 SpriteView
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 CreateView 是要必须进行 加载 的 View,所以 needToLoad 等于 true,如果不想加载 请使用 SpriteView
+		 </apiDesc></apiValueDetail><related-links><link href="" invalidHref="com.game.framework.view.SpriteView.xml"><linktext>com.game.framework.view.SpriteView</linktext></link></related-links></apiValue><apiValue id="com.game.framework.views:CreateView:resourceManager:get"><apiName>resourceManager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:IResourceManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:CreateView:FW:skinContainer:get"><apiName>skinContainer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="FW"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.net:AssetItem</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:CreateView:uimanager:get"><apiName>uimanager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:IUIManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:AlertDialog"><apiName>AlertDialog</apiName><shortdesc>
+	 窗口实例 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 窗口实例 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><adobeApiEvent id="com.game.framework.views:AlertDialog_com.game.framework.events.DialogEvent_close_dialog"><apiName>close_dialog</apiName><shortdesc>
+	 点了关闭窗口按钮 
+	 </shortdesc><prolog/><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>com.game.framework.events.DialogEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+	 点了关闭窗口按钮 
+	 </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.game.framework.views:AlertDialog_com.game.framework.events.DialogEvent_dismissing"><apiName>dismissing</apiName><shortdesc>
+	 正在关闭
+	 </shortdesc><prolog/><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>com.game.framework.events.DialogEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+	 正在关闭
+	 </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.game.framework.views:AlertDialog_com.game.framework.events.DialogEvent_show"><apiName>show</apiName><shortdesc>
+	 窗口被打开
+	 </shortdesc><prolog/><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>com.game.framework.events.DialogEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+	 窗口被打开
+	 </apiDesc></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.game.framework.views:AlertDialog_com.game.framework.events.DialogEvent_dismiss"><apiName>dismiss</apiName><shortdesc>
+	 
+	 已经关闭
+	 
+	 </shortdesc><prolog/><adobeApiEventDetail><adobeApiEventDef><adobeApiEventClassifier>com.game.framework.events.DialogEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+	 
+	 已经关闭
+	 
+	 </apiDesc></adobeApiEventDetail></adobeApiEvent><apiConstructor id="com.game.framework.views:AlertDialog:AlertDialog"><apiName>AlertDialog</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>mediator</apiItemName><apiOperationClassifier>com.game.framework.views:Mediator</apiOperationClassifier></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.game.framework.views:AlertDialog:dismissAll"><apiName>dismissAll</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:AlertDialog:dismiss"><apiName>dismiss</apiName><shortdesc>
+		 窗口关闭。 
+		 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 窗口关闭。 
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:AlertDialog:getAlertDialog"><apiName>getAlertDialog</apiName><shortdesc>
+		 如有一个ID，就可以得到这个ID的窗口。全局的。 
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiStatic/><apiReturn><apiDesc>
+		 
+		 </apiDesc><apiOperationClassifier>com.game.framework.views:AlertDialog</apiOperationClassifier></apiReturn><apiParam><apiItemName>ID</apiItemName><apiOperationClassifier>com.game.framework.ifaces:ITargetID</apiOperationClassifier><apiDesc>	 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 如有一个ID，就可以得到这个ID的窗口。全局的。 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:AlertDialog:show"><apiName>show</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.game.framework.views:AlertDialog</apiOperationClassifier></apiReturn><apiParam><apiItemName>_ID</apiItemName><apiOperationClassifier>com.game.framework.ifaces:ITargetID</apiOperationClassifier><apiData>null</apiData></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="com.game.framework.views:AlertDialog:DialogPool"><apiName>DialogPool</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:AlertDialog:Builder:get"><apiName>Builder</apiName><shortdesc>
+		  Builder 永远也不会为 null
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.data:AlertDialogBuilder</apiValueClassifier></apiValueDef><apiDesc>
+		  Builder 永远也不会为 null
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:AlertDialog:ID:get"><apiName>ID</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:ITargetID</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:AlertDialog:dialogID:get"><apiName>dialogID</apiName><shortdesc>
+		 生成一个ID，所有的窗口，使用这个方法 创建ID，被调用一个，会被加+1 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:ITargetID</apiValueClassifier></apiValueDef><apiDesc>
+		 生成一个ID，所有的窗口，使用这个方法 创建ID，被调用一个，会被加+1 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:AlertDialog:isDismiss:get"><apiName>isDismiss</apiName><shortdesc>
+		 这个窗口是否被关闭了。
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 这个窗口是否被关闭了。
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:BaseMediator"><apiName>BaseMediator</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IMediator</apiBaseInterface><apiBaseInterface>com.game.framework.ifaces:IObtain</apiBaseInterface><apiBaseInterface>com.game.framework.ifaces:IRander</apiBaseInterface><apiBaseClassifier>com.game.framework.base:BaseNotify</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.game.framework.views:BaseMediator:BaseMediator"><apiName>BaseMediator</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.game.framework.views:BaseMediator:dispose"><apiName>dispose</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:BaseMediator:enterFrame"><apiName>enterFrame</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>e</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:BaseMediator:FW:initMediator"><apiName>initMediator</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="FW"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>uimanager</apiItemName><apiOperationClassifier>com.game.framework.ifaces:IUIManager</apiOperationClassifier></apiParam><apiParam><apiItemName>resourceManager</apiItemName><apiOperationClassifier>com.game.framework.ifaces:IResourceManager</apiOperationClassifier></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:BaseMediator:loadPicture"><apiName>loadPicture</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:BaseMediator:obtainMediator"><apiName>obtainMediator</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.game.framework.views:Mediator</apiOperationClassifier></apiReturn><apiParam><apiItemName>mediatroName</apiItemName><apiType value="String"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:BaseMediator:obtainProxy"><apiName>obtainProxy</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiOperationClassifier>com.game.framework.ifaces:IProxy</apiOperationClassifier></apiReturn><apiParam><apiItemName>proxyName</apiItemName><apiType value="String"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:BaseMediator:protected:onViewCompleteHandler"><apiName>onViewCompleteHandler</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiOperationClassifier>com.game.framework.events:AssetsEvent</apiOperationClassifier></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:BaseMediator:reSize"><apiName>reSize</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>e</apiItemName><apiType value="flash.events:Event"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:BaseMediator:timerRun"><apiName>timerRun</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>event</apiItemName><apiType value="flash.events:TimerEvent"/></apiParam></apiOperationDef></apiOperationDetail></apiOperation><apiOperation id="com.game.framework.views:BaseMediator:protected:viewDrawed"><apiName>viewDrawed</apiName><shortdesc>
+		 皮肤资源加载完成，并已经初始化完成
+		 </shortdesc><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="protected"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>value</apiItemName><apiOperationClassifier>com.game.framework.views:CreateView</apiOperationClassifier><apiDesc>com.game.framework.events.AssetsEvent
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 皮肤资源加载完成，并已经初始化完成
+		 </apiDesc></apiOperationDetail><related-links><link href="com.game.framework.events.xml#AssetsEvent"><linktext>com.game.framework.events.AssetsEvent</linktext></link></related-links></apiOperation><apiValue id="com.game.framework.views:BaseMediator:protected:_uimanager"><apiName>_uimanager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>com.game.framework.ifaces:IUIManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:BaseMediator:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IResourceManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:BaseMediator:uimanager:get"><apiName>uimanager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IUIManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:BaseMediator:view:get"><apiName>view</apiName><shortdesc>
+		 视图
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.views:CreateView</apiValueClassifier></apiValueDef><apiDesc>
+		 视图
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:InstantiationMediator"><apiName>InstantiationMediator</apiName><shortdesc>
+ 用于非 swf 文件的 Mediator 实例
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.views:Mediator</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 用于非 swf 文件的 Mediator 实例
+ author sixf
+ </apiDesc></apiClassifierDetail><apiConstructor id="com.game.framework.views:InstantiationMediator:InstantiationMediator"><apiName>InstantiationMediator</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

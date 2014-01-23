@@ -55,19 +55,19 @@ package com.game.framework.data
 		override flash_proxy function deleteProperty(name:*):Boolean
 		{
 			// TODO Auto Generated method stub
-			return 0;
+			return false;
 		}
 		
 		override flash_proxy function getDescendants(name:*):*
 		{
 			// TODO Auto Generated method stub
-			return 0;
+			return false;
 		}
 		
 		override flash_proxy function getProperty(name:*):*
 		{
 			// TODO Auto Generated method stub
-			return 0;
+			return false;
 		}
 		
 		override flash_proxy function hasProperty(name:*):Boolean
@@ -97,7 +97,7 @@ package com.game.framework.data
 		override flash_proxy function nextValue(index:int):*
 		{
 			// TODO Auto Generated method stub
-			return 0;
+			return false;
 		}
 		
 		override flash_proxy function setProperty(name:*, value:*):void

@@ -18,7 +18,7 @@
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-
+	
 	/**
 	 * 
 	 * 二级菜单发生改变时
@@ -57,7 +57,7 @@
 		
 		//private var ListClass:Class;
 		
-
+		
 		private var _bold:Boolean = true;
 		private var _requestSelect:Boolean = true;
 		
@@ -69,42 +69,13 @@
 			
 			list.addEventListener(ControlEvent.CHANGE,onListChangeHandler);
 			
-			
-			/*var data:DataProvider = new DataProvider();
-			data.addItem(new SimpleCollectionItem("sdas ","dsfsdf"));
-			data.addItem(new SimpleCollectionItem("sf","dsfsdf"));
-			data.addItem(new SimpleCollectionItem("fdsf","dsfsdf"));
-			data.addItem(new SimpleCollectionItem("","dsfsdf"));
-			data.addItem(new SimpleCollectionItem("ssf","dsfsdf"));
-			data.addItem(new SimpleCollectionItem("sdf","dsfsdf"));
-			data.addItem(new SimpleCollectionItem("ssd","dsfsdf"));
-			data.addItem(new SimpleCollectionItem("ssdf","dsfsdf"));
-			
-			
-			var ite:ListChildItem = new ListChildItem("dsfsd","dsfsd");
-			
-			ite.childs = data;
-			
-			data.addItem(ite);
-			
-			
-			
-			var arr:Array = new Array;
-			
-			arr.push(data);
-			arr.push(data);
-			arr.push(data);
-			
-			this.childData = arr;	*/	
-		
-			
 		}
 		[Inspectable(defaultValue=true)]
 		public function get requestSelect():Boolean
 		{
 			return _requestSelect;
 		}
-
+		
 		public function set requestSelect(value:Boolean):void
 		{
 			if(_requestSelect!=value){
@@ -113,13 +84,13 @@
 			}
 			
 		}
-
+		
 		[Inspectable(defaultValue=true)]		
 		public function get bold():Boolean
 		{
 			return _bold;
 		}
-
+		
 		public function set bold(value:Boolean):void
 		{
 			if(_bold!=value){
@@ -127,9 +98,7 @@
 				this.updateUI();
 			}
 			
-		}
-
-		
+		}	
 		
 		protected function onListChangeHandler(event:ControlEvent):void
 		{
@@ -188,11 +157,11 @@
 			_fontSize = value;
 			this.updateUI();
 			
-		
+			
 			
 		}
 		
-		private function onClickHandle(event:MouseEvent):void
+		protected function onClickHandle(event:MouseEvent):void
 		{
 			var oldIndex:int=_selectIndex;
 			
@@ -212,7 +181,7 @@
 				_selectIndex = item.index;			
 				
 				if(_oldButton!=item){						
-
+					
 					_oldButton= item;
 					
 				}			
@@ -251,13 +220,13 @@
 				list.setMinWidth(current.width);
 			}
 			//list.setMaxHeight(current.width);
-		
+			
 			
 			this.list.dataProvider = dataProvider;		
 			this.list.upDisplayList();
 			
 			
-		
+			
 			list.y = current.height+4;
 			list.x = current.x;
 			//this.addChild(list);
@@ -266,11 +235,39 @@
 			list.y = cu.y;
 			stage.addChild(list);
 			list.visible =true;	
-		
+			
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);				
 			
 		}		
+		
+		override public function dispose():void
+		{
+			
+			super.dispose();
+			
+			if(stage){
+				
+				stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);	
+			}
+			
+			for (var i:int = 0; i <this.btnArr.length; i++) 
+			{
+				btnArr[i].removeEventListener(MouseEvent.MOUSE_DOWN,onClickHandle);	
+				btnArr[i].dispose();
+			}
+			
+			if(list){
+				
+				list.removeEventListener(ControlEvent.CHANGE,onListChangeHandler);
+				
+				list.dispose();
+				list=null;
+			}
+			
+			
+		}
+		
 		/**
 		 * 
 		 
@@ -358,10 +355,12 @@
 		override public function updateUI():void
 		{
 			
-		
+			
 			for each(var btn:ExtendButton in  btnArr){
 				if(btn.parent!=null){
+					btn.removeEventListener(MouseEvent.MOUSE_DOWN,onClickHandle);	
 					btn.parent.removeChild(btn);
+					//btn.dispose();
 				}
 			}
 			
@@ -465,7 +464,7 @@
 			return new ExtendButton(new TabButton_right_up_gray,new TabButton_right_over_gray,new TabButton_right_down_gray);
 			
 		}
-	
+		
 		protected function setButonStyle(btn:ExtendButton):void{	
 			btn.addEventListener(MouseEvent.MOUSE_DOWN,onClickHandle);	
 			btn.color = _fontColor;		

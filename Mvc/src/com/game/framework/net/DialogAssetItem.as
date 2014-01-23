@@ -36,9 +36,11 @@ package com.game.framework.net
 		private var _view:IURL;
 		
 		private var _notify:INotifyData;
+		
 		private var _callerBuilder:AlertDialogBuilder;
 		private var alertDialog:AlertDialog;
 		private var calleeBuilder:AlertDialogBuilder;
+		
 		public function DialogAssetItem(url:IURL,alert:AlertDialog,currentDomain:Boolean=true)
 		{
 			super(url, currentDomain);			
@@ -74,6 +76,11 @@ package com.game.framework.net
 		
 		public function set callerBuilder(value:AlertDialogBuilder):void
 		{
+			if(_callerBuilder!=null){
+				_callerBuilder.titleData.removeEventListener(DialogDataItem.labelChange,onChangeHandler);
+				_callerBuilder.titleData.removeEventListener(DialogDataItem.viewChange,onChangeHandler);
+				_callerBuilder.removeEventListener(AlertDialogBuilder.sideSelectIndexChange,onChangeHandler);
+			}
 			_callerBuilder = value;
 		}
 		
@@ -130,20 +137,45 @@ package com.game.framework.net
 		
 		override public function dispose():void
 		{
-			if(alertDialog){
-				if(alertDialog.Builder){
-					alertDialog.Builder.titleData.removeEventListener(DialogDataItem.labelChange,onChangeHandler);				
-					alertDialog.Builder.titleData.removeEventListener(DialogDataItem.viewChange,onChangeHandler);
-					alertDialog.Builder.removeEventListener(AlertDialogBuilder.sideSelectIndexChange,onChangeHandler);
-				}
-			}
+			disposeAlertBuilder(alertDialog.Builder);
+			disposeAlertBuilder(_callerBuilder);
+			disposeAlertBuilder(calleeBuilder);
 			
 			if(_dialogContent!=null){
+				_dialogContent.setDatainterface = null;
 				_dialogContent.dispose();
 				//dialogContent.setDatainterface = null;
 				_dialogContent=null;
 			}
+			
+			setDatainterface=null;
 			super.dispose();
+		}
+		private function disposeAlertBuilder(_builder:AlertDialogBuilder):void{
+			
+			
+				if(_builder){
+					_builder.titleData.removeEventListener(DialogDataItem.labelChange,onChangeHandler);				
+					_builder.titleData.removeEventListener(DialogDataItem.viewChange,onChangeHandler);
+					_builder.removeEventListener(AlertDialogBuilder.sideSelectIndexChange,onChangeHandler);
+					if(_builder.sideBtnData){
+						for (var i:int = 0; i < _builder.sideBtnData.length; i++) 
+						{
+							_builder.sideBtnData[i].view = null;
+						}
+						
+						
+					}
+					if(_builder.getDiaLogButtons()){
+						for (var j:int = 0; j < _builder.getDiaLogButtons().length; j++) 
+						{
+							_builder.getDiaLogButtons()[i].clickHandler = null;
+							
+						}
+						
+					}				
+				}
+			
 		}
 		private function dialogContentComplete(data:DialogContentAssetItem):void{
 			

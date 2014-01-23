@@ -2,8 +2,8 @@ package com.sanbeetle.data
 {
 	public class Version
 	{
-		private var _name:String="性能优化";
-		private var _code:uint=36;
+		private var _name:String="内存优化";
+		private var _code:uint=42;
 		
 		public function Version()
 		{

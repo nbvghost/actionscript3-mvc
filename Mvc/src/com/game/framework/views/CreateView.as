@@ -147,13 +147,29 @@ package com.game.framework.views {
 			/* this.removeChildren();
 			childName.splice(0, childName.length);
 			
+			
+			
 			if (this.parent != null) {
 			this.parent.removeChild(this);
 			}*/
+			
+			if (_uimanager!=null) 
+			{
+				_uimanager.removeEnterFrame(this);
+				_uimanager.removeReSize(this);
+				_uimanager.removeTimerRun(this);
+			}
 			if(_contentContainer){
-				_contentContainer.removeChildren();
+				//_contentContainer.removeChildren();
+				//_contentContainer.dispose();
 			}
 			
+			if(childName){				
+				childName.splice(0,childName.length);
+			}
+			
+			
+			_skinContainer = null;
 			_contentContainer = null;
 			_uimanager = null;
 			_resourceManager = null;

@@ -2,18 +2,18 @@
 	
 	import com.sanbeetle.component.ILabel;
 	import com.sanbeetle.component.ITextInput;
+	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.RegExpType;
 	import com.sanbeetle.skin.IPagingSkinContral;
 	
 	import flash.display.DisplayObject;
-	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import flash.geom.ColorTransform;
 	
 	import flashx.textLayout.formats.TextAlign;
 	
 	
-	public class IPagingSkin extends MovieClip {
+	public class IPagingSkin extends UIComponent {
 		
 		
 		public var djy_txt:ILabel;
@@ -129,6 +129,26 @@
 			color = _color;
 			
 		}
+		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			
+			controlBar.per_mc.removeEventListener(MouseEvent.MOUSE_OVER,onIcoOverHandler);
+			controlBar.per_mc.removeEventListener(MouseEvent.MOUSE_OUT,onIcoOutHandler);
+			
+			controlBar.top_mc.removeEventListener(MouseEvent.MOUSE_OVER,onIcoOverHandler);
+			controlBar.top_mc.removeEventListener(MouseEvent.MOUSE_OUT,onIcoOutHandler);
+			
+			controlBar.last_mc.removeEventListener(MouseEvent.MOUSE_OVER,onIcoOverHandler);
+			controlBar.last_mc.removeEventListener(MouseEvent.MOUSE_OUT,onIcoOutHandler);
+			
+			controlBar.next_mc.removeEventListener(MouseEvent.MOUSE_OVER,onIcoOverHandler);
+			controlBar.next_mc.removeEventListener(MouseEvent.MOUSE_OUT,onIcoOutHandler);
+			
+		}
+		
 		
 		protected function onIcoOutHandler(event:MouseEvent):void
 		{

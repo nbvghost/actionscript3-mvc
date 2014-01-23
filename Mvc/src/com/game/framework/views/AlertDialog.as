@@ -39,7 +39,7 @@ package com.game.framework.views
 		private var dialogAssetItem:DialogAssetItem;
 		private var mediator:Mediator;
 		
-		private var _ID:ITargetID;
+		private var _targetID:ITargetID;
 		
 		public static var DialogPool:Object=new Object;
 		
@@ -50,7 +50,7 @@ package com.game.framework.views
 		public function AlertDialog(mediator:Mediator)
 		{	
 			
-			_ID = AlertDialog.dialogID;
+			_targetID = AlertDialog.dialogID;
 			callerBuilder = new AlertDialogBuilder();
 			this.mediator = mediator;
 			
@@ -58,7 +58,7 @@ package com.game.framework.views
 		
 		public function get ID():ITargetID
 		{
-			return _ID;
+			return _targetID;
 		}
 		
 		public static function dismissAll():void{
@@ -115,13 +115,14 @@ package com.game.framework.views
 			return callerBuilder;			
 		}
 		public function set Builder(value:AlertDialogBuilder):void{
+			
 			callerBuilder = value;
 		}
-		public function show(ID:ITargetID=null):AlertDialog{		
-			if(ID!=null){
-				_ID = ID;
+		public function show(_ID:ITargetID=null):AlertDialog{		
+			if(_ID!=null){
+				_targetID = _ID;
 			}else{
-				_ID = AlertDialog.dialogID;
+				_targetID = AlertDialog.dialogID;
 			}
 			if(callerBuilder==null){
 				Log.out("AlertDialog.Builder 不能为空！ ");
@@ -160,7 +161,7 @@ package com.game.framework.views
 			
 			dialogAssetItem.initView();			
 			
-			DialogPool[ID.id] =this;	
+			DialogPool[_targetID.id] =this;	
 			this.dispatchEvent(new DialogEvent(DialogEvent.SHOW,callerBuilder));
 			
 			return this;
@@ -174,7 +175,7 @@ package com.game.framework.views
 			
 			if(dialogAssetItem){
 				dialogAssetItem.dispose();		
-				delete DialogPool[ID.id];
+				delete DialogPool[_targetID.id];
 			}			
 			
 			dialogAssetItem=null;

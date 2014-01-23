@@ -48,6 +48,30 @@
 			}
 		}
 		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			if(parnList){
+				
+				parnList.removeEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
+				parnList.removeEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);	
+				parnList.removeEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
+				parnList.removeEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);	
+				parnList.cleanUp();
+				
+			}
+			cleanUp();
+			if (_dataProvider) 
+			{
+				_dataProvider.removeEventListener(DataChangeEvent.DATA_CHANGE,onDataChangeHadnler);	
+				//_dataProvider.removeAll();
+				//_dataProvider = null;
+			}
+			
+		}
+		
+		
 		public function get itemCellRenaderer():Class
 		{
 			if(_childList){
@@ -159,9 +183,18 @@
 				if(list){
 					if(list.parent){
 						list.parent.removeChild(list);
-					}					
+					}	
+					
+					list.removeEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
+					list.removeEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);
+					
+					list.removeEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler,false);
+					list.removeEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler,false);
+					list.removeEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);
+					list.removeEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
+					list.removeEventListener(MouseEvent.ROLL_OUT,onListRollOutHandler);
 					list.cleanUp();
-					//list.removeFromStage();
+					
 				}
 			}			
 			listArr.splice(0,listArr.length);			
@@ -199,8 +232,8 @@
 							childList.setMinWidth(this.component.getMinListWidth());
 							childList.column = indexList;							
 							childList.name = String(indexList);
-							childList.addEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler,false,0,true);
-							childList.addEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler,false,0,true);
+							childList.addEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
+							childList.addEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);
 							childList.addEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);
 							childList.addEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
 							childList.addEventListener(MouseEvent.ROLL_OUT,onListRollOutHandler);
@@ -238,7 +271,13 @@
 							if(list){
 								if(list.parent){
 									list.parent.removeChild(list);
-								}						
+								}	
+								list.cleanUp();
+								list.removeEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
+								list.removeEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);
+								list.removeEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);
+								list.removeEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
+								list.removeEventListener(MouseEvent.ROLL_OUT,onListRollOutHandler);
 								//list.removeFromStage();
 							}
 						}
@@ -272,6 +311,12 @@
 						if(list.parent){
 							list.parent.removeChild(list);
 						}
+						list.cleanUp();
+						list.removeEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
+						list.removeEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);
+						list.removeEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);
+						list.removeEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
+						list.removeEventListener(MouseEvent.ROLL_OUT,onListRollOutHandler);
 						//list.removeFromStage();
 					}						
 				}
@@ -281,6 +326,12 @@
 						if(list.parent){
 							list.parent.removeChild(list);
 						}		
+						list.cleanUp();
+						list.removeEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
+						list.removeEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);
+						list.removeEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);
+						list.removeEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
+						list.removeEventListener(MouseEvent.ROLL_OUT,onListRollOutHandler);
 						//list.removeFromStage();
 					}
 				}
@@ -342,7 +393,10 @@
 			parnList.setMaxHeight(_maxHeight);
 			
 			
-			
+			parnList.addEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
+			parnList.addEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);	
+			parnList.addEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
+			parnList.addEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);		
 			
 			
 			parnList.dataProvider = _dataProvider;

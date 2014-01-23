@@ -41,6 +41,9 @@
 		private var p:Number = 0;
 		protected var timer:int;
 		
+		
+		private var _scrollBeginPoint:Point=new Point(0,0);
+		
 		public function ScrollBar()
 		{		
 			super();	
@@ -53,6 +56,16 @@
 		}	
 		
 		
+		public function get scrollBeginPoint():Point
+		{
+			return _scrollBeginPoint;
+		}
+
+		public function set scrollBeginPoint(value:Point):void
+		{
+			_scrollBeginPoint = value;
+		}
+
 		public function get contentWidth():Number
 		{
 			if(this.target){
@@ -254,6 +267,8 @@
 		{
 			// TODO Auto Generated method stub
 			super.dispose();		
+			
+			disopose();
 			
 			this.removeEventListener(Event.ENTER_FRAME,onTimerHandelr);
 			//stageLink.removeEventListener(MouseEvent.MOUSE_UP,onTargetTimerUPHadnler);	

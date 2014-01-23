@@ -74,6 +74,20 @@
 			this.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);	
 			this.addEventListener(MouseEvent.MOUSE_MOVE,onMousehandler);			
 		}		
+		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			
+			this.removeEventListener(MouseEvent.MOUSE_OVER, onMouseOverHandler);
+			this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);	
+			this.removeEventListener(MouseEvent.MOUSE_MOVE,onMousehandler);		
+			
+			arr.splice(0,arr.length);
+			
+		}
+		
 		protected function onMousehandler(event:MouseEvent):void
 		{
 			rightDO.x = stage.mouseX+10;

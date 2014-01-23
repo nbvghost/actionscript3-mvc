@@ -2,6 +2,7 @@
 {
 	import com.asvital.dev.Log;
 	import com.sanbeetle.core.BoundDisplayObject;
+	import com.sanbeetle.data.AttributeSimpleItem;
 	import com.sanbeetle.data.Version;
 	import com.sanbeetle.events.ControlEvent;
 	import com.sanbeetle.utils.FontNames;
@@ -14,7 +15,6 @@
 	import flash.filters.DropShadowFilter;
 	import flash.net.URLRequest;
 	import flash.text.CSMSettings;
-	import flash.text.Font;
 	import flash.text.FontStyle;
 	import flash.text.StyleSheet;
 	import flash.text.TextColorType;
@@ -90,6 +90,9 @@
 			
 			fontLoader = new Loader();
 			fontLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,onFontLoaderCompleteHandler);
+			
+			//init
+			AttributeSimpleItem;
 			
 		}
 		

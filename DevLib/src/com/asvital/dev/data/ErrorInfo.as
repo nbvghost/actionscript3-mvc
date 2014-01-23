@@ -3,6 +3,11 @@ package com.asvital.dev.data
 	import flash.system.Capabilities;
 	import flash.system.System;
 
+	/**
+	 *  错误信息对象
+	 * @author sixf
+	 * 
+	 */
 	public class ErrorInfo
 	{
 		private var _time:Number = 0;

@@ -42,6 +42,7 @@
 		private var runTime:Number = 0;
 		private var isRuning:Boolean = false;
 		
+		private var _name:String = "";
 		
 		private var _border:int = 0;		
 		private var _borderColor:String ="0x000000";
@@ -86,7 +87,16 @@
 			this.addChild(ite);*/
 			
 		}	
-		private var _name:String = "";
+		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			
+			timer.removeRun(skin);
+			
+		}
+		
 		override public function get name():String
 		{
 			// TODO Auto Generated method stub
@@ -246,16 +256,7 @@
 			
 			isRuning =false;
 			timer.removeRun(skin);
-		}
-		
-		
-		override public function dispose():void
-		{
-			// TODO Auto Generated method stub
-			super.dispose();
-			
-		}
-		
+		}		
 		private function timerRunFunc(event:TimerEvent):void
 		{			
 			

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.sanbeetle.data"><apiName>com.sanbeetle.data</apiName><apiDetail/><apiClassifier id="com.sanbeetle.data:DataProvider"><apiName>DataProvider</apiName><shortdesc>
+	 The DataProvider class provides methods and properties that allow you to query and modify
+	 the data in any list-based component--for example, in a List, DataGrid, TileList, or ComboBox
+	 component.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 The DataProvider class provides methods and properties that allow you to query and modify
+	 the data in any list-based component--for example, in a List, DataGrid, TileList, or ComboBox
+	 component.
+	 
+	 <p>A <i>data provider</i> is a linear collection of items that serve as a data source--for 
+	 example, an array. Each item in a data provider is an object or XML object that contains one or 
+	 more fields of data. You can access the items that are contained in a data provider by index, by 
+	 using the <codeph>DataProvider.getItemAt()</codeph> method.</p>
+     
+     </apiDesc><example conref="DataProviderExample.as"/></apiClassifierDetail><adobeApiEvent id="com.sanbeetle.data:DataProvider_fl.events.DataChangeEvent.DATA_CHANGE_dataChange"><apiName>dataChange</apiName><shortdesc>
+	 Dispatched after the data is changed.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>fl.events.DataChangeEvent.DATA_CHANGE</apiEventType><adobeApiEventClassifier>com.sanbeetle.events.DataChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+	 Dispatched after the data is changed.
+     
+     </apiDesc></adobeApiEventDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/event:preDataChange"><linktext>preDataChange event</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="com.sanbeetle.data:DataProvider_fl.events.DataChangeEvent.PRE_DATA_CHANGE_preDataChange"><apiName>preDataChange</apiName><shortdesc>
+	 Dispatched before the data is changed.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>fl.events.DataChangeEvent.PRE_DATA_CHANGE</apiEventType><adobeApiEventClassifier>com.sanbeetle.events.DataChangeEvent</adobeApiEventClassifier><apiGeneratedEvent/></adobeApiEventDef><apiDesc>
+	 Dispatched before the data is changed.
+	 
+     </apiDesc></adobeApiEventDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/event:dataChange"><linktext>dataChange event</linktext></link></related-links></adobeApiEvent><apiConstructor id="com.sanbeetle.data:DataProvider:DataProvider"><apiName>DataProvider</apiName><shortdesc>
+		 Creates a new DataProvider object using a list, XML instance or an array of data objects
+		 as the data source.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>value</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>The data that is used to create the DataProvider.
+         
+         </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		 Creates a new DataProvider object using a list, XML instance or an array of data objects
+		 as the data source. 
+		 
+         </apiDesc><example conref="DataProvider.constructor.1.as"/><example conref="DataProvider.constructor.2.as"/><example conref="DataProvider.constructor.3.as"/><example conref="DataProvider.constructor.4.as"/></apiConstructorDetail></apiConstructor><apiOperation id="com.sanbeetle.data:DataProvider:addItemAt"><apiName>addItemAt</apiName><shortdesc>
+		 Adds a new item to the data provider at the specified index.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>The specified index is less than 0 or greater than or equal 
+		         to the length of the data provider.
+         
+         </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>An object that contains the data for the item to be added.
+		 
+         </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiDesc> The index at which the item is to be added.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Adds a new item to the data provider at the specified index.
+		 If the index that is specified exceeds the length of the data provider,
+		 the index is ignored.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/addItem()"><linktext>addItem()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/addItems()"><linktext>addItems()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/addItemsAt()"><linktext>addItemsAt()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/getItemAt()"><linktext>getItemAt()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/removeItemAt()"><linktext>removeItemAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:addItem"><apiName>addItem</apiName><shortdesc>
+		 Appends an item to the end of the data provider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>The item to be appended to the end of the current data provider.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Appends an item to the end of the data provider.
+		 
+         </apiDesc><example conref="DataProvider.constructor.1.as"/></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/addItemAt()"><linktext>addItemAt()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/addItems()"><linktext>addItems()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/addItemsAt()"><linktext>addItemsAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:addItemsAt"><apiName>addItemsAt</apiName><shortdesc>
+		 Adds several items to the data provider at the specified index and dispatches
+		 a DataChangeType.ADD event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>The specified index is less than 0 or greater than or equal 
+		                    to the length of the data provider.
+         
+         </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Object"/><apiDesc>The items to be added to the data provider.
+		 
+		 </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiDesc>The index at which the items are to be inserted.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Adds several items to the data provider at the specified index and dispatches
+		 a <codeph>DataChangeType.ADD</codeph> event.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/addItem()"><linktext>addItem()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/addItemAt()"><linktext>addItemAt()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/addItems()"><linktext>addItems()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:addItems"><apiName>addItems</apiName><shortdesc>
+		 Appends multiple items to the end of the DataProvider and dispatches
+		 a DataChangeType.ADD event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Object"/><apiDesc>The items to be appended to the data provider.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Appends multiple items to the end of the DataProvider and dispatches
+		 a <codeph>DataChangeType.ADD</codeph> event. The items are added in the order 
+		 in which they are specified.
+		 
+         </apiDesc><example conref="DataProvider.addItems.1.as"/></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/addItem()"><linktext>addItem()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/addItemAt()"><linktext>addItemAt()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/addItemsAt()"><linktext>addItemsAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:clone"><apiName>clone</apiName><shortdesc>
+		 Creates a copy of the current DataProvider object.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>A new instance of this DataProvider object.
+         
+         </apiDesc><apiOperationClassifier>com.sanbeetle.data:DataProvider</apiOperationClassifier></apiReturn></apiOperationDef><apiDesc>
+		 Creates a copy of the current DataProvider object.
+		 
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:concat"><apiName>concat</apiName><shortdesc>
+		 Concatenates the specified items to the end of the current data provider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata><asCustoms><internal>Is this method any different than addItems()? It's not clear.
+		           I also thing "concatenates the items o sounds odd. Perhaps
+		           the concatenated items are added to the end of the data provider?
+		  
+		  </internal></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>items</apiItemName><apiType value="Object"/><apiDesc>The items to be added to the data provider.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Concatenates the specified items to the end of the current data provider.
+         This method dispatches a <codeph>DataChangeType.ADD</codeph> event.
+		 
+         </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/addItems()"><linktext>addItems()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/merge()"><linktext>merge()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:getItemAt"><apiName>getItemAt</apiName><shortdesc>
+         Returns the item at the specified index.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>The specified index is less than 0 or greater than 
+		         or equal to the length of the data provider.
+         
+         </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>The item at the specified index.
+         
+         </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiDesc>Location of the item to be returned.
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+         Returns the item at the specified index.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/getItemIndex()"><linktext>getItemIndex()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/removeItemAt()"><linktext>removeItemAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:getItemIndex"><apiName>getItemIndex</apiName><shortdesc>
+         Returns the index of the specified item.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>The index of the specified item, or -1 if the specified item is not found.
+         
+         </apiDesc><apiType value="int"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>The item to be located.
+		 
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+         Returns the index of the specified item.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/getItemAt()"><linktext>getItemAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:invalidateItemAt"><apiName>invalidateItemAt</apiName><shortdesc>
+		 Invalidates the item at the specified index.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>The specified index is less than 0 or greater than 
+                 or equal to the length of the data provider.
+         
+         </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="int"/><apiDesc>Index of the item to be invalidated.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Invalidates the item at the specified index. An item is invalidated after it is
+		 changed; the DataProvider automatically redraws the invalidated item. 
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/invalidate()"><linktext>invalidate()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/invalidateItem()"><linktext>invalidateItem()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:invalidateItem"><apiName>invalidateItem</apiName><shortdesc>
+		 Invalidates the specified item.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Item to be invalidated.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Invalidates the specified item. An item is invalidated after it is
+		 changed; the DataProvider automatically redraws the invalidated item. 
+		 
+         </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/invalidate()"><linktext>invalidate()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/invalidateItemAt()"><linktext>invalidateItemAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:invalidate"><apiName>invalidate</apiName><shortdesc>
+         Invalidates all the data items that the DataProvider contains and dispatches a 
+         DataChangeEvent.INVALIDATE_ALL event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+         Invalidates all the data items that the DataProvider contains and dispatches a 
+         <codeph>DataChangeEvent.INVALIDATE_ALL</codeph> event. Items are invalidated after they
+		 are changed; the DataProvider automatically redraws the invalidated items. 
+         
+         </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/invalidateItem()"><linktext>invalidateItem()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/invalidateItemAt()"><linktext>invalidateItemAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:merge"><apiName>merge</apiName><shortdesc>
+		 Appends the specified data into the data that the data provider
+		 contains and removes any duplicate items.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn><apiParam><apiItemName>newData</apiItemName><apiType value="Object"/><apiDesc>Data to be merged into the data provider.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Appends the specified data into the data that the data provider
+		 contains and removes any duplicate items. This method dispatches
+		 a <codeph>DataChangeType.ADD</codeph> event.
+		 
+         </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/concat()"><linktext>concat()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:removeAll"><apiName>removeAll</apiName><shortdesc>
+		 Removes all items from the data provider and dispatches a DataChangeType.REMOVE_ALL
+         event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="void"/></apiReturn></apiOperationDef><apiDesc>
+		 Removes all items from the data provider and dispatches a <codeph>DataChangeType.REMOVE_ALL</codeph>
+         event.
+         
+         </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/removeItem()"><linktext>removeItem()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/removeItemAt()"><linktext>removeItemAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:removeItemAt"><apiName>removeItemAt</apiName><shortdesc>
+		 Removes the item at the specified index and dispatches a DataChangeType.REMOVE
+		 event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>The specified index is less than 0 or greater than
+                 or equal to the length of the data provider.
+         
+         </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>The item that was removed.
+         
+         </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiDesc>Index of the item to be removed.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Removes the item at the specified index and dispatches a <codeph>DataChangeType.REMOVE</codeph>
+		 event.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/removeAll()"><linktext>removeAll()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/removeItem()"><linktext>removeItem()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:removeItem"><apiName>removeItem</apiName><shortdesc>
+		 Removes the specified item from the data provider and dispatches a DataChangeType.REMOVE
+		 event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>The item that was removed.
+         
+         </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>item</apiItemName><apiType value="Object"/><apiDesc>Item to be removed.
+         
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Removes the specified item from the data provider and dispatches a <codeph>DataChangeType.REMOVE</codeph>
+		 event.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/removeAll()"><linktext>removeAll()</linktext></link><link href="com.sanbeetle.data.xml#DataProvider/removeItemAt()"><linktext>removeItemAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:replaceItemAt"><apiName>replaceItemAt</apiName><shortdesc>
+		  Replaces the item at the specified index and dispatches a DataChangeType.REPLACE
+		  event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>The specified index is less than 0 or greater than 
+                 or equal to the length of the data provider.
+         
+         </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>The item that was replaced.
+         
+         </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>newItem</apiItemName><apiType value="Object"/><apiDesc>The replacement item.
+		 
+		 </apiDesc></apiParam><apiParam><apiItemName>index</apiItemName><apiType value="uint"/><apiDesc>The index of the item to be replaced.
+		 
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		  Replaces the item at the specified index and dispatches a <codeph>DataChangeType.REPLACE</codeph>
+		  event.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/replaceItem()"><linktext>replaceItem()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:replaceItem"><apiName>replaceItem</apiName><shortdesc>
+		 Replaces an existing item with a new item and dispatches a DataChangeType.REPLACE
+		 event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiException><apiDesc>The item could not be found in the data provider.
+         
+         </apiDesc><apiItemName>RangeError</apiItemName><apiOperationClassifier>RangeError</apiOperationClassifier></apiException><apiReturn><apiDesc>The item that was replaced.
+         
+         </apiDesc><apiType value="Object"/></apiReturn><apiParam><apiItemName>newItem</apiItemName><apiType value="Object"/><apiDesc>The item to be replaced.
+		 
+		 </apiDesc></apiParam><apiParam><apiItemName>oldItem</apiItemName><apiType value="Object"/><apiDesc>The replacement item.
+		 
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Replaces an existing item with a new item and dispatches a <codeph>DataChangeType.REPLACE</codeph>
+		 event.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/replaceItemAt()"><linktext>replaceItemAt()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:sortOn"><apiName>sortOn</apiName><shortdesc>
+		 Sorts the items that the data provider contains by the specified 
+		 field and dispatches a DataChangeType.SORT event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata><asCustoms><internal>If an array of string values is passed, does the sort take place in
+		 the order that the string values are specified?  Also, it might be helpful if "options
+		 for sorting" was more explicit. I wondered if that meant sort type, like merge sort
+		 or bubble sort, for example, but when I looked up "uniquesort" it seemed like not.
+         
+         </internal></asCustoms></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>The return value depends on whether the method receives any arguments. 
+		         For more information, see the <codeph>Array.sortOn()</codeph> method. 
+		         If the <codeph>sortOption</codeph> property is set to <codeph>Array.UNIQUESORT</codeph>,
+		         this method returns 0. 
+		 
+         </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>fieldName</apiItemName><apiType value="Object"/><apiDesc>The item field by which to sort. This value can be a string 
+		                  or an array of string values.
+		 
+		 </apiDesc></apiParam><apiParam><apiItemName>options</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>Options for sorting.
+		 
+		 </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Sorts the items that the data provider contains by the specified 
+		 field and dispatches a <codeph>DataChangeType.SORT</codeph> event.
+		 The specified field can be a string, or an array of string values that
+		 designate multiple fields to sort on in order of precedence.
+		 
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/sort()"><linktext>sort()</linktext></link><link href="" invalidHref="com.sanbeetle.data.xml#Array/sortOn()"><linktext>Array.sortOn()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:sort"><apiName>sort</apiName><shortdesc>
+		 Sorts the items that the data provider contains and dispatches a DataChangeType.SORT
+		 event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>The return value depends on whether the method receives any arguments.  
+                 See the <codeph>Array.sort()</codeph> method for more information. 
+                 This method returns 0 when the <codeph>sortOption</codeph> property 
+                 is set to <codeph>Array.UNIQUESORT</codeph>.
+		 
+         </apiDesc><apiType value="any"/></apiReturn><apiParam><apiItemName>sortArgs</apiItemName><apiType value="restParam"/><apiDesc>The arguments to use for sorting.
+		 
+         </apiDesc></apiParam></apiOperationDef><apiDesc>
+		 Sorts the items that the data provider contains and dispatches a <codeph>DataChangeType.SORT</codeph>
+		 event.
+         
+		 </apiDesc></apiOperationDetail><related-links><link href="com.sanbeetle.data.xml#DataProvider/sortOn()"><linktext>sortOn()</linktext></link><link href="" invalidHref="com.sanbeetle.data.xml#Array/sort()"><linktext>Array.sort()</linktext></link></related-links></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:toArray"><apiName>toArray</apiName><shortdesc>
+		 Creates an Array object representation of the data that the data provider contains.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiDesc>An Array object representation of the data that the data provider contains.
+         
+         </apiDesc><apiType value="Array"/></apiReturn></apiOperationDef><apiDesc>
+		 Creates an Array object representation of the data that the data provider contains.
+		 
+         </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.sanbeetle.data:DataProvider:toString"><apiName>toString</apiName><shortdesc>
+		 Creates a string representation of the data that the data provider contains.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>A string representation of the data that the data provider contains.
+         
+         </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+		 Creates a string representation of the data that the data provider contains.
+		 
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.sanbeetle.data:DataProvider:length:get"><apiName>length</apiName><shortdesc>
+         The number of items that the data provider contains.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef><apiDesc>
+         The number of items that the data provider contains.
+         
+         </apiDesc><example conref="DataProvider.length.1.as"/></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.data:RegExpType"><apiName>RegExpType</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiConstructor id="com.sanbeetle.data:RegExpType:RegExpType"><apiName>RegExpType</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiValue id="com.sanbeetle.data:RegExpType:ILLEGAL"><apiName>ILLEGAL</apiName><shortdesc>
+		 过虑符号 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="RegExp"/></apiValueDef><apiDesc>
+		 过虑符号 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:RegExpType:INT"><apiName>INT</apiName><shortdesc>
+		  匹配整数
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="RegExp"/></apiValueDef><apiDesc>
+		  匹配整数
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:RegExpType:NUMBER"><apiName>NUMBER</apiName><shortdesc>
+		 匹配浮点数
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="RegExp"/></apiValueDef><apiDesc>
+		 匹配浮点数
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.data:LineCollectionItem"><apiName>LineCollectionItem</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.sanbeetle.data:SimpleCollectionItem</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiConstructor id="com.sanbeetle.data:LineCollectionItem:LineCollectionItem"><apiName>LineCollectionItem</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="com.sanbeetle.data:ListData"><apiName>ListData</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiConstructor id="com.sanbeetle.data:ListData:ListData"><apiName>ListData</apiName><shortdesc>
+		  
+		 </shortdesc><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>_data</apiItemName><apiOperationClassifier>com.sanbeetle.interfaces:IFListItem</apiOperationClassifier><apiDesc> 
+		 </apiDesc></apiParam><apiParam><apiItemName>_column</apiItemName><apiType value="uint"/><apiDesc>数据项目所在的列。
+		 </apiDesc></apiParam><apiParam><apiItemName>_row</apiItemName><apiType value="int"/><apiDesc>数据项目所在的行
+		 
+		 </apiDesc></apiParam><apiParam><apiItemName>parentList</apiItemName><apiOperationClassifier>com.sanbeetle.data:ListData</apiOperationClassifier></apiParam></apiConstructorDef><apiDesc>
+		  
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.sanbeetle.data:ListData:toString"><apiName>toString</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="String"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="com.sanbeetle.data:ListData:column:get"><apiName>column</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:ListData:data:get"><apiName>data</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.sanbeetle.interfaces:IFListItem</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:ListData:parentListData:get"><apiName>parentListData</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.sanbeetle.data:ListData</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:ListData:row:get"><apiName>row</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.data:ListChildItem"><apiName>ListChildItem</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>com.sanbeetle.data:SimpleCollectionItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.sanbeetle.data:ListChildItem:ListChildItem"><apiName>ListChildItem</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>label</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="String"/></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiValue id="com.sanbeetle.data:ListChildItem:childs:get"><apiName>childs</apiName><shortdesc>
+		 子菜单数据 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.sanbeetle.data:DataProvider</apiValueClassifier></apiValueDef><apiDesc>
+		 子菜单数据 
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.data:AttributeSimpleItem"><apiName>AttributeSimpleItem</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>com.sanbeetle.data:SimpleCollectionItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.sanbeetle.data:AttributeSimpleItem:AttributeSimpleItem"><apiName>AttributeSimpleItem</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam><apiParam><apiItemName>itemColor</apiItemName><apiType value="String"/><apiData>null</apiData></apiParam><apiParam><apiItemName>enable</apiItemName><apiType value="Boolean"/><apiData>true</apiData></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor></apiClassifier><apiClassifier id="com.sanbeetle.data:SimpleCollectionItem"><apiName>SimpleCollectionItem</apiName><shortdesc>
+	 The SimpleCollectionItem class defines a single item in an inspectable
+	 property that represents a data provider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata><asCustoms><internal>Is this revised description correct?
+	 Adobe: [LM} Yes, its ok.
+     
+	 </internal></asCustoms></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>com.sanbeetle.interfaces:IFListItem</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 The SimpleCollectionItem class defines a single item in an inspectable
+	 property that represents a data provider. A SimpleCollectionItem object
+	 is a collection list item that contains only <codeph>label</codeph> and
+	 <codeph>data</codeph> properties--for example, a ComboBox or List component.
+     
+     </apiDesc><example conref="SimpleCollectionItemExample.as"/></apiClassifierDetail><apiConstructor id="com.sanbeetle.data:SimpleCollectionItem:SimpleCollectionItem"><apiName>SimpleCollectionItem</apiName><shortdesc>
+         Creates a new SimpleCollectionItem object.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>label</apiItemName><apiType value="String"/><apiData>null</apiData><apiDesc>	 </apiDesc></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData><apiDesc>        </apiDesc></apiParam></apiConstructorDef><apiDesc>
+         Creates a new SimpleCollectionItem object.
+         </apiDesc></apiConstructorDetail></apiConstructor><apiValue id="com.sanbeetle.data:SimpleCollectionItem:data:get"><apiName>data</apiName><shortdesc>
+		 The data property of the object.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/><apiDefaultValue>null
+		 
+		 </apiDefaultValue></apiValueDef><apiDesc>
+		 The <codeph>data</codeph> property of the object.
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:SimpleCollectionItem:enable:get"><apiName>enable</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:SimpleCollectionItem:itemColor:get"><apiName>itemColor</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:SimpleCollectionItem:itemOverColor:get"><apiName>itemOverColor</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:SimpleCollectionItem:label:get"><apiName>label</apiName><shortdesc>
+		 The label property of the object.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+		 The <codeph>label</codeph> property of the object.
+		 
+		 The default value is <codeph>label(<i>n</i>)</codeph>, where <i>n</i> is the ordinal index.
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:SimpleCollectionItem:type:get"><apiName>type</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.data:Version"><apiName>Version</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiConstructor id="com.sanbeetle.data:Version:Version"><apiName>Version</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiOperation id="com.sanbeetle.data:Version:toString"><apiName>toString</apiName><shortdesc/><prolog/><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiReturn><apiType value="String"/></apiReturn></apiOperationDef></apiOperationDetail></apiOperation><apiValue id="com.sanbeetle.data:Version:code:get"><apiName>code</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.data:Version:name:get"><apiName>name</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage>

@@ -18,7 +18,6 @@
 			this.paddingBottom =2;
 			this.paddingRight = 2;			
 			
-			
 		}	
 		[Inspectable(defaultValue=2)]
 		override public function get paddingLeft():Number

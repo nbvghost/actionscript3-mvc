@@ -60,6 +60,9 @@ package com.game.framework.views {
 		public static const INIT_NOTIFY:NotifyData = new NotifyData(INIT_TYPE, "Mediator 被 initView ！");
 		
 		
+		private var _isOutStage:Boolean = false;
+		
+		private var _keepLiveMsg:Boolean = false;
 			
 		FW var isdissolve:Boolean = false;
 		
@@ -73,6 +76,38 @@ package com.game.framework.views {
 			
 		}	
 		
+		/**
+		 * 当模块 不可见时，是否还继续收到消息？》 default:false
+		 */
+		public function get keepLiveMsg():Boolean
+		{
+			return _keepLiveMsg;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set keepLiveMsg(value:Boolean):void
+		{
+			_keepLiveMsg = value;
+		}
+
+		/**
+		 * 是否离开了 Stage ,如果这个显示不在显示列表 ，则不会在发消息。default:false
+		 */
+		public function get isOutStage():Boolean
+		{
+			return _isOutStage;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set isOutStage(value:Boolean):void
+		{
+			_isOutStage = value;
+		}
+
 		override protected function onViewCompleteHandler(event:AssetsEvent):void {
 			view.removeEventListener(AssetsEvent.COMPLETE_LOAD, onViewCompleteHandler);
 			
@@ -98,11 +133,14 @@ package com.game.framework.views {
 					uimanager.removeReSize(view);
 					uimanager.removeTimerRun(view);
 				}
+				if(this.uimanager){				
+					uimanager.removeEnterFrame(this);
+					uimanager.removeReSize(this);
+					uimanager.removeTimerRun(this);
+				}
 				FW::isdissolve=true;
 				this.dispatchEvent(new DissolveEvent(DissolveEvent.DISSOLVE));
-			}		
-			
-			
+			}			
 		}	
 		
 		/**
@@ -142,6 +180,12 @@ package com.game.framework.views {
 		protected function dismissAll():void{
 			AlertDialog.dismissAll();
 		}
+		/**
+		 *  根据 dialogID  返回 给 AlertDialog 用的 AlertDialogBuilder
+		 * @param dialogID
+		 * @return 
+		 * 
+		 */
 		protected function onCreateDialog(dialogID:ITargetID):AlertDialogBuilder{
 			throw new OperateError("请重写 onCreateDialog 方法，因为 showDialog 方法。",this);
 			return null;
@@ -154,8 +198,8 @@ package com.game.framework.views {
 		override public function dispose():void
 		{	
 			
+			_notiys.splice(0,_notiys.length);
 			super.dispose();
-			//dialog.dispose();
 			
 		}		
 		
@@ -170,15 +214,21 @@ package com.game.framework.views {
 			if (isSkinLoad) {
 				reSendNotify();
 			}
-		}
-		
+		}		
+		/**
+		 * 消息 列表 遍历 
+		 * 
+		 */
 		private function reSendNotify():void {
+			if(_isOutStage && _keepLiveMsg==false){
+				//return;
+			}
 			var currrentObj:Object;
 			while (_notiys.length > 0) {
 				currrentObj = _notiys.shift();
 				//改成事件驱动
-				//this.handerNotify(currrentObj.name,currrentObj.notify);
-				FW::disHanderNotify(currrentObj.name, currrentObj.notify);
+				this.handerNotify(currrentObj.name,currrentObj.notify);
+				//FW::disHanderNotify(currrentObj.name, currrentObj.notify);
 			}
 		}
 		

@@ -17,13 +17,10 @@ package com.game.framework.command {
 	public class Command extends EventDispatcher implements IObtain,ICommand {
 		public function Command() {
 			super();
-			this.addEventListener(FrameWorkEvent.COMMAND_EXECUTE, onExecuteHandler);
+			
 		}
 		
-		private function onExecuteHandler(event:FrameWorkEvent):void {
-			this.removeEventListener(FrameWorkEvent.COMMAND_EXECUTE, onExecuteHandler);
-			this.execute(event.notifyData);
-		}
+		
 		
 		/**
 		 * 每一个 Command 实例 被触发(sendNotify(Command.NAME,new NotifyData()))时， execute 被执行
@@ -35,9 +32,7 @@ package com.game.framework.command {
 			
 		}
 		
-		FW function disExecute(notify:INotifyData):void {
-			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.COMMAND_EXECUTE, notify));
-		}
+		
 		
 		/**
 		 * 获取 Mediator 对象

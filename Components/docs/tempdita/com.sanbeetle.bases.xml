@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.sanbeetle.bases"><apiName>com.sanbeetle.bases</apiName><apiDetail/><apiClassifier id="com.sanbeetle.bases:BaseObject"><apiName>BaseObject</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.sanbeetle.bases:BaseObject:BaseObject"><apiName>BaseObject</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor><apiValue id="com.sanbeetle.bases:BaseObject:protected:component"><apiName>component</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>com.sanbeetle:Component</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage>

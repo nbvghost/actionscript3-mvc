@@ -110,10 +110,32 @@
 				targetDisplay.addEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
 			}else{
 				Log.out(" 没有找到 "+_targetName+" 实例！");
-			}
-			
+			}			
 			
 		}
+		
+		override public function dispose():void
+		{
+			if(list){
+				list.removeEventListener(ControlEvent.CHANGE,onChangeHandler);
+				list.removeEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);
+				if(list.parent){
+					list.parent.removeChild(list);
+				}
+			}
+			if (targetDisplay) 
+			{
+				
+				targetDisplay.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
+				targetDisplay =null;
+			}
+			if(stage){				
+				stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
+			}
+			
+			super.dispose();
+		}
+		
 		
 		protected function onTargetDownHandler(event:MouseEvent):void
 		{	
@@ -155,18 +177,16 @@
 		{
 			
 			if(!Utils.isChild(this,event.target as DisplayObject) && !Utils.isChild(targetDisplay,event.target as DisplayObject)){
-				/*if(parentDisp.contains(this)){
-				parentDisp.removeChild(this);
 				
-				if(parentDisp.stage){
-				parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
-				}
-				}*/
-				if(stage.contains(list)){
+				if (stage) 
+				{
 					
-					stage.removeChild(list);
+					if(stage.contains(list)){
+						
+						stage.removeChild(list);
+					}
+					stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
 				}
-				stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
 			}			
 			
 		}

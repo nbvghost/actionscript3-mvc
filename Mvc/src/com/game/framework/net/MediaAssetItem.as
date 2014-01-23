@@ -63,6 +63,7 @@ package com.game.framework.net {
 			if(mediator){
 				//mediator.handerNotify(Mediator.IN_TYPE,null);
 				mediator.push(Mediator.IN_TYPE,null);
+				mediator.isOutStage = false;
 			}else{
 				isINType =true;
 			}
@@ -71,8 +72,9 @@ package com.game.framework.net {
 		{
 			
 			if(mediator){
-				//mediator.handerNotify(Mediator.OUT_TYPE,null);
+				
 				mediator.push(Mediator.OUT_TYPE,null);
+				mediator.isOutStage = true;
 			}			
 			
 		}
@@ -118,9 +120,9 @@ package com.game.framework.net {
 		
 		private function onSkinloaderOver(data:IAssetItem):void {
 			
-			createView = swfFile.getCreateView;
-			
+			createView = swfFile.getCreateView;			
 			mediator = swfFile.getMediator;
+			
 			mediator.addEventListener(DissolveEvent.DISSOLVE,onDissolveHandler);
 			mediator.addEventListener(AssetsEvent.COMPLETE_LOAD, onSkinLoadCompleteHandler);
 			mediator.FW::view = createView;
@@ -159,13 +161,14 @@ package com.game.framework.net {
 		
 		
 		private function onSkinLoadCompleteHandler(e:AssetsEvent):void {
-			this.addEventListener(Event.ENTER_FRAME,onEnterFrameHandler);			
+			mediator.removeEventListener(AssetsEvent.COMPLETE_LOAD, onSkinLoadCompleteHandler);
+			this.addEventListener(Event.ENTER_FRAME,onEnterFrameHandler);		
 			
 		}	
 		
 		protected function onEnterFrameHandler(event:Event):void
 		{
-			
+			trace("ENTER_FRAME",this);
 			this.removeEventListener(Event.ENTER_FRAME,onEnterFrameHandler);
 			notifyMediator();			
 			
@@ -173,7 +176,7 @@ package com.game.framework.net {
 		protected function notifyMediator():void{
 			
 			
-			mediator.removeEventListener(AssetsEvent.COMPLETE_LOAD, onSkinLoadCompleteHandler);
+			
 			
 			
 			this.getDatainterface.asssetAllComplete(this);
@@ -240,17 +243,22 @@ package com.game.framework.net {
 		 *
 		 */
 		override public function dispose():void {
-			super.dispose();
 			
 			if(mediator){
 				mediator.removeEventListener(DissolveEvent.DISSOLVE,onDissolveHandler);
 				mediator.dispose();
 			}		
-			if(skinLoader){
+			if(createView){
 				
+				createView.dispose();
+			}
+			if(skinLoader){
+				skinLoader.setDatainterface = null;
 				skinLoader.dispose();
 				skinLoader = null;
 			}
+			
+			super.dispose();
 			
 			_isLoadSuccess = false;
 			_isinitView = false;

@@ -6,7 +6,6 @@ package com.game.framework.ifaces {
 	
 	import com.game.framework.display.AppStage;
 	
-	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
 	
 	/**

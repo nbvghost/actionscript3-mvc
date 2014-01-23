@@ -89,9 +89,9 @@
 			
 			
 			cbbar.defaultLabel = _label;		
-					
+			
 			//_maxHeight = this.component.getMaxListHeight();
-		
+			
 			list= new ListChild();
 			
 			
@@ -101,8 +101,29 @@
 			list.addEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRenderereHandler);
 			
 		}
+		
+		override public function dispose():void
+		{
+			if(list){
+				if(list.parent){
+					list.parent.removeChild(list);
+				}
+			}
+			list.removeEventListener(ControlEvent.CHANGE,onChangeHandler);
+			list.removeEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRenderereHandler);
+			cbbar.removeEventListener(ControlEvent.SELECT,onBarSelectHandler);
+			if (stage) 
+			{
+				
+				stage.removeEventListener (MouseEvent.MOUSE_DOWN,onStageDownHandler);
+			}
+			
+			
+			super.dispose();
+		}
+		
 		private var _maxHeight:int =-1;
-
+		
 		public function get itemCellRenaderer():Class
 		{
 			if(list.itemCellRenaderer){
@@ -110,7 +131,7 @@
 			}
 			return ItemCellRenaderer;
 		}
-
+		
 		public function setMaxHeight(h:int=-1):void{
 			if(_maxHeight != h){
 				_maxHeight = h;					
@@ -131,12 +152,12 @@
 			}
 			
 		}
-
+		
 		public function get listData():ListData
 		{
 			return _listData;
 		}
-
+		
 		/**
 		 * ILabel  的引用  
 		 * @return 
@@ -144,11 +165,11 @@
 		 */
 		/*public function get ilable():ILabel
 		{
-			return cbbar.labelTxt;
+		return cbbar.labelTxt;
 		}*/
-
-	
-
+		
+		
+		
 		[Inspectable(enumeration="background_default,background_none,background_over,backround_rb",defaultValue="background_default")]
 		/**
 		 * 背景类型 
@@ -171,7 +192,7 @@
 		
 		/*public function set selectedItem(value:IFListItem):void
 		{
-			_selectedItem = value;
+		_selectedItem = value;
 		}*/	
 		
 		[Inspectable(defaultValue ="default label")]
@@ -215,7 +236,7 @@
 			_fontSize = value;
 			//cbbar.fontSize = _fontSize;
 		}
-
+		
 		private function onChangeHandler (event:ControlEvent):void
 		{
 			
@@ -301,11 +322,11 @@
 			list.x = point.x;
 			list.y = point.y;
 			stage.addChild (list);		
-		
+			
 			//list.x = point.x;
 			//	list.y = point.y;
 			stage.addEventListener (MouseEvent.MOUSE_DOWN,onStageDownHandler);
-				
+			
 			
 			
 		}
@@ -372,7 +393,7 @@
 			
 			
 			
-		
+			
 			//list.width = this.trueWidth;
 			
 			if(ItemCellRenaderer!=null){

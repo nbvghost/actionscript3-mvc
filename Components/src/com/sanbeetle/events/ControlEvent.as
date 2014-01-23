@@ -27,6 +27,11 @@
 		public static const CLOSE:String="close";
 		public static const SELECT:String="select";
 		
+		/**
+		 * 组件所在的视图被 被释放 
+		 */
+		public static const VIEW_DISPOSE:String="view_dispose";
+		
 		public static const ITEM_SELECT:String="item_select";
 		
 		/**

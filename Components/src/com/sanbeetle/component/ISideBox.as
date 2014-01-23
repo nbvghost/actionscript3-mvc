@@ -55,6 +55,33 @@
 			box=new Sprite();
 		}	
 		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			
+			
+			
+			sideBoxSkin.removeEventListener(ControlEvent.CHANGE,onContentClickHandler);
+			sideBoxSkin.removeEventListener(ControlEvent.ITEM_SELECT,onConteseleHane);
+			
+			
+			if(sideBoxSkin.parent){
+				sideBoxSkin.parent.removeChild(sideBoxSkin);
+			}
+			
+			tels.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);
+			tels.removeEventListener(MouseEvent.MOUSE_OUT,onMouseHandler);
+			tels.removeEventListener(MouseEvent.MOUSE_OVER,onMouseHandler);
+			//tels.addEventListener(MouseEvent.MOUSE_UP,onMouseHandler);
+			tels.removeEventListener(MouseEvent.CLICK,onManinClickHandler);	
+			
+			if(stage){
+				stage.removeEventListener(MouseEvent.MOUSE_UP,onStageUpHandler);
+			}
+		}
+		
+		
 		protected function onConteseleHane(event:ControlEvent):void
 		{
 			// TODO Auto-generated method stub
@@ -102,6 +129,8 @@
 			tels.addEventListener(MouseEvent.CLICK,onManinClickHandler);	
 			
 			//sideBoxSkin.filters=this.component.isideBoxFilters;
+			
+			
 			
 			updateUI();
 		}

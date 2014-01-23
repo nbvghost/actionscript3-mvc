@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?><allClasses><apiPackage id="com.game.framework.base"><apiName>com.game.framework.base</apiName><apiClassifier id="com.game.framework.base:BaseNotify"><apiName>BaseNotify</apiName><shortdesc>
+	 现了 INotify 接口
+	 see com.game.framework.interfaces.INotify
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:INotify</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 现了 INotify 接口
+	 see com.game.framework.interfaces.INotify
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.base:BaseNotify:FW:launcher:get"><apiName>launcher</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="FW"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework:Launcher</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.base:BaseNotify:name:get"><apiName>name</apiName><shortdesc>
+		  name == Mediator.NONE 将不被注册到 MVC 框架中。 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+		  name == Mediator.NONE 将不被注册到 MVC 框架中。 
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage><apiPackage id="com.game.framework.command"><apiName>com.game.framework.command</apiName><apiClassifier id="com.game.framework.command:Command"><apiName>Command</apiName><shortdesc>
+	 一个Command 将被动态实例化，并执行 execute 方法，请把方法写在 execute 内。
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IObtain</apiBaseInterface><apiBaseInterface>com.game.framework.ifaces:ICommand</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 一个Command 将被动态实例化，并执行 execute 方法，请把方法写在 execute 内。
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.command:RegisterCommand"><apiName>RegisterCommand</apiName><shortdesc>
+ 
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IRegister</apiBaseInterface><apiBaseClassifier>com.game.framework.command:Command</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+ author sixf
+ </apiDesc></apiClassifierDetail></apiClassifier></apiPackage><apiPackage id="com.game.framework.data"><apiName>com.game.framework.data</apiName><apiClassifier id="com.game.framework.data:DialogDataItem"><apiName>DialogDataItem</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.data:DialogDataItem:labelChange"><apiName>labelChange</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>labelChange</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DialogDataItem:viewChange"><apiName>viewChange</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>viewChange</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DialogDataItem:label:get"><apiName>label</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DialogDataItem:view:get"><apiName>view</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.data:AlertDialogBuilder"><apiName>AlertDialogBuilder</apiName><shortdesc>
+	 AlerDialog 描述对象
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 AlerDialog 描述对象
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.data:AlertDialogBuilder:sideSelectIndexChange"><apiName>sideSelectIndexChange</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>sideSelectIndexChange</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:height:get"><apiName>height</apiName><shortdesc>
+		 窗口的高
+		 不设置，程序处理 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+		 窗口的高
+		 不设置，程序处理 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:isShadow:get"><apiName>isShadow</apiName><shortdesc>
+		 投影 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 投影 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:modal:get"><apiName>modal</apiName><shortdesc>
+		 模态窗口 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 模态窗口 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:notify:get"><apiName>notify</apiName><shortdesc>
+		 传成被调用者的消息 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:INotifyData</apiValueClassifier></apiValueDef><apiDesc>
+		 传成被调用者的消息 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:sideBtnData:get"><apiName>sideBtnData</apiName><shortdesc>
+		 侧边的切换，tab 标签 ，数据 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Vector$com.game.framework.data:DialogDataItem"/></apiValueDef><apiDesc>
+		 侧边的切换，tab 标签 ，数据 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:sideSelectIndex:get"><apiName>sideSelectIndex</apiName><shortdesc>
+		 侧边按钮的选中 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty isBindable="true"/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+		 侧边按钮的选中 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:sideTabHeight:get"><apiName>sideTabHeight</apiName><shortdesc>
+		 当是有侧边按钮时，按钮的 高 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+		 当是有侧边按钮时，按钮的 高 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:titleCenter:get"><apiName>titleCenter</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:titleData:get"><apiName>titleData</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.data:DialogDataItem</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:view:get"><apiName>view</apiName><shortdesc>
+		 调用者 设置，被调用者设置，无效 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:IURL</apiValueClassifier></apiValueDef><apiDesc>
+		 调用者 设置，被调用者设置，无效 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:AlertDialogBuilder:width:get"><apiName>width</apiName><shortdesc>
+		 窗口的宽
+		 不设置，程序处理  
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef><apiDesc>
+		 窗口的宽
+		 不设置，程序处理  
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.data:ConfigData"><apiName>ConfigData</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.data:DataCallBack"><apiName>DataCallBack</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:ICallBack</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiValue id="com.game.framework.data:DataCallBack:errorHandler:get"><apiName>errorHandler</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DataCallBack:progressHandler:get"><apiName>progressHandler</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DataCallBack:successHandler:get"><apiName>successHandler</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.data:DialogButtonData"><apiName>DialogButtonData</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.data:DialogButtonData:Negative"><apiName>Negative</apiName><shortdesc>
+		 否
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Negative</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 否
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DialogButtonData:Positive"><apiName>Positive</apiName><shortdesc>
+		 确定 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>Positive</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 确定 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DialogButtonData:btnHeight:get"><apiName>btnHeight</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DialogButtonData:btnWidth:get"><apiName>btnWidth</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DialogButtonData:clickHandler:get"><apiName>clickHandler</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DialogButtonData:label:get"><apiName>label</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:DialogButtonData:type:get"><apiName>type</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.data:RequesProxy"><apiName>RequesProxy</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>flash.utils:Proxy</apiBaseClassifier></apiClassifierDef></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.data:NetRequestFormat"><apiName>NetRequestFormat</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiValue id="com.game.framework.data:NetRequestFormat:JSON_FORMAT"><apiName>JSON_FORMAT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>json_format</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.data:NetRequestFormat:XML_FORMAT"><apiName>XML_FORMAT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>xml_format</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage><apiPackage id="com.game.framework.debug"><apiName>com.game.framework.debug</apiName><apiClassifier id="com.game.framework.debug:AwayStats"><apiName>AwayStats</apiName><shortdesc>
+  性能统计信息
+ Stats monitor for Away3D or general use in any project.</shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+  性能统计信息
+ <p>Stats monitor for Away3D or general use in any project. The widget was designed to
+ display all the necessary data in ways that are easily readable, while maintaining a
+ tiny size.</p>
+  <p>The following data is displayed by the widget, either graphically, through
+ text, or both.</p>
+ <ul>
+   <li>Current frame rate in FPS (white in graph/bar)</li>
+   <li>SWF frame rate (Stage.frameRate)</li>
+   <li>Average FPS (blue in graph/bar)</li>
+   <li>Min/Max FPS (only on frame rate bar in minimized mode)</li>
+   <li>Current RAM usage (pink in graph)</li>
+   <li>Maximum RAM usage</li>
+   <li>Number of polygons in scene</li>
+   <li>Number of polygons last rendered (yellow in graph)</li>
+ </ul>
+  <p>There are two display modes; standard and minimized, which are alternated by clicking
+ the button in the upper right corner, at runtime. The widget can also be configured to
+ start in minimized mode by setting the relevant constructor parameter.</p>
+  <p>All data can be reset at any time, by clicking the lower part of the widget (where
+ the RAM and POLY counters are located. The average FPS can be reset separately by
+ clicking it's ²displayed value. Furthermore, the stage frame rate can be increased or
+ decreased by clicking the upper and lower parts of the graph, respectively. Clicking close
+ to the center will increment in small values, and further away will increase the steps.
+ The graph itself is only visible in standard (as opposed to minimized) display mode.</p>
+  <p>The average FPS is calculated using one of two methods, configurable via constructor
+ parameters. By setting the meanDataLength to a non-zero value, the number of recorded
+ frame rate values on which the average is based can be configured. This has a tiny
+ impact on CPU usage, which is the reason why the default number is zero, denoting that
+ the average is calculated from a running sum since the widget was last reset.</p>
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.debug:AwayStats:avg_fps:get"><apiName>avg_fps</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.debug:AwayStats:fps:get"><apiName>fps</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.debug:AwayStats:instance:get"><apiName>instance</apiName><shortdesc>
+     Holds a reference to the stats widget (or if several have been created
+     during session, the one that was last instantiated.) Allows you to set
+     properties and register views from anywhere in your code.</shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.debug:AwayStats</apiValueClassifier></apiValueDef><apiDesc>
+     Holds a reference to the stats widget (or if several have been created
+     during session, the one that was last instantiated.) Allows you to set
+     properties and register views from anywhere in your code.
+     </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.debug:AwayStats:max_fps:get"><apiName>max_fps</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.debug:AwayStats:max_ram:get"><apiName>max_ram</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.debug:AwayStats:ram:get"><apiName>ram</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Number"/></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage><apiPackage id="com.game.framework.display"><apiName>com.game.framework.display</apiName><apiClassifier id="com.game.framework.display:Picture"><apiName>Picture</apiName><shortdesc>
+	 加载图片
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.net:AssetItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 加载图片
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.display:Picture:protected:rect"><apiName>rect</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.geom:Rectangle"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Picture:protected:target"><apiName>target</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="flash.display:DisplayObjectContainer"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.display:Layer"><apiName>Layer</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.display:BaseLayer</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.display:Layer:filters:get"><apiName>filters</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:loaderInfo:get"><apiName>loaderInfo</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:LoaderInfo"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:mask:get"><apiName>mask</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:mouseChildren:get"><apiName>mouseChildren</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:mouseEnabled:get"><apiName>mouseEnabled</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:numChildren:get"><apiName>numChildren</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:tabChildren:get"><apiName>tabChildren</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:textSnapshot:get"><apiName>textSnapshot</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextSnapshot"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:visible:get"><apiName>visible</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:x:get"><apiName>x</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:Layer:y:get"><apiName>y</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.display:UIComponent"><apiName>UIComponent</apiName><shortdesc>
+	 视觉组件的基类
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IRander</apiBaseInterface><apiBaseClassifier>com.game.framework.display:BaseSprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 视觉组件的基类
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.display:UIComponent:appStage"><apiName>appStage</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueClassifier>com.game.framework.display:AppStage</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.display:LayerContainer"><apiName>LayerContainer</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.display:BaseLayer</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.display:LayerContainer:buttomLayer:get"><apiName>buttomLayer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.display:Layer</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:filters:get"><apiName>filters</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Array"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:loaderInfo:get"><apiName>loaderInfo</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:LoaderInfo"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:mask:get"><apiName>mask</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:DisplayObject"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:midLayer:get"><apiName>midLayer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.display:Layer</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:mouseChildren:get"><apiName>mouseChildren</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:mouseEnabled:get"><apiName>mouseEnabled</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:numChildren:get"><apiName>numChildren</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:tabChildren:get"><apiName>tabChildren</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:textSnapshot:get"><apiName>textSnapshot</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.text:TextSnapshot"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:topLayer:get"><apiName>topLayer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.display:Layer</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:x:get"><apiName>x</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:LayerContainer:y:get"><apiName>y</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.display:BaseLayer"><apiName>BaseLayer</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IRander</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.display:BaseLayer:protected:_container"><apiName>_container</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>com.game.framework.display:UIComponent</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:BaseLayer:container:get"><apiName>container</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.display:UIComponent</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.display:BaseLayer:graphics:get"><apiName>graphics</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:Graphics"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.display:ToolTipSprite"><apiName>ToolTipSprite</apiName><shortdesc>
+ 提供对 ToolTip 显示容器的访问。
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 提供对 ToolTip 显示容器的访问。
+ author sixf
+ </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.display:ToolTip"><apiName>ToolTip</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.display:BaseSprite"><apiName>BaseSprite</apiName><shortdesc>
+	 显示对象基类，只是基类
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.display:Sprite</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 显示对象基类，只是基类
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.display:AppStage"><apiName>AppStage</apiName><shortdesc>
+	 伪装的一个 Stage 对象
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier>com.game.framework.display:LayerContainer</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 伪装的一个 Stage 对象
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.display:AppStage:trueStage:get"><apiName>trueStage</apiName><shortdesc>
+		 获取真正的 Stage 对象
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="flash.display:Stage"/></apiValueDef><apiDesc>
+		 获取真正的 Stage 对象
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage><apiPackage id="com.game.framework.enum"><apiName>com.game.framework.enum</apiName><apiClassifier id="com.game.framework.enum:RegistrationPoint"><apiName>RegistrationPoint</apiName><shortdesc>
+ 对象的注册点的位置关系
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 对象的注册点的位置关系
+ author sixf
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.enum:RegistrationPoint:CENTER"><apiName>CENTER</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>center</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.enum:RegistrationPoint:LEFT_BUTTOM"><apiName>LEFT_BUTTOM</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left_buttom</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.enum:RegistrationPoint:LEFT_TOP"><apiName>LEFT_TOP</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>left_top</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage><apiPackage id="com.game.framework.error"><apiName>com.game.framework.error</apiName><apiClassifier id="com.game.framework.error:ErrorType"><apiName>ErrorType</apiName><shortdesc>
+	 </shortdesc><prolog><author>sixf
+	 日期：2013-11-22 上午11:19:28 2013
+	 Administrator
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.error:ErrorType:not_dialog_content_bound_mu_target"><apiName>not_dialog_content_bound_mu_target</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1311221137</apiData><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.error:ErrorType:not_dialog_content_bound_si_target"><apiName>not_dialog_content_bound_si_target</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>1311221137</apiData><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.error:OperateError"><apiName>OperateError</apiName><shortdesc>
+	 自定义 try 报错
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Error</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 自定义 try 报错
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier></apiPackage><apiPackage id="com.game.framework.events"><apiName>com.game.framework.events</apiName><apiClassifier id="com.game.framework.events:RemoteEvent"><apiName>RemoteEvent</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiValue id="com.game.framework.events:RemoteEvent:FAULT"><apiName>FAULT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>fault</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.events:RemoteEvent:RESULT"><apiName>RESULT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>result</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.events:RemoteEvent:data"><apiName>data</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.events:DissolveEvent"><apiName>DissolveEvent</apiName><shortdesc>
+	 消息事件  
+	 </shortdesc><prolog><author>sixf
+	 
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 消息事件  
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.events:DissolveEvent:DISSOLVE"><apiName>DISSOLVE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dissolve</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.events:DissolveEvent:mediaAssetItem:get"><apiName>mediaAssetItem</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.net:MediaAssetItem</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.events:FrameWorkEvent"><apiName>FrameWorkEvent</apiName><shortdesc>
+ 
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+ author sixf
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.events:FrameWorkEvent:notifyData"><apiName>notifyData</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>com.game.framework.ifaces:INotifyData</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.events:FrameWorkEvent:notifyName"><apiName>notifyName</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.events:AssetsEvent"><apiName>AssetsEvent</apiName><shortdesc>
+ 资源自定义事件
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 资源自定义事件
+ author sixf
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.events:AssetsEvent:COMPLETE_LOAD"><apiName>COMPLETE_LOAD</apiName><shortdesc>
+     资源加载完成
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>complete_load</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     资源加载完成
+     </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.events:AssetsEvent:YAHEI_FONT_LOAD"><apiName>YAHEI_FONT_LOAD</apiName><shortdesc>
+     雅黑字体加载完成
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>yahei_font_load</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     雅黑字体加载完成
+     </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.events:AssetsEvent:data"><apiName>data</apiName><shortdesc>
+     事件传递的数据对象
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>null</apiData><apiType value="Object"/></apiValueDef><apiDesc>
+     事件传递的数据对象
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.events:DialogEvent"><apiName>DialogEvent</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.events:DialogEvent:CLOSE_DIALOG"><apiName>CLOSE_DIALOG</apiName><shortdesc>
+		 点了关闭窗口按钮 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>close_dialog</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 点了关闭窗口按钮 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.events:DialogEvent:DISMISSING"><apiName>DISMISSING</apiName><shortdesc>
+		  现在关闭 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dismissing</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  现在关闭 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.events:DialogEvent:DISMISS"><apiName>DISMISS</apiName><shortdesc>
+		 关半完成 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dismiss</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 关半完成 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.events:DialogEvent:SHOW"><apiName>SHOW</apiName><shortdesc>
+		 窗口被打开
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>show</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 窗口被打开
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.events:DialogEvent:dialogBuilder"><apiName>dialogBuilder</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueClassifier>com.game.framework.data:AlertDialogBuilder</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage><apiPackage id="com.game.framework.ifaces"><apiName>com.game.framework.ifaces</apiName><apiClassifier id="com.game.framework.ifaces:IProxy"><apiName>IProxy</apiName><shortdesc>
+ 
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IObtain</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 
+ author sixf
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:IProxy:com.game.framework.ifaces:IProxy:name:get"><apiName>name</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:IRegister"><apiName>IRegister</apiName><shortdesc>
+ 
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 
+ author sixf
+ </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:IXMLCfg"><apiName>IXMLCfg</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:ITargetID"><apiName>ITargetID</apiName><shortdesc>
+	 窗口ID 对象
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 窗口ID 对象
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:ITargetID:com.game.framework.ifaces:ITargetID:id:get"><apiName>id</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:IObtain"><apiName>IObtain</apiName><shortdesc>
+  用于获取 Proxy，Mediator 的一个接口
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+  用于获取 Proxy，Mediator 的一个接口
+ author sixf
+ </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:ICallBack"><apiName>ICallBack</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:IAssetsData"><apiName>IAssetsData</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:IDialogData"><apiName>IDialogData</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:IDialog"><apiName>IDialog</apiName><shortdesc>
+	 这个接口给 弹出窗口的窗口用的。另一个（IDialogData） 是给窗口里面的内容用的。
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 这个接口给 弹出窗口的窗口用的。另一个（IDialogData） 是给窗口里面的内容用的。
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:IResourceManager"><apiName>IResourceManager</apiName><shortdesc>
+	 对接实现 了对国际化的支持
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 对接实现 了对国际化的支持
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:INotify"><apiName>INotify</apiName><shortdesc>
+ 提供了，框架中各层消息处理的的方法
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 提供了，框架中各层消息处理的的方法
+ author sixf
+ </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:IMediator"><apiName>IMediator</apiName><shortdesc>
+ 
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 
+ author sixf
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:IMediator:com.game.framework.ifaces:IMediator:name:get"><apiName>name</apiName><shortdesc>
+     Mediator 层的名称，在所有的Mediator 层中，必须是唯一的。
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+     Mediator 层的名称，在所有的Mediator 层中，必须是唯一的。
+     </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IMediator:com.game.framework.ifaces:IMediator:view:get"><apiName>view</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.views:CreateView</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:IUILayer"><apiName>IUILayer</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef></apiClassifierDetail><apiValue id="com.game.framework.ifaces:IUILayer:com.game.framework.ifaces:IUILayer:backLayerContainer:get"><apiName>backLayerContainer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.display:LayerContainer</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IUILayer:com.game.framework.ifaces:IUILayer:centreLayerContainer:get"><apiName>centreLayerContainer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.display:LayerContainer</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IUILayer:com.game.framework.ifaces:IUILayer:firstFrontLayerContainer:get"><apiName>firstFrontLayerContainer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.display:LayerContainer</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IUILayer:com.game.framework.ifaces:IUILayer:secondFrontLayerContainer:get"><apiName>secondFrontLayerContainer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.display:LayerContainer</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:IURL"><apiName>IURL</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:IURL:com.game.framework.ifaces:IURL:url:get"><apiName>url</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:ICommand"><apiName>ICommand</apiName><shortdesc>
+ 
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 
+ author sixf
+ </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:IRander"><apiName>IRander</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:IAssetItem"><apiName>IAssetItem</apiName><shortdesc>
+	 加载对象的接口，定义了一些公共的方法
+	 </shortdesc><prolog><author>sixf
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 加载对象的接口，定义了一些公共的方法
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:IAssetItem:com.game.framework.ifaces:IAssetItem:bytesLoaded:get"><apiName>bytesLoaded</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IAssetItem:com.game.framework.ifaces:IAssetItem:bytesTotal:get"><apiName>bytesTotal</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IAssetItem:com.game.framework.ifaces:IAssetItem:contentLoaderInfo:get"><apiName>contentLoaderInfo</apiName><shortdesc>
+		 与显示对象有关的加载时，有这个信息
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:LoaderInfo"/></apiValueDef><apiDesc>
+		 与显示对象有关的加载时，有这个信息
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IAssetItem:com.game.framework.ifaces:IAssetItem:content:get"><apiName>content</apiName><shortdesc>
+		 返回 加载对象的内容，可能是 字符，可能是 资源
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef><apiDesc>
+		 返回 加载对象的内容，可能是 字符，可能是 资源
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IAssetItem:com.game.framework.ifaces:IAssetItem:getDatainterface:get"><apiName>getDatainterface</apiName><shortdesc>
+		 加载对象的执行回调的接口
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IAssetsData</apiValueClassifier></apiValueDef><apiDesc>
+		 加载对象的执行回调的接口
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IAssetItem:com.game.framework.ifaces:IAssetItem:type:get"><apiName>type</apiName><shortdesc>
+		 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IAssetItem:com.game.framework.ifaces:IAssetItem:url:get"><apiName>url</apiName><shortdesc>
+		 url=MediaURL.fromUIView(MediaURL.SKIN.LoginViewSkin)
+		 这个就是加载对象要加载的路径 或 URL
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:IURL</apiValueClassifier></apiValueDef><apiDesc>
+		 url=MediaURL.fromUIView(MediaURL.SKIN.LoginViewSkin)
+		 这个就是加载对象要加载的路径 或 URL
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IAssetItem:com.game.framework.ifaces:IAssetItem:setDatainterface:set"><apiName>setDatainterface</apiName><shortdesc>
+		 设置回调接口，如
+		 var hud:MediaAssetItem =uimanager.addMediaView(new MediaAssetItem(MediaURL.fromUIView(MediaURL.SKIN.HUDViewSkin)));    
+		 hud.setDatainterface =this;
+		 hud.initView(); 
+		 必须 在  initView 方法之前被设置
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiValueClassifier>com.game.framework.ifaces:IAssetsData</apiValueClassifier></apiValueDef><apiDesc>
+		 设置回调接口，如
+		 var hud:MediaAssetItem =uimanager.addMediaView(new MediaAssetItem(MediaURL.fromUIView(MediaURL.SKIN.HUDViewSkin)));    
+		 <b>hud.setDatainterface =this;</b>
+		 hud.initView(); 
+		 必须 在  initView 方法之前被设置
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:IMultiAssetData"><apiName>IMultiAssetData</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IAssetsData</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.ifaces:IUIManager"><apiName>IUIManager</apiName><shortdesc>
+	 UIManager 接口，对 UIManager 的访问
+	 </shortdesc><prolog><author>Administrator
+	 
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 UIManager 接口，对 UIManager 的访问
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:IUIManager:com.game.framework.ifaces:IUIManager:appStage:get"><apiName>appStage</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.display:AppStage</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:IUIManager:com.game.framework.ifaces:IUIManager:uiLayer:get"><apiName>uiLayer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IUILayer</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:INotifyData"><apiName>INotifyData</apiName><shortdesc>
+ 消息数据接口
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 消息数据接口
+ author sixf
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:INotifyData:com.game.framework.ifaces:INotifyData:message:get"><apiName>message</apiName><shortdesc>
+     消息数据
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef><apiDesc>
+     消息数据
+     </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:INotifyData:com.game.framework.ifaces:INotifyData:type:get"><apiName>type</apiName><shortdesc>
+     消息类型
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+     消息类型
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:IDialogID"><apiName>IDialogID</apiName><shortdesc>
+	 窗口ID 对象
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 窗口ID 对象
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:IDialogID:com.game.framework.ifaces:IDialogID:id:get"><apiName>id</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="int"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:ISwfFile"><apiName>ISwfFile</apiName><shortdesc>
+ 描述  swf 文件 Mediator 层的接口
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseClassifier/></apiClassifierDef><apiDesc>
+ 描述  swf 文件 Mediator 层的接口
+ author sixf
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:ISwfFile:com.game.framework.ifaces:ISwfFile:getCreateView:get"><apiName>getCreateView</apiName><shortdesc>
+     获得视图层
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.views:CreateView</apiValueClassifier></apiValueDef><apiDesc>
+     获得视图层
+     </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:ISwfFile:com.game.framework.ifaces:ISwfFile:getMediator:get"><apiName>getMediator</apiName><shortdesc>
+     获取 swf 文件的 Mediator 对象
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.views:Mediator</apiValueClassifier></apiValueDef><apiDesc>
+     获取 swf 文件的 Mediator 对象
+     </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:ISwfFile:com.game.framework.ifaces:ISwfFile:getSkinURL:get"><apiName>getSkinURL</apiName><shortdesc>
+      皮肤地址
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IURL</apiValueClassifier></apiValueDef><apiDesc>
+      皮肤地址
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.ifaces:ICreateView"><apiName>ICreateView</apiName><shortdesc>
+	 视图接口，扩展 IEventDispatcher 接口，说明该接口实现类，必须是一个视图对象，或者 实现了 IEventDispatcher 接口
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiInterface/><apiAccess value="public"/><apiStatic/><apiBaseInterface>flash.events:IEventDispatcher</apiBaseInterface><apiBaseClassifier/></apiClassifierDef><apiDesc>
+	 视图接口，扩展 IEventDispatcher 接口，说明该接口实现类，必须是一个视图对象，或者 实现了 IEventDispatcher 接口
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.ifaces:ICreateView:com.game.framework.ifaces:ICreateView:needToLoad:get"><apiName>needToLoad</apiName><shortdesc>
+		 是否要进行加载。
+		 这 个主要用于 空的 SpriteView 对象。在创建一个 View 时，可能不需要 去加载动作。那就设置成false
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 是否要进行加载。
+		 这 个主要用于 空的 SpriteView 对象。在创建一个 View 时，可能不需要 去加载动作。那就设置成false
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:ICreateView:com.game.framework.ifaces:ICreateView:resourceManager:get"><apiName>resourceManager</apiName><shortdesc>
+		 资源管理器
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IResourceManager</apiValueClassifier></apiValueDef><apiDesc>
+		 资源管理器
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.ifaces:ICreateView:com.game.framework.ifaces:ICreateView:uimanager:get"><apiName>uimanager</apiName><shortdesc>
+		 UIManager 这个会被自动注入
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IUIManager</apiValueClassifier></apiValueDef><apiDesc>
+		 UIManager 这个会被自动注入
+		 </apiDesc></apiValueDetail><related-links><link href="" invalidHref="com.game.framework.interfaces.IUIManager.xml"><linktext>com.game.framework.interfaces.IUIManager</linktext></link></related-links></apiValue></apiClassifier></apiPackage><apiPackage id="com.game.framework.logic"><apiName>com.game.framework.logic</apiName><apiClassifier id="com.game.framework.logic:Rander"><apiName>Rander</apiName><shortdesc>
+	 </shortdesc><prolog><author>sixf
+	 日期：2013-11-18 下午6:07:29 2013
+	 Administrator
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.logic:AssetsData"><apiName>AssetsData</apiName><shortdesc>
+ 
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IAssetsData</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+ author sixf
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.logic:AssetsData:asssetAllCompleteFunc:get"><apiName>asssetAllCompleteFunc</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.logic:AssetsData:asssetCompleteFunc:get"><apiName>asssetCompleteFunc</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.logic:AssetsData:netErrorFunc:get"><apiName>netErrorFunc</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.logic:AssetsData:progressFunc:get"><apiName>progressFunc</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Function"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.logic:TargetID"><apiName>TargetID</apiName><shortdesc>
+	 </shortdesc><prolog><author>sixf
+	 日期：2013-11-18 下午3:28:07 2013
+	 Administrator
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.logic:TargetID:IDPool"><apiName>IDPool</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiData>0</apiData><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.logic:TargetID:NewTargetID:get"><apiName>NewTargetID</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:ITargetID</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.logic:Duplicating"><apiName>Duplicating</apiName><shortdesc>
+ 
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 
+ author sixf
+ </apiDesc></apiClassifierDetail></apiClassifier></apiPackage><apiPackage id="com.game.framework.models.proxy"><apiName>com.game.framework.models.proxy</apiName><apiClassifier id="com.game.framework.models.proxy:Proxy"><apiName>Proxy</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IProxy</apiBaseInterface><apiBaseClassifier>com.game.framework.base:BaseNotify</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.models.proxy:Proxy:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:IResourceManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier></apiPackage><apiPackage id="com.game.framework.models.vo"><apiName>com.game.framework.models.vo</apiName><apiClassifier id="com.game.framework.models.vo:BaseVo"><apiName>BaseVo</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier></apiPackage><apiPackage id="com.game.framework.models"><apiName>com.game.framework.models</apiName><apiClassifier id="com.game.framework.models:NotifyData"><apiName>NotifyData</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseInterface>com.game.framework.ifaces:INotifyData</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.models:NotifyData:message:get"><apiName>message</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.models:NotifyData:FW:target:get"><apiName>target</apiName><shortdesc>
+		 消息发送者，名称 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="FW"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+		 消息发送者，名称 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.models:NotifyData:type:get"><apiName>type</apiName><shortdesc>
+		 息类型
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+		 息类型
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage><apiPackage id="com.game.framework.net"><apiName>com.game.framework.net</apiName><apiClassifier id="com.game.framework.net:SkinLoader"><apiName>SkinLoader</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.net:AssetItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.net:MediaAssetItem"><apiName>MediaAssetItem</apiName><shortdesc>
+	 仅用于模块的加载
+	 使用 MediaAssetItem 对象方法:
+	 1, addMediaView 先加到显示列表中，此时就可以得到父级，同时去判断父级中是否有相同名字（name）的对象，如果有，直接返回。
+	 2，initView 初始化
+	 var login:MediaAssetItem = new MediaAssetItem(MediaURL.fromUIView(MediaURL.SKIN.LoginViewSkin));
+	 uimanager.addMediaView(login);
+	 login.initView();
+	 </shortdesc><prolog><author>sixf
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.net:AssetItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 仅用于模块的加载
+	 使用 MediaAssetItem 对象方法:
+	 1, addMediaView 先加到显示列表中，此时就可以得到父级，同时去判断父级中是否有相同名字（name）的对象，如果有，直接返回。
+	 2，initView 初始化
+	 var login:MediaAssetItem = new MediaAssetItem(MediaURL.fromUIView(MediaURL.SKIN.LoginViewSkin));
+	 uimanager.addMediaView(login);
+	 login.initView();
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.net:MediaAssetItem:protected:createView"><apiName>createView</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>com.game.framework.views:CreateView</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:MediaAssetItem:protected:mediator"><apiName>mediator</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>com.game.framework.views:Mediator</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:MediaAssetItem:isLoadSuccess:get"><apiName>isLoadSuccess</apiName><shortdesc>
+		 部的资源是否加载完成,不统计其内部其它线程的加载
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 部的资源是否加载完成,不统计其内部其它线程的加载
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.net:DialogContentAssetItem"><apiName>DialogContentAssetItem</apiName><shortdesc>
+	 </shortdesc><prolog><author>sixf
+	 日期：2013-11-22 下午2:57:03 2013
+	 Administrator
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.net:MediaAssetItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.net:AssetsLoad"><apiName>AssetsLoad</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IAssetsData</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.net:LoadType"><apiName>LoadType</apiName><shortdesc>
+ AssetTtem 的内容类型
+ </shortdesc><prolog><author>sixf
+ </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+ AssetTtem 的内容类型
+ </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.net:LoadType:MEDIA_CONTENT"><apiName>MEDIA_CONTENT</apiName><shortdesc>
+     类型是swf,jps,png,等
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>MEDIA_CONTENT</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     类型是swf,jps,png,等
+     </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.net:LoadType:STREAM_CONTENT"><apiName>STREAM_CONTENT</apiName><shortdesc>
+     类型是字符串
+     </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>STREAM_CONTENT</apiData><apiType value="String"/></apiValueDef><apiDesc>
+     类型是字符串
+     </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.net:RemoteObject"><apiName>RemoteObject</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiDynamic/><apiBaseClassifier>com.game.framework.data:RequesProxy</apiBaseClassifier></apiClassifierDef></apiClassifierDetail><apiValue id="com.game.framework.net:RemoteObject:destination:get"><apiName>destination</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.net:NetRequest"><apiName>NetRequest</apiName><shortdesc/><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.net:DialogAssetItem"><apiName>DialogAssetItem</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.net:MediaAssetItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.net:DialogAssetItem:callerBuilder:get"><apiName>callerBuilder</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.data:AlertDialogBuilder</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:DialogAssetItem:dialogContent:get"><apiName>dialogContent</apiName><shortdesc>
+		 窗口内容
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.net:DialogContentAssetItem</apiValueClassifier></apiValueDef><apiDesc>
+		 窗口内容
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.net:StreamAssetItem"><apiName>StreamAssetItem</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IAssetItem</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.net:StreamAssetItem:getDatainterface:get"><apiName>getDatainterface</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IAssetsData</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:StreamAssetItem:setDatainterface:set"><apiName>setDatainterface</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiValueClassifier>com.game.framework.ifaces:IAssetsData</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:StreamAssetItem:bytesLoaded:get"><apiName>bytesLoaded</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:StreamAssetItem:bytesTotal:get"><apiName>bytesTotal</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:StreamAssetItem:contentLoaderInfo:get"><apiName>contentLoaderInfo</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:LoaderInfo"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:StreamAssetItem:content:get"><apiName>content</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:StreamAssetItem:dataFormat:set"><apiName>dataFormat</apiName><shortdesc>
+		 RLLoaderDataFormat
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="String"/></apiValueDef><apiDesc>
+		 RLLoaderDataFormat
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.net:StreamAssetItem:type:get"><apiName>type</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:StreamAssetItem:url:get"><apiName>url</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:IURL</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.net:LoaderAssetItem"><apiName>LoaderAssetItem</apiName><shortdesc>
+ 类似于Loader
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.net:AssetItem</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 类似于Loader
+ author sixf
+ </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.net:AssetItem"><apiName>AssetItem</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IAssetItem</apiBaseInterface><apiBaseClassifier>com.game.framework.display:UIComponent</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.net:AssetItem:protected:_content"><apiName>_content</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:protected:_isinitView"><apiName>_isinitView</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:protected:_type"><apiName>_type</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>MEDIA_CONTENT</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:getDatainterface:get"><apiName>getDatainterface</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IAssetsData</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:setDatainterface:set"><apiName>setDatainterface</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="write"/><apiValueClassifier>com.game.framework.ifaces:IAssetsData</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:bytesLoaded:get"><apiName>bytesLoaded</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:bytesTotal:get"><apiName>bytesTotal</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:contentLoaderInfo:get"><apiName>contentLoaderInfo</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="flash.display:LoaderInfo"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:content:get"><apiName>content</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:isinitView:get"><apiName>isinitView</apiName><shortdesc>
+		 是否正在初始化视图
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 是否正在初始化视图
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:type:get"><apiName>type</apiName><shortdesc>
+		 加载类型
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+		 加载类型
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.net:AssetItem:url:get"><apiName>url</apiName><shortdesc>
+		 url=MediaURL.fromUIView(MediaURL.SKIN.LoginViewSkin)
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:IURL</apiValueClassifier></apiValueDef><apiDesc>
+		 url=MediaURL.fromUIView(MediaURL.SKIN.LoginViewSkin)
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.net:MultiAssetData"><apiName>MultiAssetData</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IMultiAssetData</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier></apiPackage><apiPackage id="com.game.framework.utils"><apiName>com.game.framework.utils</apiName><apiClassifier id="com.game.framework.utils:RPCUID"><apiName>RPCUID</apiName><shortdesc>
+	  The RPCUIDUtil class is a copy of UIDUtil without some functions that
+	  cause dependency problems when RPC messages are put in a bootstrap loader.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9"/><apiPlatform description="" name="AIR" version="1.1"/><apiTool description="" name="Flex" version="3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	  The RPCUIDUtil class is a copy of UIDUtil without some functions that
+	  cause dependency problems when RPC messages are put in a bootstrap loader.
+	  
+	  </apiDesc></apiClassifierDetail></apiClassifier><apiClassifier id="com.game.framework.utils:InteractiveUtils"><apiName>InteractiveUtils</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail></apiClassifier></apiPackage><apiPackage id="com.game.framework.views"><apiName>com.game.framework.views</apiName><apiClassifier id="com.game.framework.views:SpriteView"><apiName>SpriteView</apiName><shortdesc>
+	 一个空的视图，不需要加载任何东东。
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.views:CreateView</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 一个空的视图，不需要加载任何东东。
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.views:SpriteView:needToLoad:get"><apiName>needToLoad</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiIsOverride/><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:Mediator"><apiName>Mediator</apiName><shortdesc>
+	 MediaAssetItem.intiView() 被执行将发送 （Mediator.DEFAULT_TYPE，DEFAULT_NOTIFY）消息。
+	 MVC 的 父级 ，要重写  viewDrawed 方法和 name 方法
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.views:BaseMediator</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 MediaAssetItem.intiView() 被执行将发送 （Mediator.DEFAULT_TYPE，DEFAULT_NOTIFY）消息。
+	 MVC 的 父级 ，要重写  viewDrawed 方法和 name 方法
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.views:Mediator:INIT_NOTIFY"><apiName>INIT_NOTIFY</apiName><shortdesc>
+		 默认 Mediator 又被初始化的消息
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiValueClassifier>com.game.framework.models:NotifyData</apiValueClassifier></apiValueDef><apiDesc>
+		 默认 Mediator 又被初始化的消息
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:INIT_TYPE"><apiName>INIT_TYPE</apiName><shortdesc>
+		 默认 Mediator 又被初始化的消息类型
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>mediator_init_type</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 默认 Mediator 又被初始化的消息类型
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:IN_TYPE"><apiName>IN_TYPE</apiName><shortdesc>
+		  
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>in_type</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		  
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:NONE"><apiName>NONE</apiName><shortdesc>
+		 为空
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>none</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 为空
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:OUT_TYPE"><apiName>OUT_TYPE</apiName><shortdesc>
+		 暂时离开了。 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>out_type</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 暂时离开了。 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:RE_INIT_NOTIFY"><apiName>RE_INIT_NOTIFY</apiName><shortdesc>
+		 默认 Mediator 又被初始化的消息
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiValueClassifier>com.game.framework.models:NotifyData</apiValueClassifier></apiValueDef><apiDesc>
+		 默认 Mediator 又被初始化的消息
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:RE_INIT_TYPE"><apiName>RE_INIT_TYPE</apiName><shortdesc>
+		 默认 Mediator 又被初始化的消息类型,主要用于模块的初始化
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>mediator_re_init_type</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 默认 Mediator 又被初始化的消息类型,主要用于模块的初始化
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:protected:isSkinLoad"><apiName>isSkinLoad</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:FW:isdissolve"><apiName>isdissolve</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="FW"/><apiDynamic/><apiData>false</apiData><apiType value="Boolean"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:isOutStage:get"><apiName>isOutStage</apiName><shortdesc>
+		 是否离开了 Stage ,如果这个显示不在显示列表 ，则不会在发消息。default:false
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 是否离开了 Stage ,如果这个显示不在显示列表 ，则不会在发消息。default:false
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:Mediator:keepLiveMsg:get"><apiName>keepLiveMsg</apiName><shortdesc>
+		 当模块 不可见时，是否还继续收到消息？》 default:false
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 当模块 不可见时，是否还继续收到消息？》 default:false
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:CreateView"><apiName>CreateView</apiName><shortdesc>
+	 CreateView 改成。非显示对象（被 CreateView.containerContent 代替）。但一然实现了 IRander 接口
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:ICreateView</apiBaseInterface><apiBaseInterface>com.game.framework.ifaces:IRander</apiBaseInterface><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 CreateView 改成。非显示对象（被 CreateView.containerContent 代替）。但一然实现了 IRander 接口
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.views:CreateView:contentContainer:get"><apiName>contentContainer</apiName><shortdesc>
+		 CreateView 视图容器。 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.net:AssetItem</apiValueClassifier></apiValueDef><apiDesc>
+		 CreateView 视图容器。 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:CreateView:protected:getChildName:get"><apiName>getChildName</apiName><shortdesc>
+		 获取资源里的子项内容列表
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Vector$String"/></apiValueDef><apiDesc>
+		 获取资源里的子项内容列表
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:CreateView:needToLoad:get"><apiName>needToLoad</apiName><shortdesc>
+		 CreateView 是要必须进行 加载 的 View,所以 needToLoad 等于 true,如果不想加载 请使用 SpriteView
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 CreateView 是要必须进行 加载 的 View,所以 needToLoad 等于 true,如果不想加载 请使用 SpriteView
+		 </apiDesc></apiValueDetail><related-links><link href="" invalidHref="com.game.framework.view.SpriteView.xml"><linktext>com.game.framework.view.SpriteView</linktext></link></related-links></apiValue><apiValue id="com.game.framework.views:CreateView:resourceManager:get"><apiName>resourceManager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:IResourceManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:CreateView:FW:skinContainer:get"><apiName>skinContainer</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="FW"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.net:AssetItem</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:CreateView:uimanager:get"><apiName>uimanager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.ifaces:IUIManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:AlertDialog"><apiName>AlertDialog</apiName><shortdesc>
+	 窗口实例 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:EventDispatcher</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 窗口实例 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.views:AlertDialog:DialogPool"><apiName>DialogPool</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiData>unknown</apiData><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:AlertDialog:Builder:get"><apiName>Builder</apiName><shortdesc>
+		  Builder 永远也不会为 null
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.data:AlertDialogBuilder</apiValueClassifier></apiValueDef><apiDesc>
+		  Builder 永远也不会为 null
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:AlertDialog:ID:get"><apiName>ID</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:ITargetID</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:AlertDialog:dialogID:get"><apiName>dialogID</apiName><shortdesc>
+		 生成一个ID，所有的窗口，使用这个方法 创建ID，被调用一个，会被加+1 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiStatic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:ITargetID</apiValueClassifier></apiValueDef><apiDesc>
+		 生成一个ID，所有的窗口，使用这个方法 创建ID，被调用一个，会被加+1 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.game.framework.views:AlertDialog:isDismiss:get"><apiName>isDismiss</apiName><shortdesc>
+		 这个窗口是否被关闭了。
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiType value="Boolean"/></apiValueDef><apiDesc>
+		 这个窗口是否被关闭了。
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:BaseMediator"><apiName>BaseMediator</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:IMediator</apiBaseInterface><apiBaseInterface>com.game.framework.ifaces:IObtain</apiBaseInterface><apiBaseInterface>com.game.framework.ifaces:IRander</apiBaseInterface><apiBaseClassifier>com.game.framework.base:BaseNotify</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework.views:BaseMediator:protected:_uimanager"><apiName>_uimanager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueClassifier>com.game.framework.ifaces:IUIManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:BaseMediator:protected:resourceManager:get"><apiName>resourceManager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="protected"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IResourceManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:BaseMediator:uimanager:get"><apiName>uimanager</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework.ifaces:IUIManager</apiValueClassifier></apiValueDef></apiValueDetail></apiValue><apiValue id="com.game.framework.views:BaseMediator:view:get"><apiName>view</apiName><shortdesc>
+		 视图
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="readwrite"/><apiValueClassifier>com.game.framework.views:CreateView</apiValueClassifier></apiValueDef><apiDesc>
+		 视图
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.game.framework.views:InstantiationMediator"><apiName>InstantiationMediator</apiName><shortdesc>
+ 用于非 swf 文件的 Mediator 实例
+ author sixf
+ </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>com.game.framework.views:Mediator</apiBaseClassifier></apiClassifierDef><apiDesc>
+ 用于非 swf 文件的 Mediator 实例
+ author sixf
+ </apiDesc></apiClassifierDetail></apiClassifier></apiPackage><apiPackage id="com.game.framework"><apiName>com.game.framework</apiName><apiClassifier id="com.game.framework:Launcher"><apiName>Launcher</apiName><shortdesc>
+	 单例
+	 用于管理 Command,Mediator,Proxy 三层的单例。
+	 
+	 </shortdesc><prolog><author>sixf
+	 
+	 </author><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseInterface>com.game.framework.ifaces:INotify</apiBaseInterface><apiBaseInterface>com.game.framework.ifaces:IRegister</apiBaseInterface><apiBaseInterface>com.game.framework.ifaces:IObtain</apiBaseInterface><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 单例
+	 用于管理 Command,Mediator,Proxy 三层的单例。
+	 
+	 </apiDesc></apiClassifierDetail><apiValue id="com.game.framework:Launcher:FW:launcher:get"><apiName>launcher</apiName><shortdesc>
+		 创建:Launcher 实例
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="FW"/><apiStatic/><apiValueAccess value="read"/><apiValueClassifier>com.game.framework:Launcher</apiValueClassifier></apiValueDef><apiDesc>
+		 创建:Launcher 实例
+		 </apiDesc></apiValueDetail></apiValue></apiClassifier></apiPackage></allClasses>

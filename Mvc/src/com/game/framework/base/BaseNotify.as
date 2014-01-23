@@ -3,7 +3,6 @@ package com.game.framework.base {
 	import com.game.framework.FW;
 	import com.game.framework.Launcher;
 	import com.game.framework.error.OperateError;
-	import com.game.framework.events.FrameWorkEvent;
 	import com.game.framework.ifaces.INotify;
 	import com.game.framework.ifaces.INotifyData;
 	import com.game.framework.models.NotifyData;
@@ -23,18 +22,9 @@ package com.game.framework.base {
 		
 		public function BaseNotify() {
 			this._name = name;
-			this.addEventListener(FrameWorkEvent.HANDER_NOTIFY, onHanderNotifyHandler);
 			
-		}
-		
-		private function onHanderNotifyHandler(event:FrameWorkEvent):void {
-			this.handerNotify(event.notifyName, event.notifyData);
-		}
-		
-		FW function disHanderNotify(type:String, notifyData:INotifyData):void {
-			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.HANDER_NOTIFY, notifyData, type));
-		}
-		
+			
+		}				
 		/**
 		 *  name == Mediator.NONE 将不被注册到 MVC 框架中。 
 		 * @return 

@@ -83,6 +83,21 @@
 			content.pageindex_txt.addEventListener(Event.CHANGE,onPageIndexHandler);			
 		}
 		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			
+			
+			content.controlBar.per_mc.removeEventListener(MouseEvent.MOUSE_DOWN,onPerMouseHandler);
+			content.controlBar.top_mc.removeEventListener(MouseEvent.MOUSE_DOWN,onTopMouseHandler);
+			content.controlBar.last_mc.removeEventListener(MouseEvent.MOUSE_DOWN,onLastMouseHandler);
+			content.controlBar.next_mc.removeEventListener(MouseEvent.MOUSE_DOWN,onNextMouseHandler);			
+			//pageindex_com.addEventListener(TextEvent,onPageIndexHandler);
+			content.pageindex_txt.removeEventListener(Event.CHANGE,onPageIndexHandler);			
+		}
+		
+		
 		private function setDataDis():void
 		{
 			setdata();

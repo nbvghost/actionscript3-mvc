@@ -48,6 +48,7 @@ package com.sanbeetle.utils
 				timer.reset();
 				timer.start();
 			}
+			target=null;
 		}
 		public function removeRun(target:ITimerRun):void{
 			var index:int = timerArr.indexOf(target);
@@ -59,6 +60,8 @@ package com.sanbeetle.utils
 			if(timerArr.length==0){
 				timer.stop();
 			}
+			
+			target = null;
 		}
 		public static function init():TimerRun{
 			if(timerrun==null){

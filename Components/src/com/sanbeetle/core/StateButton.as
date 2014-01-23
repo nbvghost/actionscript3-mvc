@@ -1,7 +1,6 @@
 package com.sanbeetle.core
 {
 	import flash.display.DisplayObject;
-	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
 	
@@ -9,7 +8,7 @@ package com.sanbeetle.core
 	 *
 	 *@author sixf
 	 */
-	public class StateButton extends Sprite
+	public class StateButton extends UIComponent
 	{
 		
 		private var _upState:DisplayObject;
@@ -42,7 +41,21 @@ package com.sanbeetle.core
 			this.addEventListener(MouseEvent.MOUSE_UP,onMouseHandler);	
 			this.updateUI();
 		}		
-
+		
+		override public function dispose():void
+		{
+		
+			super.dispose();
+			
+			
+			
+			this.removeEventListener(MouseEvent.MOUSE_OVER,onMouseHandler);
+			this.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);
+			this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseHandler);
+			this.removeEventListener(MouseEvent.MOUSE_UP,onMouseHandler);	
+		}
+		
+		
 		private function get currentState():DisplayObject
 		{
 			return _currentState;
@@ -135,8 +148,8 @@ package com.sanbeetle.core
 			}
 			updateUI();
 		}
-		private function updateUI():void{
-			
+		override public function updateUI():void
+		{
 			if(currentState==null){
 				currentState = this._upState;
 			}
@@ -144,8 +157,8 @@ package com.sanbeetle.core
 			currentState.height = this._height;
 			
 			this.addChild(currentState);
-			
 		}
+		
 		private function onMouseHandler(event:MouseEvent):void
 		{
 			if(_select){

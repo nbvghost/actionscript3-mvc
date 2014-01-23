@@ -816,9 +816,9 @@ public class AwayStats extends Sprite {
         _drag_dx = this.mouseX;
         _drag_dy = this.mouseY;
 
-        stage.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
+        //stage.addEventListener(MouseEvent.MOUSE_MOVE, _onMouseMove);
         stage.addEventListener(MouseEvent.MOUSE_UP, _onMouseUpOrLeave);
-        stage.addEventListener(Event.MOUSE_LEAVE, _onMouseUpOrLeave);
+        //stage.addEventListener(Event.MOUSE_LEAVE, _onMouseUpOrLeave);
     }
 
     private function _onMouseMove(ev:MouseEvent):void {

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.sanbeetle.events"><apiName>com.sanbeetle.events</apiName><apiDetail/><apiClassifier id="com.sanbeetle.events:DataChangeType"><apiName>DataChangeType</apiName><shortdesc>
+	 The DataChangeType class defines constants for the DataChangeEvent.changeType
+	 event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 The DataChangeType class defines constants for the <codeph>DataChangeEvent.changeType</codeph>
+	 event. These constants are used by the DataChangeEvent class to identify the type
+	 of change that was applied to the data in a list-based component such as a List, ComboBox,
+	 TileList, or DataGrid.
+	 
+     </apiDesc></apiClassifierDetail><related-links><link href="com.sanbeetle.events.xml#DataChangeEvent/changeType"><linktext>DataChangeEvent.changeType</linktext></link></related-links><adobeApiEvent id="com.sanbeetle.events:DataChangeType:ADD_add"><apiName>add</apiName><prolog><asCustoms><internal>The word "model" was replaced with "data provider" above. What should it say?
+		 </internal></asCustoms></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeType:ADD</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeType</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.sanbeetle.events:DataChangeType:CHANGE_change"><apiName>change</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeType:CHANGE</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeType</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.sanbeetle.events:DataChangeType:INVALIDATE_ALL_invalidateAll"><apiName>invalidateAll</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeType:INVALIDATE_ALL</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeType</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.sanbeetle.events:DataChangeType:INVALIDATE_invalidate"><apiName>invalidate</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeType:INVALIDATE</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeType</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.sanbeetle.events:DataChangeType:REMOVE_ALL_removeAll"><apiName>removeAll</apiName><prolog><asCustoms><internal>The word "model" was replaced with "data provider" above. What should it say?
+		  
+		  </internal></asCustoms></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeType:REMOVE_ALL</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeType</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.sanbeetle.events:DataChangeType:REMOVE_remove"><apiName>remove</apiName><prolog><asCustoms><internal>The word "model" was replaced with "data provider" above. What should it say?
+		 </internal></asCustoms></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeType:REMOVE</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeType</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.sanbeetle.events:DataChangeType:REPLACE_replace"><apiName>replace</apiName><prolog><asCustoms><internal>I used "data provider" here instead of the word "model". Correct?
+		  
+		  </internal></asCustoms></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeType:REPLACE</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeType</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><adobeApiEvent id="com.sanbeetle.events:DataChangeType:SORT_sort"><apiName>sort</apiName><prolog><asCustoms><internal>The word "model" was replaced with "data provider" above. What should it say?
+		  
+		  </internal></asCustoms></prolog><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeType:SORT</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeType</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail></adobeApiEvent><apiValue id="com.sanbeetle.events:DataChangeType:ADD"><apiName>ADD</apiName><shortdesc>
+         Items were added to the data provider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata><asCustoms><internal>The word "model" was replaced with "data provider" above. What should it say?
+		 </internal></asCustoms></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>add</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         Items were added to the data provider.
+		 
+         </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:DataChangeType:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+         A change was made to the component data.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         A change was made to the component data. This value does not affect the
+		 component data that it describes.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:DataChangeType:INVALIDATE_ALL"><apiName>INVALIDATE_ALL</apiName><shortdesc>
+         The data set is invalid.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invalidateAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         The data set is invalid.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:DataChangeType:INVALIDATE"><apiName>INVALIDATE</apiName><shortdesc>
+         A change was made to the data contained in an item.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>invalidate</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         A change was made to the data contained in an item.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:DataChangeType:REMOVE_ALL"><apiName>REMOVE_ALL</apiName><shortdesc>
+         All items were removed from the data provider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata><asCustoms><internal>The word "model" was replaced with "data provider" above. What should it say?
+		  
+		  </internal></asCustoms></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>removeAll</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         All items were removed from the data provider.
+		 
+         </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:DataChangeType:REMOVE"><apiName>REMOVE</apiName><shortdesc>
+         Items were removed from the data provider.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata><asCustoms><internal>The word "model" was replaced with "data provider" above. What should it say?
+		 </internal></asCustoms></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>remove</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         Items were removed from the data provider.
+		 
+         </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:DataChangeType:REPLACE"><apiName>REPLACE</apiName><shortdesc>
+         The items in the data provider were replaced by new items.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata><asCustoms><internal>I used "data provider" here instead of the word "model". Correct?
+		  
+		  </internal></asCustoms></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>replace</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         The items in the data provider were replaced by new items.
+		 
+         </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:DataChangeType:SORT"><apiName>SORT</apiName><shortdesc>
+         The data provider was sorted.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata><asCustoms><internal>The word "model" was replaced with "data provider" above. What should it say?
+		  
+		  </internal></asCustoms></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>sort</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         The data provider was sorted. This constant is used to indicate
+		 a change in the order of the data, not a change in
+		 the data itself.
+		 
+         </apiDesc></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.events:ControlEvent"><apiName>ControlEvent</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.sanbeetle.events:ControlEvent:ControlEvent"><apiName>ControlEvent</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>data</apiItemName><apiType value="Object"/><apiData>null</apiData></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiValue id="com.sanbeetle.events:ControlEvent:CHANGE"><apiName>CHANGE</apiName><shortdesc>
+		 修改 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 修改 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:CLOSE"><apiName>CLOSE</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>close</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:COMPONENT_CREATE_UI"><apiName>COMPONENT_CREATE_UI</apiName><shortdesc>
+		 当组件执行 create 方法时，调度 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>component_create_ui</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 当组件执行 create 方法时，调度 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:FONT_LOADED"><apiName>FONT_LOADED</apiName><shortdesc>
+		 字体加载完成 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>font_loaded</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 字体加载完成 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:ITEM_OUT"><apiName>ITEM_OUT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>item_out</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:ITEM_OVER"><apiName>ITEM_OVER</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>item_over</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:ITEM_RENDERER_SELECT"><apiName>ITEM_RENDERER_SELECT</apiName><shortdesc>
+		 项选择 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>item_renderer_select</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 项选择 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:ITEM_SELECT"><apiName>ITEM_SELECT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>item_select</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:PAGE_PAGING_EVENT"><apiName>PAGE_PAGING_EVENT</apiName><shortdesc>
+		 分页事件 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>page_paging_event</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 分页事件 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:SELECT"><apiName>SELECT</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>select</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:TEXT_LINK_MOVE"><apiName>TEXT_LINK_MOVE</apiName><shortdesc>
+		 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text_link_move</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:TEXT_LINK_OUT"><apiName>TEXT_LINK_OUT</apiName><shortdesc>
+		 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text_link_out</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:TEXT_LINK_OVER"><apiName>TEXT_LINK_OVER</apiName><shortdesc>
+		 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text_link_over</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:TEXT_LINK"><apiName>TEXT_LINK</apiName><shortdesc>
+		 ILabel 文本 a 标签 event:eventType 事件  点击事件
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>text_link</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 ILabel 文本 a 标签 event:eventType 事件  点击事件
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:TIME_COMPLETE"><apiName>TIME_COMPLETE</apiName><shortdesc>
+		 时间完成事件 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>time_complete</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 时间完成事件 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:VIEW_DISPOSE"><apiName>VIEW_DISPOSE</apiName><shortdesc>
+		 组件所在的视图被 被释放 
+		 </shortdesc><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>view_dispose</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 组件所在的视图被 被释放 
+		 </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ControlEvent:data"><apiName>data</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiType value="Object"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.events:ChangeIndexEvent"><apiName>ChangeIndexEvent</apiName><shortdesc>
+	 
+	 author sixf
+	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 
+	 author sixf
+	 </apiDesc></apiClassifierDetail><apiConstructor id="com.sanbeetle.events:ChangeIndexEvent:ChangeIndexEvent"><apiName>ChangeIndexEvent</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>type</apiItemName><apiType value="String"/></apiParam><apiParam><apiItemName>newIndex</apiItemName><apiType value="int"/><apiData>-1</apiData></apiParam><apiParam><apiItemName>oldIndex</apiItemName><apiType value="int"/><apiData>-1</apiData></apiParam></apiConstructorDef></apiConstructorDetail></apiConstructor><apiValue id="com.sanbeetle.events:ChangeIndexEvent:CHANGE_INDEX"><apiName>CHANGE_INDEX</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>change_index</apiData><apiType value="String"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ChangeIndexEvent:newIndex"><apiName>newIndex</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:ChangeIndexEvent:oldIndex"><apiName>oldIndex</apiName><shortdesc/><prolog/><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiData>-1</apiData><apiType value="int"/></apiValueDef></apiValueDetail></apiValue></apiClassifier><apiClassifier id="com.sanbeetle.events:DataChangeEvent"><apiName>DataChangeEvent</apiName><shortdesc>
+	 The DataChangeEvent class defines the event that is dispatched when the data 
+	 that is associated with a component changes.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>flash.events:Event</apiBaseClassifier></apiClassifierDef><apiDesc>
+	 The DataChangeEvent class defines the event that is dispatched when the data 
+	 that is associated with a component changes. This event is used by the List, 
+	 DataGrid, TileList, and ComboBox components.
+	 
+	 <p>This class provides the following event:</p>
+	 <ul>
+	     <li><codeph>DataChangeEvent.DATA_CHANGE</codeph>: dispatched when the component data changes.</li>
+	 </ul>
+     
+	 </apiDesc><example conref="DataChangeEventExample.as"/></apiClassifierDetail><related-links><link href="com.sanbeetle.events.xml#DataChangeType"><linktext>DataChangeType</linktext></link></related-links><adobeApiEvent id="com.sanbeetle.events:DataChangeEvent:DATA_CHANGE_dataChange"><apiName>dataChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeEvent:DATA_CHANGE</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="com.sanbeetle.events.xml#DataChangeEvent/PRE_DATA_CHANGE"><linktext>PRE_DATA_CHANGE</linktext></link></related-links></adobeApiEvent><adobeApiEvent id="com.sanbeetle.events:DataChangeEvent:PRE_DATA_CHANGE_preDataChange"><apiName>preDataChange</apiName><prolog/><adobeApiEventDetail><adobeApiEventDef><apiEventType>com.sanbeetle.events:DataChangeEvent:PRE_DATA_CHANGE</apiEventType><adobeApiEventClassifier>com.sanbeetle.events:DataChangeEvent</adobeApiEventClassifier><apiDefinedEvent/></adobeApiEventDef></adobeApiEventDetail><related-links><link href="com.sanbeetle.events.xml#DataChangeEvent/DATA_CHANGE"><linktext>DATA_CHANGE</linktext></link></related-links></adobeApiEvent><apiConstructor id="com.sanbeetle.events:DataChangeEvent:DataChangeEvent"><apiName>DataChangeEvent</apiName><shortdesc>
+		 Creates a new DataChangeEvent object with the specified parameters.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/><apiParam><apiItemName>eventType</apiItemName><apiType value="String"/><apiDesc>The type of change event.
+		 
+		 </apiDesc></apiParam><apiParam><apiItemName>changeType</apiItemName><apiType value="String"/><apiDesc>The type of change that was made. The DataChangeType class defines the possible values for
+		        this parameter.
+		 
+		 </apiDesc></apiParam><apiParam><apiItemName>items</apiItemName><apiType value="Array"/><apiDesc>A list of items that were changed.
+		 
+		 </apiDesc></apiParam><apiParam><apiItemName>startIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>The index of the first item that was changed.
+         
+         </apiDesc></apiParam><apiParam><apiItemName>endIndex</apiItemName><apiType value="int"/><apiData>-1</apiData><apiDesc>The index of the last item that was changed.
+         
+         </apiDesc></apiParam></apiConstructorDef><apiDesc>
+		 Creates a new DataChangeEvent object with the specified parameters.
+		 
+		 </apiDesc></apiConstructorDetail></apiConstructor><apiOperation id="com.sanbeetle.events:DataChangeEvent:clone"><apiName>clone</apiName><shortdesc>
+		 Creates a copy of the DataEvent object and sets the value of each parameter to match
+		 that of the original.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>A new DataChangeEvent object with property values that match those of the
+                 original.
+         
+         </apiDesc><apiType value="flash.events:Event"/></apiReturn></apiOperationDef><apiDesc>
+		 Creates a copy of the DataEvent object and sets the value of each parameter to match
+		 that of the original.
+		 
+		 </apiDesc></apiOperationDetail></apiOperation><apiOperation id="com.sanbeetle.events:DataChangeEvent:toString"><apiName>toString</apiName><shortdesc>
+		 Returns a string that contains all the properties of the DataChangeEvent object.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiOperationDetail><apiOperationDef><apiAccess value="public"/><apiIsOverride/><apiReturn><apiDesc>A string that contains all the properties of the DataChangeEvent object.
+         
+         </apiDesc><apiType value="String"/></apiReturn></apiOperationDef><apiDesc>
+		 Returns a string that contains all the properties of the DataChangeEvent object. The
+		 string is in the following format:
+		 
+		 <p>[<codeph>DataChangeEvent type=<i>value</i> changeType=<i>value</i> 
+		 startIndex=<i>value</i> endIndex=<i>value</i>
+		 bubbles=<i>value</i> cancelable=<i>value</i></codeph>]</p>
+		 
+         </apiDesc></apiOperationDetail></apiOperation><apiValue id="com.sanbeetle.events:DataChangeEvent:DATA_CHANGE"><apiName>DATA_CHANGE</apiName><shortdesc>
+         Defines the value of the type property of a dataChange
+		 event object.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>dataChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+         Defines the value of the <codeph>type</codeph> property of a <codeph>dataChange</codeph>
+		 event object. 
+		 
+		 <p>This event has the following properties:</p>
+		  <adobetable class="innertable">
+		     
+		 	   
+		     
+		     
+		    
+		     
+		     
+		     
+    	     
+		  <tgroup cols="2"><thead><row><entry>Property</entry><entry>Value</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph>; there is no default behavior to cancel.</entry></row><row><entry><codeph>changeType</codeph></entry><entry>Identifies the type of change that was made.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>The object that is actively processing 
+		 			the event object with an event listener.</entry></row><row><entry><codeph>endIndex</codeph></entry><entry>Identifies the index of the last changed item.</entry></row><row><entry><codeph>items</codeph></entry><entry>An array that lists the items that were changed.</entry></row><row><entry><codeph>startIndex</codeph></entry><entry>Identifies the index of the first changed item.</entry></row><row><entry><codeph>target</codeph></entry><entry>The object that dispatched the event. The target is 
+                   not always the object listening for the event. Use the <codeph>currentTarget</codeph>
+		 			property to access the object that is listening for the event.</entry></row></tbody></tgroup></adobetable>
+         
+         </apiDesc></apiValueDetail><related-links><link href="com.sanbeetle.events.xml#DataChangeEvent/PRE_DATA_CHANGE"><linktext>PRE_DATA_CHANGE</linktext></link></related-links></apiValue><apiValue id="com.sanbeetle.events:DataChangeEvent:PRE_DATA_CHANGE"><apiName>PRE_DATA_CHANGE</apiName><shortdesc>
+		 Defines the value of the type property of a preDataChange
+		 event object.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiAccess value="public"/><apiStatic/><apiData>preDataChange</apiData><apiType value="String"/></apiValueDef><apiDesc>
+		 Defines the value of the <codeph>type</codeph> property of a <codeph>preDataChange</codeph>
+		 event object. This event object is dispatched before a change is made to component data.
+		 
+		 <p>This event has the following properties:</p>
+		  <adobetable class="innertable">
+		     
+		 	   
+		     
+		 	   
+		    
+		     
+		     
+		     
+	         
+		  <tgroup cols="2"><thead><row><entry>Property</entry><entry>Value</entry></row></thead><tbody><row><entry><codeph>bubbles</codeph></entry><entry><codeph>false</codeph></entry></row><row><entry><codeph>cancelable</codeph></entry><entry><codeph>false</codeph>; there is no default behavior to cancel.</entry></row><row><entry><codeph>changeType</codeph></entry><entry>Identifies the type of change to be made.</entry></row><row><entry><codeph>currentTarget</codeph></entry><entry>The object that is actively processing 
+		 			the event object with an event listener.</entry></row><row><entry><codeph>endIndex</codeph></entry><entry>Identifies the index of the last item to be
+		 			changed.</entry></row><row><entry><codeph>items</codeph></entry><entry>An array that lists the items to be changed.</entry></row><row><entry><codeph>startIndex</codeph></entry><entry>Identifies the index of the first item to be
+		         changed.</entry></row><row><entry><codeph>target</codeph></entry><entry>The object that dispatched the event. The target is 
+                  not always the object listening for the event. Use the <codeph>currentTarget</codeph>
+		 			property to access the object that is listening for the event.</entry></row></tbody></tgroup></adobetable>
+		 
+         </apiDesc></apiValueDetail><related-links><link href="com.sanbeetle.events.xml#DataChangeEvent/DATA_CHANGE"><linktext>DATA_CHANGE</linktext></link></related-links></apiValue><apiValue id="com.sanbeetle.events:DataChangeEvent:changeType:get"><apiName>changeType</apiName><shortdesc>
+		 Gets the type of the change that triggered the event.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="String"/></apiValueDef><apiDesc>
+		 Gets the type of the change that triggered the event. The DataChangeType class 
+		 defines the possible values for this property.
+         
+         </apiDesc></apiValueDetail><related-links><link href="com.sanbeetle.events.xml#DataChangeType"><linktext>DataChangeType</linktext></link></related-links></apiValue><apiValue id="com.sanbeetle.events:DataChangeEvent:endIndex:get"><apiName>endIndex</apiName><shortdesc>
+         Gets the index of the last changed item in the array of items
+		 that were changed.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef><apiDesc>
+         Gets the index of the last changed item in the array of items
+		 that were changed.
+         
+         </apiDesc></apiValueDetail><related-links><link href="com.sanbeetle.events.xml#DataChangeEvent/startIndex"><linktext>startIndex</linktext></link></related-links></apiValue><apiValue id="com.sanbeetle.events:DataChangeEvent:items:get"><apiName>items</apiName><shortdesc>
+         Gets an array that contains the changed items.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="Array"/></apiValueDef><apiDesc>
+         Gets an array that contains the changed items.
+         
+         </apiDesc></apiValueDetail></apiValue><apiValue id="com.sanbeetle.events:DataChangeEvent:startIndex:get"><apiName>startIndex</apiName><shortdesc>
+		 Gets the index of the first changed item in the array of items 
+		 that were changed.</shortdesc><prolog><asMetadata><apiVersion><apiLanguage version="3.0"/><apiPlatform description="" name="Flash" version="9.0.28.0"/><apiPlatform description="" name="AIR" version="1.0"/><apiTool description="" name="Flash" version="CS3"/></apiVersion></asMetadata></prolog><apiValueDetail><apiValueDef><apiProperty/><apiAccess value="public"/><apiDynamic/><apiValueAccess value="read"/><apiType value="uint"/></apiValueDef><apiDesc>
+		 Gets the index of the first changed item in the array of items 
+		 that were changed.
+         
+         </apiDesc></apiValueDetail><related-links><link href="com.sanbeetle.events.xml#DataChangeEvent/endIndex"><linktext>endIndex</linktext></link></related-links></apiValue></apiClassifier></apiPackage>

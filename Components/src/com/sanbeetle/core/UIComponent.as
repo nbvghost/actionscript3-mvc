@@ -8,13 +8,14 @@
 	import com.sanbeetle.interfaces.IUIComponent;
 	import com.sanbeetle.utils.TimerRun;
 	
+	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
-
+	
 	[Event(name="component_create_ui", type="com.sanbeetle.events.ControlEvent")]
-
+	
 	/**
 	 *
 	 *@author sixf
@@ -23,7 +24,7 @@
 	{
 		private var _trueWidth:Number = -1;
 		private var _trueHeight:Number = -1;
-
+		
 		private var nw:Number=0;
 		private var nh:Number=0;
 		protected var component:Component;
@@ -32,6 +33,7 @@
 		
 		private var _toolTip:String=null;
 		
+		private var linkRoot:DisplayObject;
 		
 		
 		
@@ -39,7 +41,6 @@
 		{
 			stop ();
 			component = Component.component;
-			//Component.component;
 			if(component.contentContainer==null){
 				Log.info("组件的容器不能为空，请使用 Component.component.initContentContainer(_contentContainer) 进行设制。");	
 				
@@ -53,35 +54,33 @@
 				}				
 			}		
 			
-
+			
 			_trueWidth = super.width;
 			_trueHeight = super.height;
-
+			
 			while (this.numChildren>0)
 			{
 				this.removeChildAt (0);
 			}
-
+			
 			var xx:int = this.x;
 			var yy:int = this.y;
-
+			
 			this.x = Math.round(xx);
 			this.y = Math.round(yy);
-
-		
+			
+			
 			
 			this.scaleX = this.scaleY = 1;
-
+			
 			
 			this.addEventListener (Event.ENTER_FRAME,onEnterFrameHandler);
 			
 			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);			
-		
-
+			
+			
 		}
 		
-		
-		//private var mousePoint:Point=new Point;
 		public function timerRun(event:TimerEvent):void
 		{
 			
@@ -122,7 +121,7 @@
 		{
 			return _toolTip;
 		}
-
+		
 		/**
 		 * @private
 		 */
@@ -133,23 +132,19 @@
 			if(value!=null && value!="" && value!=" "){
 				this.addEventListener(MouseEvent.ROLL_OVER,onMouseRoolOverHandler);
 				this.addEventListener(MouseEvent.ROLL_OUT,onMouseRoolOutHandler);
-				//this.addEventListener(MouseEvent.MOUSE_OUT,onMouseRoolOutHandler);
 			}else{
 				this.removeEventListener(MouseEvent.ROLL_OVER,onMouseRoolOverHandler);
 				this.removeEventListener(MouseEvent.ROLL_OUT,onMouseRoolOutHandler);
-				//this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseRoolOutHandler);
 			}
 		}
-
+		
 		override public function set x(value:Number):void
 		{
-			// TODO Auto Generated method stub
 			super.x = Math.round(value);
 		}
 		
 		override public function set y(value:Number):void
 		{
-			// TODO Auto Generated method stub
 			super.y = Math.round(value);
 		}
 		
@@ -161,27 +156,49 @@
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.addEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);	
 			
-			this.onAddStage();
-			
-			
+			this.onAddStage();			
 			
 		}
+		
+		private function onViewDisposeHandler(event:Event):void
+		{
+			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);		
+			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);	
+			
+			
+			TimerRun.init().removeRun(this);
+			this.dispose();
+			
+			component =null;
+			if(linkRoot){				
+				linkRoot.removeEventListener(ControlEvent.VIEW_DISPOSE,onViewDisposeHandler);
+			}
+			linkRoot=null;
+			this.graphics.clear();
+			
+			this.removeChildren();
+			if(this.parent){
+				this.parent.removeChild(this);
+			}	
+			
+			
+			
+			//trace("Dispose View Component!");			
+		}
+		
 		[Inspectable(defaultValue=1)]
 		override public function get alpha():Number
 		{
-			// TODO Auto Generated method stub
 			return super.alpha;
 		}
 		
 		public function get haveStage():Boolean
 		{
-			// TODO Auto Generated method stub
 			return isInstage;
 		}
 		
 		public function setStage(value:Boolean):void
 		{
-			// TODO Auto Generated method stub
 			isInstage = value;
 		}
 		
@@ -191,7 +208,6 @@
 		
 		override public function set alpha(value:Number):void
 		{
-			// TODO Auto Generated method stub
 			super.alpha = value;
 		}				
 		private function onRemoveStageHandler(event:Event):void
@@ -199,9 +215,7 @@
 			isInstage = false;
 			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);
-			this.onRemoveStage();
-			this.dispose();			
-			//Log.out("remove stage");
+			this.onRemoveStage();			
 		}		
 		protected function onRemoveStage():void{
 			
@@ -236,21 +250,14 @@
 				}
 			}
 			
-
+			
 		}
 		override public function get height ():Number
 		{
-			//if(trueHeight==-1){
-			//trueHeight =super.width;
-			//}
-			//Console.out("components"+trueHeight);
 			return _trueHeight;
 		}
 		override public function get width ():Number
 		{
-			//if(trueWidth==-1){
-			//trueWidth =super.width;
-			//}
 			return _trueWidth;
 		}
 		override public function set height (value:Number):void
@@ -261,9 +268,8 @@
 			{
 				_trueHeight = value;
 				this.updateUI ();
-				//drawBorder(trueWidth,trueHeight);
 			}
-
+			
 		}
 		override public function set width (value:Number):void
 		{
@@ -273,7 +279,6 @@
 			{
 				_trueWidth = value;
 				this.updateUI ();
-				//drawBorder(trueWidth,trueHeight);
 			}
 		}
 		/**
@@ -285,12 +290,9 @@
 		{
 			return _trueHeight;
 		}
-
-
-		/*public function set trueHeight(value:int):void
-		{
-		_trueHeight = value;
-		}*/
+		
+		
+		
 		/**
 		 *  组件的宽度 
 		 * @param value
@@ -300,16 +302,13 @@
 		{
 			return _trueWidth;
 		}
-		/*public function set trueWidth(value:int):void
-		{
-		_trueWidth = value;
-		}*/
+		
 		private function onEnterFrameHandler (event:Event):void
 		{
 			
 			this.removeEventListener (Event.ENTER_FRAME,onEnterFrameHandler);
 			
-
+			
 			if (this.stage == null)
 			{
 				this.addEventListener (Event.ADDED_TO_STAGE,stageHaveHandler);
@@ -319,20 +318,24 @@
 				stageHaveHandler (null);
 			}
 		}	
-	
+		
 		/**
 		 * 更新 
 		 * 
 		 */
 		public function updateUI ():void
 		{
-
+			
 		}
+		/**
+		 * 该方法内存释放，只关注自身内存的释放代码，无须为其它对象做内存释放，其它对象也有自己的释放方法，凡 继承了 UIComponent 就是这样的。 
+		 * 
+		 */		
 		public function dispose ():void
 		{
 			
 		}		
-
+		
 		/**
 		 *  
 		 * @param event
@@ -340,10 +343,15 @@
 		 */
 		private function stageHaveHandler (event:Event):void
 		{
+			linkRoot= this.root;
 			this.removeEventListener (Event.ADDED_TO_STAGE,stageHaveHandler);
 			createUI ();
 			this.dispatchEvent(new ControlEvent(ControlEvent.COMPONENT_CREATE_UI));
 			onStageHandler (event);
+			
+			if(linkRoot){
+				linkRoot.addEventListener(ControlEvent.VIEW_DISPOSE,onViewDisposeHandler);
+			}			
 		}
 		/**
 		 * 得到stage 
@@ -352,7 +360,7 @@
 		 */
 		public function onStageHandler (event:Event):void
 		{
-
+			
 		}
 		/**
 		 * 跳到第二帧时，开始构建 样式、界面 
@@ -360,7 +368,7 @@
 		 */
 		public function createUI ():void
 		{
-
+			
 		}
 		/**
 		 * 设置高，宽
@@ -372,12 +380,12 @@
 		{
 			_trueWidth = w;
 			_trueHeight = h;
-
+			
 			updateUI ();
-
+			
 			drawBorder (trueWidth,trueHeight);
-
-
+			
+			
 		}
 	}
 }

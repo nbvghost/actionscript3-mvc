@@ -23,6 +23,20 @@
 			
 		}
 		
+		override public function dispose():void
+		{
+			// TODO Auto Generated method stub
+			super.dispose();
+			
+			skin.stop();
+			this.removeEventListener(MouseEvent.MOUSE_DOWN,onClickHandler);
+			//this.addEventListener(MouseEvent.MOUSE_DOWN,onMouseEventHandler);
+			this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseEventHandler);
+			this.removeEventListener(MouseEvent.MOUSE_OVER,onMouseEventHandler);
+			this.removeEventListener(MouseEvent.MOUSE_UP,onMouseEventHandler);
+		}
+		
+		
 		private function onMouseEventHandler(event:MouseEvent):void
 		{
 			switch(event.type){

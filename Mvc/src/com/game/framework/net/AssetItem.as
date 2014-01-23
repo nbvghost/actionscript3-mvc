@@ -8,7 +8,6 @@ package com.game.framework.net {
 	
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
-	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
@@ -16,6 +15,7 @@ package com.game.framework.net {
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
+	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 *
@@ -28,7 +28,6 @@ package com.game.framework.net {
 		protected var _type:String = LoadType.MEDIA_CONTENT;
 		protected var _isinitView:Boolean = false;
 		private var loader:Loader;
-		private var _contentLoaderInfo:LoaderInfo;
 		private var _currentDomain:Boolean = true;
 		
 		/**
@@ -45,9 +44,23 @@ package com.game.framework.net {
 			loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
-			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);			
 			loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
+			
 		}
+		
+		public function get bytesLoaded():uint
+		{
+			// TODO Auto Generated method stub
+			return loader.contentLoaderInfo.bytesLoaded;
+		}
+		
+		public function get bytesTotal():uint
+		{
+			// TODO Auto Generated method stub
+			return loader.contentLoaderInfo.bytesTotal;
+		}
+		
 		
 		public function get contentLoaderInfo():LoaderInfo {
 			return loader.contentLoaderInfo;
@@ -56,23 +69,15 @@ package com.game.framework.net {
 		private function onCompleteHandlerPrivate(event:Event):void {
 			this._content = loader.content;
 			this.onCompleteHandler(event);
+			
 		}
 		
 		private function uncaughtErrorHandler(event:UncaughtErrorEvent):void {
-			if (event.error is Error) {
-				var error:Error = event.error as Error;
-				Log.out(error.getStackTrace());
-				// do something with the error
-			}
-			else if (event.error is ErrorEvent) {
-				var errorEvent:ErrorEvent = event.error as ErrorEvent;
-				// do something with the error
-				Log.out(errorEvent.toString());
-			}
-			else {
-				Log.out(event.toString());
-				// a non-Error, non-ErrorEvent type was thrown and uncaught
-			}
+			
+			appStage.dispatchEvent(event.clone());
+			
+			
+			
 		}
 		
 		/**
@@ -118,10 +123,10 @@ package com.game.framework.net {
 			_datainterface = value;
 		}
 		public function onCompleteHandler(event:Event):void {		
-			// Log.out(_datainterface);
+		
 			if(_datainterface==null){			
 				
-			}  else{
+			}else{
 				_datainterface.asssetComplete(this);
 				_datainterface.asssetAllComplete(this);
 			}    
@@ -140,6 +145,7 @@ package com.game.framework.net {
 		public function dispose():void {
 			
 			if(loader){
+				
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteHandler);
 				loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
 				loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgressHandler);
@@ -149,15 +155,13 @@ package com.game.framework.net {
 					loader.close();
 				}catch(e:Error){
 					//Log.out(e.getStackTrace());
-				}
+				}			
 				loader.unloadAndStop();
 				loader.unload();
 				loader = null;
 			}
 						
 			this.removeChildren();
-			
-			
 			
 			
 			if (this.parent != null) {

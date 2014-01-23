@@ -107,16 +107,24 @@ package com.game.framework.views {
 		}
 		
 		public function dispose():void {
+			
+			if(this.uimanager){				
+				uimanager.removeEnterFrame(this);
+				uimanager.removeReSize(this);
+				uimanager.removeTimerRun(this);
+			}
+			//自身处理。
 			if (_view) {
 				if(this.uimanager){				
 					uimanager.removeEnterFrame(_view);
 					uimanager.removeReSize(_view);
 					uimanager.removeTimerRun(_view);
 				}
-				_view.dispose();
-				_view = null;
+				//_view.dispose();
+				//_view = null;
 			}
 			_uimanager = null;
+			_view =null;
 			Launcher.FW::launcher.unregisterMediator(this);
 		}
 	}

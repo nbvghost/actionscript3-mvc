@@ -2,6 +2,7 @@ package com.game.framework.display
 {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.LoaderInfo;
 	import flash.geom.Point;
 	import flash.text.TextSnapshot;
 	
@@ -22,117 +23,120 @@ package com.game.framework.display
 		{
 			super(parentContainer);
 			
-			buttomLayer=new Layer(container);			
-			midLayer=new Layer(container);
-			topLayer=new Layer(container);
+			buttomLayer=new Layer(_container);			
+			midLayer=new Layer(_container);
+			topLayer=new Layer(_container);
 					
 			//container.addChild(buttomLayer);
 			//container.addChild(midLayer);
 			//container.addChild(topLayer);	
 			
 		}
+		public function get loaderInfo():LoaderInfo{
+			return this._container.loaderInfo;
+		}
 		public function get mask():DisplayObject
 		{
-			return container.mask;
+			return _container.mask;
 		}
 		
 		public function set mask(value:DisplayObject):void
 		{
-			container.mask = value;
+			_container.mask = value;
 		}
 
 		public function get x():int{
-			return this.container.x;
+			return this._container.x;
 		}
 		public function set x(value:int):void{
-			this.container.x =value;
+			this._container.x =value;
 		}
 		
 		public function get y():int{
-			return this.container.y;
+			return this._container.y;
 		}
 		public function set y(value:int):void{
-			this.container.y =value;
+			this._container.y =value;
 		}
 		
 		public function get filters():Array
 		{
-			return container.filters;
+			return _container.filters;
 		}
 
 		public function set filters(value:Array):void
 		{
-			container.filters = value;
+			_container.filters = value;
 		}
 
 		public function get mouseEnabled():Boolean
 		{
-			return container.mouseEnabled;
+			return _container.mouseEnabled;
 		}
 
 		public function set mouseEnabled(value:Boolean):void
 		{
-			container.mouseEnabled = value;
+			_container.mouseEnabled = value;
 		}
 
 		public function addChild(child:DisplayObject):DisplayObject
 		{
 			// TODO Auto Generated method stub
-			return container.addChild(child);
+			return _container.addChild(child);
 		}
 		
 		public function addChildAt(child:DisplayObject, index:int):DisplayObject
 		{
 			// TODO Auto Generated method stub
-			return container.addChildAt(child, index);
+			return _container.addChildAt(child, index);
 		}
 		
 		public function areInaccessibleObjectsUnderPoint(point:Point):Boolean
 		{
 			// TODO Auto Generated method stub
-			return container.areInaccessibleObjectsUnderPoint(point);
+			return _container.areInaccessibleObjectsUnderPoint(point);
 		}
 		
 		public function contains(child:DisplayObject):Boolean
 		{
 			// TODO Auto Generated method stub
-			return container.contains(child);
+			return _container.contains(child);
 		}
 		
 		public function getChildAt(index:int):DisplayObject
 		{
 			// TODO Auto Generated method stub
-			return container.getChildAt(index);
+			return _container.getChildAt(index);
 		}
 		
 		public function getChildByName(name:String):DisplayObject
 		{
 			// TODO Auto Generated method stub
-			return container.getChildByName(name);
+			return _container.getChildByName(name);
 		}
 		
 		public function getChildIndex(child:DisplayObject):int
 		{
 			// TODO Auto Generated method stub
-			return container.getChildIndex(child);
+			return _container.getChildIndex(child);
 		}
 		
 		public function getObjectsUnderPoint(point:Point):Array
 		{
 			// TODO Auto Generated method stub
-			return container.getObjectsUnderPoint(point);
+			return _container.getObjectsUnderPoint(point);
 		}
 		
 		public function get mouseChildren():Boolean
 		{
 			// TODO Auto Generated method stub
-			return container.mouseChildren;
+			return _container.mouseChildren;
 		}
 		
 		public function set mouseChildren(enable:Boolean):void
 		{
 			// TODO Auto Generated method stub
-			container.mouseChildren = enable;
+			_container.mouseChildren = enable;
 		}
 		
 		
@@ -140,66 +144,66 @@ package com.game.framework.display
 		public function get numChildren():int
 		{
 			// TODO Auto Generated method stub
-			return container.numChildren;
+			return _container.numChildren;
 		}
 		
 		public function removeChild(child:DisplayObject):DisplayObject
 		{
 			// TODO Auto Generated method stub
-			return container.removeChild(child);
+			return _container.removeChild(child);
 		}
 		
 		public function removeChildAt(index:int):DisplayObject
 		{
 			// TODO Auto Generated method stub
-			return container.removeChildAt(index);
+			return _container.removeChildAt(index);
 		}
 		
 		public function removeChildren(beginIndex:int=0, endIndex:int=2147483647):void
 		{
 			// TODO Auto Generated method stub
-			container.removeChildren(beginIndex, endIndex);
+			_container.removeChildren(beginIndex, endIndex);
 		}
 		public function globalToLocal(point:Point):Point{
-			return container.globalToLocal(point);
+			return _container.globalToLocal(point);
 		}
 		public function localToGlobal(point:Point):Point{
-			return container.localToGlobal(point);
+			return _container.localToGlobal(point);
 		}
 		public function setChildIndex(child:DisplayObject, index:int):void
 		{
 			// TODO Auto Generated method stub
-			container.setChildIndex(child, index);
+			_container.setChildIndex(child, index);
 		}
 		
 		public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
 		{
 			// TODO Auto Generated method stub
-			container.swapChildren(child1, child2);
+			_container.swapChildren(child1, child2);
 		}
 		
 		public function swapChildrenAt(index1:int, index2:int):void
 		{
 			// TODO Auto Generated method stub
-			container.swapChildrenAt(index1, index2);
+			_container.swapChildrenAt(index1, index2);
 		}
 		
 		public function get tabChildren():Boolean
 		{
 			// TODO Auto Generated method stub
-			return container.tabChildren;
+			return _container.tabChildren;
 		}
 		
 		public function set tabChildren(enable:Boolean):void
 		{
 			// TODO Auto Generated method stub
-			container.tabChildren = enable;
+			_container.tabChildren = enable;
 		}
 		
 		public function get textSnapshot():TextSnapshot
 		{
 			// TODO Auto Generated method stub
-			return container.textSnapshot;
+			return _container.textSnapshot;
 		}
 		public function get buttomLayer():Layer
 		{
