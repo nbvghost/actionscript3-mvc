@@ -130,8 +130,8 @@
 		}
 		override protected function onWheelDelta (delta:int):void
 		{
-			//pin = Math.abs(delta)*(target.height/this.bg.height);
-			pin = Math.abs(delta)*(this.bg.height/ Math.abs(delta));
+		
+			pin = Math.abs(delta)*(this.bg.height*stepNum);
 			if (delta>0)
 			{
 				onLeftHandler (null);
@@ -140,6 +140,7 @@
 			{
 				onRightHandler (null);
 			}
+			//trace(pin);
 		}
 		
 		override protected function scrollBarPosition (value:Number):void
@@ -179,7 +180,7 @@
 		override protected function moveXY (fx:int,fy:int):void
 		{
 			
-			if (target)
+			if (target && stage!=null)
 			{
 				target.y = stage.mouseY - fy;
 			}

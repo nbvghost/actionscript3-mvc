@@ -22,19 +22,18 @@
 	
 	public class IICon extends UIComponent {
 		
-		public static const HZ_1:BitmapData=new IICon_HZ1;
-		public static const HZ_2:BitmapData=new IICon_HZ2;
-		public static const HZ_3:BitmapData=new IICon_HZ3;
-		public static const HZ_4:BitmapData=new IICon_HZ4;
-		public static const HZ_5:BitmapData=new IICon_HZ5;
-		public static const HZ_6:BitmapData=new IICon_HZ6;
-		public static const HZ_7:BitmapData=new IICon_HZ7;
-		public static const HZ_8:BitmapData=new IICon_HZ8;
-		public static const N:BitmapData=new IICon_N;
-		
-		public static const VIP_1:BitmapData=new IICon_VIP1;
-		public static const VIP_2:BitmapData=new IICon_VIP2;
-		public static const VIP_3:BitmapData = new IICon_VIP3;
+		private static var _HZ_1:BitmapData;
+		private static var _HZ_2:BitmapData;
+		private static var _HZ_3:BitmapData;
+		private static var _HZ_4:BitmapData;
+		private static var _HZ_5:BitmapData;
+		private static var _HZ_6:BitmapData;
+		private static var _HZ_7:BitmapData;
+		private static var _HZ_8:BitmapData;
+		private static var _N:BitmapData;		
+		private static var _VIP_1:BitmapData;
+		private static var _VIP_2:BitmapData;
+		private static var _VIP_3:BitmapData;
 		
 		
 		private var _icons:Array = [];		
@@ -52,6 +51,68 @@
 			bitMap.bitmapData = bitMapData;
 			this.addChild(bitMap);
 		}
+
+		public static function get VIP_3():BitmapData
+		{
+			return new IICon_VIP3;
+		}
+
+		public static function get VIP_2():BitmapData
+		{
+			return new IICon_VIP2;
+			
+		}
+
+		public static function get VIP_1():BitmapData
+		{
+			return new IICon_VIP1;
+		}
+
+		public static function get N():BitmapData
+		{
+			return new IICon_N;
+		}
+
+		public static function get HZ_8():BitmapData
+		{
+			return new IICon_HZ8;
+		}
+
+		public static function get HZ_7():BitmapData
+		{
+			return new IICon_HZ7;
+		}
+
+		public static function get HZ_6():BitmapData
+		{
+			return new IICon_HZ6;
+		}
+
+		public static function get HZ_5():BitmapData
+		{
+			return new IICon_HZ5;
+		}
+
+		public static function get HZ_4():BitmapData
+		{
+			return new IICon_HZ4;
+		}
+
+		public static function get HZ_3():BitmapData
+		{
+			return new IICon_HZ3;
+		}
+
+		public static function get HZ_2():BitmapData
+		{
+			return new IICon_HZ2;
+		}
+
+		public static function get HZ_1():BitmapData
+		{
+			return new IICon_HZ1;
+		}
+
 		[Deprecated(message="这个不在使用了")]
 		public function get index():int
 		{
@@ -67,6 +128,14 @@
 		{
 			// TODO Auto Generated method stub
 			super.dispose();
+			
+			for(var i:int=0;i<_icons.length;i++){
+				
+				var cut:BitmapData = _icons[i];				
+				cut.dispose();
+				cut =null;
+			}	
+			
 			if(bitMapData){				
 				bitMapData.dispose();
 			}		
@@ -95,6 +164,7 @@
 			for(var i:int=0;i<_icons.length;i++){
 				push(_icons[i]);
 			}
+			drawIcon();
 		}
 		private var w:int=0;
 		private var maxH:int = 0;
@@ -104,14 +174,10 @@
 		 * 
 		 */		
 		private function push(index:BitmapData):void{
-			/*	if(_icons.indexOf(index)!=-1){
-			return;
-			}*/
-			//_icons.push(index);			
+		
 			w = w+index.width;			
-			maxH = Math.max(maxH,index.height);	
+			maxH = Math.max(maxH,index.height);				
 			
-			drawIcon();
 		}
 		private function drawIcon():void{			
 			
@@ -129,13 +195,12 @@
 				
 				var cut:BitmapData = _icons[i];
 				
-				
-				
-				
 				var mxx:Matrix = new Matrix();
 				mxx.translate(xx,0);
 				bitMapData.draw(cut,mxx);		
 				xx=xx+cut.width+2;
+				cut.dispose();
+				cut =null;
 			}	
 			bitMap.bitmapData = bitMapData;
 		}

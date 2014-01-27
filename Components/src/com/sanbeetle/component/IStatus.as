@@ -84,9 +84,27 @@
 			this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);	
 			this.removeEventListener(MouseEvent.MOUSE_MOVE,onMousehandler);		
 			
-			arr.splice(0,arr.length);
+			this.clearn();
 			
 		}
+		
+		override protected function onAddStage():void
+		{
+			this.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverHandler);
+			this.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);	
+			this.addEventListener(MouseEvent.MOUSE_MOVE,onMousehandler);		
+			this.updateUI();
+		}
+		
+		override protected function onRemoveStage():void
+		{
+			this.removeEventListener(MouseEvent.MOUSE_OVER, onMouseOverHandler);
+			this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);	
+			this.removeEventListener(MouseEvent.MOUSE_MOVE,onMousehandler);		
+			
+			this.clearn();
+		}
+		
 		
 		protected function onMousehandler(event:MouseEvent):void
 		{
@@ -126,6 +144,24 @@
 			_iconLabels = value;
 			updateUI();
 		}
+		private function clearn():void{
+			for (var i:int = 0; i < arr.length; i++) 
+			{
+				var bitmap:Bitmap = arr[i];
+				if (bitmap) 
+				{
+					if(bitmap.parent){
+						bitmap.parent.removeChild(bitmap);
+					}
+					bitmap.bitmapData.dispose();
+					bitmap.bitmapData =null;
+					bitmap=null;
+				}
+			}
+			
+			arr.splice(0,arr.length);
+			rightDO.removeChildren();
+		}
 		/**
 		 *  这个方法会影响性能，请使用 iconLabels
 		 * */
@@ -151,11 +187,7 @@
 				return;
 				
 			}
-			for(var o:int=0;o<arr.length;o++){				
-				if(DisplayObject(arr[o]).parent){
-					DisplayObject(arr[o]).parent.removeChild(arr[o]);	
-				}			
-			}
+			clearn();
 			//Console.out("components"+"components"+"_iconLabels",_iconLabels.length);
 			if(_iconLabels.length<=0){
 				
@@ -163,7 +195,7 @@
 				
 			}
 			
-			arr.splice(0,arr.length);
+			
 			
 			var ds:DisplayObject = getBitmapData(_iconLabels[0]);
 			this.addChild(ds);

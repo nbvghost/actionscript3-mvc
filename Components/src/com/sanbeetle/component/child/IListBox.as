@@ -95,7 +95,7 @@
 			
 			_paddingRect =new LocationRect(0,0,0,0);		
 			this.addChild(_content);				
-			this.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);			
+			this.addEventListener(MouseEvent.MOUSE_UP,onMouseDownHandler);			
 			this.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
 			this.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);	
 			
@@ -111,7 +111,7 @@
 				_dataProvider.removeAll();
 			}
 			
-			this.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);			
+			this.removeEventListener(MouseEvent.MOUSE_UP,onMouseDownHandler);			
 			this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
 			this.removeEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);	
 		}

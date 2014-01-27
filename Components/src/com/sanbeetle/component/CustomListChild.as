@@ -6,7 +6,6 @@
 	import com.sanbeetle.utils.Utils;
 	
 	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	import flash.display.InteractiveObject;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
@@ -107,7 +106,7 @@
 				//parentDisp.removeChild(this);
 				list.setMinWidth(targetDisplay.width+25);
 				list.setMaxHeight(300);
-				targetDisplay.addEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
+				targetDisplay.addEventListener(MouseEvent.MOUSE_UP,onTargetDownHandler);
 			}else{
 				Log.out(" 没有找到 "+_targetName+" 实例！");
 			}			
@@ -126,7 +125,7 @@
 			if (targetDisplay) 
 			{
 				
-				targetDisplay.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
+				targetDisplay.removeEventListener(MouseEvent.MOUSE_UP,onTargetDownHandler);
 				targetDisplay =null;
 			}
 			if(stage){				
@@ -176,7 +175,8 @@
 		protected function onMouseUphandler(event:MouseEvent):void
 		{
 			
-			if(!Utils.isChild(this,event.target as DisplayObject) && !Utils.isChild(targetDisplay,event.target as DisplayObject)){
+			trace(event.target,event.currentTarget);
+			if(!Utils.isChild(this,event.target as DisplayObject) && !Utils.isChild(targetDisplay,event.target as DisplayObject) && !Utils.isChild(list,event.target as DisplayObject)){
 				
 				if (stage) 
 				{

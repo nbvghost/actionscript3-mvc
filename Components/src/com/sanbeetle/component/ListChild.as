@@ -1,4 +1,5 @@
 ﻿package com.sanbeetle.component {
+	import com.asvital.dev.Log;
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.DataProvider;
 	import com.sanbeetle.data.ListChildItem;
@@ -418,7 +419,7 @@
 			
 			var rect:LocationRect = Utils.getBounds(parnList);
 			
-			//Log.out(rect);
+			
 			
 			if(rect.buttom<0){
 				var te:Number = _maxHeight+rect.buttom-30;
@@ -426,8 +427,13 @@
 					te=30;
 				}
 				parnList.setMaxHeight(te);
-			}			
+			}	
 			
+			rect = Utils.getBounds(parnList);
+			Log.out(rect);
+			if(rect.buttom<0){
+				this.y =this.y+rect.buttom; 
+			}
 			
 			this._childList = parnList;
 		}

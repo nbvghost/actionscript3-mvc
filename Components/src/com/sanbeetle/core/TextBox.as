@@ -8,6 +8,7 @@
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TextEvent;
 	import flash.geom.Rectangle;
 	import flash.net.URLVariables;
@@ -18,6 +19,7 @@
 	import flash.text.engine.FontLookup;
 	import flash.text.engine.FontWeight;
 	import flash.utils.ByteArray;
+	import flash.utils.getTimer;
 	
 	import flashx.textLayout.conversion.ConversionType;
 	import flashx.textLayout.conversion.TextConverter;
@@ -256,7 +258,7 @@
 		protected function removeTextFlowEvent():void{
 			
 			if(textContainerManager==null){
-			return;
+				return;
 			}
 			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_BEGIN,onFlowOperationBedginHandler);
 			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_COMPLETE,onFlowOperationCompleteHandler);
@@ -617,7 +619,7 @@
 				_currentLinkData.parameters = new URLVariables();
 			}
 			
-				
+			
 			this.dispatchEvent(new ControlEvent(eventType,_currentLinkData));
 			
 			
@@ -1070,14 +1072,14 @@
 			while(textContainerManager.getTextFlow().numChildren>0){
 				textContainerManager.getTextFlow().removeChildAt(0);
 			}
-		
+			
 			//textContainerManager.getTextFlow().flowComposer.removeAllControllers();
 			textContainerManager.getTextFlow().flowComposer = null;
 			textContainerManager.getTextFlow().interactionManager = null;
 			textContainerManager.hostFormat = null;
 			container.removeChildren();
 			container.graphics.clear();
-					
+			
 			if(stage!=null){
 				stage.removeEventListener(ControlEvent.FONT_LOADED,onYaheiFontLoadedHandelr);
 			}
@@ -1121,8 +1123,8 @@
 		override public function updateUI():void		
 		{
 			
+			var t:Number = getTimer();
 			
-			//var t:Number = getTimer();
 			
 			textContainerManager.hostFormat = _textLayoutFormat;
 			
@@ -1131,26 +1133,26 @@
 			
 			var containerRect:Rectangle = new Rectangle();
 			
-			
 			if(_autoBound){
 				if(_multiline){
 					changeCCSize(trueWidth,NaN);
 				}else{
 					changeCCSize(NaN,NaN);
-				}				
+				}	
 				
 				
-				textContainerManager.updateContainer();
+				//textContainerManager.updateContainer();
 				//trace("text updata:",getTimer()-t);
 				rect  = textContainerManager.getContentBounds();	
 				changeCCSize(rect.width,NaN);		
-				textContainerManager.updateContainer();
+				//textContainerManager.updateContainer();
 				
 				containerRect.x = 0;
 				containerRect.y = 0;
 				containerRect.width = rect.width;
 				containerRect.height = rect.height;
 				
+				//trace("tatol:",getTimer()-t);
 				
 			}else{
 				changeCCSize(this.trueWidth,this.trueHeight);
@@ -1159,7 +1161,6 @@
 				containerRect.y = 0;
 				containerRect.width = trueWidth;
 				containerRect.height = trueHeight;
-				
 				
 			}
 			
@@ -1182,6 +1183,8 @@
 			
 			
 		}	
+		
+		
 		
 		override public function get height():Number
 		{
@@ -1378,6 +1381,7 @@
 		}
 		public function set text(value:String):void
 		{
+			
 			if(isXMLText==true){
 				this.removeTextFlowEvent();	
 				
@@ -1391,10 +1395,15 @@
 					value="";
 				}
 				_text = value;	
+				
+				
 				textContainerManager.setText(_text);
 				_textLayoutFormat.blockProgression = _blockProgression;
+				
 				updateUI();	
+				
 			}	
+			
 			
 		}
 		[Inspectable(defaultValue = "default label")]

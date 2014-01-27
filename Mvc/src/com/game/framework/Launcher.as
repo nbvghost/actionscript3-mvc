@@ -164,7 +164,7 @@ package com.game.framework {
 				isfind = false;
 			}
 			time = (getTimer() - time);
-			Log.info("发送消息处理用时：" + time + "毫秒");
+			Log.info("发送消息处理用时：" + time + "毫秒",name);
 			if (Capabilities.isDebugger) {
 				if (time > 700) {
 					Log.info(new OperateError("消息处理时间大于 700，请优化程序。消息类型：" + name + "消息包类型：" + notifyData.type, this));

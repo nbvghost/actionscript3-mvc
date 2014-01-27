@@ -41,6 +41,8 @@
 		private var p:Number = 0;
 		protected var timer:int;
 		
+		private var _stepNum:Number = 0.15;
+		
 		
 		private var _scrollBeginPoint:Point=new Point(0,0);
 		
@@ -56,6 +58,28 @@
 		}	
 		
 		
+		/**
+		 * 步伐，这是一个0~1的值，来决定滚动的偏移量， 
+		 */
+		public function get stepNum():Number
+		{
+			return _stepNum;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set stepNum(value:Number):void
+		{
+			_stepNum = value;
+			if(_stepNum<0){
+				_stepNum=0;
+			}
+			if(_stepNum>1){
+				_stepNum = 1;
+			}
+		}
+
 		public function get scrollBeginPoint():Point
 		{
 			return _scrollBeginPoint;
