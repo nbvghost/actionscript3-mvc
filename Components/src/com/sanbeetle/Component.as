@@ -22,6 +22,7 @@
 	import flash.text.TextRenderer;
 	
 	import flashx.textLayout.compose.ISWFContext;
+	import flashx.textLayout.elements.Configuration;
 	
 	/**
 	 *
@@ -74,6 +75,7 @@
 		
 		
 		public static var MicrosoftYaHei:ISWFContext;
+		private var _configuration:Configuration;
 		
 		public function Component ()
 		{
@@ -94,8 +96,16 @@
 			//init
 			AttributeSimpleItem;
 			
+			_configuration = new Configuration();
+			_configuration.manageEnterKey =false;
+			
 		}
 		
+		public function get configuration():Configuration
+		{
+			return _configuration;
+		}
+
 		protected function onFontLoaderCompleteHandler(event:Event):void
 		{
 			fontLoadedIndex = 3;
