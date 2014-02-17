@@ -35,7 +35,7 @@ package com.game.framework.views
 	 */
 	public class AlertDialog extends EventDispatcher
 	{
-		private static var callerBuilder:AlertDialogBuilder;
+		private var callerBuilder:AlertDialogBuilder;
 		private var dialogAssetItem:DialogAssetItem;
 		private var mediator:Mediator;
 		
@@ -61,12 +61,12 @@ package com.game.framework.views
 			return _targetID;
 		}
 		
-		public static function dismissAll():void{
+		public static function dismissAll(gc:Boolean = true):void{
 			for(var key:String in DialogPool){
 				var alertdialog:AlertDialog = DialogPool[key];
 				if(alertdialog!=null){
-					alertdialog.dismiss();
-					delete DialogPool[key];
+					alertdialog.dismiss(gc);
+					//delete DialogPool[key];
 				}				
 			}			
 		}
@@ -148,10 +148,11 @@ package com.game.framework.views
 				if(dialogAssetItem==null){
 					dialogAssetItem= new DialogAssetItem(ConfigData.getDialogView(),this);	
 					
+				}else{
+					if(dialogAssetItem.parent==null){
+						midLayer.addChild(dialogAssetItem);
+					}
 				}
-				
-				
-				
 			}			
 			dialogAssetItem.callerBuilder = callerBuilder;
 			
@@ -168,19 +169,28 @@ package com.game.framework.views
 		}	
 		/**
 		 * 窗口关闭。 
-		 * 
-		 */
-		public function dismiss():void{
+		 * @param gc
+		 */		
+		public function dismiss(gc:Boolean=true):void{
 			this.dispatchEvent(new DialogEvent(DialogEvent.DISMISSING,callerBuilder));
 			
-			if(dialogAssetItem){
-				dialogAssetItem.dispose();		
-				delete DialogPool[_targetID.id];
-			}			
+			if(gc){
+				if(dialogAssetItem){
+					dialogAssetItem.dispose();		
+					delete DialogPool[_targetID.id];
+				}		
+				
+				dialogAssetItem=null;
+				mediator =null;
+				_isDismiss =true;
+			}else{
+				if(dialogAssetItem){
+					if(dialogAssetItem.parent){
+						dialogAssetItem.parent.removeChild(dialogAssetItem);
+					}
+				}
+			}
 			
-			dialogAssetItem=null;
-			mediator =null;
-			_isDismiss =true;
 			
 			this.dispatchEvent(new DialogEvent(DialogEvent.DISMISS,callerBuilder));
 			

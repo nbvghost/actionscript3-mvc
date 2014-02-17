@@ -28,6 +28,8 @@ package com.game.framework.ifaces {
 		
 		function set url(value:IURL):void;
 		
+		function get UID():String;
+		
 		/**
 		 * 返回 加载对象的内容，可能是 字符，可能是 资源
 		 * @return

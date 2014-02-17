@@ -8,12 +8,16 @@
 	import flashx.textLayout.edit.EditManager;
 	import flashx.textLayout.edit.EditingMode;
 	import flashx.textLayout.edit.ISelectionManager;
-	import flashx.textLayout.events.FlowOperationEvent;
+	import flashx.textLayout.elements.InlineGraphicElement;
+	import flashx.textLayout.elements.InlineGraphicElementStatus;
+	import flashx.textLayout.elements.ParagraphElement;
+	import flashx.textLayout.events.StatusChangeEvent;
+	import flashx.textLayout.formats.ITextLayoutFormat;
 	import flashx.undo.UndoManager;
 	
 	
 	
-	
+	[Event(name="inlineGraphicStatusChange", type="flashx.textLayout.events.StatusChangeEvent")]
 	public class ITextInput extends ILabel {
 		
 		private var upSkin:ITextInputSkin_up;
@@ -47,23 +51,20 @@
 			
 			
 			
-			//this.addEventListener(MouseEvent.MOUSE_OVER,onMouseHandler);
-			//this.addEventListener(MouseEvent.MOUSE_OUT,onMouseHandler);
 			
 			currentSkin =upSkin;	
 			
 			multiline = false;
 			
 			
-			//textfield.type = TextFieldType.INPUT;
 			
 		}		
-
+		
 		public function get enableEdit():Boolean
 		{
 			return _enableEdit;
 		}
-
+		
 		public function set enableEdit(value:Boolean):void
 		{
 			_enableEdit = value;
@@ -73,61 +74,90 @@
 				textContainerManager.editingMode = EditingMode.READ_ONLY;
 			}
 		}
-
+		
 		/**
 		 * 可编辑管理器 
 		 * @return 
 		 * 
 		 */
 		public function get editManager():EditManager{
+			trace(this.textContainerManager.getTextFlow().interactionManager);
 			return this.textContainerManager.getTextFlow().interactionManager as EditManager;
 			
-		}
+		}		
 		
-		override protected function onFlowOperationBedginHandler(event:FlowOperationEvent):void
+		private function graphicStatusChangeEvent(e:StatusChangeEvent):void
 		{
-			super.onFlowOperationBedginHandler(event);
-	
+			if (e.status == InlineGraphicElementStatus.READY || e.status == InlineGraphicElementStatus.SIZE_PENDING)
+			{
+				textContainerManager.updateContainer();
+			}
 			
-			/*var intotxt:InsertTextOperation = event.operation as InsertTextOperation;
-			
-			var str:String;
-			
-			if(intotxt){
-				str = text+intotxt.text;
-				if(_regExp!=null){
-					//Log.out(_text+intotxt.text);
-					if(!_regExp.test(str)){
-						//editManager.undoManager.undo();
-						event.preventDefault();
-					}
-				}
-				
-				var txtlent:int = getStringBytesLength(str,"gb2312");
-				//Log.out(txtlent,str);
-				if(txtlent > maxChars && maxChars > 0)  
-				{  
-					event.preventDefault();				
-				}
-			}*/
-			
-			
-			
-			
-			
+			this.dispatchEvent(new StatusChangeEvent(e.type,e.bubbles,e.cancelable,e.element,e.status,e.errorEvent));
 		}
 		
+		public function noneLayoutText(value:String):void{
+			_text = value;
+			this.updateUI();
+		}
+		override protected function addTextFlowEvent():void
+		{
+			super.addTextFlowEvent();
+			
+			textContainerManager.addEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,graphicStatusChangeEvent);
+		}
+		
+		override protected function removeTextFlowEvent():void
+		{
+			// TODO Auto Generated method stub
+			super.removeTextFlowEvent();
+			textContainerManager.removeEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,graphicStatusChangeEvent);
+		}
+		public function addImage(url:Object,w:int=20,h:int=20,format:ITextLayoutFormat=null):InlineGraphicElement{
+			
+			var img:InlineGraphicElement = new InlineGraphicElement();
+			img.source = url;
+			img.width = w;
+			img.height = h;
+			img.format = format;
+			
+			var em:EditManager = textContainerManager.getTextFlow().interactionManager as EditManager;
+			
+			this.setFocus();
+			
+			if(em){				
+				
+				//em.selectAll();
+				
+				//em.selectRange(em.absoluteEnd,em.absoluteEnd);
+				
+				//em.insertInlineGraphic(url,w,h,format);
+				
+				//return img;
+			}
+			
+			//textContainerManager.getTextFlow().getLastLeaf().getParagraph().addChild(img);
+			
+			var p:ParagraphElement = textContainerManager.getTextFlow().getChildAt(textContainerManager.getTextFlow().numChildren-1) as ParagraphElement;
+			
+			if(p){				
+				p.addChild(img);
+			}
+			textContainerManager.updateContainer();
+			return img;			
+		}
 		
 		override protected function interactionManager():ISelectionManager
 		{
 			if(_enableEdit){
-			textContainerManager.editingMode = EditingMode.READ_WRITE;
+				textContainerManager.editingMode = EditingMode.READ_WRITE;
+				return new EditManager(new UndoManager());
 				
 			}else{
 				textContainerManager.editingMode = EditingMode.READ_ONLY;
+				return null;
 			}
 			
-			return new EditManager(new UndoManager());
 		}
 		
 		[Inspectable(defaultValue = true)]
@@ -138,17 +168,9 @@
 		public function set background(value:Boolean):void
 		{
 			_background = value;
-			this.updateUI();
-			/*if(_background){
-			upSkin.visible =true;
-			overSkin.visible =true;
-			}else{
-			upSkin.visible =false;
-			overSkin.visible =false;
-			}*/
+			this.updateUI();			
 		}
 		
-		//[Inspectable()]
 		public function get restrict():String
 		{
 			return _restrict;
@@ -158,9 +180,7 @@
 		public function set restrict(value:String):void
 		{
 			if(_restrict !== value && value!=null){
-				_restrict = value;
-				//this.regExp=RegExpType.INT;
-				//this.updateUI();
+				_restrict = value;				
 			}			
 		}
 		[Inspectable(defaultValue = false)]
@@ -196,6 +216,12 @@
 		override public function updateUI():void
 		{
 			
+			textInputBackground();
+			
+			super.updateUI();
+		}	
+		protected function textInputBackground():void
+		{
 			currentSkin.width = this.trueWidth;
 			currentSkin.height = this.trueHeight;			
 			
@@ -209,29 +235,8 @@
 					this.removeChild(currentSkin);
 				}
 				
-			}	
-			
-			
-			super.updateUI();
-			
-			//this.addChild(container);
-			//textfield.width = this.trueWidth;
-			//textfield.height = this.trueHeight;
-			
-			
-			
-			
-			if(_restrict==""){
-				//this.textfield.restrict=null;
-			}else{
-				//this.textfield.restrict=_restrict;
-			}
-			
-			
-			//this.textfield.maxChars =_maxChars;
-			//this.textfield.displayAsPassword = _displayAsPassword;
-			
-		}		
+			}				
+		}
 		
 		override public function createUI():void
 		{
@@ -246,11 +251,11 @@
 			paddingBottom = 3;
 			paddingRight = 3;
 			
-			this.addChildAt(currentSkin,0);
 			
-			
+			//this.addChildAt(currentSkin,0);
 			
 			super.createUI();			
+			this.updateUI();
 			
 		}		
 		

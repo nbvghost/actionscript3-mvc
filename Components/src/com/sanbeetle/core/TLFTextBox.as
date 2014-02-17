@@ -18,7 +18,6 @@ package com.sanbeetle.core
 	import flash.text.engine.FontLookup;
 	import flash.text.engine.FontWeight;
 	import flash.utils.ByteArray;
-	import flash.utils.getTimer;
 	
 	import flashx.textLayout.conversion.ConversionType;
 	import flashx.textLayout.conversion.TextConverter;

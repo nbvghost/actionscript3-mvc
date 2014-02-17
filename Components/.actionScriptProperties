@@ -35,9 +35,11 @@
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
       <libraryPathEntry kind="3" linkType="1" path="E:/projects/projects/libs/DevLib.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="E:/projects/projects/libs/textLayout.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="E:/projects/projects/libs/textLayout.swc" sourcepath="D:/Program Files/Adobe/Adobe Flash Builder 4.7/sdks/4.9.1/frameworks/projects/textLayout/3.0.33/src" useDefaultLinkType="false"/>
     </libraryPath>
-    <sourceAttachmentPath/>
+    <sourceAttachmentPath>
+      <sourceAttachmentPathEntry kind="3" linkType="1" path="E:/projects/projects/libs/textLayout.swc" sourcepath="D:/Program Files/Adobe/Adobe Flash Builder 4.7/sdks/4.9.1/frameworks/projects/textLayout/3.0.33/src" useDefaultLinkType="false"/>
+    </sourceAttachmentPath>
   </compiler>
   <applications>
     <application path="Components.as"/>

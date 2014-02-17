@@ -27,6 +27,8 @@ package com.game.framework.views {
 		private var _uimanager:IUIManager;
 		private var _resourceManager:IResourceManager;
 		
+		private var _mediator:Mediator;
+		
 		private var _contentContainer:AssetItem;
 		private var _skinContainer:AssetItem;
 		private var _hasLoad:Boolean = true;
@@ -53,10 +55,11 @@ package com.game.framework.views {
 		FW function get skinContainer():AssetItem{
 			return _skinContainer;
 		}
-		FW function setContentContainer(cc:AssetItem,skin:AssetItem):void
+		FW function setContentContainer(cc:AssetItem,skin:AssetItem,mediator:Mediator):void
 		{
 			_contentContainer = cc;	
 			_skinContainer= skin;
+			_mediator = mediator;
 			
 			//_contentContainer.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);
 			
@@ -71,27 +74,14 @@ package com.game.framework.views {
 			// TODO Auto Generated method stub
 			
 		}
-		
+		protected function get mediator():Mediator{
+			return _mediator;
+		}
 		public function reSize(e:Event):void
 		{
 			// TODO Auto Generated method stub
 			
-		}
-		
-		
-		/* public function get contentLoaderInfo():LoaderInfo {
-		return _contentLoaderInfo;
-		}
-		
-		FW function set contentLoaderInfo(value:LoaderInfo):void {
-		_contentLoaderInfo = value;
-		
-		childName = _contentLoaderInfo.applicationDomain.getQualifiedDefinitionNames();
-		
-		initBefore(_contentLoaderInfo);
-		init(MovieClip(_contentLoaderInfo.content));
-		this.dispatchEvent(new AssetsEvent(AssetsEvent.COMPLETE_LOAD));
-		}*/
+		}		
 		
 		FW function set uimanager(value:IUIManager):void {
 			_uimanager = value;
@@ -168,7 +158,7 @@ package com.game.framework.views {
 				childName.splice(0,childName.length);
 			}
 			
-			
+			this._mediator = null;
 			_skinContainer = null;
 			_contentContainer = null;
 			_uimanager = null;

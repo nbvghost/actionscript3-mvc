@@ -4,6 +4,7 @@ package com.game.framework.net {
 	import com.game.framework.ifaces.IAssetsData;
 	import com.game.framework.ifaces.INotifyData;
 	import com.game.framework.ifaces.IURL;
+	import com.game.framework.utils.RPCUID;
 	
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
@@ -46,6 +47,15 @@ package com.game.framework.net {
 			}
 			
 		}
+		
+		private var uid:String = RPCUID.createUID();
+		
+		public function get UID():String
+		{
+			// TODO Auto Generated method stub
+			return uid;
+		}
+		
 		
 		public function get bytesLoaded():uint
 		{

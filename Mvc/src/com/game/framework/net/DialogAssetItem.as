@@ -244,8 +244,6 @@ package com.game.framework.net
 			alertDialog.Builder.titleData.addEventListener(DialogDataItem.labelChange,onChangeHandler);
 			alertDialog.Builder.titleData.addEventListener(DialogDataItem.viewChange,onChangeHandler);
 			alertDialog.Builder.addEventListener(AlertDialogBuilder.sideSelectIndexChange,onChangeHandler);
-			//alertdialogBuilder.titleData.addEventListener(DialogDataItem.labelChange,onChangeHandler);
-			//alertdialogBuilder.titleData.addEventListener(DialogDataItem.viewChange,onChangeHandler);
 		}		
 		
 		protected function onChangeHandler(event:Event):void

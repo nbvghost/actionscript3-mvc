@@ -20,7 +20,13 @@ package com.game.framework.display
 		
 		public function Layer(parentContainer:DisplayObjectContainer)
 		{
-			super(parentContainer);			
+			super(parentContainer);	
+		}
+		public function get mouseX():Number {
+			return 	_container.mouseX;
+		}
+		public function get mouseY():Number{
+			return _container.mouseY;
 		}
 		public function get loaderInfo():LoaderInfo{
 			return _container.loaderInfo;

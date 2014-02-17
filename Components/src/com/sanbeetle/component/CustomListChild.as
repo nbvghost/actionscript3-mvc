@@ -7,6 +7,7 @@
 	
 	import flash.display.DisplayObject;
 	import flash.display.InteractiveObject;
+	import flash.display.Stage;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
@@ -135,7 +136,7 @@
 			super.dispose();
 		}
 		
-		
+		private var linkStage:Stage;
 		protected function onTargetDownHandler(event:MouseEvent):void
 		{	
 			
@@ -151,7 +152,8 @@
 				stage.addChild(list);
 				stage.addEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
 			}
-			
+		
+			linkStage = stage;
 			
 			/*parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
 			if(parentDisp.contains(this)){
@@ -175,17 +177,17 @@
 		protected function onMouseUphandler(event:MouseEvent):void
 		{
 			
-			trace(event.target,event.currentTarget);
+			//trace(event.target,event.currentTarget);
 			if(!Utils.isChild(this,event.target as DisplayObject) && !Utils.isChild(targetDisplay,event.target as DisplayObject) && !Utils.isChild(list,event.target as DisplayObject)){
 				
-				if (stage) 
+				if (linkStage) 
 				{
 					
-					if(stage.contains(list)){
+					if(linkStage.contains(list)){
 						
-						stage.removeChild(list);
+						linkStage.removeChild(list);
 					}
-					stage.removeEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
+					linkStage.removeEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
 				}
 			}			
 			

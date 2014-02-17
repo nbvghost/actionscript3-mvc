@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
-    <classEntry path="com.sanbeetle.core.UIComponent"/>
-    <classEntry path="com.sanbeetle.core.ScrollBar"/>
-    <classEntry path="com.sanbeetle.component.ITabButton"/>
-    <classEntry path="com.sanbeetle.events.ControlEvent"/>
-    <classEntry path="com.sanbeetle.core.FixedUIComponent"/>
-    <classEntry path="com.sanbeetle.model.AMark"/>
-    <classEntry path="com.sanbeetle.data.AttributeSimpleItem"/>
-    <classEntry path="com.sanbeetle.interfaces.IFListItem"/>
-    <classEntry path="com.sanbeetle.events.ChangeIndexEvent"/>
-    <classEntry path="com.sanbeetle.data.ListChildItem"/>
-    <classEntry path="com.sanbeetle.core.StateButton"/>
-    <classEntry path="com.sanbeetle.interfaces.ITimerRun"/>
-    <classEntry path="com.sanbeetle.utils.TimerRun"/>
-    <classEntry path="com.sanbeetle.bases.BaseObject"/>
-    <classEntry path="com.sanbeetle.model.LocationRect"/>
-    <classEntry path="com.sanbeetle.component.child.SideExtendButton"/>
-    <classEntry path="com.sanbeetle.component.child.ProgressBarSkin"/>
-    <classEntry path="com.sanbeetle.core.TextBox"/>
-    <classEntry path="com.sanbeetle.data.RegExpType"/>
-    <classEntry path="com.sanbeetle.data.LineCollectionItem"/>
-    <classEntry path="com.sanbeetle.core.CacheDispaly"/>
-    <classEntry path="com.sanbeetle.interfaces.IStage"/>
-    <classEntry path="com.sanbeetle.data.Version"/>
-    <classEntry path="com.sanbeetle.component.IColorBox"/>
-    <classEntry path="com.sanbeetle.core.ExtendsTextContainerManager"/>
+    <classEntry path="com.pureantUI.core.UIComponent"/>
+    <classEntry path="com.pureantUI.core.ScrollBar"/>
+    <classEntry path="com.pureantUI.component.ITabButton"/>
+    <classEntry path="com.pureantUI.events.ControlEvent"/>
+    <classEntry path="com.pureantUI.core.FixedUIComponent"/>
+    <classEntry path="com.pureantUI.model.AMark"/>
+    <classEntry path="com.pureantUI.data.AttributeSimpleItem"/>
+    <classEntry path="com.pureantUI.interfaces.IFListItem"/>
+    <classEntry path="com.pureantUI.events.ChangeIndexEvent"/>
+    <classEntry path="com.pureantUI.data.ListChildItem"/>
+    <classEntry path="com.pureantUI.core.StateButton"/>
+    <classEntry path="com.pureantUI.interfaces.ITimerRun"/>
+    <classEntry path="com.pureantUI.utils.TimerRun"/>
+    <classEntry path="com.pureantUI.model.LocationRect"/>
+    <classEntry path="com.pureantUI.component.child.SideExtendButton"/>
+    <classEntry path="com.pureantUI.component.child.ProgressBarSkin"/>
+    <classEntry path="com.pureantUI.core.TextBox"/>
+    <classEntry path="com.pureantUI.data.RegExpType"/>
+    <classEntry path="com.pureantUI.data.LineCollectionItem"/>
+    <classEntry path="com.pureantUI.core.CacheDispaly"/>
+    <classEntry path="com.pureantUI.interfaces.IStage"/>
+    <classEntry path="com.pureantUI.data.Version"/>
+    <classEntry path="com.pureantUI.component.IColorBox"/>
+    <classEntry path="com.pureantUI.core.ExtendsTextContainerManager"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

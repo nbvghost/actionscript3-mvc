@@ -10,8 +10,12 @@
 		public function ExtendsTextContainerManager(container:Sprite, configuration:IConfiguration=null)
 		{
 			
-			super(container, configuration);
+			super(container, configuration);			
+			
+			
 		}
+		
+		
 		
 	}
 }

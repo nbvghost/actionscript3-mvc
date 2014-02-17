@@ -22,7 +22,7 @@
 	
 	public class IICon extends UIComponent {
 		
-		private static var _HZ_1:BitmapData;
+		/*private static var _HZ_1:BitmapData;
 		private static var _HZ_2:BitmapData;
 		private static var _HZ_3:BitmapData;
 		private static var _HZ_4:BitmapData;
@@ -33,7 +33,7 @@
 		private static var _N:BitmapData;		
 		private static var _VIP_1:BitmapData;
 		private static var _VIP_2:BitmapData;
-		private static var _VIP_3:BitmapData;
+		private static var _VIP_3:BitmapData;*/
 		
 		
 		private var _icons:Array = [];		
@@ -139,7 +139,7 @@
 			if(bitMapData){				
 				bitMapData.dispose();
 			}		
-			
+			_icons.splice(0,_icons.length);
 		}
 		
 		

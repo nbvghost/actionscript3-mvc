@@ -132,7 +132,7 @@ package com.game.framework.net {
 			
 			
 			
-			createView.FW::setContentContainer(this,data as AssetItem);
+			createView.FW::setContentContainer(this,data as AssetItem,mediator);
 			
 			if(getDatainterface){
 				this.getDatainterface.asssetComplete(this);					
@@ -168,7 +168,7 @@ package com.game.framework.net {
 		
 		protected function onEnterFrameHandler(event:Event):void
 		{
-			trace("ENTER_FRAME",this);
+			//trace("ENTER_FRAME",this);
 			this.removeEventListener(Event.ENTER_FRAME,onEnterFrameHandler);
 			notifyMediator();			
 			

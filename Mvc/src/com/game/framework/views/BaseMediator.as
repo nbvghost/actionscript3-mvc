@@ -123,7 +123,7 @@ package com.game.framework.views {
 				//_view.dispose();
 				//_view = null;
 			}
-			_uimanager = null;
+			//_uimanager = null;
 			_view =null;
 			Launcher.FW::launcher.unregisterMediator(this);
 		}

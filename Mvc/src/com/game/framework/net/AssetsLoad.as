@@ -2,7 +2,6 @@ package com.game.framework.net {
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.IAssetsData;
 	import com.game.framework.ifaces.IMultiAssetData;
-	import com.game.framework.ifaces.IURL;
 	
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
@@ -61,16 +60,16 @@ package com.game.framework.net {
 			
 		}
 		
-		private function deleteArrItem(url:IURL):void {
+		private function deleteArrItem(uid:String):void {
 			for (var i:int = 0; i < items.length; i++) {
-				if (IAssetItem(items[i]).url.url == url.url) {
+				if (IAssetItem(items[i]).UID == uid) {
 					items.splice(i, 1);
 				}
 			}
 		}
 		
 		public function netError(event:IOErrorEvent, data:IAssetItem):void {
-			deleteArrItem(data.url);
+			deleteArrItem(data.UID);
 			datainterface.netError(event, data);
 		}
 		
@@ -90,7 +89,7 @@ package com.game.framework.net {
 		public function asssetComplete(data:IAssetItem):void {
 			datainterface.asssetComplete(data);
 			datas.push(data);
-			deleteArrItem(data.url);			
+			deleteArrItem(data.UID);			
 			
 			
 			var event:ProgressEvent = new ProgressEvent(ProgressEvent.PROGRESS,false,false,data.bytesLoaded,data.bytesTotal);

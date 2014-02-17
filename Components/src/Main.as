@@ -14,7 +14,6 @@
 	
 	import flash.display.Loader;
 	import flash.display.MovieClip;
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.net.URLRequest;
 	import flash.text.CSMSettings;
