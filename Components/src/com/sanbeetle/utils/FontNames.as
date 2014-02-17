@@ -8,8 +8,8 @@ package  com.sanbeetle.utils
 	 */
 	public class FontNames
 	{
-		public static const MS_YaHeiBold:String = "MicrosoftYaHeiBold";
-		public static const MS_YaHei:String = "MicrosoftYaHei";
+		public static const MS_YaHeiBold:String = "Microsoft YaHei Bold";
+		public static const MS_YaHei:String = "Microsoft YaHei";
 		public static const MS_YaHei_Local:String="微软雅黑";
 				
 		public function FontNames()

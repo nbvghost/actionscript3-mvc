@@ -18,6 +18,7 @@ package com.sanbeetle.core
 	import flash.text.engine.FontLookup;
 	import flash.text.engine.FontWeight;
 	import flash.utils.ByteArray;
+	import flash.utils.getTimer;
 	
 	import flashx.textLayout.conversion.ConversionType;
 	import flashx.textLayout.conversion.TextConverter;
@@ -116,12 +117,12 @@ package com.sanbeetle.core
 		public function TLFTextBox()
 		{
 			
-			
-			
 			_textLayoutFormat = new TextLayoutFormat();
-			_textLayoutFormat.fontFamily = FontNames.MS_YaHei_Local;			
+			_textLayoutFormat.fontFamily = FontNames.MS_YaHei_Local;
+			
 			_textLayoutFormat.fontSize = _fontSize;
-			_textLayoutFormat.whiteSpaceCollapse = WhiteSpaceCollapse.COLLAPSE;			
+			_textLayoutFormat.whiteSpaceCollapse = WhiteSpaceCollapse.COLLAPSE;
+			
 			_textLayoutFormat.breakOpportunity = BreakOpportunity.NONE;
 			_textLayoutFormat.lineBreak = LineBreak.EXPLICIT;
 			
@@ -134,7 +135,7 @@ package com.sanbeetle.core
 			
 			
 			
-			textContainerManager = new ExtendsTextContainerManager(container,configuration);
+			textContainerManager = new ExtendsTextContainerManager(container,configuration);		
 			textContainerManager.hostFormat = _textLayoutFormat;		
 			
 			textContainerManager.setText(_text);
@@ -143,10 +144,29 @@ package com.sanbeetle.core
 			lineHeight = _lineHeight;
 			textContainerManager.editingMode = EditingMode.READ_ONLY;
 			
-			addTextFlowEvent();				
+			addTextFlowEvent();
+			
 			
 		}		
-		
+		/**
+		 * 删除文字，焦点不会消失， 
+		 * @param operationState
+		 * @return 
+		 * 
+		 */
+		public function deleteAllText(operationState:SelectionState=null):String{
+			var str:String = this.text;
+			var em:EditManager = textContainerManager.getTextFlow().interactionManager as EditManager;
+			if(em){
+				em.selectAll();
+				em.deleteText(operationState);
+				setFocus();
+			}
+			
+			return str;
+			
+			
+		}
 		
 		public function get textLayoutFormat():TextLayoutFormat
 		{
@@ -245,13 +265,11 @@ package com.sanbeetle.core
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_BEGIN,onFlowOperationBedginHandler);
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_COMPLETE,onFlowOperationCompleteHandler);
 			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_END,onFlowOperationEndHandler);
-			textContainerManager.addEventListener(FlowElementMouseEvent.MOUSE_DOWN,onFlowElementMouseDownHandler);		
+			textContainerManager.addEventListener(FlowElementMouseEvent.MOUSE_DOWN,onFlowElementMouseDownHandler);			
 			
-			var tf:TextFlow= textContainerManager.getTextFlow();
-			
-			tf.addEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
-			tf.addEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
-			tf.addEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
+			textContainerManager.getTextFlow().addEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
+			textContainerManager.getTextFlow().addEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
+			textContainerManager.getTextFlow().addEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
 			
 		}	
 		
@@ -265,12 +283,9 @@ package com.sanbeetle.core
 			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_END,onFlowOperationEndHandler);			
 			textContainerManager.removeEventListener(FlowElementMouseEvent.MOUSE_DOWN,onFlowElementMouseDownHandler);			
 			
-			
-			var tf:TextFlow= textContainerManager.getTextFlow();
-			
-			tf.removeEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
-			tf.removeEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
-			tf.removeEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
+			textContainerManager.getTextFlow().removeEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
+			textContainerManager.getTextFlow().removeEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
+			textContainerManager.getTextFlow().removeEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
 			
 			
 		}		
@@ -420,9 +435,6 @@ package com.sanbeetle.core
 				disstr =Utils.copyTextFlowStyle(textContainerManager.getTextFlow(),llll);
 			}
 			
-			
-			
-			
 			xmlTextFlow = TextConverter.importToFlow(disstr, TextConverter.TEXT_LAYOUT_FORMAT,configuration);		
 			
 			
@@ -434,19 +446,19 @@ package com.sanbeetle.core
 				
 			}
 			
+			
 			if(textContainerManager){
 				if(textContainerManager.getTextFlow()){
 					while(textContainerManager.getTextFlow().numChildren>0){
 						textContainerManager.getTextFlow().removeChildAt(0);
-					}
-					//textContainerManager.getTextFlow().flowComposer.removeAllControllers();
+					}					
 				}
 			}
 			
 			
 			textContainerManager.setTextFlow(xmlTextFlow);
-			//xmlTextFlow.whiteSpaceCollapse=WhiteSpaceCollapse.COLLAPSE;
 			xmlTextFlow.interactionManager = interactionManager();
+			//xmlTextFlow.whiteSpaceCollapse=WhiteSpaceCollapse.COLLAPSE;
 			
 			//_textFlow = xmlTextFlow;
 			
@@ -680,7 +692,7 @@ package com.sanbeetle.core
 				
 				if ( maxChars > 0 )
 				{
-					var _o:int = getStringBytesLength(this._text,"gb2312");
+					var _o:int = getStringBytesLength(text,"gb2312");
 					if(_o>maxChars)
 					{	
 						event.preventDefault();
@@ -1126,6 +1138,8 @@ package com.sanbeetle.core
 		override public function updateUI():void		
 		{
 			
+			var t:Number = getTimer();
+			
 			
 			textContainerManager.hostFormat = _textLayoutFormat;
 			
@@ -1142,14 +1156,18 @@ package com.sanbeetle.core
 				}	
 				
 				
+				//textContainerManager.updateContainer();
+				//trace("text updata:",getTimer()-t);
 				rect  = textContainerManager.getContentBounds();	
 				changeCCSize(rect.width,NaN);		
+				//textContainerManager.updateContainer();
 				
 				containerRect.x = 0;
 				containerRect.y = 0;
 				containerRect.width = rect.width;
 				containerRect.height = rect.height;
 				
+				//trace("tatol:",getTimer()-t);
 				
 			}else{
 				changeCCSize(this.trueWidth,this.trueHeight);

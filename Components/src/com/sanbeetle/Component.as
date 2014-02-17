@@ -15,6 +15,7 @@
 	import flash.filters.DropShadowFilter;
 	import flash.net.URLRequest;
 	import flash.text.CSMSettings;
+	import flash.text.Font;
 	import flash.text.FontStyle;
 	import flash.text.StyleSheet;
 	import flash.text.TextColorType;
@@ -105,28 +106,23 @@
 		{
 			return _configuration;
 		}
-
+		
 		protected function onFontLoaderCompleteHandler(event:Event):void
 		{
 			fontLoadedIndex = 3;
-			//var FontClass:Class = fontLoader.contentLoaderInfo.applicationDomain.getDefinition("com.sanbeetle.component.MSYahei") as Class;
-			//Console.out("components"+"components"+"FontBoldClass"+FontClass);
-			//Font.registerFont (FontClass);
-			//var FontBoldClass:Class = fontLoader.contentLoaderInfo.applicationDomain.getDefinition("com.sanbeetle.component.MSYaheiBold") as Class;
-			//Console.out("components"+"components"+"FontBoldClass"+FontBoldClass);
-			//Font.registerFont (FontBoldClass);
 			
-			MicrosoftYaHei = fontLoader.content as ISWFContext;
+			var FontClass:Class = fontLoader.contentLoaderInfo.applicationDomain.getDefinition("com.sanbeetle.component.MSYahei") as Class;
+			Font.registerFont (FontClass);
+			var FontBoldClass:Class = fontLoader.contentLoaderInfo.applicationDomain.getDefinition("com.sanbeetle.component.MSYaheiBold") as Class;
+			Font.registerFont (FontBoldClass);
 			
-			/*var FontClassDF3:Class = fontLoader.contentLoaderInfo.applicationDomain.getDefinition("com.sanbeetle.component.MSYaheiDF3") as Class;
-			//Console.out("components"+"components"+"FontBoldClass"+FontClass);
-			Font.registerFont (FontClassDF3);
-			var FontBoldClassDF3:Class = fontLoader.contentLoaderInfo.applicationDomain.getDefinition("com.sanbeetle.component.MSYaheiBoldDF3") as Class;
-			//Console.out("components"+"components"+"FontBoldClass"+FontBoldClass);
-			Font.registerFont (FontBoldClassDF3);*/
+			/*MicrosoftYaHei = fontLoader.content as ISWFContext;
+			
+			
 			
 			TextRenderer.maxLevel = 7;
 			TextRenderer.displayMode = TextDisplayMode.DEFAULT;
+			
 			
 			
 			var insideCutoff:Number = 0.4435;
@@ -149,15 +145,14 @@
 			arr.push (new CSMSettings(10, insideCutoff, outsideCutoff));
 			arr.push (new CSMSettings(9, insideCutoff, outsideCutoff));
 			
-			//TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.REGULAR, TextColorType.DARK_COLOR, arr);
-			//TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.ITALIC, TextColorType.DARK_COLOR, arr);
-			//TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.BOLD, TextColorType.DARK_COLOR, arr);
-			//TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.BOLD_ITALIC, TextColorType.DARK_COLOR, arr);
 			
-			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.REGULAR, TextColorType.DARK_COLOR, arr);
-			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.ITALIC, TextColorType.DARK_COLOR, arr);
-			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.BOLD, TextColorType.DARK_COLOR, arr);
-			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.BOLD_ITALIC, TextColorType.DARK_COLOR, arr);
+			
+			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei, FontStyle.REGULAR, TextColorType.DARK_COLOR, arr);
+			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei, FontStyle.ITALIC, TextColorType.DARK_COLOR, arr);
+			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei, FontStyle.BOLD, TextColorType.DARK_COLOR, arr);
+			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei, FontStyle.BOLD_ITALIC, TextColorType.DARK_COLOR, arr);*/
+			
+			
 			
 			
 			Log.info("Component 加载字体完成！");
@@ -348,13 +343,13 @@
 			{				
 				_component =new Component();
 				
-			}else{				
 				if(AutoLoadFont){
 					if(fontLoadedIndex==0){
 						fontLoadedIndex = 1;
 						fontLoader.load(new URLRequest("MSYahei.swf"));
 					}	
-				}							
+				}		
+				
 			}
 			return _component;
 		}

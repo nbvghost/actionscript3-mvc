@@ -25,6 +25,8 @@
     <classEntry path="com.pureantUI.data.Version"/>
     <classEntry path="com.pureantUI.component.IColorBox"/>
     <classEntry path="com.pureantUI.core.ExtendsTextContainerManager"/>
+    <classEntry path="com.sanbeetle.core.NormalTextBox"/>
+    <classEntry path="com.sanbeetle.core.TextImage"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
