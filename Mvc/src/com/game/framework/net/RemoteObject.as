@@ -27,7 +27,7 @@ package com.game.framework.net
 		{
 			super();
 			
-			this._destination = _destination;		
+			this._destination = _destination;	
 			
 			nc = new NetConnection();
 			nc.addEventListener(AsyncErrorEvent.ASYNC_ERROR,onAsyncErrorHandler);
@@ -36,6 +36,8 @@ package com.game.framework.net
 			nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR,onSecurityErrorHandler);
 			nc.objectEncoding=ObjectEncoding.AMF3;			
 			nc.client =this;
+			
+			
 			
 			
 		}
@@ -102,13 +104,19 @@ package com.game.framework.net
 		public function get destination():String
 		{
 			return _destination;
-		}		
+		}	
+		public function set destination(value:String):void
+		{
+			_destination = value;
+		}	
 		
 		public function connect(url:String,...arguments):void{
 			
 			this.url =url;
 			nc.connect(url,arguments);
-			//nc.call(null,null);			
+			
+			nc.call(null,null);
+			
 		}
 		
 	}

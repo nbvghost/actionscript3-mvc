@@ -48,12 +48,12 @@
 		private var fontLoader:Loader;
 		public function Main ()
 		{
-			Log.setLeve (Log.ERROR_LEVE|Log.OUT_LEVE|Log.INFO_LEVE);
+			//Log.setLeve (Log.ERROR_LEVE|Log.OUT_LEVE|Log.INFO_LEVE);
 			
 			//Component.component.initStyle (new Style());	
 			
 			
-			Component.component.initContentContainer (stage);		
+			//Component.component.initContentContainer (stage);		
 
 
 			this.addEventListener (Event.ADDED_TO_STAGE,onStage);

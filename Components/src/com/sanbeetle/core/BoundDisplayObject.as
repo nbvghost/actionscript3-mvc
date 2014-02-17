@@ -18,6 +18,11 @@
 		{
 			this._contentContainer = _contentContainer;
 			
+			upData();
+			
+			
+		}	
+		public function upData():void{
 			var x:int=0;
 			var y:int=0;
 			
@@ -47,7 +52,7 @@
 			border.graphics.drawRect(x+1,y+1,_width-2,_height-2);
 			border.graphics.endFill();		
 			_contentContainer.addChildAt(border,0);	
-		}		
+		}
 		public function get isSetContainer():Boolean{
 			if(_contentContainer.parent==null){
 				if( !(_contentContainer is Stage)){

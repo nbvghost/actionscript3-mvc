@@ -334,7 +334,10 @@
 				cc = new BoundDisplayObject(_contentContainer);			
 			}else{
 				Log.info("已经对 Component.component.contentContainer 设置了。");
+				cc.upData();
 			}
+			
+			
 			
 		}		
 		public static function get component():Component
