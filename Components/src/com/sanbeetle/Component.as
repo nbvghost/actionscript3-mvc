@@ -85,11 +85,7 @@
 			_ibuttonFilters = [new DropShadowFilter(1,60,0x000000,0.3,1,1,1,BitmapFilterQuality.LOW,false,false)];
 			_irightMenuFilters = [new DropShadowFilter(5,90,0x000000,0.3,15,15,1,BitmapFilterQuality.LOW,false,false)];
 			_isideBoxFilters = [new DropShadowFilter(5,90,0x000000,0.3,15,15,1,BitmapFilterQuality.LOW,false,false)];
-			/*Console.setOutCallBack (function (...ages):void{
-			if(ages[0]=="components10"){
-			//Console.out("sdfds");
-			}
-			});*/
+		
 			
 			fontLoader = new Loader();
 			fontLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,onFontLoaderCompleteHandler);
@@ -116,8 +112,7 @@
 			var FontBoldClass:Class = fontLoader.contentLoaderInfo.applicationDomain.getDefinition("com.sanbeetle.component.MSYaheiBold") as Class;
 			Font.registerFont (FontBoldClass);
 			
-			/*MicrosoftYaHei = fontLoader.content as ISWFContext;
-			
+			Component.MicrosoftYaHei = fontLoader.content as ISWFContext;
 			
 			
 			TextRenderer.maxLevel = 7;
@@ -129,28 +124,30 @@
 			var outsideCutoff:Number = -0.4685;
 			
 			var arr:Array = new Array();
-			arr.push (new CSMSettings(36, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(34, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(32, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(30, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(28, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(26, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(24, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(22, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(18, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(16, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(14, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(12, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(11, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(10, insideCutoff, outsideCutoff));
-			arr.push (new CSMSettings(9, insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(36,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(34,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(32,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(30,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(28,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(26,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(24,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(22,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(18,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(16,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(14,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(12,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(11,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(10,insideCutoff, outsideCutoff));
+			arr.push (new CSMSettings(9,insideCutoff, outsideCutoff));
 			
 			
+			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.REGULAR, TextColorType.DARK_COLOR, arr);
+			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.ITALIC, TextColorType.DARK_COLOR, arr);
+			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.BOLD, TextColorType.DARK_COLOR, arr);
+			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei_Local, FontStyle.BOLD_ITALIC, TextColorType.DARK_COLOR, arr);
 			
-			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei, FontStyle.REGULAR, TextColorType.DARK_COLOR, arr);
-			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei, FontStyle.ITALIC, TextColorType.DARK_COLOR, arr);
-			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei, FontStyle.BOLD, TextColorType.DARK_COLOR, arr);
-			TextRenderer.setAdvancedAntiAliasingTable (FontNames.MS_YaHei, FontStyle.BOLD_ITALIC, TextColorType.DARK_COLOR, arr);*/
+			//stage.dispatchEvent(new ControlEvent(ControlEvent.FONT_LOADED));
+			
 			
 			
 			

@@ -1,10 +1,8 @@
 package com.sanbeetle.core
 {
-	import com.sanbeetle.Component;
 	import com.sanbeetle.events.ControlEvent;
 	import com.sanbeetle.model.AMark;
 	import com.sanbeetle.utils.FontNames;
-	import com.sanbeetle.utils.Utils;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -12,17 +10,15 @@ package com.sanbeetle.core
 	import flash.geom.Rectangle;
 	import flash.net.URLVariables;
 	import flash.text.AntiAliasType;
-	import flash.text.Font;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
+	import flash.text.TextFormatAlign;
 	import flash.text.engine.BreakOpportunity;
-	import flash.text.engine.FontLookup;
 	import flash.text.engine.FontWeight;
 	import flash.utils.ByteArray;
 	
-	import flashx.textLayout.conversion.ConversionType;
 	import flashx.textLayout.conversion.TextConverter;
 	import flashx.textLayout.edit.EditManager;
 	import flashx.textLayout.edit.EditingMode;
@@ -102,17 +98,24 @@ package com.sanbeetle.core
 		
 		private var textField:TextField;
 		
+		private var isHtml:Boolean = false;
+		
+		
+		private var textFormat:TextFormat;
 		
 		public function NormalTextBox()
 		{			
 			textField = new TextField();
 			textField.border = true;
-			textField.embedFonts = true;
-			
 			textField.antiAliasType=AntiAliasType.ADVANCED;
+			textField.width = 200;
+			textField.height = 200;
 			
-			//textField.defaultTextFormat = new TextFormat(FontNames.MS_YaHei,22,0xff0000,null,null,null,null,null,null,12,12,12,52);
-			textField.defaultTextFormat = new TextFormat(FontNames.MS_YaHei,12);
+			textField.multiline =true;
+			textField.wordWrap = true;
+			
+			textFormat = new TextFormat(FontNames.MS_YaHei,22,0xff0000,false);
+			textField.setTextFormat(textFormat);
 			
 			
 		}		
@@ -375,50 +378,76 @@ package com.sanbeetle.core
 			
 			return "";
 		}
-		
+		private var imagesArr:Array = [];
 		public function set textXML(value:String):void{		
+			
+			isHtml = true;
 			
 			var imgData:Array = [];
 			var imgs:Array = value.split("<img");
 			
-			var showString:String = "";
-			
-			showString= imgs[0];
-			
-			
+			_text= imgs[0];
 			
 			for(var i:int=1;i<imgs.length;i++){
 				var strsA:Array = imgs[i].split("/>");
 				var strsB:Array = imgs[i].split("</img>");
 				var imgStr:String = "";
 				if(strsA!=null && strsA.length>1){
-					showString = showString+"□"+strsA[1];
-					imgStr = String(strsA[0]).replace(/\ /g,"&").replace(/\'/g,"");
+					_text = _text+"□"+strsA[1];
+					imgStr = String(strsA[0]).replace(/\ /g,"&").replace(/\'/g,"").replace(/\"/g,"");
 					
-					//trace(new URLVariables((String(strsA[0]).replace(/\ /g,"&")).replace(/\'/g,"")));
 				}else if(strsB!=null && strsB.length>1){
-					showString = showString+"□"+strsB[1];
-					imgStr = String(strsA[0]).replace(/\ /g,"&").replace(/\'/g,"");
+					_text = _text+"□"+strsB[1];
+					imgStr = String(strsA[0]).replace(/\ /g,"&").replace(/\'/g,"").replace(/\"/g,"");
 				}else{
 					throw new Error("<img 没有结尾");
 					
 				}
-				//trace(imgStr.charAt(imgStr.length-1));
 				if(imgStr.charAt(0)=="&"){
 					imgStr = imgStr.substring(1,imgStr.length);
 				}
 				if(imgStr.charAt(imgStr.length-1)=="&"){
 					imgStr = imgStr.substring(0,imgStr.length-1);
 				}				
-				//trace(imgStr);
 				
-				imgData.push(imgStr);
+				imgData.push(new URLVariables(imgStr));
 			}
-			trace(showString);
+			var img:TextImage;
+			for(var t:int=0;t<imagesArr.length;t++){
+				img = imagesArr[t];
+				if(img){
+					if(img.parent){
+						img.parent.removeChild(img);
+					}
+				}
+			}
 			
-			this.textField.htmlText =showString; 
+			//_text = value;
 			
-			trace(this.textField.textHeight);
+			this.updateUI();
+			
+			
+			var imgEnd:int = 0;
+			var imgIndex:int = 0;
+			var rect:Rectangle;
+			var index:int = 0;
+			while(true){
+				imgIndex = textField.text.indexOf("□",imgEnd);
+				trace(textField.text);
+				if(imgIndex==-1){
+					break;
+				}
+				rect =textField.getCharBoundaries(imgIndex);
+				img = new TextImage();
+				img.setBoundaries(rect);
+				img.x = rect.x;
+				img.y = rect.y;
+				this.addChild(img);
+				img.setImageData(imgData[index]);
+				imagesArr.push(img);
+				index++;
+				imgEnd = imgIndex+1;
+			}
 			
 		}	
 		protected function onFlowElementMouseDownHandler(event:FlowElementMouseEvent):void
@@ -923,10 +952,8 @@ package com.sanbeetle.core
 		protected function interactionManager():ISelectionManager{
 			
 			if(this._selectable){
-				textContainerManager.editingMode = EditingMode.READ_SELECT;
 				return new SelectionManager();
 			}else{
-				textContainerManager.editingMode = EditingMode.READ_ONLY;
 				return null;
 			}
 			
@@ -939,28 +966,23 @@ package com.sanbeetle.core
 				ccw=w;
 				cch=h;
 				
-				textContainerManager.compositionWidth =w;
-				textContainerManager.compositionHeight = h;
-				if(textContainerManager.isDamaged()){
-					
-					textContainerManager.compose();
-				}
+				
 			}
 			
 		}
 		
 		override public function updateUI():void		
 		{
+			textField.setTextFormat(textFormat);
 			
-			textField.defaultTextFormat = new TextFormat(FontNames.MS_YaHei,12);
-			
+			if(isHtml){
+				textField.htmlText =_text;
+			}else{
+				textField.text = _text;
+			}
 			
 			
 		}	
-		
-		
-		
-		
 		
 		[Inspectable(defaultValue = false)]
 		public function get bold():Boolean
@@ -993,7 +1015,7 @@ package com.sanbeetle.core
 			//textContainerManager.getTextFlow().interactionManager = interactionManager();
 			//this.addChild(container);
 			
-			this.addChild(textField);
+			this.addChildAt(textField,0);
 			
 		}
 		override public function onStageHandler(event:Event):void
@@ -1005,8 +1027,11 @@ package com.sanbeetle.core
 		
 		protected function onYaheiFontLoadedHandelr(event:Event):void
 		{
+			//textFormat.font = FontNames.MS_YaHei;
+			//textField.setTextFormat(textFormat);
 			
-			this.textField.text=" fdas fklds fjdkls fjdklsf kls ";	
+			//this.updateUI();
+			//textField.embedFonts = true;		
 		}
 		
 		[Inspectable(defaultValue = 0x333333)]
@@ -1108,9 +1133,10 @@ package com.sanbeetle.core
 		}
 		public function set text(value:String):void
 		{
-			
-			textField.text = value;
-			
+			isHtml = false;
+			_text= value;
+			textField.text = _text;
+			this.updateUI();
 			
 		}
 		[Inspectable(defaultValue = "default label")]
