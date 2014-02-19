@@ -15,6 +15,8 @@ package com.sanbeetle.core
 		
 		private var loader:Loader;
 		
+		private var content:DisplayObject;
+		
 		public function TextImage()
 		{
 			super();
@@ -26,7 +28,7 @@ package com.sanbeetle.core
 		protected function onCompleteHandler(event:Event):void
 		{
 			
-			var content:DisplayObject =  loader.content;
+			content =  loader.content;
 			content.width = _boundaries.width;
 			content.height = _boundaries.height;
 			
@@ -43,6 +45,10 @@ package com.sanbeetle.core
 		{
 			_boundaries = value;
 			
+			if(content){
+				content.width = _boundaries.width;
+				content.height = _boundaries.height;	
+			}
 			this.graphics.clear();
 			this.graphics.beginFill(0xff0000);
 			this.graphics.drawRect(0,0,_boundaries.width,_boundaries.height);

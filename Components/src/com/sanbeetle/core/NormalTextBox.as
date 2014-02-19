@@ -4,25 +4,18 @@ package com.sanbeetle.core
 	import com.sanbeetle.model.AMark;
 	import com.sanbeetle.utils.FontNames;
 	
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.TextEvent;
 	import flash.geom.Rectangle;
 	import flash.net.URLVariables;
 	import flash.text.AntiAliasType;
+	import flash.text.Font;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
-	import flash.text.TextFormatAlign;
-	import flash.text.engine.BreakOpportunity;
-	import flash.text.engine.FontWeight;
 	import flash.utils.ByteArray;
 	
-	import flashx.textLayout.conversion.TextConverter;
-	import flashx.textLayout.edit.EditManager;
-	import flashx.textLayout.edit.EditingMode;
-	import flashx.textLayout.edit.IEditManager;
 	import flashx.textLayout.edit.ISelectionManager;
 	import flashx.textLayout.edit.SelectionManager;
 	import flashx.textLayout.edit.SelectionState;
@@ -32,12 +25,8 @@ package com.sanbeetle.core
 	import flashx.textLayout.events.FlowElementMouseEvent;
 	import flashx.textLayout.events.FlowOperationEvent;
 	import flashx.textLayout.formats.BlockProgression;
-	import flashx.textLayout.formats.LineBreak;
 	import flashx.textLayout.formats.TextLayoutFormat;
-	import flashx.textLayout.operations.DeleteTextOperation;
-	import flashx.textLayout.operations.FlowOperation;
-	import flashx.textLayout.operations.InsertTextOperation;
-	import flashx.textLayout.operations.PasteOperation;
+	import flashx.textLayout.formats.VerticalAlign;
 	
 	public class NormalTextBox extends UIComponent
 	{
@@ -75,9 +64,6 @@ package com.sanbeetle.core
 		private var _textAlign:String="start";		
 		
 		
-		protected var textContainerManager:ExtendsTextContainerManager;
-		protected var container:Sprite;
-		private var _textLayoutFormat:TextLayoutFormat;
 		private var configuration:Configuration;
 		private var styleSheet:StyleSheet = new StyleSheet();
 		
@@ -96,29 +82,39 @@ package com.sanbeetle.core
 		
 		private var isXMLText:Boolean = false;	
 		
-		private var textField:TextField;
+		protected var textField:TextField;
 		
 		private var isHtml:Boolean = false;
 		
 		
 		private var textFormat:TextFormat;
 		
+		
+		
 		public function NormalTextBox()
 		{			
 			textField = new TextField();
-			textField.border = true;
+			//textField.border = true;
 			textField.antiAliasType=AntiAliasType.ADVANCED;
-			textField.width = 200;
-			textField.height = 200;
+			//textField.width = 200;
+			//textField.height = 200;
 			
-			textField.multiline =true;
-			textField.wordWrap = true;
+			//textField.multiline =true;
+			//textField.wordWrap = true;
 			
-			textFormat = new TextFormat(FontNames.MS_YaHei,22,0xff0000,false);
-			textField.setTextFormat(textFormat);
+			textField.text =_text;
 			
+			textFormat = new TextFormat(FontNames.MS_YaHei,_fontSize,_color,_bold);
+			//textField.setTextFormat(textFormat);
 			
 		}		
+		
+		public function get textContainerManager():ExtendsTextContainerManager
+		{
+			throw new Error("不支持这个属性!");
+			return null;
+		}
+		
 		
 		/**
 		 * 删除文字，焦点不会消失， 
@@ -132,12 +128,14 @@ package com.sanbeetle.core
 			textField.text = "";
 			textField.htmlText = "";
 			
+			
+			
 			return str;		
 			
 		}
 		public function get textLayoutFormat():TextLayoutFormat
 		{
-			return _textLayoutFormat;
+			return null;
 		}
 		
 		override protected function onAddStage():void
@@ -164,9 +162,9 @@ package com.sanbeetle.core
 			if(_blockProgression!==value){
 				_blockProgression = value;				
 				
-				_textLayoutFormat.blockProgression = _blockProgression;
+				//_textLayoutFormat.blockProgression = _blockProgression;
 				
-				textContainerManager.hostFormat =_textLayoutFormat;
+				//textContainerManager.hostFormat =_textLayoutFormat;
 				
 				
 				this.updateUI();
@@ -212,179 +210,86 @@ package com.sanbeetle.core
 		{
 			if(_verticalAlign != value){
 				_verticalAlign = value;
-				_textLayoutFormat.verticalAlign = _verticalAlign;
+				
+				
 				this.updateUI();
 			}
 			
 		}
 		public function setFocus():void{
-			if(textContainerManager.getTextFlow().interactionManager){
-				
-				textContainerManager.getTextFlow().interactionManager.setFocus();
-				textContainerManager.getTextFlow().interactionManager.flushPendingOperations();
-			}	
+			
+			this.textField.setSelection(textField.text.length-1,textField.text.length-1);
 			
 		}
 		protected function addTextFlowEvent():void{
-			if(textContainerManager==null){
-				return;
-			}
-			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_BEGIN,onFlowOperationBedginHandler);
-			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_COMPLETE,onFlowOperationCompleteHandler);
-			textContainerManager.addEventListener(FlowOperationEvent.FLOW_OPERATION_END,onFlowOperationEndHandler);
-			textContainerManager.addEventListener(FlowElementMouseEvent.MOUSE_DOWN,onFlowElementMouseDownHandler);		
 			
-			var tf:TextFlow= textContainerManager.getTextFlow();
+			textField.addEventListener(TextEvent.LINK,onLinkHandler);
+			textField.addEventListener(TextEvent.TEXT_INPUT,onTextInputHandler);
 			
-			tf.addEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
-			tf.addEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
-			tf.addEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
 			
 		}	
 		
+		protected function onTextInputHandler(event:TextEvent):void
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+		protected function onLinkHandler(event:TextEvent):void
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
 		protected function removeTextFlowEvent():void{
 			
-			if(textContainerManager==null){
-				return;
-			}
-			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_BEGIN,onFlowOperationBedginHandler);
-			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_COMPLETE,onFlowOperationCompleteHandler);
-			textContainerManager.removeEventListener(FlowOperationEvent.FLOW_OPERATION_END,onFlowOperationEndHandler);			
-			textContainerManager.removeEventListener(FlowElementMouseEvent.MOUSE_DOWN,onFlowElementMouseDownHandler);			
 			
-			
-			var tf:TextFlow= textContainerManager.getTextFlow();
-			
-			tf.removeEventListener(FlowElementMouseEvent.MOUSE_MOVE,onFlowElementMoveHandler);
-			tf.removeEventListener(FlowElementMouseEvent.ROLL_OUT,onFlowElementOutHandler);
-			tf.removeEventListener(FlowElementMouseEvent.ROLL_OVER,onFlowElementOverHandler);
-			
+			textField.removeEventListener(TextEvent.LINK,onLinkHandler);
+			textField.removeEventListener(TextEvent.TEXT_INPUT,onTextInputHandler);
 			
 		}		
 		protected function onFlowElementOverHandler(event:FlowElementMouseEvent):void
 		{
 			
-			var lin:LinkElement = event.flowElement as LinkElement;
-			if(lin){
-				
-				disTextEvent(lin,ControlEvent.TEXT_LINK_OVER);
-			}
+			
 			
 			
 		}
 		
 		protected function onFlowElementOutHandler(event:FlowElementMouseEvent):void
 		{
-			// TODO Auto-generated method stub
-			var lin:LinkElement = event.flowElement as LinkElement;
-			if(lin){
-				
-				disTextEvent(lin,ControlEvent.TEXT_LINK_OUT);
-				
-			}
+			
 			
 			
 		}
 		
-		protected function onFlowElementMoveHandler(event:FlowElementMouseEvent):void
+		protected function onFlowElementMoveHandler(event:TextEvent):void
 		{
-			// TODO Auto-generated method stub
-			var lin:LinkElement = event.flowElement as LinkElement;
-			if(lin){
-				
-				disTextEvent(lin,ControlEvent.TEXT_LINK_MOVE);
-			}
+			
 		}
 		
 		protected function onFlowOperationEndHandler(event:FlowOperationEvent):void
 		{
-			var op:FlowOperation = event.operation;
-			if (op is InsertTextOperation)
-			{
-				var insertTextOperation:InsertTextOperation =InsertTextOperation(op);
-				
-				var textToInsert:String = insertTextOperation.text;
-				
-				// Note: Must process restrict first, then maxChars,
-				// then displayAsPassword last.	
-				
-				
-				// The text deleted by this operation.  If we're doing our
-				// own manipulation of the textFlow we have to take the deleted
-				// text into account as well as the inserted text.
-				var delSelOp:SelectionState = insertTextOperation.deleteSelectionState;
-				
-				var delLen:int = (delSelOp == null) ? 0 :
-					delSelOp.absoluteEnd - delSelOp.absoluteStart;
-				
-				if (maxChars != 0)
-				{
-					var length1:int = text.length - delLen;
-					var length2:int = textToInsert.length;
-					if (length1 + length2 > maxChars)
-						textToInsert = textToInsert.substr(0, maxChars - length1);
-				}				
-				
-				insertTextOperation.text = textToInsert;
-			}else if (op is PasteOperation){
-				handlePasteOperation(op as PasteOperation);
-			}	
-			
-			textContainerManager.endInteraction();
 			
 			
-		}
-		private function handlePasteOperation(op:PasteOperation):void
-		{
-			// If copied/cut from displayAsPassword field the pastedText
-			// is '*' characters but this is correct.
-			var pastedText:String = op.textScrap.textFlow.getText();
-			// See if there is anything we need to do.
-			
-			
-			// Save this in case we modify the pasted text.  We need to know
-			// how much text to delete.
-			var textLength:int = pastedText.length;
-			
-			
-			
-			// We know it's an EditManager or we wouldn't have gotten here.
-			var editManager:IEditManager = EditManager(textContainerManager.getTextFlow().interactionManager);
-			
-			// Generate a CHANGING event for the PasteOperation but not for the
-			// DeleteTextOperation or the InsertTextOperation which are also part
-			// of the paste.
-			
-			
-			var selectionState:SelectionState = new SelectionState(
-				op.textFlow, op.absoluteStart, 
-				op.absoluteStart + textLength);             
-			editManager.deleteText(selectionState);
-			
-			// Insert the same text, the same place where the paste was done.
-			// This will go thru the InsertPasteOperation and do the right
-			// things with restrict, maxChars and displayAsPassword.
-			selectionState = new SelectionState(
-				op.textFlow, op.absoluteStart, op.absoluteStart);
-			editManager.insertText(pastedText, selectionState);        
-			
-			// All done with the edit manager.
-			
-			
-			//dispatchChangeAndChangingEvents = true;
-		}
+		}		
 		
 		public function get textXML():String{
 			
-			return "";
+			return this.textField.htmlText;
 		}
 		private var imagesArr:Array = [];
+		private var imgData:Array = [];
+		private var imgIndexArr:Array=[];
+		
 		public function set textXML(value:String):void{		
 			
-			isHtml = true;
+			isHtml = true;			
+			imgData.splice(0,imgData.length);
+			imgIndexArr.splice(0,imgIndexArr.length);			
 			
-			var imgData:Array = [];
-			var imgs:Array = value.split("<img");
+			value = value.replace(/□/g,"");			
+			var imgs:Array = value.split("<img");						
 			
 			_text= imgs[0];
 			
@@ -392,13 +297,15 @@ package com.sanbeetle.core
 				var strsA:Array = imgs[i].split("/>");
 				var strsB:Array = imgs[i].split("</img>");
 				var imgStr:String = "";
+				
 				if(strsA!=null && strsA.length>1){
 					_text = _text+"□"+strsA[1];
 					imgStr = String(strsA[0]).replace(/\ /g,"&").replace(/\'/g,"").replace(/\"/g,"");
 					
 				}else if(strsB!=null && strsB.length>1){
+					
 					_text = _text+"□"+strsB[1];
-					imgStr = String(strsA[0]).replace(/\ /g,"&").replace(/\'/g,"").replace(/\"/g,"");
+					imgStr = String(strsB[0]).replace(/\ /g,"&").replace(/\'/g,"").replace(/\"/g,"");
 				}else{
 					throw new Error("<img 没有结尾");
 					
@@ -412,6 +319,8 @@ package com.sanbeetle.core
 				
 				imgData.push(new URLVariables(imgStr));
 			}
+			
+			
 			var img:TextImage;
 			for(var t:int=0;t<imagesArr.length;t++){
 				img = imagesArr[t];
@@ -422,41 +331,74 @@ package com.sanbeetle.core
 				}
 			}
 			
-			//_text = value;
+			this.textField.htmlText = _text;
 			
-			this.updateUI();
-			
-			
-			var imgEnd:int = 0;
-			var imgIndex:int = 0;
-			var rect:Rectangle;
-			var index:int = 0;
+			var tempText:String = textField.text;
+			var tempIndex:int = 0;
 			while(true){
-				imgIndex = textField.text.indexOf("□",imgEnd);
-				trace(textField.text);
-				if(imgIndex==-1){
+				tempIndex = tempText.indexOf("□",tempIndex+1);
+				if(tempIndex==-1){
 					break;
+				}else{					
+					imgIndexArr.push(tempIndex);
 				}
-				rect =textField.getCharBoundaries(imgIndex);
-				img = new TextImage();
-				img.setBoundaries(rect);
-				img.x = rect.x;
-				img.y = rect.y;
-				this.addChild(img);
-				img.setImageData(imgData[index]);
-				imagesArr.push(img);
-				index++;
-				imgEnd = imgIndex+1;
 			}
 			
+			_text = _text.replace(/□/g,"　");
+			
+			this.updateUI();			
+			
+			reTextImagesLayout();
 		}	
+		private function reTextImagesLayout():void{
+			
+			//var imgIndex:int = 0;
+			var rect:Rectangle;
+			
+			var img:TextImage;
+			
+			//var index:int = 0;
+			
+			//var imgEndIndex:int = 0;
+			
+			
+			
+			//textField.setTextFormat(new TextFormat(null,18,null,null,null,null,null,null,null,50,0),0,1);
+			
+			
+			for (var i:int = 0; i < imgIndexArr.length; i++) 
+			{
+				rect =textField.getCharBoundaries(imgIndexArr[i]);
+				img = imagesArr[i];	
+				
+				if(img==null){
+					img = new TextImage();					
+					imagesArr.push(img);
+					
+					img.setImageData(imgData[i]);
+				}
+				
+				img.setBoundaries(rect);
+				img.x = rect.x+textField.x;
+				img.y = rect.y+textField.y;
+				this.addChild(img);
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
 		protected function onFlowElementMouseDownHandler(event:FlowElementMouseEvent):void
 		{			
-			var lin:LinkElement = event.flowElement as LinkElement;
-			if(lin){
-				
-				disTextEvent(lin,ControlEvent.TEXT_LINK);
-			}
+			
 		}
 		
 		private function disTextEvent(lin:LinkElement,eventType:String):void{
@@ -491,18 +433,7 @@ package com.sanbeetle.core
 		private var _regExp:RegExp;
 		protected function onFlowOperationCompleteHandler(event:FlowOperationEvent):void
 		{
-			//Log.out("b");
-			_text = textContainerManager.getTextFlow().getText();
 			
-			this.dispatchEvent(new Event(Event.CHANGE));	
-			
-			if(event.operation is DeleteTextOperation){
-				/*if(p.parent==null){
-				this.clearnAddText();					
-				}*/
-			}
-			
-			//trace(p.parent);
 		}
 		/**
 		 * RegExpType 枚举
@@ -520,42 +451,9 @@ package com.sanbeetle.core
 		{
 			_regExp = value;
 		}		
-		protected function onFlowOperationBedginHandler(event:FlowOperationEvent):void
+		protected function onFlowOperationBedginHandler(event:TextEvent):void
 		{
-			var intotxt:InsertTextOperation = event.operation as InsertTextOperation;			
 			
-			
-			
-			var str:String;
-			if(intotxt)
-			{
-				str = text+intotxt.text;
-				if(_regExp!=null)
-				{
-					if(!_regExp.test(str))
-					{
-						event.preventDefault();
-						return;
-					}
-				}
-				
-				if ( maxChars > 0 )
-				{
-					var _o:int = getStringBytesLength(this._text,"gb2312");
-					if(_o>maxChars)
-					{	
-						event.preventDefault();
-					}
-					else
-					{
-						intotxt.text = intotxt.text.substring( 0, maxChars - _o );							
-						while(  maxChars < _o + getStringBytesLength( intotxt.text ,"gb2312") )
-						{
-							intotxt.text = intotxt.text.substring( 0, intotxt.text.length - 1 );
-						}
-					}
-				}
-			}
 			
 			
 			
@@ -602,7 +500,8 @@ package com.sanbeetle.core
 		{
 			if(_textAlign !== value){
 				_textAlign = value;
-				_textLayoutFormat.textAlign = _textAlign;	
+				
+				this.textFormat.align = 	_textAlign;		
 				this.updateUI();
 			}
 			
@@ -626,7 +525,7 @@ package com.sanbeetle.core
 				}else if(_lineHeight==""){
 					_lineHeight =null;
 				}
-				_textLayoutFormat.lineHeight = _lineHeight;
+				
 				this.updateUI();
 			}
 			
@@ -647,6 +546,8 @@ package com.sanbeetle.core
 		{
 			if(_autoBound !== value){
 				_autoBound = value;
+				
+				this.textField.autoSize = TextFieldAutoSize.LEFT;
 				this.updateUI();
 			}
 			
@@ -664,6 +565,7 @@ package com.sanbeetle.core
 				_paddingTop = value;
 				//_textLayoutFormat.paddingTop = _paddingTop;
 				//textContainerManager.hostFormat = _textLayoutFormat;
+				this.updateUI();
 				
 			}
 		}
@@ -697,6 +599,7 @@ package com.sanbeetle.core
 				_paddingLeft = value;
 				//_textLayoutFormat.paddingLeft = _paddingLeft;
 				//textContainerManager.hostFormat = _textLayoutFormat;
+				this.updateUI();
 			}
 		}
 		
@@ -718,10 +621,7 @@ package com.sanbeetle.core
 		private var _maxChars:int=0;
 		public function get textFlow():TextFlow
 		{
-			if(textContainerManager==null){
-				return null;
-			}
-			return textContainerManager.getTextFlow();
+			return null;
 		}
 		[Inspectable(defaultValue =0)]
 		public function get maxChars():int
@@ -756,7 +656,7 @@ package com.sanbeetle.core
 					this.autoBound = true;
 				}
 				//Log.info("这个禁止滚动的。还没有实现。");
-				//textfield.mouseWheelEnabled =_scrollText;
+				textField.mouseWheelEnabled =_scrollText;
 			}
 			
 		}
@@ -805,19 +705,20 @@ package com.sanbeetle.core
 		{
 			if(_multiline!=value){
 				_multiline = value;
+				this.textField.multiline = _multiline;
+				textField.wordWrap = _multiline;
 				if(_multiline){					
-					
-					_textLayoutFormat.lineBreak = LineBreak.TO_FIT;
-					_textLayoutFormat.breakOpportunity = BreakOpportunity.AUTO;
+					//_textLayoutFormat.lineBreak = LineBreak.TO_FIT;
+					//_textLayoutFormat.breakOpportunity = BreakOpportunity.AUTO;
 					
 				}else{	
 					
-					_textLayoutFormat.lineBreak = LineBreak.EXPLICIT;
-					_textLayoutFormat.breakOpportunity = BreakOpportunity.NONE;
+					//_textLayoutFormat.lineBreak = LineBreak.EXPLICIT;
+					//_textLayoutFormat.breakOpportunity = BreakOpportunity.NONE;
 					
 				}	
-				textContainerManager.hostFormat =_textLayoutFormat;
-				textContainerManager.getTextFlow().format = _textLayoutFormat;
+				//textContainerManager.hostFormat =_textLayoutFormat;
+				//textContainerManager.getTextFlow().format = _textLayoutFormat;
 				this.updateUI();
 			}		
 		}
@@ -922,13 +823,13 @@ package com.sanbeetle.core
 		
 		override public function dispose():void
 		{
-			_currentLinkData = null;
+			/*currentLinkData = null;
 			removeTextFlowEvent();
 			
 			styleSheet.clear();
 			
 			while(textContainerManager.getTextFlow().numChildren>0){
-				textContainerManager.getTextFlow().removeChildAt(0);
+			textContainerManager.getTextFlow().removeChildAt(0);
 			}
 			
 			//textContainerManager.getTextFlow().flowComposer.removeAllControllers();
@@ -939,7 +840,7 @@ package com.sanbeetle.core
 			container.graphics.clear();
 			
 			if(stage!=null){
-				stage.removeEventListener(ControlEvent.FONT_LOADED,onYaheiFontLoadedHandelr);
+			stage.removeEventListener(ControlEvent.FONT_LOADED,onYaheiFontLoadedHandelr);
 			}
 			_textLayoutFormat =null;
 			configuration=null;
@@ -947,7 +848,7 @@ package com.sanbeetle.core
 			container=null;
 			container = null;
 			aMarkData=null;
-			super.dispose();
+			super.dispose();*/
 		}	
 		protected function interactionManager():ISelectionManager{
 			
@@ -965,23 +866,60 @@ package com.sanbeetle.core
 			if(ccw!=w || cch!=h){
 				ccw=w;
 				cch=h;
-				
-				
 			}
 			
 		}
 		
 		override public function updateUI():void		
 		{
-			textField.setTextFormat(textFormat);
+			
+			//textFormat.bold =true;
+			
+			textField.defaultTextFormat = textFormat;
 			
 			if(isHtml){
 				textField.htmlText =_text;
 			}else{
 				textField.text = _text;
+			}			
+			
+			
+			textField.width = trueWidth;
+			textField.height = trueHeight;
+			
+			
+			textField.y=0;
+			textField.x=0;
+			
+				var rect:Rectangle = textField.getCharBoundaries(0);
+			
+			if(_verticalAlign==VerticalAlign.MIDDLE){
+				textField.y =0;	
+			}else{
+								
+				
+				
+				textField.y=-rect.y;
+				textField.x=-rect.x;
+				
+				
+				textField.x =this.paddingLeft-rect.x-1;
+				textField.y =this.paddingTop-rect.y-3;
+				
+			}
+			var w:Number= 0;
+			var h:Number = 0;
+			if(textField.border){	
+				w = textField.x+textField.width+2+paddingRight;
+				h = textField.y+textField.height+2+paddingBottom;
+			}else{
+				w = textField.x+textField.width-2+paddingRight;
+				h = textField.y+textField.height-3+paddingBottom;
 			}
 			
-			
+			drawBorder(w,h);
+			changeTrueSize(w,h);
+			reTextImagesLayout();
 		}	
 		
 		[Inspectable(defaultValue = false)]
@@ -996,13 +934,14 @@ package com.sanbeetle.core
 				_bold = value;
 				
 				if(_bold){
-					_textLayoutFormat.fontWeight = FontWeight.BOLD;
+					this.textFormat.bold = true;
+					textFormat.font = FontNames.MS_YaHeiBold;
 				}else{
-					_textLayoutFormat.fontWeight = FontWeight.NORMAL;
+					this.textFormat.bold = false;
+					textFormat.font = FontNames.MS_YaHei;
 				}
 				
-				textContainerManager.hostFormat =_textLayoutFormat;
-				//textContainerManager.updateContainer();
+				
 				this.updateUI();
 			}		
 			
@@ -1011,11 +950,13 @@ package com.sanbeetle.core
 		override public function createUI():void
 		{		
 			
+			this.addChildAt(textField,0);
 			onYaheiFontLoadedHandelr(null);
 			//textContainerManager.getTextFlow().interactionManager = interactionManager();
 			//this.addChild(container);
 			
-			this.addChildAt(textField,0);
+			
+			
 			
 		}
 		override public function onStageHandler(event:Event):void
@@ -1031,7 +972,16 @@ package com.sanbeetle.core
 			//textField.setTextFormat(textFormat);
 			
 			//this.updateUI();
-			//textField.embedFonts = true;		
+			var fonts:Array = Font.enumerateFonts();
+			if(fonts.length>=2){
+				var fontName:String = Font(fonts[0]).fontName+Font(fonts[1]).fontName;
+				if(fontName.indexOf(FontNames.MS_YaHei)!=-1 && fontName.indexOf(FontNames.MS_YaHeiBold)!=-1){
+					//当还没有载入字体时，设置会出错
+					textField.embedFonts = true;
+					this.updateUI();
+				}
+			}
+			
 		}
 		
 		[Inspectable(defaultValue = 0x333333)]
@@ -1044,9 +994,8 @@ package com.sanbeetle.core
 		{
 			if(_color!= value){
 				_color = value;
-				_textLayoutFormat.color = uint(value);			
-				textContainerManager.hostFormat= _textLayoutFormat;
-				textContainerManager.updateContainer();
+				
+				this.textFormat.color = uint(value);
 			}	
 			
 		}			
@@ -1060,7 +1009,8 @@ package com.sanbeetle.core
 		{
 			
 			if(_border!= value){
-				_border = value;			
+				_border = value;	
+				this.textField.border = _border;
 			}	
 			
 		}		
@@ -1073,7 +1023,8 @@ package com.sanbeetle.core
 		public function set wordWrap(value:Boolean):void
 		{
 			if(_wordWrap!= value){
-				_wordWrap = value;							
+				_wordWrap = value;		
+				textField.wordWrap = _wordWrap;
 				multiline = _wordWrap;
 			}
 			
@@ -1087,8 +1038,7 @@ package com.sanbeetle.core
 		{
 			if(_fontSize!= value){			
 				_fontSize = value;				
-				_textLayoutFormat.fontSize = _fontSize;				
-				textContainerManager.hostFormat=_textLayoutFormat;
+				this.textFormat.size = _fontSize;
 				updateUI();	
 				//textContainerManager.updateContainer();
 				//textContainerManager.compose();
@@ -1135,7 +1085,6 @@ package com.sanbeetle.core
 		{
 			isHtml = false;
 			_text= value;
-			textField.text = _text;
 			this.updateUI();
 			
 		}
@@ -1146,7 +1095,7 @@ package com.sanbeetle.core
 		public function get text():String
 		{
 			//return _textFlow.getText();	
-			return textContainerManager.getTextFlow().getText();
+			return this.textField.text;
 		}
 		/**
 		 * 
@@ -1159,7 +1108,7 @@ package com.sanbeetle.core
 		 */		
 		public function exportText(type:String,conversionType:String):Object{
 			
-			return TextConverter.export(textContainerManager.getTextFlow(),type,conversionType);				
+			return this.textField.htmlText;			
 			
 			
 		}

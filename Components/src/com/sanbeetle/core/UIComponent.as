@@ -236,17 +236,17 @@
 				nh = h;
 				if (component.debug)		
 				{
-					/*this.graphics.clear ();
+					this.graphics.clear ();
 					this.graphics.beginFill (0xFF00FF,0.5);
 					this.graphics.drawRect (0,0,w,h);
 					this.graphics.drawRect(1,1,w-2,h-2);
-					this.graphics.endFill ();*/
+					this.graphics.endFill ();
 				}else{
-					/*this.graphics.clear ();
+					this.graphics.clear ();
 					this.graphics.beginFill (0xFF00FF,0);
 					this.graphics.drawRect (0,0,w,h);
 					this.graphics.drawRect(1,1,w-2,h-2);
-					this.graphics.endFill ();*/
+					this.graphics.endFill ();
 				}
 			}
 			

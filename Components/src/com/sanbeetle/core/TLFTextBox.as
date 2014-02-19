@@ -13,6 +13,7 @@ package com.sanbeetle.core
 	import flash.net.URLVariables;
 	import flash.text.Font;
 	import flash.text.StyleSheet;
+	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.engine.BreakOpportunity;
 	import flash.text.engine.FontLookup;
@@ -48,7 +49,7 @@ package com.sanbeetle.core
 	[Event(name="text_link_out",type="com.sanbeetle.events.ControlEvent")]
 	
 	
-	[Event(name="textInput",type="flash.events.TextEvent")]
+	//[Event(name="textInput",type="flash.events.TextEvent")]
 	[Event(name="change",type="flash.events.Event")]
 	[Event(name="font_loaded",type="com.sanbeetle.events.ControlEvent")]
 	/**
@@ -114,6 +115,8 @@ package com.sanbeetle.core
 		private var isXMLText:Boolean = false;	
 		
 		
+		
+		
 		public function TLFTextBox()
 		{
 			
@@ -147,7 +150,11 @@ package com.sanbeetle.core
 			addTextFlowEvent();
 			
 			
-		}		
+		}	
+		protected function get textField():TextField{
+			throw new Error("不支持这个属性！");
+			return null;
+		}
 		/**
 		 * 删除文字，焦点不会消失， 
 		 * @param operationState
@@ -1044,12 +1051,6 @@ package com.sanbeetle.core
 			}
 			
 			
-		}
-		
-		protected function onTextFieldLinkHandler(event:TextEvent):void
-		{		
-			//Console.out("components"+aMarkData[event.text]);
-			this.dispatchEvent(new ControlEvent(ControlEvent.TEXT_LINK,aMarkData[event.text]));
 		}
 		
 		[Inspectable(enumeration = "center,left,none,right",defaultValue = "none")]

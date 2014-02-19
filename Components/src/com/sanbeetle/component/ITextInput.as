@@ -4,6 +4,7 @@
 	
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
+	import flash.text.TextFieldType;
 	
 	import flashx.textLayout.edit.EditManager;
 	import flashx.textLayout.edit.EditingMode;
@@ -68,11 +69,22 @@
 		public function set enableEdit(value:Boolean):void
 		{
 			_enableEdit = value;
-			if(_enableEdit){
-				textContainerManager.editingMode = EditingMode.READ_WRITE;
+			
+			if(isRichText){
+				if(_enableEdit){
+					textContainerManager.editingMode = EditingMode.READ_WRITE;
+				}else{
+					textContainerManager.editingMode = EditingMode.READ_ONLY;
+				}
 			}else{
-				textContainerManager.editingMode = EditingMode.READ_ONLY;
+				if(_enableEdit){
+					this.textField.type = TextFieldType.INPUT;
+				}else{
+					this.textField.type = TextFieldType.DYNAMIC;
+				}
 			}
+			
+			
 		}
 		
 		/**
@@ -81,8 +93,13 @@
 		 * 
 		 */
 		public function get editManager():EditManager{
-			trace(this.textContainerManager.getTextFlow().interactionManager);
-			return this.textContainerManager.getTextFlow().interactionManager as EditManager;
+			
+			if(isRichText){
+				return this.textContainerManager.getTextFlow().interactionManager as EditManager;
+			
+			}else{
+				return new EditManager();				
+			}
 			
 		}		
 		
@@ -103,7 +120,7 @@
 		override protected function addTextFlowEvent():void
 		{
 			super.addTextFlowEvent();
-			
+			if(isRichText)
 			textContainerManager.addEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,graphicStatusChangeEvent);
 		}
 		
@@ -111,6 +128,7 @@
 		{
 			// TODO Auto Generated method stub
 			super.removeTextFlowEvent();
+			if(isRichText)
 			textContainerManager.removeEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,graphicStatusChangeEvent);
 		}
 		public function addImage(url:Object,w:int=20,h:int=20,format:ITextLayoutFormat=null):InlineGraphicElement{
@@ -144,19 +162,24 @@
 				p.addChild(img);
 			}
 			textContainerManager.updateContainer();
-			return img;			
+			return img;
 		}
 		
 		override protected function interactionManager():ISelectionManager
 		{
-			if(_enableEdit){
-				textContainerManager.editingMode = EditingMode.READ_WRITE;
-				return new EditManager(new UndoManager());
-				
+			if(isRichText){
+				if(_enableEdit){
+					textContainerManager.editingMode = EditingMode.READ_WRITE;
+					return new EditManager(new UndoManager());
+					
+				}else{
+					textContainerManager.editingMode = EditingMode.READ_ONLY;
+					return null;
+				}
 			}else{
-				textContainerManager.editingMode = EditingMode.READ_ONLY;
 				return null;
 			}
+			
 			
 		}
 		
@@ -222,20 +245,23 @@
 		}	
 		protected function textInputBackground():void
 		{
-			currentSkin.width = this.trueWidth;
-			currentSkin.height = this.trueHeight;			
-			
-			
-			if(background){
-				currentSkin.visible =true;
-				this.addChildAt(currentSkin,0);
-			}else{
-				currentSkin.visible =false;
-				if(currentSkin.parent){
-					this.removeChild(currentSkin);
-				}
+			if(currentSkin){
+				currentSkin.width = this.trueWidth;
+				currentSkin.height = this.trueHeight;			
 				
-			}				
+				
+				if(background){
+					currentSkin.visible =true;
+					this.addChildAt(currentSkin,0);
+				}else{
+					currentSkin.visible =false;
+					if(currentSkin.parent){
+						this.removeChild(currentSkin);
+					}
+					
+				}				
+			}
+			
 		}
 		
 		override public function createUI():void
