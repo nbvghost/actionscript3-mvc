@@ -78,7 +78,6 @@ package com.sanbeetle.core
 		private var _scrollText:Boolean =false;		
 		
 		
-		
 		private var _bold:Boolean = false;
 		private var _selectable:Boolean = false;
 		private var _showHtml:Boolean = false;	
@@ -147,10 +146,14 @@ package com.sanbeetle.core
 			lineHeight = _lineHeight;
 			textContainerManager.editingMode = EditingMode.READ_ONLY;
 			
-			addTextFlowEvent();
-			
+			addTextFlowEvent();			
 			
 		}	
+		public function addTextImage(textimage:TextImage):TextImage{
+			
+			throw new Error("不支持这个属性！");
+			return null;
+		}
 		protected function get textField():TextField{
 			throw new Error("不支持这个属性！");
 			return null;
@@ -170,8 +173,7 @@ package com.sanbeetle.core
 				setFocus();
 			}
 			
-			return str;
-			
+			return str;		
 			
 		}
 		

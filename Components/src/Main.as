@@ -53,10 +53,10 @@
 			//Component.component.initStyle (new Style());	
 			
 			
-			//Component.component.initContentContainer (stage);		
+			Component.component.initContentContainer (stage);		
 
 
-			this.addEventListener (Event.ADDED_TO_STAGE,onStage);
+			//this.addEventListener (Event.ADDED_TO_STAGE,onStage);
 		}
 		protected function onStage (event:Event):void
 		{

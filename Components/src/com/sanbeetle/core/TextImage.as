@@ -17,6 +17,8 @@ package com.sanbeetle.core
 		
 		private var content:DisplayObject;
 		
+		private var _source:String="";
+		
 		public function TextImage()
 		{
 			super();
@@ -25,6 +27,11 @@ package com.sanbeetle.core
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onCompleteHandler);
 		}
 		
+		public function get source():String
+		{
+			return _source;
+		}
+
 		protected function onCompleteHandler(event:Event):void
 		{
 			
@@ -40,7 +47,7 @@ package com.sanbeetle.core
 		{
 			return _boundaries;
 		}
-
+		
 		public function setBoundaries(value:Rectangle):void
 		{
 			_boundaries = value;
@@ -54,20 +61,30 @@ package com.sanbeetle.core
 			this.graphics.drawRect(0,0,_boundaries.width,_boundaries.height);
 			this.graphics.endFill();
 		}
-
+		public function addDisplayObject(displayObject:DisplayObject):void{
+			displayObject.width = _boundaries.width;
+			displayObject.height = _boundaries.height;
+			this.removeChildren();
+			this.addChild(displayObject);
+		}
 		public function get imageData():URLVariables
 		{
 			return _imageData;
 		}
-
+		
 		public function setImageData(value:URLVariables):void
 		{
 			_imageData = value;
 			
-			loader.load(new URLRequest(_imageData.src));
-			
+			if(_imageData.src==undefined){
+				loader.load(new URLRequest(_imageData.source));	
+				_source = _imageData.source;
+			}else{				
+				loader.load(new URLRequest(_imageData.src));
+				_source = _imageData.src;
+			}
 			
 		}
-
+		
 	}
 }

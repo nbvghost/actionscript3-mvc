@@ -19,7 +19,6 @@ package com.sanbeetle.core
 	import flashx.textLayout.edit.ISelectionManager;
 	import flashx.textLayout.edit.SelectionManager;
 	import flashx.textLayout.edit.SelectionState;
-	import flashx.textLayout.elements.Configuration;
 	import flashx.textLayout.elements.LinkElement;
 	import flashx.textLayout.elements.TextFlow;
 	import flashx.textLayout.events.FlowElementMouseEvent;
@@ -64,7 +63,7 @@ package com.sanbeetle.core
 		private var _textAlign:String="start";		
 		
 		
-		private var configuration:Configuration;
+		//private var configuration:Configuration;
 		private var styleSheet:StyleSheet = new StyleSheet();
 		
 		private var _autoBound:Boolean = false;		
@@ -107,7 +106,7 @@ package com.sanbeetle.core
 			textFormat = new TextFormat(FontNames.MS_YaHei,_fontSize,_color,_bold);
 			//textField.setTextFormat(textFormat);
 			
-		}		
+		}
 		
 		public function get textContainerManager():ExtendsTextContainerManager
 		{
@@ -128,7 +127,7 @@ package com.sanbeetle.core
 			textField.text = "";
 			textField.htmlText = "";
 			
-			
+			_text = "";
 			
 			return str;		
 			
@@ -164,8 +163,7 @@ package com.sanbeetle.core
 				
 				//_textLayoutFormat.blockProgression = _blockProgression;
 				
-				//textContainerManager.hostFormat =_textLayoutFormat;
-				
+				//textContainerManager.hostFormat =_textLayoutFormat;		
 				
 				this.updateUI();
 				
@@ -335,6 +333,8 @@ package com.sanbeetle.core
 			
 			var tempText:String = textField.text;
 			var tempIndex:int = 0;
+			var imgWidth:int =0;
+			var index:int = 0;
 			while(true){
 				tempIndex = tempText.indexOf("□",tempIndex+1);
 				if(tempIndex==-1){
@@ -342,15 +342,45 @@ package com.sanbeetle.core
 				}else{					
 					imgIndexArr.push(tempIndex);
 				}
+				imgWidth = URLVariables(imgData[index]).width;
+				if(imgWidth<=0){
+					imgWidth=int(fontSize);
+				}
+				_text = _text.replace(/□/,"<font size='"+imgWidth+"'>　</font>");
+				
+				index++;
 			}
 			
-			_text = _text.replace(/□/g,"　");
 			
-			this.updateUI();			
+			
+			this.updateUI();	
+			
 			
 			reTextImagesLayout();
-		}	
+		}
+		public function addTextImage(textimage:TextImage):TextImage{
+			if(textimage==null)
+				return null;
+			isHtml = true;
+			
+			if(this.textField.text.length==0){
+				imgIndexArr.push(0);
+			}else{
+				imgIndexArr.push(this.textField.text.length-1);
+			}
+			
+			_text=_text+'<font size="'+textimage.width+'">　</font>';
+			
+			imagesArr.push(textimage);
+			updateUI();
+			
+			
+			//reTextImagesLayout();
+			
+			return textimage;
+		}
 		private function reTextImagesLayout():void{
+						
 			
 			//var imgIndex:int = 0;
 			var rect:Rectangle;
@@ -377,7 +407,7 @@ package com.sanbeetle.core
 					
 					img.setImageData(imgData[i]);
 				}
-				
+				//trace(rect);
 				img.setBoundaries(rect);
 				img.x = rect.x+textField.x;
 				img.y = rect.y+textField.y;
@@ -870,12 +900,23 @@ package com.sanbeetle.core
 			
 		}
 		
+		override public function set height(value:Number):void
+		{
+			textField.height = value;
+			updateUI();
+		}
+		
+		override public function set width(value:Number):void
+		{
+			textField.width = value;
+			updateUI();
+		}
+		
+		
 		override public function updateUI():void		
 		{
-			
-			//textFormat.bold =true;
-			
 			textField.defaultTextFormat = textFormat;
+			
 			
 			if(isHtml){
 				textField.htmlText =_text;
@@ -884,43 +925,57 @@ package com.sanbeetle.core
 			}			
 			
 			
-			textField.width = trueWidth;
-			textField.height = trueHeight;
-			
-			
 			textField.y=0;
 			textField.x=0;
 			
-				var rect:Rectangle = textField.getCharBoundaries(0);
+			var rect:Rectangle = textField.getCharBoundaries(0);
+			if(rect==null){
+				rect=new Rectangle();
+			}
 			
 			if(_verticalAlign==VerticalAlign.MIDDLE){
 				textField.y =0;	
 			}else{
-								
-				
 				
 				textField.y=-rect.y;
-				textField.x=-rect.x;
+				textField.x=-rect.x;				
 				
-				
-				textField.x =this.paddingLeft-rect.x-1;
-				textField.y =this.paddingTop-rect.y-3;
+				textField.x =this.paddingLeft-rect.x;
+				textField.y =this.paddingTop-rect.y;
 				
 			}
 			var w:Number= 0;
 			var h:Number = 0;
-			if(textField.border){	
-				w = textField.x+textField.width+2+paddingRight;
-				h = textField.y+textField.height+2+paddingBottom;
+			/*if(textField.border){	
+				w = textField.x+textField.textWidth+2+paddingRight;
+				h = textField.y+textField.textHeight+2+paddingBottom;
 			}else{
+				w = textField.x+textField.textWidth+paddingRight;
+				h = textField.y+textField.textHeight+paddingBottom;
+			}*/
+			
+			if(textField.border){	
 				w = textField.x+textField.width-2+paddingRight;
-				h = textField.y+textField.height-3+paddingBottom;
+				h = textField.y+textField.height-2+paddingBottom;
+			}else{
+				w = textField.x+textField.width+paddingRight;
+				h = textField.y+textField.height+paddingBottom;
 			}
 			
+			
+			
+			//drawBorder(textField.textWidth,textField.textHeight);
 			drawBorder(w,h);
+			//trace(textField.textWidth,textField.textHeight);
 			changeTrueSize(w,h);
 			reTextImagesLayout();
+			
+			
+			//trace(textField.getLineMetrics(0).ascent,textField.getLineMetrics(0).descent,textField.getLineMetrics(0).height,textField.getLineMetrics(0).leading,textField.getLineMetrics(0).width,textField.getLineMetrics(0).x);
+			
 		}	
+		
+		
 		
 		[Inspectable(defaultValue = false)]
 		public function get bold():Boolean

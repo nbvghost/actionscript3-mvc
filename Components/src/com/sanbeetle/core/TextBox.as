@@ -1,7 +1,7 @@
 ﻿package com.sanbeetle.core
 {
 	
-	public class TextBox extends NormalTextBox
+	public class TextBox extends TLFTextBox
 	{
 		
 		
@@ -12,7 +12,7 @@
 		public function TextBox()
 		{
 			
-			_isRichText = false;
+			_isRichText = true;
 			
 		}	
 		

@@ -2,7 +2,6 @@ package com.sanbeetle.utils
 {
 	import com.sanbeetle.Component;
 	import com.sanbeetle.core.BoundDisplayObject;
-	import com.sanbeetle.core.TextBox;
 	import com.sanbeetle.model.LocationRect;
 	
 	import flash.display.DisplayObject;
