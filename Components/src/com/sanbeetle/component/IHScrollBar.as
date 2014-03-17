@@ -44,7 +44,7 @@
 			
 		}
 		private var hscrollbarposition:Number=0;
-		public function setHScrollBarPosition(values:Number):void{
+		override public function setHScrollBarPosition(values:Number):void{
 			hscrollbarposition = values;
 			if(hscrollbarposition<0){
 				hscrollbarposition = 0;

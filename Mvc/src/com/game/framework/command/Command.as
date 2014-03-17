@@ -1,7 +1,6 @@
 package com.game.framework.command {
 	import com.game.framework.FW;
 	import com.game.framework.Launcher;
-	import com.game.framework.events.FrameWorkEvent;
 	import com.game.framework.ifaces.ICommand;
 	import com.game.framework.ifaces.INotifyData;
 	import com.game.framework.ifaces.IObtain;

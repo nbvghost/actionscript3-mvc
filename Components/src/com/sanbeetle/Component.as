@@ -21,6 +21,10 @@
 	import flash.text.TextColorType;
 	import flash.text.TextDisplayMode;
 	import flash.text.TextRenderer;
+	import flash.text.engine.ElementFormat;
+	import flash.text.engine.FontDescription;
+	import flash.text.engine.FontLookup;
+	import flash.text.engine.FontWeight;
 	
 	import flashx.textLayout.compose.ISWFContext;
 	import flashx.textLayout.elements.Configuration;
@@ -78,6 +82,12 @@
 		public static var MicrosoftYaHei:ISWFContext;
 		private var _configuration:Configuration;
 		
+		private var _elementFormat:ElementFormat = new ElementFormat;
+		
+		private var _fontDescription:FontDescription  =new FontDescription();
+		
+		private var _listDropNotHide:Boolean = false;
+		
 		public function Component ()
 		{
 			
@@ -96,8 +106,35 @@
 			_configuration = new Configuration();
 			_configuration.manageEnterKey =false;
 			
+			_elementFormat.fontSize = 12;
+			
+			
+			_fontDescription.fontLookup = FontLookup.DEVICE;
+			_fontDescription.fontName = FontNames.MS_YaHei;
+			_fontDescription.fontWeight = FontWeight.NORMAL;
+			
 		}
 		
+		public function get listDropNotHide():Boolean
+		{
+			return _listDropNotHide;
+		}
+
+		public function set listDropNotHide(value:Boolean):void
+		{
+			_listDropNotHide = value;
+		}
+
+		public function get fontDescription():FontDescription
+		{
+			return _fontDescription;
+		}
+
+		public function get elementFormat():ElementFormat
+		{
+			return _elementFormat;
+		}
+
 		public function get configuration():Configuration
 		{
 			return _configuration;

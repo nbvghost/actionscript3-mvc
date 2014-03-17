@@ -220,6 +220,7 @@ package com.game.framework.views {
 		 * 
 		 */
 		private function reSendNotify():void {
+			
 			if(_isOutStage && _keepLiveMsg==false){
 				return;
 			}

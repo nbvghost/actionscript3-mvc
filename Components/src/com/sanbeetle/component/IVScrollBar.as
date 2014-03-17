@@ -154,7 +154,7 @@
 		 * @param value
 		 * 
 		 */
-		public function setVScrollBarPosition (values:Number):void
+		override public function setVScrollBarPosition (values:Number):void
 		{
 			vscrollbarposition = values;
 			if (vscrollbarposition<0)
@@ -177,6 +177,14 @@
 				
 			}
 		}
+		
+		override public function getScrollBarPosition():Number
+		{
+			
+			return (s_bar.y-s_left.height)/(trueHeight-s_right.height-s_bar.height-s_left.height);
+		}
+		
+		
 		override protected function moveXY (fx:int,fy:int):void
 		{
 			

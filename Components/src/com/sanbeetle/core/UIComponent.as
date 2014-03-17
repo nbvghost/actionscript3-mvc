@@ -202,10 +202,6 @@
 			isInstage = value;
 		}
 		
-		
-		
-		
-		
 		override public function set alpha(value:Number):void
 		{
 			super.alpha = value;
@@ -243,7 +239,7 @@
 					this.graphics.endFill ();
 				}else{
 					this.graphics.clear ();
-					this.graphics.beginFill (0xFF00FF,1);
+					this.graphics.beginFill (0xFF00FF,0);
 					this.graphics.drawRect (0,0,w,h);
 					this.graphics.drawRect(1,1,w-2,h-2);
 					this.graphics.endFill ();

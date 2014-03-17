@@ -1,4 +1,5 @@
 ﻿package com.sanbeetle.component {
+	import com.sanbeetle.core.TextBox;
 	import com.sanbeetle.core.TextImage;
 	import com.sanbeetle.skin.ITextInputSkin_over;
 	import com.sanbeetle.skin.ITextInputSkin_up;
@@ -22,7 +23,7 @@
 	
 	
 	[Event(name="inlineGraphicStatusChange", type="flashx.textLayout.events.StatusChangeEvent")]
-	public class ITextInput extends ILabel {
+	public class ITextInput extends TextBox {
 		
 		private var upSkin:ITextInputSkin_up;
 		private var overSkin:ITextInputSkin_over;

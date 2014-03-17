@@ -74,6 +74,11 @@ package com.game.framework.views {
 			// TODO Auto Generated method stub
 			
 		}
+		/**
+		 * 访问 Mediator 层， 
+		 * @return 
+		 * 
+		 */		
 		protected function get mediator():Mediator{
 			return _mediator;
 		}

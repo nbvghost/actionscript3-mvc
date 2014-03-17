@@ -290,8 +290,11 @@
 						removeListFormList(list);
 					}
 				}else{
-					isExtChild =false;
-					removeListFormList(list);		
+					if(!component.listDropNotHide){
+						isExtChild =false;
+						removeListFormList(list);	
+					}
+				
 				}				
 				
 			}

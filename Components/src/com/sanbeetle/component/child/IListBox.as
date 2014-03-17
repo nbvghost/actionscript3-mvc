@@ -268,7 +268,7 @@
 		{
 			
 			super.onAddStage();
-			//this.upDisplayList();
+			this.upDisplayList();
 		}
 		
 		override protected function onRemoveStage():void

@@ -34,13 +34,13 @@ package com.game.framework.data
 		private var _titleCenter:Boolean =true;
 		
 		private var _sideSelectIndex:int = -1;
-				
+		
 		public function AlertDialogBuilder()
 		{
 			_titleData = new DialogDataItem("undefined",null);
 		}		
-
-		[Bindable(event="sideSelectIndexChange")]
+		
+		[Bindable(event=sideSelectIndexChange)]
 		/**
 		 * 侧边按钮的选中 
 		 */
@@ -48,23 +48,22 @@ package com.game.framework.data
 		{
 			return _sideSelectIndex;
 		}
-
+		
 		/**
 		 * @private
 		 */
 		public function set sideSelectIndex(value:int):void
 		{
-			if( _sideSelectIndex !== value)
-			{								
+			//if(_sideSelectIndex != value){
 				_sideSelectIndex = value;
 				if(_sideSelectIndex<0){
 					Log.error("多个视图的弹出窗口，必须选中一个。 sideSelectIndex 属性不能为 -1。");
 					_sideSelectIndex = 0;
 				}
-				dispatchEvent(new Event("sideSelectIndexChange"));
-			}
+				dispatchEvent(new Event(sideSelectIndexChange));
+			//}
 		}
-
+		
 		public function set sideBtnData(value:Vector.<DialogDataItem>):void
 		{
 			if(value==null){
@@ -72,13 +71,13 @@ package com.game.framework.data
 			}
 			_sideBtnData = value;
 		}
-
+		
 		public function get titleData():DialogDataItem
 		{
 			
 			return _titleData;
 		}
-
+		
 		public function set titleData(value:DialogDataItem):void
 		{		
 			if(value!=null){
@@ -86,17 +85,17 @@ package com.game.framework.data
 				_titleData.view = value.view;
 			}			
 		}
-
+		
 		public function get titleCenter():Boolean
 		{
 			return _titleCenter;
 		}
-
+		
 		public function set titleCenter(value:Boolean):void
 		{
 			_titleCenter = value;
 		}
-
+		
 		/**
 		 * 每个元素是 
 		 * @return 
@@ -106,7 +105,7 @@ package com.game.framework.data
 		{
 			return _diaLogButtons;
 		}
-
+		
 		/**
 		 *  将两个 diaLogButtons 数组合并，生成 新的数据，不创建新的副本。 
 		 * @param value
@@ -126,7 +125,7 @@ package com.game.framework.data
 		{
 			return _height;
 		}
-	
+		
 		public function set height(value:int):void
 		{
 			_height = value;
@@ -141,7 +140,7 @@ package com.game.framework.data
 		{
 			return _width;
 		}
-
+		
 		public function set width(value:int):void
 		{
 			_width = value;
@@ -155,7 +154,7 @@ package com.game.framework.data
 		{
 			return _view;
 		}
-
+		
 		public function set view(value:IURL):void
 		{
 			_view = value;
@@ -169,7 +168,7 @@ package com.game.framework.data
 		{
 			return _modal;
 		}
-
+		
 		public function set modal(value:Boolean):void
 		{
 			_modal = value;
@@ -183,7 +182,7 @@ package com.game.framework.data
 		{
 			return _isShadow;
 		}
-
+		
 		public function set isShadow(value:Boolean):void
 		{
 			_isShadow = value;
@@ -197,7 +196,7 @@ package com.game.framework.data
 		{
 			return _sideTabHeight;
 		}
-
+		
 		public function set sideTabHeight(value:int):void
 		{
 			_sideTabHeight = value;
@@ -209,9 +208,9 @@ package com.game.framework.data
 		{
 			return _sideBtnData;
 		}	
-
 		
-
+		
+		
 		/**
 		 * 传成被调用者的消息 
 		 * @return 
@@ -221,7 +220,7 @@ package com.game.framework.data
 		{
 			return _notify;
 		}
-
+		
 		public function set notify(value:INotifyData):void
 		{
 			_notify = value;

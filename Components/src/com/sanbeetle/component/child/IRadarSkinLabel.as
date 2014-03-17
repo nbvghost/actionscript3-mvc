@@ -1,5 +1,6 @@
 ﻿package com.sanbeetle.component.child {
 	
+	import com.sanbeetle.component.ILabel;
 	import com.sanbeetle.core.TextBox;
 	import com.sanbeetle.data.DataProvider;
 	
@@ -42,7 +43,7 @@
 				var xx:Number =Math.cos(r*(i)-(Math.PI/2))*valuess;
 				var yy:Number = Math.sin(r*(i)-(Math.PI/2))*valuess;
 				
-				var lable:TextBox = new TextBox();
+				var lable:ILabel = new ILabel();
 				//lable.leading =0;
 				lable.text = _dataPro.getItemAt(i).label;
 				//lable.autoSize = TextFieldAutoSize.LEFT;	
@@ -50,7 +51,7 @@
 				lable.multiline =false;
 				//lable.border =true;
 				//lable.align = TextFormatAlign.LEFT;
-				lable.textAlign = TextAlign.LEFT;
+				lable.horizontalAlign = TextAlign.LEFT;
 				//lable.setSize(50,50);
 				lable.x = xx;
 				lable.bold =true;
@@ -61,7 +62,7 @@
 				lable.y = lable.y-(lable.height/2);
 				if(i==0){
 					//lable.align = TextFormatAlign.CENTER;
-					lable.textAlign = TextAlign.CENTER;
+					lable.horizontalAlign = TextAlign.CENTER;
 					lable.x =lable.x -(lable.width/2);
 					
 					lable.y = -viewHeight-lable.height-2;
@@ -69,14 +70,14 @@
 				}
 				if(i==4){
 					//lable.align = TextFormatAlign.CENTER;
-					lable.textAlign = TextAlign.CENTER;
+					lable.horizontalAlign = TextAlign.CENTER;
 					lable.x =lable.x -(lable.width/2);
 					
 					lable.y = viewHeight+2;
 				}
 				if(i>4){
 					//lable.align = TextFormatAlign.RIGHT;
-					lable.textAlign = TextAlign.RIGHT;
+					lable.horizontalAlign = TextAlign.RIGHT;
 					lable.x =lable.x -lable.width;
 				}
 				

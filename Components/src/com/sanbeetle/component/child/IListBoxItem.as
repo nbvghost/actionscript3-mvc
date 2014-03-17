@@ -1,8 +1,7 @@
 ﻿package com.sanbeetle.component.child {
 	
-	import com.sanbeetle.component.Label;
+	import com.sanbeetle.component.ILabel;
 	import com.sanbeetle.core.DisplayItem;
-	import com.sanbeetle.core.TextBox;
 	import com.sanbeetle.data.LineCollectionItem;
 	import com.sanbeetle.data.ListChildItem;
 	import com.sanbeetle.skin.IListBoxItemBg;
@@ -16,13 +15,13 @@
 	
 	public class IListBoxItem extends DisplayItem {
 		
-		private var label:Label;
+		private var label:ILabel;
 		private var bg:IListBoxItemBg;
 		private var chidlAroww:ListSkinsChildArrow;
 		
 		public function IListBoxItem() {
 			this.buttonMode =true;
-			label = new Label();
+			label = new ILabel();
 			
 			chidlAroww = new ListSkinsChildArrow;
 			
@@ -47,7 +46,7 @@
 			//label.align = TextFormatAlign.LEFT;			
 			//label.autoSize = TextFieldAutoSize.LEFT;
 			//Console.out("components"+"components"+"iladel"+iladel.width);
-			label.fontSize = 12;
+			label.fontSize = "12";
 			
 			label.verticalAlign = VerticalAlign.MIDDLE;
 			

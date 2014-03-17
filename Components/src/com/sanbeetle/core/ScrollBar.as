@@ -129,7 +129,17 @@
 			
 		}	
 		
+		public function setVScrollBarPosition (values:Number):void{
 		
+			
+		}
+		public function setHScrollBarPosition(values:Number):void{
+			
+		}
+		public function getScrollBarPosition():Number{
+			throw new Error(" 重写  getScrollBosition  ");
+			return 0;
+		}
 		override public function createUI():void
 		{			
 			super.createUI();			
@@ -196,7 +206,6 @@
 				target.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 				this.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 				rectBackGround.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
-				
 				
 				
 				addChild(maskmc);				

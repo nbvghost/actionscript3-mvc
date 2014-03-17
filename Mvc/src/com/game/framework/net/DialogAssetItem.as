@@ -237,7 +237,7 @@ package com.game.framework.net
 			var dialog:IDialog = mediator as IDialog;
 			
 			dialog.setAlertDialogBuilder(calleeBuilder,dialogContentIF);
-			dialogContentIF.setAlertDialog(alertDialog);	
+			dialogContentIF.setAlertDialog(alertDialog);
 			
 			
 			

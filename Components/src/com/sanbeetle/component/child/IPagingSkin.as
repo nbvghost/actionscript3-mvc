@@ -41,7 +41,7 @@
 			
 			//djy_txt.border =false;
 			//djy_txt.align =TextFormatAlign.RIGHT;
-			djy_txt.textAlign = TextAlign.RIGHT;
+			djy_txt.horizontalAlign = TextAlign.RIGHT;
 			this.addChild(djy_txt);
 			
 			txt = new ILabel();
@@ -55,7 +55,7 @@
 			txt.width = 24;
 			txt.text="转到";
 			//txt.align = TextFormatAlign.LEFT;
-			txt.textAlign = TextAlign.LEFT;
+			txt.horizontalAlign = TextAlign.LEFT;
 			this.addChild(txt);
 			
 			pageindex_txt = new ITextInput();
@@ -75,7 +75,7 @@
 			//pageindex_txt.align = TextFormatAlign.CENTER;
 			pageindex_txt.textAlign = TextAlign.CENTER;
 			//pageindex_txt.leading = 0;
-			addChild(pageindex_txt);	
+			addChild(pageindex_txt);
 			
 			
 			

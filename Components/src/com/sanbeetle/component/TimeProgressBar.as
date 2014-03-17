@@ -34,7 +34,7 @@
 			
 			m_txt =new ILabel();	
 			//m_txt.align = "left";
-			m_txt.textAlign = TextAlign.LEFT;
+			m_txt.horizontalAlign = TextAlign.LEFT;
 			//m_txt.autoSize = "none";
 			m_txt.bold = true;
 			//m_txt.border =false;
@@ -47,7 +47,7 @@
 			
 			m_pro =new ILabel();	
 			//m_pro.align = TextFormatAlign.RIGHT;
-			m_pro.textAlign = TextAlign.RIGHT;
+			m_pro.horizontalAlign = TextAlign.RIGHT;
 			//m_pro.autoSize = "none";			
 			m_pro.bold = true;
 			//m_pro.border =false;

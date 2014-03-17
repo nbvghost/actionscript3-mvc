@@ -19,7 +19,7 @@ package com.sanbeetle.interfaces
 		function get listData():ListData;
 		function set listData(value:ListData):void;		
 		
-		function setSize(width:Number,height:Number,autoLayOut:Boolean=false):void;
+		function setSize(_width:Number,_height:Number,autoLayOut:Boolean=false):void;
 		
 		
 		function mouseOut():void;
@@ -27,6 +27,10 @@ package com.sanbeetle.interfaces
 		
 		function doAction(actionType:String,actionComplete:Function,actionPar:Array=null):void;
 		
+		function get name():String;
+		
+		function get selected():Boolean;
+		function set selected(value:Boolean):void;
 		
 		
 	}

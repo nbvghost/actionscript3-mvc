@@ -128,7 +128,7 @@ package com.sanbeetle.component.child
 			//this.addChild(_displayItem);			
 			
 			//labelTxt.color = "0xffffff";
-			this.addEventListener(MouseEvent.CLICK,onmouseclickHandler);
+			this.addEventListener(MouseEvent.CLICK,onClickHandler);
 		}
 		
 		public function get fontColor():String
@@ -163,7 +163,7 @@ package com.sanbeetle.component.child
 		
 		
 		
-		private function onmouseclickHandler(event:MouseEvent):void
+		protected function onClickHandler(event:MouseEvent):void
 		{
 			
 			this.dispatchEvent(new ControlEvent(ControlEvent.SELECT));

@@ -88,7 +88,7 @@
 			
 			
 			
-			cbbar.defaultLabel = _label;		
+			cbbar.defaultLabel = _label;
 			
 			//_maxHeight = this.component.getMaxListHeight();
 			
@@ -256,7 +256,9 @@
 			
 			this.cbbar.displayItem = list.currentList.currentItem as DisplayItem;
 			
-			list.visible = false;
+			if(!component.listDropNotHide){				
+				list.visible = false;
+			}
 			
 			
 			this.dispatchEvent(new ControlEvent(event.type,event.data));
@@ -306,11 +308,13 @@
 			
 			if (list.visible)
 			{
-				list.visible = false;
-				if(list.parent){
-					list.parent.removeChild(list);
-				}
-				list.cleanUp();
+				if(!component.listDropNotHide){
+					list.visible = false;
+					if(list.parent){
+						list.parent.removeChild(list);
+					}
+					list.cleanUp();
+				}				
 				return;
 			}
 			
@@ -323,8 +327,6 @@
 			list.y = point.y;
 			stage.addChild (list);		
 			
-			//list.x = point.x;
-			//	list.y = point.y;
 			stage.addEventListener (MouseEvent.MOUSE_DOWN,onStageDownHandler);
 			
 			
@@ -333,18 +335,21 @@
 		
 		private function onStageDownHandler (event:MouseEvent):void
 		{
-			if(!Utils.isChild(list,DisplayObject(event.target)) && !Utils.isChild(this,DisplayObject(event.target))){
-				if(stage){
-					stage.removeEventListener (MouseEvent.MOUSE_DOWN,onStageDownHandler);
-				}
+			if(this.component.listDropNotHide){
 				
-				list.visible = false;
-				if(list.parent){
-					list.parent.removeChild(list);
-				}
-				list.cleanUp();
-			}		
-			
+			}else{
+				if(!Utils.isChild(list,DisplayObject(event.target)) && !Utils.isChild(this,DisplayObject(event.target))){
+					if(stage){
+						stage.removeEventListener (MouseEvent.MOUSE_DOWN,onStageDownHandler);
+					}
+					
+					list.visible = false;
+					if(list.parent){
+						list.parent.removeChild(list);
+					}
+					list.cleanUp();
+				}		
+			}
 		}
 		[Collection(collectionClass = "com.sanbeetle.data.DataProvider",identifier = "item",collectionItem = "com.sanbeetle.data.SimpleCollectionItem")]
 		/**

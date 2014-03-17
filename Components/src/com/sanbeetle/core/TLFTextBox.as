@@ -8,7 +8,6 @@ package com.sanbeetle.core
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.TextEvent;
 	import flash.geom.Rectangle;
 	import flash.net.URLVariables;
 	import flash.text.Font;

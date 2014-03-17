@@ -14,6 +14,12 @@
 			
 			_isRichText = true;
 			
+			this.paddingTop = 5;
+			this.paddingLeft = 2;
+			this.paddingBottom =2;
+			this.paddingRight = 2;
+			
+			
 		}	
 		
 		public function get isRichText():Boolean

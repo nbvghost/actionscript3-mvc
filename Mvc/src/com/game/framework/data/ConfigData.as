@@ -12,11 +12,22 @@ package com.game.framework.data
 		private static var _delayTime:uint = 100;
 		private static var _dialogContentBoundName:String="dialogBound";
 		private static var _MaxRecodePage:int = 10;
+		private static var _InvalidDialogAlert:Boolean = false;
 		public function ConfigData()
 		{
 			
 		}
 		
+		public static function getInvalidDialogAlert():Boolean
+		{
+			return _InvalidDialogAlert;
+		}
+
+		public static function setInvalidDialogAlert(value:Boolean):void
+		{
+			_InvalidDialogAlert = value;
+		}
+
 		public static function getMaxRecodePage():int
 		{
 			return _MaxRecodePage;

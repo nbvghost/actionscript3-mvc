@@ -10,6 +10,11 @@
 	import com.sanbeetle.component.ITimeSchedule;
 	import com.sanbeetle.component.IVScrollBar;
 	import com.sanbeetle.events.ControlEvent;
+	import com.sanbeetle.icons.ArrowDownICON;
+	import com.sanbeetle.icons.ArrowUpICON;
+	import com.sanbeetle.icons.ColorICON;
+	import com.sanbeetle.icons.CrossICON;
+	import com.sanbeetle.icons.SelectICON;
 	import com.sanbeetle.utils.FontNames;
 	
 	import flash.display.Loader;
@@ -54,6 +59,12 @@
 			
 			
 			Component.component.initContentContainer (stage);		
+			
+			ArrowDownICON;
+			ArrowUpICON;
+			ColorICON;
+			CrossICON;
+			SelectICON;
 
 
 			//this.addEventListener (Event.ADDED_TO_STAGE,onStage);

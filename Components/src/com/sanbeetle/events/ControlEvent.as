@@ -27,6 +27,8 @@
 		public static const CLOSE:String="close";
 		public static const SELECT:String="select";
 		
+		public static const CHANGE_SIZE:String = "change_size";
+		
 		/**
 		 * 组件所在的视图被 被释放 
 		 */

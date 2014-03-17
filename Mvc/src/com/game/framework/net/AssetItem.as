@@ -16,7 +16,6 @@ package com.game.framework.net {
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
-	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 *

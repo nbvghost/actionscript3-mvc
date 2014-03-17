@@ -4,6 +4,7 @@ package com.game.framework.net {
 	import com.game.framework.error.OperateError;
 	import com.game.framework.events.AssetsEvent;
 	import com.game.framework.events.DissolveEvent;
+	import com.game.framework.events.FrameWorkEvent;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.INotifyData;
 	import com.game.framework.ifaces.ISwfFile;
@@ -22,6 +23,8 @@ package com.game.framework.net {
 	 * 
 	 */	
 	[Event(name="dissolve", type="com.game.framework.events.DissolveEvent")]
+	
+	[Event(name="init_over", type="com.game.framework.events.FrameWorkEvent")]
 	
 	/**
 	 * 仅用于模块的加载
@@ -148,6 +151,7 @@ package com.game.framework.net {
 			mediator.push(Mediator.INIT_TYPE,notify);
 			//-------------end----------
 			
+			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.INIT_OVER));
 			
 			_isinitView = true;
 			_isLoadSuccess = true;
@@ -220,6 +224,8 @@ package com.game.framework.net {
 				this.notify = null;	
 				this.getDatainterface.asssetComplete(this);
 				this.getDatainterface.asssetAllComplete(this);		
+				
+				this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.INIT_OVER));
 				return;
 			}
 			

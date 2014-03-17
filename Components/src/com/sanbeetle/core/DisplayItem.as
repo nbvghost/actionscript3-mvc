@@ -17,6 +17,8 @@ package com.sanbeetle.core
 		private var oh:Number = 0;
 		private var ow:Number = 0;
 		private var autoLayout:Boolean = false;
+		
+		private var _selected:Boolean = false;
 		public function DisplayItem()
 		{
 			super();
@@ -27,6 +29,18 @@ package com.sanbeetle.core
 			// TODO Auto Generated method stub
 			return isInstage;
 		}
+		
+		public function get selected():Boolean
+		{
+			// TODO Auto Generated method stub
+			return _selected;
+		}
+		
+		public function set selected(value:Boolean):void
+		{
+			_selected =value;
+		}
+		
 		
 		public function setStage(value:Boolean):void
 		{

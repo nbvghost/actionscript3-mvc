@@ -27,6 +27,8 @@
     <classEntry path="com.pureantUI.core.ExtendsTextContainerManager"/>
     <classEntry path="com.sanbeetle.core.NormalTextBox"/>
     <classEntry path="com.sanbeetle.core.TextImage"/>
+    <classEntry path="com.sanbeetle.component.IAccordion"/>
+    <classEntry path="com.sanbeetle.renderer.AccordionItemBarRenderer"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
