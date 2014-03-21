@@ -72,9 +72,12 @@
 		public function localToGlobal(point:Point):Point{
 			return _contentContainer.localToGlobal(point);
 		}
+		public function globalToLocal(point:Point):Point{
+			
+			return _contentContainer.globalToLocal(point);
+		}
 		public function get height():Number
 		{
-			// TODO Auto Generated method stub
 			return _height;
 		}
 		

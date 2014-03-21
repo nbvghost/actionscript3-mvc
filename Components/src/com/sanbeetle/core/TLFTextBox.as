@@ -821,10 +821,8 @@ package com.sanbeetle.core
 			if( _paddingTop !== value)
 			{
 				_paddingTop = value;
-				_textLayoutFormat.paddingTop = _paddingTop;
-				textContainerManager.hostFormat = _textLayoutFormat;
-				//	cc.updateContainer();
-				//_textFlow.flowComposer.updateAllControllers();
+				//_textLayoutFormat.paddingTop = _paddingTop;
+				//textContainerManager.hostFormat = _textLayoutFormat;
 			}
 		}
 		
@@ -839,9 +837,8 @@ package com.sanbeetle.core
 			if( _paddingRight !== value)
 			{
 				_paddingRight = value;
-				_textLayoutFormat.paddingRight = _paddingRight;
-				textContainerManager.hostFormat = _textLayoutFormat;
-				//cc.updateContainer();
+				//_textLayoutFormat.paddingRight = _paddingRight;
+				//textContainerManager.hostFormat = _textLayoutFormat;
 			}
 		}
 		
@@ -856,10 +853,8 @@ package com.sanbeetle.core
 			if( _paddingLeft !== value)
 			{
 				_paddingLeft = value;
-				_textLayoutFormat.paddingLeft = _paddingLeft;
-				textContainerManager.hostFormat = _textLayoutFormat;
-				//_textFlow.flowComposer.updateAllControllers();
-				//cc.updateContainer();
+				//_textLayoutFormat.paddingLeft = _paddingLeft;
+				//textContainerManager.hostFormat = _textLayoutFormat;
 			}
 		}
 		
@@ -874,10 +869,8 @@ package com.sanbeetle.core
 			if( _paddingBottom !== value)
 			{
 				_paddingBottom = value;
-				_textLayoutFormat.paddingBottom = _paddingBottom;
-				textContainerManager.hostFormat = _textLayoutFormat;
-				//_textFlow.flowComposer.updateAllControllers();
-				//cc.updateContainer();
+				//_textLayoutFormat.paddingBottom = _paddingBottom;
+				//textContainerManager.hostFormat = _textLayoutFormat;
 			}
 		}
 		private var _maxChars:int=0;
@@ -1136,7 +1129,7 @@ package com.sanbeetle.core
 			}
 			
 		}
-		
+		private var containerRect:Rectangle=new Rectangle;
 		override public function updateUI():void		
 		{
 			
@@ -1148,31 +1141,45 @@ package com.sanbeetle.core
 			
 			var rect:Rectangle  = textContainerManager.getContentBounds();
 			
-			var containerRect:Rectangle = new Rectangle();
+			
+			
+			containerRect = new Rectangle();
 			
 			if(_autoBound){
 				if(_multiline){
-					changeCCSize(trueWidth,NaN);
+					changeCCSize(trueWidth-_paddingLeft-_paddingRight,NaN);
+					
+					rect  = textContainerManager.getContentBounds();
+					
+					changeCCSize(rect.width,NaN);	
+					
+					containerRect.x = 0;
+					containerRect.y = 0;
+					containerRect.width = trueWidth;
+					containerRect.height = rect.height+_paddingBottom+_paddingTop;
+					
 				}else{
 					changeCCSize(NaN,NaN);
+					
+					rect  = textContainerManager.getContentBounds();
+					
+					///trace("a");
+					//trace(rect.width,rect.height);
+					
+					changeCCSize(rect.width,NaN);
+					//trace(rect.width,rect.height);
+					
+					containerRect.x = 0;
+					containerRect.y = 0;
+					containerRect.width = rect.width+_paddingLeft+_paddingRight;
+					containerRect.height = rect.height+_paddingTop+_paddingBottom;
+					
+					//trace(containerRect.width,containerRect.height);
 				}	
 				
 				
-				//textContainerManager.updateContainer();
-				//trace("text updata:",getTimer()-t);
-				rect  = textContainerManager.getContentBounds();	
-				changeCCSize(rect.width,NaN);		
-				//textContainerManager.updateContainer();
-				
-				containerRect.x = 0;
-				containerRect.y = 0;
-				containerRect.width = rect.width;
-				containerRect.height = rect.height;
-				
-				//trace("tatol:",getTimer()-t);
-				
 			}else{
-				changeCCSize(this.trueWidth,this.trueHeight);
+				changeCCSize(trueWidth-_paddingLeft-_paddingRight,trueHeight-_paddingTop-_paddingBottom);
 				
 				containerRect.x = 0;
 				containerRect.y = 0;
@@ -1181,11 +1188,22 @@ package com.sanbeetle.core
 				
 			}
 			
+			
+			
+			
 			container.graphics.clear();
-			container.graphics.beginFill(0x00ff00,0);
-			container.graphics.drawRect(containerRect.x,containerRect.y,containerRect.width,containerRect.height);
-			container.graphics.endFill();				
+			container.graphics.lineStyle(5);
+			container.graphics.beginFill(0xffff00,0);
+			container.graphics.drawRect(containerRect.x,containerRect.y,containerRect.width,containerRect.height);			
+			container.graphics.endFill();	
+			
+			
+			container.x = _paddingLeft;
+			container.y = _paddingTop;
+			
+			
 			drawBorder(containerRect.width,containerRect.height);
+			
 			
 			
 			if(this._dropShadow){
@@ -1195,10 +1213,10 @@ package com.sanbeetle.core
 				container.cacheAsBitmap =false;
 				container.filters=null;
 			}
-			
+			//trace(container.width,container.height);
 			textContainerManager.updateContainer();	
 			
-			
+			//trace(container.width,container.height);
 		}	
 		
 		
@@ -1206,14 +1224,14 @@ package com.sanbeetle.core
 		override public function get height():Number
 		{
 			// TODO Auto Generated method stub
-			return container.height;
+			return containerRect.height;
 			//return cc.compositionHeight;
 		}
 		
 		override public function get width():Number
 		{
 			// TODO Auto Generated method stub
-			return container.width;
+			return containerRect.width;
 			//return cc.compositionWidth;
 		}
 		

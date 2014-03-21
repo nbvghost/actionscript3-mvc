@@ -1,7 +1,6 @@
 ﻿package 
 {
 
-	import com.asvital.dev.Log;
 	import com.sanbeetle.Component;
 	import com.sanbeetle.component.IHScrollBar;
 	import com.sanbeetle.component.ILabel;
@@ -27,9 +26,6 @@
 	import flash.text.TextColorType;
 	import flash.text.TextDisplayMode;
 	import flash.text.TextRenderer;
-	
-	
-
 
 	public class Main extends MovieClip
 	{

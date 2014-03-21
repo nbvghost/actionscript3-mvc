@@ -40,7 +40,7 @@ package com.sanbeetle.component.child
 		private var _fontSize:String = "10";
 		private var _fontColor:String = "0xffffff";
 		
-	
+		
 		private var _displayItem:DisplayItem;
 		
 		
@@ -50,7 +50,7 @@ package com.sanbeetle.component.child
 		{
 			return _defaultLabel;
 		}
-
+		
 		public function set defaultLabel(value:String):void
 		{
 			_defaultLabel = value;
@@ -61,18 +61,18 @@ package com.sanbeetle.component.child
 			_displayItem.listData =new ListData(_displayItem.data,0,-1,null);	
 			
 		}
-
+		
 		public function get displayItem():DisplayItem
 		{
 			return _displayItem;
 		}
-
+		
 		public function set displayItem(value:DisplayItem):void
 		{
 			
 			
 			var DClass:Class = getDefinitionByName(getQualifiedClassName(value)) as Class;
-		
+			
 			if(_displayItem!=null){
 				if(_displayItem.parent){
 					_displayItem.parent.removeChild(_displayItem);
@@ -85,7 +85,7 @@ package com.sanbeetle.component.child
 			data.itemColor = this._fontColor;		
 			_displayItem.data = data;
 			_displayItem.setSize(value.contentWidth,value.contentHeight,true);
-		//	Log.out(value.contentWidth,value.contentHeight);
+			//	Log.out(value.contentWidth,value.contentHeight);
 			this.addChild(_displayItem);
 			
 			_displayItem.listData = value.listData;
@@ -94,28 +94,28 @@ package com.sanbeetle.component.child
 			_displayItem.buttonMode = false;
 			//_displayItem.data = value.data;
 			//_displayItem.setSize(value.contentWidth,value.contentHeight);			
-		//	Log.out(_displayItem,"555");
+			//	Log.out(_displayItem,"555");
 			updateDis();
 		}
 		
 		
-
+		
 		public function get cx():Number
 		{
 			return _cx;
 		}
-
+		
 		/*public function get labelTxt():ILabel
 		{
-			return _labelTxt;
+		return _labelTxt;
 		}*/
-
 		
-
-
+		
+		
+		
 		public function ComboBoxBar()
 		{
-						
+			
 			_displayItem = new IListBoxItem();
 			
 			var data:SimpleCollectionItem = new SimpleCollectionItem("defautl","defautl");
@@ -135,7 +135,7 @@ package com.sanbeetle.component.child
 		{
 			return _fontColor;
 		}
-
+		
 		public function set fontColor(value:String):void
 		{
 			_fontColor = value;
@@ -145,19 +145,19 @@ package com.sanbeetle.component.child
 			_displayItem.data = data;		
 			//_displayItem.listData =new ListData(_displayItem.data.label,0,-1);	
 		}
-	
+		
 		/*public function get fontSize():String
 		{
-			return _fontSize;
+		return _fontSize;
 		}
-
+		
 		public function set fontSize(value:String):void
 		{
-			_fontSize = value;
-			_labelTxt.fontSize = _fontSize;
-			
+		_fontSize = value;
+		_labelTxt.fontSize = _fontSize;
+		
 		}*/
-
+		
 		
 		
 		
@@ -176,7 +176,7 @@ package com.sanbeetle.component.child
 		
 		public function set backgroundType(value:String):void
 		{
-		
+			
 			
 			if(_backgroundType!=value){
 				
@@ -215,7 +215,7 @@ package com.sanbeetle.component.child
 						
 						
 						randFunc = function ():void{
-														
+							
 							btn.width = _width;
 							btn.height = _height;							
 							_displayItem.setSize( _width-15,_height);							
@@ -291,7 +291,7 @@ package com.sanbeetle.component.child
 							//_displayItem.width = _width -_displayItem.x-8-8-arrowa.width;
 							//displayItemBitMap.autoSize = TextFieldAutoSize.LEFT;
 							_displayItem.y = (_height-_displayItem.contentHeight)/2;
-						
+							
 							
 						}
 						break;
@@ -320,7 +320,7 @@ package com.sanbeetle.component.child
 							
 							
 							_displayItem.setSize(_width-rb.width,_displayItem.contentHeight);
-													
+							
 							
 							_displayItem.y = (_height-_displayItem.contentHeight)/2;
 							
@@ -341,13 +341,13 @@ package com.sanbeetle.component.child
 		
 		/*public function get label():String
 		{
-			return _label;
+		return _label;
 		}
 		
 		public function set label(value:String):void
 		{
-			_label = value;
-			labelTxt.text = _label;
+		_label = value;
+		labelTxt.text = _label;
 		}*/
 		
 		override public function get height():Number
@@ -365,6 +365,7 @@ package com.sanbeetle.component.child
 			_displayItem.mouseEnabled = false;
 			_displayItem.mouseChildren = false;
 			_displayItem.buttonMode = false;
+			_displayItem.setSize(_displayItem.contentWidth,_displayItem.contentHeight,true);
 			//_labelTxt.height = this.height;
 		}
 		override public function set height(value:Number):void

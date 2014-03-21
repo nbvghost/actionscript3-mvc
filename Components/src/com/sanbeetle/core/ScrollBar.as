@@ -44,6 +44,10 @@
 		private var _stepNum:Number = 0.15;
 		
 		
+		
+		private var _isFloat:Boolean = false;
+		
+		
 		private var _scrollBeginPoint:Point=new Point(0,0);
 		
 		public function ScrollBar()
@@ -57,6 +61,19 @@
 			
 		}	
 		
+		[Inspectable(defaultValue=false)]
+		public function get isFloat():Boolean
+		{
+			return _isFloat;
+		}
+		
+		public function set isFloat(value:Boolean):void
+		{
+			if(_isFloat != value){				
+				_isFloat = value;				
+				this.upDisplayList();
+			}
+		}
 		
 		/**
 		 * 步伐，这是一个0~1的值，来决定滚动的偏移量， 
@@ -65,7 +82,7 @@
 		{
 			return _stepNum;
 		}
-
+		
 		/**
 		 * @private
 		 */
@@ -79,17 +96,17 @@
 				_stepNum = 1;
 			}
 		}
-
+		
 		public function get scrollBeginPoint():Point
 		{
 			return _scrollBeginPoint;
 		}
-
+		
 		public function set scrollBeginPoint(value:Point):void
 		{
 			_scrollBeginPoint = value;
 		}
-
+		
 		public function get contentWidth():Number
 		{
 			if(this.target){
@@ -130,7 +147,7 @@
 		}	
 		
 		public function setVScrollBarPosition (values:Number):void{
-		
+			
 			
 		}
 		public function setHScrollBarPosition(values:Number):void{

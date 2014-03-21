@@ -2,8 +2,8 @@ package com.sanbeetle.data
 {
 	public class Version
 	{
-		private var _name:String="BUG修复";
-		private var _code:uint=50;
+		private var _name:String="更新";
+		private var _code:uint=53;
 				
 		public function Version()
 		{

@@ -70,6 +70,12 @@
 			list.addEventListener(ControlEvent.CHANGE,onListChangeHandler);
 			
 		}
+
+		public function get oldButton():ExtendButton
+		{
+			return _oldButton;
+		}
+
 		[Inspectable(defaultValue=true)]
 		public function get requestSelect():Boolean
 		{
@@ -125,7 +131,7 @@
 			}			
 		}
 		
-		[Inspectable(defaultValue = "-1")]		
+		[Inspectable(defaultValue = "-1")]
 		public function get selectIndex():int
 		{
 			return _selectIndex;
@@ -171,14 +177,21 @@
 					if(_oldButton!=item){
 						_oldButton.select =false;
 						
-					}					
+					}		
+					if(_oldButton.parent){
+						this.setChildIndex(_oldButton,_oldButton.index);
+					}
 					oldIndex = _oldButton.index;
 				}
 				if(_requestSelect){
 					item.select =true;
 				}				
 				showList(item);
-				_selectIndex = item.index;			
+				_selectIndex = item.index;	
+				
+				if(item.parent){
+					this.setChildIndex(item,this.numChildren-1);
+				}
 				
 				if(_oldButton!=item){						
 					
@@ -190,7 +203,7 @@
 			}
 		}
 		
-		private function showList(current:ExtendButton):void
+		protected function showList(current:ExtendButton):void
 		{
 			if(list){
 				list.cleanUp();
@@ -295,27 +308,29 @@
 		 */
 		private function onMouseDoaneHadnler(event:MouseEvent):void
 		{	
-			
-			var tie:DisplayObject = event.target as DisplayObject;
-			if(tie){
-				while(tie.parent){
-					if(tie is ITabButton || tie is List){
-						return;
-					}else{
-						tie = tie.parent;
-					}
-				}			
+			if(!component.listDropNotHide){
+				var tie:DisplayObject = event.target as DisplayObject;
+				if(tie){
+					while(tie.parent){
+						if(tie is ITabButton || tie is List){
+							return;
+						}else{
+							tie = tie.parent;
+						}
+					}			
+				}
+				
+				this.list.cleanUp();
+				list.visible =false;
+				if(list.parent){
+					list.parent.removeChild(list);
+				}
+				
+				if(stage){
+					stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);
+				}
 			}
 			
-			this.list.cleanUp();
-			list.visible =false;
-			if(list.parent){
-				list.parent.removeChild(list);
-			}
-			
-			if(stage){
-				stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);
-			}
 			
 		}
 		[Inspectable(defaultValue="0x000000")]
@@ -348,6 +363,9 @@
 			
 			
 			updateUI();
+			
+			
+			
 			
 			
 		}	
@@ -450,6 +468,9 @@
 				btnArr.push(right_a);	
 				setButonStyle(right_a);
 			}
+			
+			
+			
 		}
 		
 		protected function createLeftButton():ExtendButton{
@@ -476,7 +497,10 @@
 					if(this._oldButton!=null){
 						_oldButton.select =false;
 					}
-					btn.select=true;				
+					btn.select=true;	
+					
+					
+					
 					_oldButton = btn;
 					
 				}else{
@@ -495,7 +519,17 @@
 		}
 		public function set data(value:Array):void
 		{			
-			this._data = value;		
+			if(_data==value){
+				return;
+			}
+			this._data = value;	
+			
+			for (var i:int = 0; i < _data.length; i++) 
+			{
+				
+			}
+			
+			
 			updateUI();
 		}
 		

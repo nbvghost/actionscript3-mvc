@@ -97,7 +97,6 @@
 			{
 				var tx:Number=(s_bar.y-s_left.height)/(trueHeight-s_right.height-s_bar.height-s_left.height)*100;
 				tx=(Math.round(tx)/100);
-				//target.x=(-target.width*tx)+this.x;
 				target.y=this.y+(-(target.height-maskmc.height)*tx);
 				//Log.out(target.y);
 				//Console.out("components"+(s_bar.x-s_left.width)/(this.width-s_right.width-s_bar.width-s_left.width));
@@ -114,7 +113,6 @@
 		
 		override protected function upBarPoition ():void
 		{
-			//s_bar.x=((target.x-this.x)/target.width);
 			var p:Number=(-((target.y-this.y)/(target.height-maskmc.height)));
 			
 			var ww:Number = trueHeight - s_right.height - s_bar.height - s_left.height;
@@ -130,7 +128,7 @@
 		}
 		override protected function onWheelDelta (delta:int):void
 		{
-		
+			
 			pin = Math.abs(delta)*(this.bg.height*stepNum);
 			if (delta>0)
 			{
@@ -205,7 +203,7 @@
 		{
 			
 			maskmc.graphics.clear ();
-			maskmc.graphics.beginFill (0xff0000,0);
+			maskmc.graphics.beginFill (0xff0000,1);
 			maskmc.graphics.drawRect (0,0,-(target.width+Math.abs(scrollBeginPoint.x)),trueHeight+scrollBeginPoint.y);
 			maskmc.graphics.endFill ();
 			
@@ -217,21 +215,39 @@
 			target.y = this.y;
 			
 			var kk:Number = maskmc.height / target.height;
-			
+			maskmc.x = 0;
 			
 			s_bar.height = 0;
 			var ss:Number = trueHeight - s_right.height - s_bar.height - s_left.height;
 			if (kk>=1)
 			{
 				this.visible = false;
-				target.x = this.x - target.width;
+				
+				if(isFloat){
+					target.x = this.x - target.width+bg.width;
+					//this.x = target.width -bg.width;
+					maskmc.x = bg.width;
+				}else{
+					target.x = this.x - target.width;
+				}
 				disopose ();
 				kk = 1;
 			}
 			else
 			{
 				this.visible = true;
-				target.x = this.x - target.width;
+				
+				
+				if(isFloat){
+					target.x = this.x - target.width+bg.width;
+					//this.x = target.width -bg.width;
+					maskmc.x = bg.width;
+				}else{
+					target.x = this.x - target.width;
+				}
+				
+				//target.x = this.x - target.width;
+				
 				target.mask = maskmc;
 			}		
 			var minHeight:Number = trueHeight / 3;
@@ -248,6 +264,8 @@
 			
 			
 			pin = this.trueHeight;
+			
+			
 			
 			
 			rectBackGround.x = target.x;

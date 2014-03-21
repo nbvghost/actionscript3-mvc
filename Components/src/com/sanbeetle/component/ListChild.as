@@ -231,7 +231,7 @@
 							childList.ItemCellRender = _itemCellRenaderer;
 							childList.autoSize =true;
 							childList.setMinWidth(this.component.getMinListWidth());
-							childList.column = indexList;							
+							childList.column = indexList;
 							childList.name = String(indexList);
 							childList.addEventListener(ControlEvent.ITEM_OVER,onChildListItemOverHandler);
 							childList.addEventListener(ControlEvent.CHANGE,onChidlListItemChangeHandler);
@@ -255,13 +255,20 @@
 						
 						childList.setMaxHeight(component.contentContainer.height);
 						
-						var rect:LocationRect = Utils.getBounds(childList);
+						var rect:LocationRect = Utils.getBoundRect(childList);
+						
+						//trace(teee.y+childList.height);
+						//childList.y = component.contentContainer.height;
+						
+						trace(rect);
 						
 						if(rect.buttom<0){							
 							
-							childList.y+=childList.y+rect.buttom;
+							childList.y=childList.y+rect.buttom-this.y;
 						}
+						
 						rect = Utils.getBounds(childList);
+						
 						if(rect.right<0){
 							//childList.x += rect.right; 
 						}

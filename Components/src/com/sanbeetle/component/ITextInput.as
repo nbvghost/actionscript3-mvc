@@ -62,6 +62,11 @@
 			multiline = false;
 			
 			
+			paddingTop = 6;
+			paddingLeft = 3;
+			paddingBottom = 3;
+			paddingRight = 3;
+			
 			
 		}		
 		
@@ -263,13 +268,13 @@
 			textInputBackground();
 			
 			super.updateUI();
+			textInputBackground();
 		}	
 		protected function textInputBackground():void
 		{
 			if(currentSkin){
-				currentSkin.width = this.trueWidth;
-				currentSkin.height = this.trueHeight;			
-				
+				currentSkin.width = this.width;
+				currentSkin.height = this.height;
 				
 				if(background){
 					currentSkin.visible =true;
@@ -282,7 +287,7 @@
 					
 				}				
 			}
-			
+			//trace("ss",this.width,this.height);
 		}
 		
 		override public function createUI():void
@@ -290,13 +295,10 @@
 			
 			this.selectable =true;
 			
-			currentSkin.width = this.trueWidth;
-			currentSkin.height = this.trueHeight;
+			currentSkin.width = this.width;
+			currentSkin.height = this.height;
 			
-			paddingTop = 6;
-			paddingLeft = 3;
-			paddingBottom = 3;
-			paddingRight = 3;
+			
 			
 			
 			//this.addChildAt(currentSkin,0);

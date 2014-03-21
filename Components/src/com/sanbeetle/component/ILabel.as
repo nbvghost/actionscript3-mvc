@@ -115,11 +115,17 @@
 		
 		override public function dispose():void
 		{
-			textField.removeEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
-			textField.removeEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
-			textField.removeEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);
-			textField.styleSheet.clear();
-			
+			if(textField){
+				textField.removeEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
+				textField.removeEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
+				textField.removeEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);
+				textField.styleSheet.clear();			
+				textField.dispose();				
+			}
+			textField =null;
+			padding=null;
+			_textformat=null;
+			fontDescription=null;
 			super.dispose();
 		}
 		
@@ -500,7 +506,7 @@
 		{
 			isTextXML = true;	
 			if(_text != value){
-							
+				
 				_text = value;
 				//textField.htmlText = _textXML;
 				updateUI();

@@ -1,5 +1,7 @@
 ﻿package com.sanbeetle.component.child
 {
+	import com.sanbeetle.core.TextBox;
+	
 	import flash.display.DisplayObject;
 	import flash.display.GradientType;
 	import flash.geom.Matrix;

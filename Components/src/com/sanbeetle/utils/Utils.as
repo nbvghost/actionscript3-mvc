@@ -91,20 +91,23 @@ package com.sanbeetle.utils
 		public static function getBounds(disTarget:DisplayObjectContainer):LocationRect{
 			var rect:LocationRect = new LocationRect();
 			var cc:BoundDisplayObject  = Component.component.contentContainer;
-			
 			var point:Point =  disTarget.localToGlobal(new Point(disTarget.x,disTarget.y));
-			
-			//trace("sdfds",point,new Point(disTarget.x,disTarget.y));
-			
 			var ccLocalPoint:Point = cc.localToGlobal(point);
-			
-			
 			rect.top = ccLocalPoint.y;
 			rect.left = ccLocalPoint.x;
 			rect.right = cc.width-rect.left-disTarget.width;
 			rect.buttom = cc.height -rect.top-disTarget.height;
-			
-			
+			return rect;
+		}
+		public static function getBoundRect(disTarget:DisplayObjectContainer):LocationRect{
+			var rect:LocationRect = new LocationRect();
+			var cc:BoundDisplayObject  = Component.component.contentContainer;
+			var point:Point =  disTarget.parent.localToGlobal(new Point(disTarget.x,disTarget.y));
+			var ccLocalPoint:Point = disTarget.parent.globalToLocal(point);
+			rect.top = ccLocalPoint.y;
+			rect.left = ccLocalPoint.x;
+			rect.right = cc.width-rect.left-disTarget.width;
+			rect.buttom = cc.height -rect.top-disTarget.height;
 			return rect;
 		}
 		/**

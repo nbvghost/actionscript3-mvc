@@ -48,6 +48,7 @@ package com.asvital.text
 		private var _height:Number = 120;
 		
 		private var _border:Boolean = false;
+		private var contentElement:ContentElement;
 		
 		private var _autoSize:Boolean = false;
 		
@@ -96,7 +97,7 @@ package com.asvital.text
 			textContent.addEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
 			textContent.addEventListener(MouseEvent.MOUSE_DOWN,onDownHandler,true);
 			//textContent.addEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
-			this.addChild(textContent);			
+			this.addChild(textContent);
 			textContent.mask = maskTarget;
 			//trace(getTimer()-t);
 		}
@@ -128,15 +129,9 @@ package com.asvital.text
 		
 		protected function onDownHandler(event:MouseEvent):void
 		{
-			
-			
 			var currentMouseLine:TextLine = event.target as TextLine;
 			
-			
-			
 			if(currentMouseLine){
-				
-				
 				
 				var ateIndex:int = currentMouseLine.getAtomIndexAtPoint(event.stageX,event.stageY);
 				if(ateIndex==-1){
@@ -179,12 +174,10 @@ package com.asvital.text
 					
 					contentElement.elementFormat = element.defaultFormat;
 					createTextLine();
-					//trace("a");
 				}
 			}
 			
 		}
-		private var contentElement:ContentElement;
 		
 		protected function onOverHandler(event:MouseEvent):void
 		{
@@ -409,7 +402,6 @@ package com.asvital.text
 			this.setWidth = _width;
 			
 			
-			//createTextLine();
 			
 		}
 		
@@ -432,7 +424,44 @@ package com.asvital.text
 			return _styleSheet;
 		}
 		
-		
+		public function dispose():void{
+			
+			if(textBlocks){				
+				textBlocks.splice(0,textBlocks.length);
+			}
+			if(textContent){
+				textContent.removeEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
+				textContent.removeEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
+				textContent.removeEventListener(MouseEvent.MOUSE_DOWN,onDownHandler,true);
+				while(textContent.numChildren>0){
+					textContent.removeChildAt(0);
+				}
+				if(textContent.parent){
+					this.removeChild(textContent);
+				}
+			}
+			if(_styleSheet){
+				_styleSheet.clear();
+			}
+			
+			_textFormat= null;
+			textContent = null;
+			textBlocks = null;
+			textBlocks=null;
+			_textFormat=null;
+			_text=null;
+			_styleSheet=null;
+			contentElement = null;
+			setWidth=NaN;
+			setHeight = NaN;
+			_textWidth = NaN;
+			_textHeight =NaN;
+			maskTarget =null;
+			textContent = null;
+			_padding=null;
+			_lineHeight = 0;
+			_attributes=null;
+		}
 		
 		/**
 		 * 在 htmlText/text 设置之前设置 ,不会替换之前的样式，请用 clearn
@@ -470,7 +499,6 @@ package com.asvital.text
 		
 		private function createElements():void{
 			
-			//var t:Number = getTimer();
 			
 			while(textContent.numChildren>0){
 				
@@ -485,11 +513,19 @@ package com.asvital.text
 				
 				var xml:XML;
 				
+				var anyXML:XMLList = XMLList(_text);
 				
-				try{
-					xml = new XML("<textformat>"+_text+"</textformat>");
-				}catch(e:TypeError){
-					throw new TypeError(e.message+" htmlText 必须 是 XML或者只含一个根的元素。");
+				if(anyXML.length()<=1){
+					xml = XML("<textformat>"+_text+"</textformat>");
+					//trace(xml.localName());
+					if(xml.localName()==null){
+						xml = XML("<textformat>"+_text+"</textformat>");
+					}
+					
+				}else{
+					
+					xml = XML("<textformat>"+anyXML.toXMLString()+"</textformat>");
+					
 				}
 				
 				var xmlChild:XMLList= xml.children();
@@ -545,7 +581,7 @@ package com.asvital.text
 				
 				createTextLine();
 			}
-						
+			
 		}
 		
 		
@@ -664,13 +700,13 @@ package com.asvital.text
 				_textHeight=_textHeight-_lineHeight;
 				
 				/*if(_autoSize){
-					if(_wordWrap){
-						_width = setWidth+_padding.left+_padding.right;
-						_height = _textHeight+_padding.buttom;
-					}else{
-						_width = _textWidth+_padding.left+_padding.right;
-						_height = _textHeight+_padding.buttom;
-					}
+				if(_wordWrap){
+				_width = setWidth+_padding.left+_padding.right;
+				_height = _textHeight+_padding.buttom;
+				}else{
+				_width = _textWidth+_padding.left+_padding.right;
+				_height = _textHeight+_padding.buttom;
+				}
 				}*/
 				
 				if(_autoSize){
@@ -688,10 +724,6 @@ package com.asvital.text
 			}
 			
 			
-			
-			
-			
-			//trace("_textWidth",_textWidth,_textHeight);
 			drawBorder();
 		}
 		

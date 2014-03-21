@@ -11,6 +11,7 @@
 	import flash.geom.ColorTransform;
 	
 	import flashx.textLayout.formats.TextAlign;
+	import flashx.textLayout.formats.VerticalAlign;
 	
 	
 	public class IPagingSkin extends UIComponent {
@@ -42,6 +43,7 @@
 			//djy_txt.border =false;
 			//djy_txt.align =TextFormatAlign.RIGHT;
 			djy_txt.horizontalAlign = TextAlign.RIGHT;
+			djy_txt.verticalAlign = VerticalAlign.MIDDLE;
 			this.addChild(djy_txt);
 			
 			txt = new ILabel();
@@ -56,6 +58,7 @@
 			txt.text="转到";
 			//txt.align = TextFormatAlign.LEFT;
 			txt.horizontalAlign = TextAlign.LEFT;
+			txt.verticalAlign = VerticalAlign.MIDDLE;
 			this.addChild(txt);
 			
 			pageindex_txt = new ITextInput();
@@ -64,6 +67,7 @@
 			pageindex_txt.color = djy_txt.color;
 			pageindex_txt.multiline =false;
 			pageindex_txt.maxChars = 5;
+			pageindex_txt.paddingTop =0;
 			//pageindex_txt.x = txt.x+txt.textWidth+10;
 			pageindex_txt.fontSize = djy_txt.fontSize;
 			pageindex_txt.bold = djy_txt.bold;
@@ -72,6 +76,7 @@
 			pageindex_txt.width = 46;
 			pageindex_txt.x =124;
 			pageindex_txt.regExp = RegExpType.INT;
+			pageindex_txt.verticalAlign = VerticalAlign.MIDDLE;
 			//pageindex_txt.align = TextFormatAlign.CENTER;
 			pageindex_txt.textAlign = TextAlign.CENTER;
 			//pageindex_txt.leading = 0;

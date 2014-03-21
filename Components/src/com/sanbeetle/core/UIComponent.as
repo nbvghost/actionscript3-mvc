@@ -12,6 +12,7 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.filters.GlowFilter;
 	import flash.geom.Point;
 	
 	[Event(name="component_create_ui", type="com.sanbeetle.events.ControlEvent")]
@@ -36,6 +37,7 @@
 		private var linkRoot:DisplayObject;
 		
 		
+		private var _glowFilter:Object={};
 		
 		public function UIComponent ()
 		{
@@ -70,17 +72,37 @@
 			this.y = Math.round(yy);
 			
 			
+			_glowFilter.ksks=0;
+			
 			
 			this.scaleX = this.scaleY = 1;
 			
 			
 			this.addEventListener (Event.ENTER_FRAME,onEnterFrameHandler);
 			
-			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);			
+			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);		
 			
 			
 		}
 		
+		[Inspectable(type="Object",defaultValue="enable:false,color:0x000000,alpha:1,blurX:6,blurY:6,strength:2,quality:1,inner:false,knockout:false")]
+		public function get glowFilter():Object
+		{
+			return _glowFilter;
+		}
+
+		public function set glowFilter(value:Object):void
+		{
+			_glowFilter = value;
+			
+			if(_glowFilter.enable==true){
+				filters = [new GlowFilter(_glowFilter.color,_glowFilter.alpha,_glowFilter.blurX,_glowFilter.blurY,_glowFilter.strength,_glowFilter.quality,_glowFilter.inner,_glowFilter.knockout)];
+			}else{
+				this.filters = [];
+			}
+			
+		}
+
 		public function timerRun(event:TimerEvent):void
 		{
 			
