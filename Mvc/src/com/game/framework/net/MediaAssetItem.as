@@ -178,13 +178,7 @@ package com.game.framework.net {
 			
 		}
 		protected function notifyMediator():void{
-			
-			
-			
-			
-			
-			this.getDatainterface.asssetAllComplete(this);
-			
+			this.getDatainterface.asssetAllComplete(this);			
 			
 			if(isINType){
 				onAddStageHandler(null);
@@ -248,15 +242,20 @@ package com.game.framework.net {
 		 * 释放资源并移除 事件
 		 *
 		 */
-		override public function dispose():void {
+		override public function dispose():void
+		{
+			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
+			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);
 			
 			if(mediator){
 				mediator.removeEventListener(DissolveEvent.DISSOLVE,onDissolveHandler);
 				mediator.dispose();
+				mediator=null;
 			}		
 			if(createView){
 				
 				createView.dispose();
+				createView=null;
 			}
 			if(skinLoader){
 				skinLoader.setDatainterface = null;
@@ -269,8 +268,7 @@ package com.game.framework.net {
 			_isLoadSuccess = false;
 			_isinitView = false;
 			
-			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
-			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);
+		
 			
 			mediator=null;
 			skinLoader =null;

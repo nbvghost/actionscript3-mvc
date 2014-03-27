@@ -1,5 +1,6 @@
 package com.game.framework.net {
 	import com.asvital.dev.Log;
+	import com.game.framework.data.CacheData;
 	import com.game.framework.display.UIComponent;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.IAssetsData;
@@ -13,6 +14,8 @@ package com.game.framework.net {
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.UncaughtErrorEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
@@ -45,7 +48,7 @@ package com.game.framework.net {
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);			
-			loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
+			loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 			
 		}
 		private var uid:String = RPCUID.createUID();
@@ -164,32 +167,53 @@ package com.game.framework.net {
 				}catch(e:Error){
 					//Log.out(e.getStackTrace());
 				}			
-				loader.unloadAndStop();
 				loader.unload();
+				loader.unloadAndStop();
 				loader = null;
 			}
-						
-			this.removeChildren();
-			
-			
 			if (this.parent != null) {
 				this.parent.removeChild(this);
 				//Log.out(this.parent,this.parent.contains(this));
 				
-			}
+			}		
+			this.removeChildren();
+			
+			
+			
 			_datainterface = null;
 			_content = null;
 			
+		}
+		private function loadBytes():void{
+			if (_currentDomain) {
+				//loader.load(new URLRequest(url.url), new LoaderContext(false, ApplicationDomain.currentDomain));
+				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));				
+			} else {				
+				//loader.load(new URLRequest(url.url), new LoaderContext(false, new ApplicationDomain()));
+				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false,new ApplicationDomain()));
+			}
+		}
+		private var swfUrlloader:URLLoader;
+		public function initView(notify:INotifyData = null):void {
 			
+			if(CacheData.getSwfByteArray(url)){
+				loadBytes();
+			}else{
+				swfUrlloader = new URLLoader();
+				swfUrlloader.dataFormat = URLLoaderDataFormat.BINARY;
+				swfUrlloader.load(new URLRequest(url.url));
+				swfUrlloader.addEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
+			}
 			
 		}
 		
-		public function initView(notify:INotifyData = null):void {
-			if (_currentDomain) {
-				loader.load(new URLRequest(url.url), new LoaderContext(false, ApplicationDomain.currentDomain));
-			} else {
-				loader.load(new URLRequest(url.url), new LoaderContext(false, new ApplicationDomain()));
-			}
+		protected function onSwfFileCompleteHandler(event:Event):void
+		{
+			swfUrlloader.removeEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
+			CacheData.writeByteArray(url,swfUrlloader.data);
+			loadBytes();
+			
+			swfUrlloader =null;
 			
 		}
 	}

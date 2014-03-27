@@ -447,7 +447,6 @@ package com.asvital.text
 			_textFormat= null;
 			textContent = null;
 			textBlocks = null;
-			textBlocks=null;
 			_textFormat=null;
 			_text=null;
 			_styleSheet=null;
@@ -516,7 +515,7 @@ package com.asvital.text
 				var anyXML:XMLList = XMLList(_text);
 				
 				if(anyXML.length()<=1){
-					xml = XML("<textformat>"+_text+"</textformat>");
+					xml = XML(_text);
 					//trace(xml.localName());
 					if(xml.localName()==null){
 						xml = XML("<textformat>"+_text+"</textformat>");
@@ -738,6 +737,8 @@ package com.asvital.text
 			textBlock.baselineZero = TextBaseline.IDEOGRAPHIC_TOP;
 			textBlock.applyNonLinearFontScaling = true;	
 			textBlock.content=new GroupElement(groupBlock,elementFormat,eventMirror,textRotation);
+			//groupBlock.splice(0,groupBlock.length);
+			//groupBlock =null;
 			return textBlock;
 		}
 		public function set text(value:String):void

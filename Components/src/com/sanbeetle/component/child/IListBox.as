@@ -111,6 +111,9 @@
 				_dataProvider.removeAll();
 			}
 			
+			
+			cleanUp();
+			
 			this.removeEventListener(MouseEvent.MOUSE_UP,onMouseDownHandler);			
 			this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
 			this.removeEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);	
@@ -121,12 +124,12 @@
 		{
 			return _parentList;
 		}
-
+		
 		public function set parentList(value:List):void
 		{
 			_parentList = value;
 		}
-
+		
 		private function onMouseOutHandler(event:MouseEvent):void
 		{
 			var ite:IDisplayItem =  event.target as IDisplayItem;
@@ -319,8 +322,8 @@
 			var itemcellrenderer:ICellRenderer;
 			
 			var item:DisplayItem;			
-						
-			var cache:Object = CacheDispaly.cachePool;
+			
+			//var cache:Object = CacheDispaly.cachePool;
 			
 			for(var o:int=0;o<itemArr.length;o++){
 				
@@ -340,7 +343,7 @@
 						
 					}					
 				}			
-						
+				
 			}
 			itemArr.splice(0,itemArr.length);
 			item =null;
@@ -372,7 +375,7 @@
 			var listdata:ListData;
 			
 			if(_dataProvider!=null){
-								
+				
 				for(var i:int=0;i<_dataProvider.length;i++){
 					var t:Number =getTimer();
 					//Console.out("components"+"components"+"---");
@@ -481,7 +484,7 @@
 			var dite:IDisplayItem;
 			var f:int=0;
 			
-		
+			
 			
 			
 			if(_autoSize==false){

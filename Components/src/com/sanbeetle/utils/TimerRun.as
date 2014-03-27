@@ -56,7 +56,7 @@ package com.sanbeetle.utils
 			if(index!=-1){
 				timerArr.splice(index,1);			
 				
-			}
+			}		
 			if(timerArr.length==0){
 				timer.stop();
 			}

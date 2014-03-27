@@ -15,6 +15,7 @@ package com.game.framework.net {
 		override public function dispose():void
 		{	
 			if(this.contentLoaderInfo.content){
+				trace(this.contentLoaderInfo.content.root);
 				this.contentLoaderInfo.content.dispatchEvent(new Event("view_dispose"));
 			}
 			super.dispose();

@@ -18,10 +18,15 @@
 	 */
 	public class SideExtendButton extends ExtendButton
 	{
+		
 		public function SideExtendButton(up:DisplayObject=null, over:DisplayObject=null, down:DisplayObject=null)
 		{
 			super(up, over, down);
 			
+			btnlabel.paddingBottom = 0;
+			btnlabel.paddingRight=0;
+			btnlabel.paddingTop=0;
+			btnlabel.paddingLeft=0;
 			btnlabel.autoBound = true;
 			//this.btnlabel.border =true;
 			//btnlabel.wordWrap =true;			
@@ -96,9 +101,6 @@
 			//btnlabel.x = 0;
 			textMask.x = 0;
 			var rect:Rectangle= btnlabel.getBounds(textMask);
-			
-			
-			
 			
 		}
 		

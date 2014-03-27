@@ -67,7 +67,7 @@
 			pageindex_txt.color = djy_txt.color;
 			pageindex_txt.multiline =false;
 			pageindex_txt.maxChars = 5;
-			pageindex_txt.paddingTop =0;
+			pageindex_txt.paddingTop =5;
 			//pageindex_txt.x = txt.x+txt.textWidth+10;
 			pageindex_txt.fontSize = djy_txt.fontSize;
 			pageindex_txt.bold = djy_txt.bold;

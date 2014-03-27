@@ -184,11 +184,19 @@
 		
 		private function onViewDisposeHandler(event:Event):void
 		{
+			trace(linkRoot,event.currentTarget,event.currentTarget);
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);		
 			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);	
 			
 			
 			TimerRun.init().removeRun(this);
+			
+			this.removeChildren();
+			
+			if(this.parent){
+				this.parent.removeChild(this);
+			}	
+			
 			this.dispose();
 			
 			component =null;
@@ -198,14 +206,7 @@
 			linkRoot=null;
 			this.graphics.clear();
 			
-			this.removeChildren();
-			if(this.parent){
-				this.parent.removeChild(this);
-			}	
-			
-			
-			
-			//trace("Dispose View Component!");			
+			//trace("Dispose View Component!");	
 		}
 		
 		[Inspectable(defaultValue=1)]
@@ -365,6 +366,7 @@
 			this.removeEventListener (Event.ADDED_TO_STAGE,stageHaveHandler);
 			createUI ();
 			this.dispatchEvent(new ControlEvent(ControlEvent.COMPONENT_CREATE_UI));
+			
 			onStageHandler (event);
 			
 			if(linkRoot){

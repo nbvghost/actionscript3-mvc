@@ -6,6 +6,8 @@
 	import flash.display.MovieClip;
 	import flash.events.TimerEvent;
 	
+	import flashx.textLayout.formats.VerticalAlign;
+	
 	
 	public class ITimeScheduleSkin extends MovieClip implements ITimerRun {
 		
@@ -35,17 +37,19 @@
 			sj_txt =new ILabel();
 			sj_txt.height = 17.75;
 			sj_txt.width = 50;
+			sj_txt.paddingTop = 0;
+			sj_txt.paddingBottom = 0;
 			//sj_txt.autoSize = TextFieldAutoSize.LEFT;
-			sj_txt.text = "--:--:--";
 			sj_txt.fontSize ="11";
 			//sj_txt.leading =0;
 			//sj_txt.height =10;
 			//sj_txt.border =true;
 			//sj_txt.wordWrap =false;
 			sj_txt.multiline = false;
-			sj_txt.multiline =false;
+			sj_txt.verticalAlign = VerticalAlign.MIDDLE;
 			sj_txt.x = 69.2;			
 			sj_txt.y = 0;
+			sj_txt.text = "--:--:--";
 			//sj_txt.border =true;
 			//sj_txt.height = bbl_mc.height;
 			addChild(sj_txt);

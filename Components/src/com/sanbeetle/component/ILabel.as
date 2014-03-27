@@ -82,9 +82,9 @@
 		{
 			super();
 			textField = new FTETextField();
-			textField.addEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
+			/*	textField.addEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
 			textField.addEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
-			textField.addEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);
+			textField.addEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);*/
 			textField.styleSheet =component.getStyle();
 			
 			_textformat  =textField.textFormat.clone();
@@ -115,18 +115,21 @@
 		
 		override public function dispose():void
 		{
+			super.dispose();
+			
 			if(textField){
 				textField.removeEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
 				textField.removeEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
 				textField.removeEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);
-				textField.styleSheet.clear();			
-				textField.dispose();				
+				textField.styleSheet.clear();
+				textField.dispose();
 			}
 			textField =null;
 			padding=null;
 			_textformat=null;
 			fontDescription=null;
-			super.dispose();
+			_currentLinkData=null;
+			
 		}
 		
 		
@@ -614,6 +617,9 @@
 		}
 		override public function onStageHandler(event:Event):void
 		{
+			textField.addEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
+			textField.addEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
+			textField.addEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);
 			
 			stage.addEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
 			

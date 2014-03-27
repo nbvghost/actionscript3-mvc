@@ -82,9 +82,11 @@
 				if(oldButton.select==false){
 					
 					oldButton.buttonLabel.alpha = 0.5;
+					oldButton.buttonLabel.x = 8;
 				}
 			}
 			
+			current.buttonLabel.x = 10;
 			current.x = 0;
 		}
 		
@@ -105,24 +107,40 @@
 		
 		override public function updateUI():void
 		{
-			for each(var btn:ExtendButton in  btnArr){
-				if(btn.parent!=null){
-					
-					btn.parent.removeChild(btn);
-				}
-				btn.removeEventListener(MouseEvent.MOUSE_DOWN,onClickHandle);
-				btn.removeEventListener(MouseEvent.MOUSE_OVER,onOverHandle);	
-				btn.removeEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
-			}
 			
-			btnArr.splice(0,btnArr.length);		
-			if(_data.length==0){
-				return;
-			}
 			
 			var w:Number = 0;
-			var itew:Number = (trueHeight-(vspace*(_data.length-1))) / _data.length;			
+			var itew:Number = (trueHeight-(vspace*(_data.length-1))) / _data.length;
 			
+			var currentBtn:ExtendButton;
+			
+			for (var j:int = 0; j < btnArr.length; j++) 
+			{
+				currentBtn=btnArr[j];
+				currentBtn.width = 33;			
+				currentBtn.height = 116;	
+				
+				currentBtn.y = w;
+				currentBtn.x = tx;
+				
+				
+				w += currentBtn.height-_vspace;
+				
+				if(selectButton(currentBtn)){
+					if(currentBtn.parent){						
+						setChildIndex(currentBtn,numChildren-1);
+					}
+					currentBtn.x = 0;
+					
+					currentBtn.buttonLabel.alpha = 1;
+					currentBtn.buttonLabel.x = 11;
+				}
+				
+				
+				
+			}
+			
+			/*
 			if(_data.length==1){
 				var one:ExtendButton = createMidButton();
 				one.width = 33;
@@ -196,23 +214,7 @@
 				right_a.index = _data.length-1;
 				btnArr.push(right_a);	
 				setButonStyle(right_a);
-			}
-			
-			for (i = 0; i < btnArr.length; i++) 
-			{
-				btn = btnArr[i];
-				if(btn.index == selectIndex){
-					if(btn.parent){						
-						setChildIndex(btn,numChildren-1);
-					}
-					btn.x = 0;
-					btn.buttonLabel.alpha = 0.5;
-				}else{
-					
-				}
-				
-				
-			}
+			}*/
 			
 			this.changeTrueSize(33,(116*btnArr.length)-(_vspace*(btnArr.length-1)));
 			
@@ -220,9 +222,6 @@
 			maskMC.graphics.beginFill(0xff0000);
 			maskMC.graphics.drawRect(-100,-50,33+100,trueHeight+100);
 			maskMC.graphics.endFill();
-			
-			//trace((116*btnArr.length)-(_vspace*(btnArr.length-1)));
-			
 			
 		}
 		
@@ -235,6 +234,7 @@
 			btn.addEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
 			
 			btn.filters = [new GlowFilter(0x000000,1,8,20,0.4)];
+			btn.buttonLabel.x = 8;
 			
 		}
 		
@@ -247,6 +247,8 @@
 				{					
 					extenBtn.x = tx;
 					extenBtn.buttonLabel.alpha = 0.5;
+					extenBtn.buttonLabel.x = 8;
+					
 				}
 			}
 		}
@@ -258,9 +260,19 @@
 			if(extenBtn){
 				extenBtn.x = 0;
 				extenBtn.buttonLabel.alpha = 1;
+				extenBtn.buttonLabel.x = 11;
 			}
 		}		
 		
+		override protected function removeEvent(btn:ExtendButton):void
+		{
+			// TODO Auto Generated method stub
+			super.removeEvent(btn);
+			btn.removeEventListener(MouseEvent.MOUSE_DOWN,onClickHandle);
+			btn.removeEventListener(MouseEvent.MOUSE_OVER,onOverHandle);	
+			btn.removeEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
+		}		
+				
 		override protected function createLeftButton():ExtendButton
 		{
 			

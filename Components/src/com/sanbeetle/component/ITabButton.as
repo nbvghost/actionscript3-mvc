@@ -18,6 +18,7 @@
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import flash.utils.getTimer;
 	
 	/**
 	 * 
@@ -69,13 +70,15 @@
 			
 			list.addEventListener(ControlEvent.CHANGE,onListChangeHandler);
 			
+			
+			data = _data;
 		}
-
+		
 		public function get oldButton():ExtendButton
 		{
 			return _oldButton;
 		}
-
+		
 		[Inspectable(defaultValue=true)]
 		public function get requestSelect():Boolean
 		{
@@ -362,115 +365,122 @@
 			
 			
 			
-			updateUI();
+			//updateUI();
 			
 			
 			
 			
 			
 		}	
-		
+		protected function selectButton(btn:ExtendButton):Boolean{
+			if(requestSelect){
+				if(btn.index==this._selectIndex){
+					if(this._oldButton!=null){
+						_oldButton.select =false;
+					}
+					btn.select=true;
+					
+					_oldButton = btn;
+					
+				}else{
+					btn.select =false;
+				}
+			}else{
+				
+			}
+			return btn.select;
+		}
 		override public function updateUI():void
 		{
 			
 			
-			for each(var btn:ExtendButton in  btnArr){
-				if(btn.parent!=null){
-					btn.removeEventListener(MouseEvent.MOUSE_DOWN,onClickHandle);	
-					btn.parent.removeChild(btn);
-					//btn.dispose();
-				}
-			}
-			
-			btnArr.splice(0,btnArr.length);		
-			if(_data.length==0){
-				return;
-			}
-			
 			var w:Number = 0;
 			var itew:Number = this.trueWidth / _data.length;		
 			
+			var currentBtn:ExtendButton;
 			
-			if(_data.length==1){
-				//var one:ExtendButton = new ExtendButton(new TabButton_mid_up_gray,new TabButton_mid_over_gray,new TabButton_mid_down_gray);
-				var one:ExtendButton = createMidButton();
-				one.width = itew;			
-				one.height = this.trueHeight;	
-				one.label = _data[0];
+			for (var j:int = 0; j < btnArr.length; j++) 
+			{
+				currentBtn=btnArr[j];
+				currentBtn.width = itew;			
+				currentBtn.height = trueHeight;	
 				
-				addChild(one);
-				btnArr.push(one);
-				setButonStyle(one);
-				return;
+				currentBtn.y = 0;
+				currentBtn.x = w;
+				
+				w += currentBtn.width-1;	
+				
+				selectButton(currentBtn);
+				
+			}
+			
+			/*if(_data.length==1){
+			var one:ExtendButton = createMidButton();
+			one.width = itew;			
+			one.height = this.trueHeight;	
+			one.label = _data[0];
+			
+			addChild(one);
+			btnArr.push(one);
+			setButonStyle(one);
+			return;
 			}else{
-				//var left:ExtendButton = new ExtendButton(new TabButton_left_up_gray(),new TabButton_left_over_gray,new TabButton_left_down_gray);		
-				var left:ExtendButton = createLeftButton();
-				left.width = itew;			
-				left.height = this.trueHeight;		
-				left.label = _data[0];	
-				//Log.out("components"+this.trueHeight);
-				addChild(left);			
-				left.index = 0;
-				w = left.width-1;
-				btnArr.push(left);
-				setButonStyle(left);
+			var left:ExtendButton = createLeftButton();
+			left.width = itew;			
+			left.height = this.trueHeight;		
+			left.label = _data[0];	
+			addChild(left);			
+			left.index = 0;
+			w = left.width-1;
+			btnArr.push(left);
+			setButonStyle(left);
 			}	
 			
 			
 			
 			if(data.length==2){
-				
-				//var right:ExtendButton = new ExtendButton(new TabButton_right_up_gray,new TabButton_right_over_gray,new TabButton_right_down_gray);
-				var right:ExtendButton =  createRightButton();
-				
-				right.width = itew;
-				right.height = this.trueHeight;	
-				right.label = _data[1];		
-				
-				addChild(right);
-				right.y = 0;
-				right.x = w;
-				right.index=1;
-				btnArr.push(right);
-				setButonStyle(right);
-				return;
+			
+			var right:ExtendButton =  createRightButton();
+			
+			right.width = itew;
+			right.height = this.trueHeight;	
+			right.label = _data[1];		
+			
+			addChild(right);
+			right.y = 0;
+			right.x = w;
+			right.index=1;
+			btnArr.push(right);
+			setButonStyle(right);
+			return;
 			}
 			for(var i:int=1;i<data.length-1;i++){
-				
-				//var mid:ExtendButton = new ExtendButton(new TabButton_mid_up_gray,new TabButton_mid_over_gray,new TabButton_mid_down_gray);	
-				var mid:ExtendButton = createMidButton();
-				mid.width = itew;
-				mid.height = trueHeight;	
-				mid.label = data[i];
-				
-				mid.index = i;				
-				addChild(mid);
-				mid.x = w;
-				//mid.y =50;
-				w +=  mid.width-1;
-				btnArr.push(mid);
-				setButonStyle(mid);
-				
+			
+			var mid:ExtendButton = createMidButton();
+			mid.width = itew;
+			mid.height = trueHeight;	
+			mid.label = data[i];
+			
+			mid.index = i;				
+			addChild(mid);
+			mid.x = w;
+			w +=  mid.width-1;
+			btnArr.push(mid);
+			setButonStyle(mid);
+			
 			}					
-			//Console.out("components"+"components"+"-----------------------"+_data.length);			
 			if(data.length>0){
-				
-				//var right_a:ExtendButton = new ExtendButton(new TabButton_right_up_gray,new TabButton_right_over_gray,new TabButton_right_down_gray);		
-				var right_a:ExtendButton =  createRightButton();
-				right_a.width = itew;
-				right_a.height = this.trueHeight;		
-				right_a.label = _data[data.length-1];		
-				
-				addChild(right_a);
-				right_a.y = 0;
-				right_a.x = w;
-				right_a.index = data.length-1;
-				btnArr.push(right_a);	
-				setButonStyle(right_a);
-			}
 			
+			var right_a:ExtendButton =  createRightButton();
+			right_a.width = itew;
+			right_a.height = this.trueHeight;		
+			right_a.label = _data[data.length-1];		
 			
-			
+			addChild(right_a);
+			right_a.y = 0;
+			right_a.x = w;
+			right_a.index = data.length-1;
+			}*/
 		}
 		
 		protected function createLeftButton():ExtendButton{
@@ -492,23 +502,7 @@
 			btn.fontSize = _fontSize;			
 			btn.backgroundColor = _backgroundColor;
 			btn.bold =bold;
-			if(requestSelect){
-				if(btn.index==this._selectIndex){
-					if(this._oldButton!=null){
-						_oldButton.select =false;
-					}
-					btn.select=true;	
-					
-					
-					
-					_oldButton = btn;
-					
-				}else{
-					btn.select =false;
-				}
-			}else{
-				
-			}
+			
 			
 			
 		}
@@ -517,20 +511,90 @@
 		{
 			return _data;
 		}
+		protected function removeEvent(btn:ExtendButton):void{
+			
+			btn.removeEventListener(MouseEvent.MOUSE_DOWN,onClickHandle);	
+			if(btn.parent){				
+				btn.parent.removeChild(btn);
+			}			
+		}
 		public function set data(value:Array):void
 		{			
-			if(_data==value){
-				return;
+			
+			var t:Number = getTimer();
+			
+			for each(var btn:ExtendButton in  btnArr){
+				if(btn.parent!=null){
+					
+					removeEvent(btn);					
+					//btn.dispose();
+				}
 			}
+			
+			btnArr.splice(0,btnArr.length);	
+			
 			this._data = value;	
 			
-			for (var i:int = 0; i < _data.length; i++) 
-			{
+			if(_data.length==1){
+				//var one:ExtendButton = new ExtendButton(new TabButton_mid_up_gray,new TabButton_mid_over_gray,new TabButton_mid_down_gray);
+				var one:ExtendButton = createMidButton();
+				one.label = _data[0];
 				
+				addChild(one);
+				btnArr.push(one);
+				setButonStyle(one);
+				return;
+			}else{
+				//var left:ExtendButton = new ExtendButton(new TabButton_left_up_gray(),new TabButton_left_over_gray,new TabButton_left_down_gray);		
+				var left:ExtendButton = createLeftButton();
+				left.label = _data[0];	
+				//Log.out("components"+this.trueHeight);
+				addChild(left);			
+				left.index = 0;
+				btnArr.push(left);
+				setButonStyle(left);
+			}	
+			
+			
+			
+			if(data.length==2){
+				
+				//var right:ExtendButton = new ExtendButton(new TabButton_right_up_gray,new TabButton_right_over_gray,new TabButton_right_down_gray);
+				var right:ExtendButton =  createRightButton();
+				right.label = _data[1];		
+				addChild(right);
+				right.index=1;
+				btnArr.push(right);
+				setButonStyle(right);
+				return;
+			}
+			for(var i:int=1;i<data.length-1;i++){
+				
+				//var mid:ExtendButton = new ExtendButton(new TabButton_mid_up_gray,new TabButton_mid_over_gray,new TabButton_mid_down_gray);	
+				var mid:ExtendButton = createMidButton();
+				mid.label = data[i];
+				mid.index = i;				
+				addChild(mid);
+				btnArr.push(mid);
+				setButonStyle(mid);
+				
+			}					
+			//Console.out("components"+"components"+"-----------------------"+_data.length);			
+			if(data.length>0){
+				
+				//var right_a:ExtendButton = new ExtendButton(new TabButton_right_up_gray,new TabButton_right_over_gray,new TabButton_right_down_gray);		
+				var right_a:ExtendButton =  createRightButton();
+				right_a.label = _data[data.length-1];		
+				
+				addChild(right_a);
+				right_a.index = data.length-1;
+				btnArr.push(right_a);	
+				setButonStyle(right_a);
 			}
 			
-			
 			updateUI();
+			
+			trace(getTimer()-t);
 		}
 		
 	}
