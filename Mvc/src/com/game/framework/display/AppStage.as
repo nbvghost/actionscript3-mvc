@@ -4,7 +4,7 @@ package com.game.framework.display {
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	
-	[Event(name="uncaughtError", type="flash.events.UncaughtErrorEvent")]
+	[Event(name="uncaught_error", type="com.game.framework.events.GlobalErrorEvent")]
 	/**
 	 * 伪装的一个 Stage 对象
 	 *@author sixf

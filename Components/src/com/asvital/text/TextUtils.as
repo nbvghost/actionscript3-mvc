@@ -62,9 +62,11 @@ package com.asvital.text
 			
 		}
 		public static function Style2ElementFormat(elementFormat:ElementFormat,textFormat:Object):ElementFormat{
-		
 			
-			//elementFormat.alpha = textFormat.alpha;
+			if(elementFormat==null){
+				return elementFormat;
+			}
+		
 			elementFormat.color = textFormat.hasOwnProperty("color")?uint(String(textFormat.color).replace("#","0x")):elementFormat.color;
 			elementFormat.fontSize = textFormat.hasOwnProperty("fontSize")?textFormat.fontSize:elementFormat.fontSize;
 			

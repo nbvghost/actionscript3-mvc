@@ -9,6 +9,7 @@ package com.game.framework.views {
 	import com.game.framework.ifaces.IRander;
 	import com.game.framework.ifaces.IResourceManager;
 	import com.game.framework.ifaces.IUIManager;
+	import com.game.framework.net.InitAssetsLoad;
 	
 	import flash.events.Event;
 	import flash.events.TimerEvent;
@@ -91,7 +92,10 @@ package com.game.framework.views {
 				_view.FW::uimanager = uimanager;
 				_view.FW::resourceManager = resourceManager;
 			}else{
-				viewDrawed(null);
+				
+					viewDrawed(null);		
+				
+				
 			}
 			
 		}		

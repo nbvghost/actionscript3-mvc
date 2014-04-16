@@ -139,7 +139,7 @@
 				//Log.out(_currentItem.y,"listbox");
 				_selectedIndex = ite.listData.row;
 				_selectColumn = ite.listData.column;
-				ite.mouseOut();
+				ite.mouseOut(event);
 				event.updateAfterEvent();
 				this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_OUT,ite.data));
 			}
@@ -250,7 +250,7 @@
 				//Log.out(_currentItem.y,"listbox");
 				_selectedIndex = ite.listData.row;
 				_selectColumn = ite.listData.column;
-				ite.mouseOver();
+				ite.mouseOver(event);
 				//event.updateAfterEvent();
 				this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_OVER,ite.data));
 			}
@@ -291,7 +291,7 @@
 				_selectedIndex = _currentItem.listData.row;
 				_selectColumn = _currentItem.listData.column;
 				
-				itemdis.mouseOut();
+				itemdis.mouseOut(event);
 				_currentItem.doAction(DisplayItemAction.SelectAction,selectactionOver,["dds"]);
 				
 			}else{
@@ -311,7 +311,7 @@
 				
 				if(targ!=null){
 					irt.listData=(targ as IDisplayItem).listData;	
-					(targ as IDisplayItem).mouseOut();
+					(targ as IDisplayItem).mouseOut(event);
 					this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_RENDERER_SELECT,irt));
 				}
 				

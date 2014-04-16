@@ -36,6 +36,7 @@ package com.sanbeetle.utils
 				var item:ITimerRun = timerArr[i];
 				if(item){
 					item.timerRun(event);
+					//trace(event);
 				}				
 			}
 		}

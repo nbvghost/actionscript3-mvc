@@ -277,7 +277,7 @@ package com.sanbeetle.component
 			// TODO Auto-generated method stub
 			var combar:DisplayItem = event.currentTarget as DisplayItem;
 			if(combar){
-				combar.mouseOver();
+				combar.mouseOver(event);
 			}
 		}
 		
@@ -285,7 +285,7 @@ package com.sanbeetle.component
 		{
 			var combar:DisplayItem = event.currentTarget as DisplayItem;
 			if(combar){
-				combar.mouseOut();
+				combar.mouseOut(event);
 			}
 			
 		}

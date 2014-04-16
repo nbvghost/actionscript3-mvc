@@ -23,6 +23,8 @@ package com.asvital.dev.data
 		private var _totalMemory:Number=0;
 		private var _totalMemoryNumber:Number = 0;
 		
+		private var _userData:Object = {};
+		
 		private var _capabilities:String="";
 		
 		public function ErrorInfo()
@@ -32,6 +34,16 @@ package com.asvital.dev.data
 			_totalMemory = System.totalMemory;
 			_totalMemoryNumber = System.totalMemoryNumber;			
 			_capabilities=JSON.stringify(Capabilities);			
+		}
+
+		public function get userData():Object
+		{
+			return _userData;
+		}
+
+		public function set userData(value:Object):void
+		{
+			_userData = value;
 		}
 
 		public function get data():Object

@@ -47,19 +47,34 @@ package com.game.framework.net {
 		private var swfFile:ISwfFile;
 		private var isINType:Boolean =false;
 		
+		private var _serial:int=0;
+		
 		/**
 		 * 
 		 * 建设使用 uimanager.addMediaView(new MediaAssetItem(MediaURL.fromUIView(MediaURL.SKIN.HUDViewSkin)));    而不直接进行实例化
 		 * @param url
 		 *
 		 */
-		public function MediaAssetItem(url:IURL, currentDomain:Boolean = true) {
+		public function MediaAssetItem(url:IURL, currentDomain:Boolean = true,_serial:int =0) {
 			super(url, currentDomain);
 			
 			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
-			this.addEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);			
+			this.addEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);	
+			
+			this._serial = _serial;
 			
 		}		
+
+		public function get serial():int
+		{
+			return _serial;
+		}
+
+		public function set serial(value:int):void
+		{
+			_serial = value;
+		}
+
 		protected function onAddStageHandler(event:Event):void
 		{
 			

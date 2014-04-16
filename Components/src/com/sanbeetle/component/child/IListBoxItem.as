@@ -9,6 +9,7 @@
 	
 	import flash.display.CapsStyle;
 	import flash.display.LineScaleMode;
+	import flash.events.MouseEvent;
 	
 	import flashx.textLayout.formats.VerticalAlign;
 	
@@ -66,14 +67,14 @@
 			
 		}
 		
-		override public function mouseOut():void
+		override public function mouseOut(event:MouseEvent):void
 		{
 			
 			bg.gotoAndStop(1);
 			label.color = data.itemColor;
 		}
 		
-		override public function mouseOver():void
+		override public function mouseOver(event:MouseEvent):void
 		{
 			
 			bg.gotoAndStop(2);

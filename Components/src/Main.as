@@ -1,6 +1,7 @@
 ﻿package 
 {
 
+	import com.asvital.dev.data.ErrorInfo;
 	import com.sanbeetle.Component;
 	import com.sanbeetle.component.IHScrollBar;
 	import com.sanbeetle.component.ILabel;
@@ -61,6 +62,7 @@
 			ColorICON;
 			CrossICON;
 			SelectICON;
+			ErrorInfo;
 
 
 			//this.addEventListener (Event.ADDED_TO_STAGE,onStage);

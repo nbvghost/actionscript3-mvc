@@ -184,10 +184,9 @@
 		
 		private function onViewDisposeHandler(event:Event):void
 		{
-			trace(linkRoot,event.currentTarget,event.currentTarget);
+			//trace(linkRoot,event.currentTarget,event.currentTarget);
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);		
-			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);	
-			
+			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);			
 			
 			TimerRun.init().removeRun(this);
 			

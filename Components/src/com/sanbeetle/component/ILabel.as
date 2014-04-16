@@ -548,7 +548,18 @@
 		[Inspectable(defaultValue="default")]
 		public function get text():String
 		{
-			return new XML("<t>"+_text+"</t>").text();
+			var xm:XMLList = XML("<t>"+_text+"</t>").descendants();
+			var st:String = "";
+			for (var j:int = 0; j < xm.length(); j++) 
+			{
+				//trace(xm[j].localName());
+				if(xm[j].localName()==null || xm[j].localName()==undefined){
+					//trace(xm[j]);
+					st=st+xm[j];
+				}
+			}
+			
+			return st;
 		}
 		
 		public function set text(value:String):void

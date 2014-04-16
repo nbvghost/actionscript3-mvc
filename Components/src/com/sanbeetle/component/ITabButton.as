@@ -594,7 +594,6 @@
 			
 			updateUI();
 			
-			trace(getTimer()-t);
 		}
 		
 	}

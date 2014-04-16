@@ -65,6 +65,7 @@ package com.game.framework.views {
 			
 			childName = _contentContainer.contentLoaderInfo.applicationDomain.getQualifiedDefinitionNames();
 			
+			
 			initBefore(skin.contentLoaderInfo);
 			init(MovieClip(skin.contentLoaderInfo.content));
 			this.dispatchEvent(new AssetsEvent(AssetsEvent.COMPLETE_LOAD));

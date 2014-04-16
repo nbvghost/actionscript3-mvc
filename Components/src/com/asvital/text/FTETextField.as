@@ -99,7 +99,6 @@ package com.asvital.text
 			//textContent.addEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
 			this.addChild(textContent);
 			textContent.mask = maskTarget;
-			//trace(getTimer()-t);
 		}
 		
 		public function get scrollText():Boolean
@@ -138,8 +137,6 @@ package com.asvital.text
 					return;
 				}
 				var charIndex:int = ateIndex+currentMouseLine.textBlockBeginIndex;
-				//trace(textLine.getAtomIndexAtPoint(event.stageX,event.stageY),textLine.textBlockBeginIndex);
-				//trace(textLine.textBlock.content.groupElement.getElementAtCharIndex(charIndex));
 				var group:GroupElement = currentMouseLine.textBlock.content as GroupElement;
 				if(group){
 					contentElement = group.getElementAtCharIndex(charIndex);
@@ -199,8 +196,6 @@ package com.asvital.text
 					return;
 				}
 				var charIndex:int = ateIndex+currentMouseLine.textBlockBeginIndex;
-				//trace(textLine.getAtomIndexAtPoint(event.stageX,event.stageY),textLine.textBlockBeginIndex);
-				//trace(textLine.textBlock.content.groupElement.getElementAtCharIndex(charIndex));
 				var group:GroupElement = currentMouseLine.textBlock.content as GroupElement;
 				if(group){
 					contentElement = group.getElementAtCharIndex(charIndex);
@@ -215,7 +210,6 @@ package com.asvital.text
 							
 							contentElement.elementFormat = element.linkHoverFormat;
 							createTextLine();
-							//trace("b");
 							
 							
 							
@@ -516,9 +510,17 @@ package com.asvital.text
 				
 				if(anyXML.length()<=1){
 					xml = XML(_text);
-					//trace(xml.localName());
 					if(xml.localName()==null){
 						xml = XML("<textformat>"+_text+"</textformat>");
+					}else{
+						if(xml.children().length()<=1){
+							var childrenXML:XML = xml[0];
+							if(childrenXML.localName()!=null){
+								
+								xml =XML("<textformat>"+childrenXML.toXMLString()+"</textformat>");
+								
+							}
+						}
 					}
 					
 				}else{
@@ -601,7 +603,8 @@ package com.asvital.text
 				
 			}
 			var childs:Vector.<TextLine> = new Vector.<TextLine>();
-			for (var i:int = 0; i < textBlocks.length; i++) 
+			var len:int = textBlocks.length;
+			for (var i:int = 0; i < len; i++) 
 			{
 				
 				textBlock = textBlocks[i];				
@@ -628,7 +631,6 @@ package com.asvital.text
 							childs.push(nextTextLine);
 						}
 						
-						//trace(nextTextLine.y);						
 						
 						if(_autoSize==false){
 							if(_horizontalAlign==TextAlign.RIGHT){
@@ -637,7 +639,6 @@ package com.asvital.text
 								
 							}else if(_horizontalAlign == TextAlign.CENTER){
 								
-								//nextTextLine.x = _padding.left;
 								nextTextLine.x = _padding.left+(setWidth-nextTextLine.textWidth-_padding.left-_padding.right)/2;
 								
 							}else{
@@ -659,8 +660,6 @@ package com.asvital.text
 							nextTextLine.y = _textHeight;
 						}
 						
-						//nextTextLine.mouseChildren = false;
-						//nextTextLine.mouseEnabled = false;
 						
 						_textHeight=(_textHeight+nextTextLine.textHeight)+_lineHeight;
 						
@@ -668,15 +667,11 @@ package com.asvital.text
 							nextTextLine.y=_textHeight-preTextLine.height;
 						}
 						
-						//this.graphics.clear();
-						//this.graphics.lineStyle(1);		
-						//this.graphics.drawRect(nextTextLine.x,nextTextLine.y,nextTextLine.width,nextTextLine.textHeight);
-						//this.graphics.endFill();
-						
 						preTextLine=nextTextLine;
 					}else{
 						
-						for (var j:int = 0; j < childs.length; j++) 
+						var clent:int = childs.length;
+						for (var j:int = 0; j < clent; j++) 
 						{
 							if(_autoSize==false){
 								
@@ -698,15 +693,6 @@ package com.asvital.text
 				
 				_textHeight=_textHeight-_lineHeight;
 				
-				/*if(_autoSize){
-				if(_wordWrap){
-				_width = setWidth+_padding.left+_padding.right;
-				_height = _textHeight+_padding.buttom;
-				}else{
-				_width = _textWidth+_padding.left+_padding.right;
-				_height = _textHeight+_padding.buttom;
-				}
-				}*/
 				
 				if(_autoSize){
 					if(_wordWrap){
@@ -718,8 +704,7 @@ package com.asvital.text
 					}
 				}
 				
-				
-				textBlock.releaseLineCreationData();
+				//textBlock.releaseLineCreationData();
 			}
 			
 			

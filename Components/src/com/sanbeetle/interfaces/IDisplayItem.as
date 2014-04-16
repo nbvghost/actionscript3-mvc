@@ -1,6 +1,8 @@
 package com.sanbeetle.interfaces
 {
 	import com.sanbeetle.data.ListData;
+	
+	import flash.events.MouseEvent;
 
 	public interface IDisplayItem extends IStage
 	{
@@ -19,11 +21,11 @@ package com.sanbeetle.interfaces
 		function get listData():ListData;
 		function set listData(value:ListData):void;		
 		
-		function setSize(_width:Number,_height:Number,autoLayOut:Boolean=false):void;
+		function setSize(_width:Number,_height:Number,autoLayOut:Boolean=false,index:int=-1):void;		
 		
-		
-		function mouseOut():void;
-		function mouseOver():void;		
+		function mouseOut(event:MouseEvent):void;
+		function mouseOver(event:MouseEvent):void;		
+		function mouseDown(event:MouseEvent):void;
 		
 		function doAction(actionType:String,actionComplete:Function,actionPar:Array=null):void;
 		

@@ -29,6 +29,8 @@
     <classEntry path="com.sanbeetle.core.TextImage"/>
     <classEntry path="com.sanbeetle.component.IAccordion"/>
     <classEntry path="com.sanbeetle.renderer.AccordionItemBarRenderer"/>
+    <classEntry path="com.sanbeetle.component.IGridBox"/>
+    <classEntry path="com.sanbeetle.renderer.GridBoxItemRenderer"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

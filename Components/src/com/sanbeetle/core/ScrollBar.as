@@ -153,6 +153,7 @@
 		public function setHScrollBarPosition(values:Number):void{
 			
 		}
+		
 		public function getScrollBarPosition():Number{
 			throw new Error(" 重写  getScrollBosition  ");
 			return 0;
@@ -183,6 +184,8 @@
 			
 			createTarget();
 		}		
+		
+		
 		
 		protected function onMouseDownHandler(event:MouseEvent):void
 		{

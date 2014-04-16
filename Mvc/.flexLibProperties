@@ -2,6 +2,7 @@
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="com.game.framework.data.CacheData"/>
+    <classEntry path="com.game.framework.events.GlobalErrorEvent"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

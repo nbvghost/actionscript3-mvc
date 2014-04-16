@@ -11,13 +11,19 @@ package com.game.framework.data
 		private static var dialogView:IURL;
 		private static var _delayTime:uint = 100;
 		private static var _dialogContentBoundName:String="dialogBound";
-		private static var _MaxRecodePage:int = 2;
+		private static var _MaxRecodePage:int = 10;
 		private static var _InvalidDialogAlert:Boolean = false;
+		private static var _MaxLoadCount:int = 5;
 		public function ConfigData()
 		{
 			
 		}
 		
+		public static function get MaxLoadCount():int
+		{
+			return _MaxLoadCount;
+		}
+
 		public static function getInvalidDialogAlert():Boolean
 		{
 			return _InvalidDialogAlert;

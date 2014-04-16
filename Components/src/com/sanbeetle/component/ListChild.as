@@ -257,10 +257,7 @@
 						
 						var rect:LocationRect = Utils.getBoundRect(childList);
 						
-						//trace(teee.y+childList.height);
-						//childList.y = component.contentContainer.height;
 						
-						trace(rect);
 						
 						if(rect.buttom<0){							
 							
@@ -286,7 +283,6 @@
 								list.removeEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);
 								list.removeEventListener(ControlEvent.ITEM_SELECT,onChildListItemSelectHandler);
 								list.removeEventListener(MouseEvent.ROLL_OUT,onListRollOutHandler);
-								//list.removeFromStage();
 							}
 						}
 						

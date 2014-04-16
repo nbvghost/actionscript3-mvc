@@ -24,6 +24,7 @@ package com.game.framework.net {
 		private var _content:Object;
 		private var assetsData:IAssetsData;
 		private var _url:IURL;
+		private var _loadCount:int = 0;
 		
 		/**
 		 *
@@ -47,6 +48,13 @@ package com.game.framework.net {
 			}
 			
 		}
+		
+		public function get loadCount():int
+		{
+			// TODO Auto Generated method stub
+			return _loadCount;
+		}
+		
 		
 		private var uid:String = RPCUID.createUID();
 		
@@ -112,6 +120,8 @@ package com.game.framework.net {
 		
 		public function initView(notify:INotifyData = null):void {
 			urlloaer.load(new URLRequest(url.url));
+			
+			_loadCount++;
 		}
 		
 		public function get content():Object {

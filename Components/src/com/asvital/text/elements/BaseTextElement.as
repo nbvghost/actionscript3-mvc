@@ -8,7 +8,6 @@ package com.asvital.text.elements
 	import flash.text.engine.ElementFormat;
 	import flash.text.engine.TextBaseline;
 	import flash.text.engine.TextElement;
-	import flash.utils.getTimer;
 	
 	public class BaseTextElement extends BaseElement
 	{
@@ -31,6 +30,8 @@ package com.asvital.text.elements
 			
 			textElement = new TextElement();
 			
+			
+			
 			this._text = _text;
 			this.styleSheet = _styleSheet;
 			
@@ -42,21 +43,19 @@ package com.asvital.text.elements
 			//_defaultFormat.alignmentBaseline = TextBaseline.ROMAN;
 			_defaultFormat.baselineShift=0;
 			
-			
-			
+						
 			var lent:int = attribs.length();
 			_attributes = {};
 			
 			
 			for (var k:* in attribs) 
 			{
-				_attributes[QName(attribs[k].name()).localName]= attribs[k];
+				var qName:QName = QName(attribs[k].name());				
+				//trace(qName.localName,attribs[k]);
+				_attributes[qName.localName]= attribs[k];
 			}
 			
-			
-			
-			
-			
+						
 			getDefaultStyel(_attributes);
 			
 			if(_styleSheet){
@@ -72,16 +71,12 @@ package com.asvital.text.elements
 					
 					if(claseName!=null && claseName!="" && claseName!="undefined"){
 						
-						
-						
 						tf=TextUtils.GetTextFormFix(claseName,_styleSheet);					
 						_defaultFormat = TextUtils.Style2ElementFormat(_defaultFormat,tf);
 						
-						_defaultFormat = TextUtils.Style2ElementFormat(_defaultFormat,attributes);
+						_defaultFormat = TextUtils.Style2ElementFormat(_defaultFormat,_attributes);
 						
-						_linkHoverFormat = _defaultFormat.clone();
-						
-						
+						_linkHoverFormat = _defaultFormat.clone();						
 						_linkActiveFormat = _defaultFormat.clone();
 						
 						
@@ -107,7 +102,7 @@ package com.asvital.text.elements
 						tf=TextUtils.GetTextFormFix(claseName,_styleSheet);					
 						_defaultFormat = TextUtils.Style2ElementFormat(_defaultFormat,tf);
 						
-						_defaultFormat = TextUtils.Style2ElementFormat(_defaultFormat,attributes);
+						_defaultFormat = TextUtils.Style2ElementFormat(_defaultFormat,_attributes);
 						
 						_linkHoverFormat = _defaultFormat.clone();
 						_linkActiveFormat = _defaultFormat.clone();						
@@ -123,9 +118,27 @@ package com.asvital.text.elements
 				
 			}	
 			
-			
-			//trace("base text elements",getTimer()-t);
-			
+			if(lent>0){
+				_defaultFormat = TextUtils.Style2ElementFormat(_defaultFormat,_attributes);
+				
+				
+				_linkHoverFormat = TextUtils.Style2ElementFormat(_linkHoverFormat,_attributes);
+				
+				_linkActiveFormat = TextUtils.Style2ElementFormat(_linkActiveFormat,_attributes);
+				
+				
+				
+				
+				/*_linkHoverFormat = _defaultFormat.clone();
+				_linkActiveFormat = _defaultFormat.clone();						
+				
+				tf=TextUtils.GetTextFormFix(claseName,_styleSheet,"hover");					
+				_linkHoverFormat = TextUtils.Style2ElementFormat(_linkHoverFormat,tf);
+				
+				tf=TextUtils.GetTextFormFix(claseName,_styleSheet,"active");			
+				_linkActiveFormat = TextUtils.Style2ElementFormat(_linkActiveFormat,tf);*/
+			}
+		
 			
 		}	
 		
@@ -141,7 +154,6 @@ package com.asvital.text.elements
 		
 		override public function getContentElement(eventDispather:EventDispatcher=null):ContentElement
 		{
-			//var t:Number = getTimer();
 			textElement.text = _text;
 			textElement.elementFormat = defaultFormat;
 			if(eventDispather!=null){
@@ -149,7 +161,6 @@ package com.asvital.text.elements
 				textElement.eventMirror = eventDispather;
 			}
 			textElement.userData = this;
-			//trace("getContentElement",getTimer()-t);
 			return textElement;
 		}
 		
@@ -190,13 +201,11 @@ package com.asvital.text.elements
 		
 		public function set defaultFormat(value:ElementFormat):void
 		{
-			//var t:Number = getTimer();
 			_defaultFormat = value;
 			if(defaultFormat){
 				textElement.elementFormat = defaultFormat;
 			}
 			
-			//trace("set defaultFormat",getTimer()-t);
 		}
 		
 	}

@@ -2,6 +2,7 @@ package com.game.framework.net {
 	import com.asvital.dev.Log;
 	import com.game.framework.data.CacheData;
 	import com.game.framework.display.UIComponent;
+	import com.game.framework.events.GlobalErrorEvent;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.IAssetsData;
 	import com.game.framework.ifaces.INotifyData;
@@ -32,7 +33,8 @@ package com.game.framework.net {
 		protected var _isinitView:Boolean = false;
 		private var loader:Loader;
 		private var _currentDomain:Boolean = true;
-		
+		private var _loadCount:int = 0;
+		private var swfUrlloader:URLLoader;
 		/**
 		 *
 		 * @param url 加载的IURL
@@ -48,7 +50,13 @@ package com.game.framework.net {
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);			
-			loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
+			//loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
+			loader.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
+			
+			
+			swfUrlloader = new URLLoader();
+			swfUrlloader.dataFormat = URLLoaderDataFormat.BINARY;
+			
 			
 		}
 		private var uid:String = RPCUID.createUID();
@@ -57,6 +65,12 @@ package com.game.framework.net {
 		{
 			// TODO Auto Generated method stub
 			return uid;
+		}
+		
+		public function get loadCount():int
+		{
+			// TODO Auto Generated method stub
+			return _loadCount;
 		}
 		
 		
@@ -85,10 +99,7 @@ package com.game.framework.net {
 		
 		private function uncaughtErrorHandler(event:UncaughtErrorEvent):void {
 			
-			appStage.dispatchEvent(event.clone());
-			
-			
-			
+			appStage.dispatchEvent(new GlobalErrorEvent(GlobalErrorEvent.UNCAUGHT_ERROR,event));
 		}
 		
 		/**
@@ -157,10 +168,11 @@ package com.game.framework.net {
 			
 			if(loader){
 				
-				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteHandler);
+				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 				loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
-				loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgressHandler);
-				loader.contentLoaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
+				loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgressHandler);			
+				//loader.contentLoaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
+				loader.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 				
 				try{
 					loader.close();
@@ -178,10 +190,10 @@ package com.game.framework.net {
 			}		
 			this.removeChildren();
 			
-			
-			
 			_datainterface = null;
 			_content = null;
+			
+			swfUrlloader =null;
 			
 		}
 		private function loadBytes():void{
@@ -193,18 +205,16 @@ package com.game.framework.net {
 				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false,new ApplicationDomain()));
 			}
 		}
-		private var swfUrlloader:URLLoader;
+		
 		public function initView(notify:INotifyData = null):void {
 			
-			if(CacheData.getSwfByteArray(url)){
+			if(CacheData.getSwfByteArray(url)!=null){
 				loadBytes();
 			}else{
-				swfUrlloader = new URLLoader();
-				swfUrlloader.dataFormat = URLLoaderDataFormat.BINARY;
-				swfUrlloader.load(new URLRequest(url.url));
 				swfUrlloader.addEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
+				swfUrlloader.load(new URLRequest(url.url));
 			}
-			
+			_loadCount++;
 		}
 		
 		protected function onSwfFileCompleteHandler(event:Event):void
@@ -213,7 +223,7 @@ package com.game.framework.net {
 			CacheData.writeByteArray(url,swfUrlloader.data);
 			loadBytes();
 			
-			swfUrlloader =null;
+			
 			
 		}
 	}

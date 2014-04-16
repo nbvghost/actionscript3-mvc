@@ -17,6 +17,7 @@ package com.game.framework.data
 			
 		}
 		public static function writeByteArray(iurl:IURL,ba:ByteArray):void{
+			
 			modelObj[iurl.url] = ba;
 		}
 		public static function getSwfByteArray(iurl:IURL):ByteArray{

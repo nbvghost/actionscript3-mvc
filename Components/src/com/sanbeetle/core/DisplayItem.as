@@ -5,6 +5,7 @@ package com.sanbeetle.core
 	import com.sanbeetle.interfaces.IFListItem;
 	
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	
 	public class DisplayItem extends Sprite implements IDisplayItem
 	{
@@ -24,6 +25,13 @@ package com.sanbeetle.core
 			super();
 			
 		}		
+		
+		public function mouseDown(event:MouseEvent):void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
 		public function get haveStage():Boolean
 		{
 			// TODO Auto Generated method stub
@@ -79,7 +87,7 @@ package com.sanbeetle.core
 		{
 			_listData = value;
 		}
-		public function setSize(width:Number, height:Number,autoLayOut:Boolean=false):void
+		public function setSize(width:Number, height:Number,autoLayOut:Boolean=false,index:int=-1):void
 		{
 			if(ow!=width || oh!=height || autoLayout!=autoLayOut){
 				ow = width;
@@ -105,11 +113,11 @@ package com.sanbeetle.core
 		protected function createUI():void{
 			
 		}
-		public function mouseOut():void
+		public function mouseOut(event:MouseEvent):void
 		{
 		}
 		
-		public function mouseOver():void
+		public function mouseOver(event:MouseEvent):void
 		{
 		}
 		

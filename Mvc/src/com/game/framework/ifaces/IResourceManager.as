@@ -52,6 +52,8 @@ package com.game.framework.ifaces {
 		 */
 		function initFlag(assetData:IAssetItem):void;
 		
+		function initUIAssets(assetData:IAssetItem):void;
+		
 		/**
 		 * 得到国旗资源
 		 * @param flagID 见 g_country.xml 定义
@@ -107,6 +109,14 @@ package com.game.framework.ifaces {
 		function getIcon(name:String,sizeEnum:int = 20,align:String=RegistrationPoint.CENTER,outBroder:Boolean=false):DisplayObject;
 		
 		function getSmiliseNames():Vector.<String>;
+		
+		/**
+		 *  通过类名获取 uiassets.fla 资源 
+		 * @param className
+		 * @return 
+		 * 
+		 */
+		function getUIAsset(className:String):DisplayObject;
 		
 		/**
 		 *  得到表情，如： smilies_chj

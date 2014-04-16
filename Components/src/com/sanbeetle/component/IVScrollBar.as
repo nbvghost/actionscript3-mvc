@@ -7,6 +7,7 @@
 	import com.sanbeetle.skin.IVScrollBarSkin_buttom;
 	import com.sanbeetle.skin.IVScrollBarSkin_top;
 	
+	import flash.display.Stage;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	
@@ -27,6 +28,13 @@
 			bg = new IVScrollBarSkin_bg  ;
 			
 		}
+		
+		override public function get width():Number
+		{
+			return 15;
+		}
+		
+		
 		override public function createUI ():void
 		{
 			super.createUI ();
@@ -77,6 +85,7 @@
 			}
 		}
 		
+		private var linkStage:Stage;
 		
 		override protected function onBarDown (event:MouseEvent):void
 		{
@@ -85,8 +94,9 @@
 			
 			if (stage)
 			{
-				stage.addEventListener (MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
-				stage.addEventListener (MouseEvent.MOUSE_UP,onMouseUphadnelr);
+				linkStage = stage;
+				linkStage.addEventListener (MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
+				linkStage.addEventListener (MouseEvent.MOUSE_UP,onMouseUphadnelr);
 			}
 		}
 		
@@ -106,8 +116,8 @@
 		
 		protected function onMouseUphadnelr (event:MouseEvent):void
 		{
-			stage.removeEventListener (MouseEvent.MOUSE_UP,onMouseUphadnelr);
-			stage.removeEventListener (MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
+			linkStage.removeEventListener (MouseEvent.MOUSE_UP,onMouseUphadnelr);
+			linkStage.removeEventListener (MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
 			s_bar.stopDrag ();
 		}
 		

@@ -79,6 +79,8 @@ package com.game.framework.ifaces {
 		 */
 		function dispose():void;
 		
+		function get loadCount():int;
+		
 		/**
 		 * 资源加载完成
 		 * @param event

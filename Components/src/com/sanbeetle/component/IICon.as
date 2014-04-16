@@ -112,7 +112,6 @@
 		{
 			return new IICon_HZ1;
 		}
-
 		[Deprecated(message="这个不在使用了")]
 		public function get index():int
 		{
@@ -148,6 +147,7 @@
 		}
 		
 		public function set icons(value:Array):void{
+			w=0;
 			if(_icons){
 				_icons.splice(0,_icons.length);
 			}
@@ -165,6 +165,7 @@
 				push(_icons[i]);
 			}
 			drawIcon();
+			
 		}
 		private var w:int=0;
 		private var maxH:int = 0;
@@ -197,7 +198,7 @@
 				
 				var mxx:Matrix = new Matrix();
 				mxx.translate(xx,0);
-				bitMapData.draw(cut,mxx);		
+				bitMapData.draw(cut,mxx);
 				xx=xx+cut.width+2;
 				cut.dispose();
 				cut =null;
@@ -222,7 +223,7 @@
 		
 		override public function get width():Number
 		{
-			// TODO Auto Generated method stub
+			
 			return bitMap.width;
 		}
 		

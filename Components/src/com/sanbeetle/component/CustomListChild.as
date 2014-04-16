@@ -177,7 +177,6 @@
 		protected function onMouseUphandler(event:MouseEvent):void
 		{
 			
-			//trace(event.target,event.currentTarget);
 			if(!Utils.isChild(this,event.target as DisplayObject) && !Utils.isChild(targetDisplay,event.target as DisplayObject) && !Utils.isChild(list,event.target as DisplayObject)){
 				
 				if (linkStage) 

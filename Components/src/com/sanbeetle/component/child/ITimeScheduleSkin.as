@@ -37,8 +37,10 @@
 			sj_txt =new ILabel();
 			sj_txt.height = 17.75;
 			sj_txt.width = 50;
-			sj_txt.paddingTop = 0;
+			sj_txt.paddingTop = 3;
 			sj_txt.paddingBottom = 0;
+			sj_txt.paddingLeft=0;
+			sj_txt.paddingRight = 0;
 			//sj_txt.autoSize = TextFieldAutoSize.LEFT;
 			sj_txt.fontSize ="11";
 			//sj_txt.leading =0;
