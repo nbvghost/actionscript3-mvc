@@ -181,7 +181,7 @@
 			updateUI();
 		}
 		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			if(_iconLabels==null){
 				return;

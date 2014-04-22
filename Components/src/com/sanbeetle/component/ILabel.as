@@ -81,7 +81,8 @@
 		public function ILabel()
 		{
 			super();
-			textField = new FTETextField();
+			textField = new FTETextField(this);
+			//textField.mouseChildren = false;
 			/*	textField.addEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
 			textField.addEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
 			textField.addEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);*/
@@ -91,6 +92,9 @@
 			fontDescription = _textformat.fontDescription.clone();
 			textField.text = _text;
 			textField.wordWrap = _multiline;
+			
+			//this.mouseChildren = false;
+			
 		}
 		
 		protected function onLinkMouseOverHandler(event:FTEOperationEvent):void
@@ -110,12 +114,16 @@
 					this.dispatchEvent(new ControlEvent(ControlEvent.TEXT_LINK_OVER,_currentLinkData));					
 				}
 			}
-			
+			drawBorder(textField.width,textField.height);
 		}
 		
 		override public function dispose():void
 		{
 			super.dispose();
+			
+			if(stage){				
+				stage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
+			}
 			
 			if(textField){
 				textField.removeEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
@@ -150,6 +158,8 @@
 					this.dispatchEvent(new ControlEvent(ControlEvent.TEXT_LINK_OUT,_currentLinkData));					
 				}
 			}
+			
+			drawBorder(textField.width,textField.height);
 		}
 		
 		protected function onLinkMouseDownHandler(event:FTEOperationEvent):void
@@ -587,7 +597,7 @@
 		}
 		
 		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			
 			
@@ -624,6 +634,8 @@
 			}
 			
 			drawBorder(textField.width,textField.height);
+			
+			//trace(this.width,this.height);
 			
 		}
 		override public function onStageHandler(event:Event):void

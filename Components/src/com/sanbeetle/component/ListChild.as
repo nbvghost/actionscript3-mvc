@@ -165,7 +165,7 @@
 			this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_RENDERER_SELECT,event.data));
 			
 		}
-		public function upDisplayList():void{
+		override public function upDisplayList():void{
 			
 			this.updateUI();
 			/*if(parnList){
@@ -379,7 +379,7 @@
 			onChidlListItemChangeHandler(event);
 		}		
 		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			//Log.out("b");
 			this.cleanUp();

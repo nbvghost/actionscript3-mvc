@@ -14,8 +14,8 @@ package com.sanbeetle.renderer
 		private var ilabel:ILabel = new ILabel();
 		
 		public function AccordionItemBarRenderer(){
-		
-			
+			this.addChild(ilabel);
+			ilabel.x = 0;
 		}
 		
 		
@@ -35,13 +35,13 @@ package com.sanbeetle.renderer
 		{
 			ilabel.verticalAlign = VerticalAlign.MIDDLE;
 			ilabel.text = this.data.label;
-			this.addChild(ilabel);
+			
 		}
 		
 		override protected function drawLayout(cw:Number, ch:Number, autoLayOut:Boolean=false):void
 		{
-			ilabel.width = cw;
-			ilabel.height = ch;
+			ilabel.width = cw-0;
+			ilabel.height = 24;
 			
 			/*shape.graphics.clear();
 			shape.graphics.beginFill(0xffffff*Math.random());			
@@ -49,9 +49,6 @@ package com.sanbeetle.renderer
 			shape.graphics.endFill();*/
 			
 		}
-		
-	
-		
 		
 	}
 }

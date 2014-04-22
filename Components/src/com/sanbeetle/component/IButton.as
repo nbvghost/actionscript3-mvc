@@ -98,7 +98,7 @@
 			btnlabel.autoBound = true;
 			btnlabel.textAlign = TextAlign.CENTER;
 			
-			//btnlabel.paddingTop = 0;
+			btnlabel.paddingTop = 0;
 			//btnlabel.paddingLeft = 0;
 			
 			//btnlabel.textAlign = TextAlign.CENTER;
@@ -351,7 +351,7 @@
 			//textMask.alpha = 0.5;				
 		}
 		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{	
 			
 			//btnlabel.width = trueWidth;

@@ -90,7 +90,11 @@
 		{
 			return _glowFilter;
 		}
-
+		
+		public function upDisplayList():void
+		{
+			
+		}		
 		public function set glowFilter(value:Object):void
 		{
 			_glowFilter = value;
@@ -341,7 +345,7 @@
 		 * 更新 
 		 * 
 		 */
-		public function updateUI ():void
+		protected function updateUI ():void
 		{
 			
 		}

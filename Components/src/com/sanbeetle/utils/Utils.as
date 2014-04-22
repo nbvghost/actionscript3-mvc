@@ -111,6 +111,47 @@ package com.sanbeetle.utils
 			return rect;
 		}
 		/**
+		 * 
+		 * @param typeClass 要检测的类型
+		 * @param parent child 最高级项
+		 * @param child 子类
+		 * @return 并返回这个  typeClass 类型对象的引用 
+		 * 
+		 */
+		public static function isChildTypeof(typeClass:Class,parent:DisplayObject,child:DisplayObject):DisplayObject{
+			var ischild:Boolean =false;	
+			var target:DisplayObject = child;
+			while(target!=null){
+				
+				if(parent!=target){
+					if(target is typeClass){
+						ischild= true;
+						break;
+					}else{
+						ischild= false;
+						target = target.parent;
+					}
+				}else{
+					if(target is typeClass){
+						ischild = true;
+						break;
+					}else{
+						ischild = false;
+						target = target.parent;
+					}
+					
+					
+				}
+				
+			}
+			if(ischild){
+				
+				return target;
+			}else{
+				return null;
+			}
+		}
+		/**
 		 *  child 是否是 obj 的子对象
 		 * @param obj 
 		 * @param child

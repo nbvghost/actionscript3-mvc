@@ -87,7 +87,7 @@
 			// TODO Auto-generated method stub
 			this.dispatchEvent(new ControlEvent(event.type,event.data));
 		}
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			
 			//sideBoxSkin.listWidth = _boxWidth;

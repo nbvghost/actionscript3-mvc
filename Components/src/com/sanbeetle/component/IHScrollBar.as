@@ -201,13 +201,21 @@
 			upBarPoition();
 		}
 		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			bg.width = this.trueWidth;			
 			s_right.x = this.trueWidth-s_right.width;
 			
-			this.drawBorder(this.trueWidth,this.trueHeight);
-		}		
+			this.drawBorder(this.trueWidth,this.height);
+		}	
+		
+		override public function get height():Number
+		{
+			// TODO Auto Generated method stub
+			return 15;
+		}
+		
+		
 		override public function setSize(w:Number, h:Number):void
 		{			
 			super.setSize(w, h);

@@ -2,6 +2,7 @@ package com.game.framework.net {
 	import com.asvital.dev.Log;
 	import com.game.framework.data.CacheData;
 	import com.game.framework.display.UIComponent;
+	import com.game.framework.error.OperateError;
 	import com.game.framework.events.GlobalErrorEvent;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.IAssetsData;
@@ -35,6 +36,8 @@ package com.game.framework.net {
 		private var _currentDomain:Boolean = true;
 		private var _loadCount:int = 0;
 		private var swfUrlloader:URLLoader;
+		
+		private var _isLoading:Boolean = false;
 		/**
 		 *
 		 * @param url 加载的IURL
@@ -49,18 +52,32 @@ package com.game.framework.net {
 			loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
-			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);			
-			//loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
+			//loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);
+			
+			loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 			loader.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 			
-			
+						
 			swfUrlloader = new URLLoader();
-			swfUrlloader.dataFormat = URLLoaderDataFormat.BINARY;
-			
+			swfUrlloader.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
+			swfUrlloader.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);
+			swfUrlloader.dataFormat = URLLoaderDataFormat.BINARY;			
 			
 		}
 		private var uid:String = RPCUID.createUID();
 		
+		
+
+		public function get isLoading():Boolean
+		{
+			return _isLoading;
+		}
+
+		public function set isLoading(value:Boolean):void
+		{
+			_isLoading = value;
+		}
+
 		public function get UID():String
 		{
 			// TODO Auto Generated method stub
@@ -92,13 +109,14 @@ package com.game.framework.net {
 		}
 		
 		private function onCompleteHandlerPrivate(event:Event):void {
+			_isLoading = false;
 			this._content = loader.content;
 			this.onCompleteHandler(event);
 			
 		}
 		
 		private function uncaughtErrorHandler(event:UncaughtErrorEvent):void {
-			
+			_isLoading =false;
 			appStage.dispatchEvent(new GlobalErrorEvent(GlobalErrorEvent.UNCAUGHT_ERROR,event));
 		}
 		
@@ -156,8 +174,10 @@ package com.game.framework.net {
 		public function onIOErrorHandler(event:IOErrorEvent):void {
 			// TODO Auto Generated method stub
 			//Log.out(event);
-			Log.out("加载出错："+event);
+			Log.info("加载出错："+event);
+			_isLoading =false;
 			_datainterface.netError(event, this);
+			throw new OperateError("加载出错："+event,this);
 		}
 		
 		public function onProgressHandler(event:ProgressEvent):void {
@@ -171,7 +191,7 @@ package com.game.framework.net {
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 				loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
 				loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgressHandler);			
-				//loader.contentLoaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
+				loader.contentLoaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 				loader.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 				
 				try{
@@ -211,8 +231,11 @@ package com.game.framework.net {
 			if(CacheData.getSwfByteArray(url)!=null){
 				loadBytes();
 			}else{
-				swfUrlloader.addEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
-				swfUrlloader.load(new URLRequest(url.url));
+				if(!_isLoading){
+					_isLoading = true;
+					swfUrlloader.addEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
+					swfUrlloader.load(new URLRequest(url.url));
+				}				
 			}
 			_loadCount++;
 		}

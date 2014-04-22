@@ -390,7 +390,14 @@
 			}
 			return btn.select;
 		}
-		override public function updateUI():void
+		
+		override public function upDisplayList():void
+		{
+			updateUI();
+		}
+		
+		
+		override protected function updateUI():void
 		{
 			
 			
@@ -543,6 +550,7 @@
 				addChild(one);
 				btnArr.push(one);
 				setButonStyle(one);
+				updateUI();
 				return;
 			}else{
 				//var left:ExtendButton = new ExtendButton(new TabButton_left_up_gray(),new TabButton_left_over_gray,new TabButton_left_down_gray);		
@@ -566,6 +574,7 @@
 				right.index=1;
 				btnArr.push(right);
 				setButonStyle(right);
+				updateUI();
 				return;
 			}
 			for(var i:int=1;i<data.length-1;i++){

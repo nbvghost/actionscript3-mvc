@@ -29,7 +29,7 @@
 		protected var _source:Object="target";
 		
 		
-		
+		private var point:Point=new Point();
 		
 		private var _contentHeight:Number=0;
 		private var _contentWidth:Number=0;
@@ -257,7 +257,7 @@
 			}
 		}
 		
-		public function upDisplayList():void{
+		override public function upDisplayList():void{
 			disopose();	
 			createTarget();
 			updateUI();		
@@ -298,6 +298,8 @@
 		}
 		private function onTargetDownHandler(event:MouseEvent):void
 		{
+			onTargetTimerUPHadnler(null);
+			
 			//target.mouseChildren = false;
 			timer = getTimer();
 			point.x = target.mouseX;
@@ -312,7 +314,6 @@
 			if(stage){
 				stage.addEventListener(MouseEvent.MOUSE_UP,onTargetTimerUPHadnler);
 			}
-			
 			
 		}
 		
@@ -368,6 +369,7 @@
 				
 				
 			}	
+			
 			this.addEventListener(Event.ENTER_FRAME,onTweenEFHandler);
 			
 			this.removeEventListener(Event.ENTER_FRAME,onTimerHandelr);
@@ -389,6 +391,7 @@
 		
 		private function onTimerHandelr(event:Event):void
 		{		
+			
 			if(Math.abs(target.mouseX-point.x)>1 || Math.abs(target.mouseY-point.y)>1){
 				
 				moveXY(point.x,point.y);
@@ -396,7 +399,7 @@
 			}
 			
 		}
-		private var point:Point=new Point();
+		
 		private function onMouseWheelHandler(event:MouseEvent):void
 		{
 			//Console.out("components"+event.delta);

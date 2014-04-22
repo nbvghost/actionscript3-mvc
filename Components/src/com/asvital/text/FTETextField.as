@@ -6,6 +6,8 @@ package com.asvital.text
 	import com.asvital.text.event.FTEOperationEvent;
 	import com.sanbeetle.Component;
 	
+	import flash.display.DisplayObjectContainer;
+	import flash.display.InteractiveObject;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.EventDispatcher;
@@ -44,8 +46,8 @@ package com.asvital.text
 		
 		private var _styleSheet:StyleSheet=new StyleSheet();
 		
-		private var _width:Number = 120;
-		private var _height:Number = 120;
+		private var _width:Number = 1;
+		private var _height:Number = 1;
 		
 		private var _border:Boolean = false;
 		private var contentElement:ContentElement;
@@ -53,8 +55,8 @@ package com.asvital.text
 		private var _autoSize:Boolean = false;
 		
 		
-		private var setWidth:Number=120;
-		private var setHeight:Number = 120;
+		private var setWidth:Number=1;
+		private var setHeight:Number = 1;
 		
 		
 		private var _textWidth:Number = 0;
@@ -65,7 +67,7 @@ package com.asvital.text
 		
 		private var maskTarget:Shape;
 		
-		private var textContent:Sprite;
+		//private var textContent:Sprite;
 		
 		
 		private var _verticalAlign:String="top";
@@ -81,10 +83,15 @@ package com.asvital.text
 		
 		private var _attributes:Object={};
 		
+		private var mouseDisplayObjectContainer:DisplayObjectContainer;
 		
-		public function FTETextField()
+		
+		public function FTETextField(mouseDisplayObjectContainer:DisplayObjectContainer)
 		{
 			super();
+			
+			this.mouseDisplayObjectContainer = mouseDisplayObjectContainer;
+			
 			//var t:Number = getTimer();			
 			_textFormat= Component.component.elementFormat.clone();			
 			_textFormat.fontDescription =Component.component.fontDescription.clone();		
@@ -92,13 +99,17 @@ package com.asvital.text
 			maskTarget= new Shape();			
 			drawBorder();
 			//maskTarget.cacheAsBitmap = true;			
-			this.addChild(maskTarget);			
-			textContent = new Sprite();
-			textContent.addEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
-			textContent.addEventListener(MouseEvent.MOUSE_DOWN,onDownHandler,true);
+			mouseDisplayObjectContainer.addChild(maskTarget);			
+			//textContent = new Sprite();
+			
+			mouseDisplayObjectContainer.addEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
+			mouseDisplayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN,onDownHandler,true);			
+			
 			//textContent.addEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
-			this.addChild(textContent);
-			textContent.mask = maskTarget;
+			//this.addChild(textContent);
+			//textContent.mask = maskTarget;
+			
+			this.mask = maskTarget;
 		}
 		
 		public function get scrollText():Boolean
@@ -157,20 +168,21 @@ package com.asvital.text
 		protected function onOutHandler(event:MouseEvent):void
 		{
 			
-			textContent.addEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
-			textContent.removeEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
+			mouseDisplayObjectContainer.addEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
+			mouseDisplayObjectContainer.removeEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
 			
 			if(contentElement){
 				
 				var element:BaseTextElement = contentElement.userData;
-				if(element){
-					_attributes = element.attributes;
-					this.dispatchEvent(new FTEOperationEvent(FTEOperationEvent.LinkMouseOut));
-				}
+				
 				if(element && element.defaultFormat){
 					
 					contentElement.elementFormat = element.defaultFormat;
 					createTextLine();
+				}
+				if(element){
+					_attributes = element.attributes;
+					this.dispatchEvent(new FTEOperationEvent(FTEOperationEvent.LinkMouseOut));
 				}
 			}
 			
@@ -180,8 +192,8 @@ package com.asvital.text
 		{
 			
 			
-			textContent.removeEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
-			textContent.addEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
+			mouseDisplayObjectContainer.removeEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
+			mouseDisplayObjectContainer.addEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
 			
 			var currentMouseLine:TextLine = event.target as TextLine;
 			
@@ -202,17 +214,16 @@ package com.asvital.text
 					if(contentElement){
 						
 						var element:BaseTextElement = contentElement.userData;
-						if(element){
-							_attributes = element.attributes;
-							this.dispatchEvent(new FTEOperationEvent(FTEOperationEvent.LinkMouseOver));
-						}
+						
 						if(element && element.linkHoverFormat){
 							
 							contentElement.elementFormat = element.linkHoverFormat;
 							createTextLine();
 							
-							
-							
+						}
+						if(element){
+							_attributes = element.attributes;
+							this.dispatchEvent(new FTEOperationEvent(FTEOperationEvent.LinkMouseOver));
 						}
 					}
 					
@@ -409,6 +420,7 @@ package com.asvital.text
 			
 			maskTarget.graphics.clear();
 			maskTarget.graphics.beginFill(0xff0000,0.5);
+			//maskTarget.graphics.drawRect(-1,-1,_width+2,_height+2);
 			maskTarget.graphics.drawRect(0,0,_width,_height);
 			maskTarget.graphics.endFill();
 		}
@@ -423,23 +435,24 @@ package com.asvital.text
 			if(textBlocks){				
 				textBlocks.splice(0,textBlocks.length);
 			}
-			if(textContent){
-				textContent.removeEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
-				textContent.removeEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
-				textContent.removeEventListener(MouseEvent.MOUSE_DOWN,onDownHandler,true);
-				while(textContent.numChildren>0){
-					textContent.removeChildAt(0);
+			if(mouseDisplayObjectContainer){
+				mouseDisplayObjectContainer.removeEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
+				mouseDisplayObjectContainer.removeEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
+				mouseDisplayObjectContainer.removeEventListener(MouseEvent.MOUSE_DOWN,onDownHandler,true);
+				
+				while(this.numChildren>0){
+					this.removeChildAt(0);
 				}
-				if(textContent.parent){
+				/*if(textContent.parent){
 					this.removeChild(textContent);
-				}
+				}*/
 			}
 			if(_styleSheet){
 				_styleSheet.clear();
 			}
 			
 			_textFormat= null;
-			textContent = null;
+			mouseDisplayObjectContainer=null;
 			textBlocks = null;
 			_textFormat=null;
 			_text=null;
@@ -450,7 +463,7 @@ package com.asvital.text
 			_textWidth = NaN;
 			_textHeight =NaN;
 			maskTarget =null;
-			textContent = null;
+			//textContent = null;
 			_padding=null;
 			_lineHeight = 0;
 			_attributes=null;
@@ -493,9 +506,9 @@ package com.asvital.text
 		private function createElements():void{
 			
 			
-			while(textContent.numChildren>0){
+			while(this.numChildren>0){
 				
-				textContent.removeChildAt(0);
+				this.removeChildAt(0);
 				
 			}
 			
@@ -538,7 +551,7 @@ package com.asvital.text
 					
 					switch(xmlItem.localName()){
 						case "a":
-							groupBlock.push(new LinkElement(xmlItem.children(),xmlItem.attributes(),_textFormat,_styleSheet).getContentElement(textContent));
+							groupBlock.push(new LinkElement(xmlItem.children(),xmlItem.attributes(),_textFormat,_styleSheet).getContentElement(mouseDisplayObjectContainer));
 							break;
 						case "span":
 							groupBlock.push(new SpanElement(xmlItem.children(),xmlItem.attributes(),_textFormat,_styleSheet).getContentElement());
@@ -585,6 +598,7 @@ package com.asvital.text
 			
 		}
 		
+	
 		
 		private function createTextLine():void{
 			
@@ -597,13 +611,16 @@ package com.asvital.text
 			_textWidth = 0;
 			_textHeight = _padding.top;
 			
-			while(textContent.numChildren>0){
+			while(this.numChildren>0){
 				
-				textContent.removeChildAt(0);
+				this.removeChildAt(0);
 				
 			}
 			var childs:Vector.<TextLine> = new Vector.<TextLine>();
 			var len:int = textBlocks.length;
+			
+			
+			
 			for (var i:int = 0; i < len; i++) 
 			{
 				
@@ -612,8 +629,12 @@ package com.asvital.text
 				preTextLine=null;
 				
 				while(true){
-					if(_wordWrap){						
-						nextTextLine = textBlock.createTextLine(preTextLine,setWidth-_padding.left-_padding.right);
+					if(_wordWrap){			
+						var w:Number = (setWidth-_padding.left-_padding.right);
+						if(w<0){
+							w=0;
+						}
+						nextTextLine = textBlock.createTextLine(preTextLine,w);
 					}else{
 						nextTextLine = textBlock.createTextLine(preTextLine);
 					}
@@ -622,7 +643,7 @@ package com.asvital.text
 						
 						_textWidth = Math.max(_textWidth,nextTextLine.textWidth);		
 						
-						textContent.addChild(nextTextLine);
+						this.addChild(nextTextLine);
 						
 						nextTextLine.y = _textHeight;
 						

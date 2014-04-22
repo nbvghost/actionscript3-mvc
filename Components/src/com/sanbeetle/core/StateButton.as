@@ -148,7 +148,7 @@ package com.sanbeetle.core
 			}
 			updateUI();
 		}
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			if(currentState==null){
 				currentState = this._upState;

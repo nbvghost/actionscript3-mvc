@@ -913,7 +913,7 @@ package com.sanbeetle.core
 		}
 		
 		
-		override public function updateUI():void		
+		override protected function updateUI():void		
 		{
 			textField.defaultTextFormat = textFormat;
 			

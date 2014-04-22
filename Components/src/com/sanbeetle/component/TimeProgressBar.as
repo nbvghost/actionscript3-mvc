@@ -9,6 +9,7 @@
 	import flash.events.MouseEvent;
 	
 	import flashx.textLayout.formats.TextAlign;
+	import flashx.textLayout.formats.VerticalAlign;
 	
 	[Event(name="close", type="com.sanbeetle.events.ControlEvent")]
 	
@@ -33,6 +34,7 @@
 			m_btn = new TimeProgressBarBtn();
 			
 			m_txt =new ILabel();	
+			m_txt.verticalAlign = VerticalAlign.MIDDLE;
 			//m_txt.align = "left";
 			m_txt.horizontalAlign = TextAlign.LEFT;
 			//m_txt.autoSize = "none";
@@ -46,6 +48,7 @@
 			//m_txt.leading = 0;	
 			
 			m_pro =new ILabel();	
+			m_pro.verticalAlign = VerticalAlign.MIDDLE;
 			//m_pro.align = TextFormatAlign.RIGHT;
 			m_pro.horizontalAlign = TextAlign.RIGHT;
 			//m_pro.autoSize = "none";			
@@ -127,12 +130,12 @@
 			m_btn.addEventListener(MouseEvent.CLICK,onClickHandler);
 			
 			m_txt.x = 233.2;
-			m_txt.y = -1.7;
+			m_txt.y = 0;
 			m_txt.width = 62;
 			m_txt.height = 18;
 			
 			m_pro.x = 290;
-			m_pro.y = -1.7;
+			m_pro.y =0;
 			m_pro.width = 39.05;
 			m_pro.height = 18;
 			
@@ -153,7 +156,7 @@
 			m_btn.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseUpHandler);
 		}
 		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			m_btn.gotoAndStop( _btnFrame );
 			

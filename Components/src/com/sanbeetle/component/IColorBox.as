@@ -136,7 +136,7 @@ package com.sanbeetle.component
 			updateUI();
 		}
 		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			
 			var matixg:Matrix =new Matrix()//矩阵  

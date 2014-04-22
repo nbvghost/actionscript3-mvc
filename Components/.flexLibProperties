@@ -31,6 +31,9 @@
     <classEntry path="com.sanbeetle.renderer.AccordionItemBarRenderer"/>
     <classEntry path="com.sanbeetle.component.IGridBox"/>
     <classEntry path="com.sanbeetle.renderer.GridBoxItemRenderer"/>
+    <classEntry path="com.sanbeetle.renderer.AccordionListContentRenderer"/>
+    <classEntry path="com.sanbeetle.component.IUILoader"/>
+    <classEntry path="com.sanbeetle.data.ScaleType"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

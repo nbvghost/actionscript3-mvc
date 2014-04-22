@@ -49,13 +49,13 @@
 			
 		}
 		
-		override public function updateUI ():void
+		override protected function updateUI ():void
 		{
 			
 			bg.height = this.trueHeight;
 			s_right.y = this.trueHeight - s_right.height;
 			
-			this.drawBorder (this.trueWidth,this.trueHeight);
+			this.drawBorder (this.width,this.trueHeight);
 			
 		}
 		
@@ -164,7 +164,9 @@
 		 */
 		override public function setVScrollBarPosition (values:Number):void
 		{
-			vscrollbarposition = values;
+			
+			vscrollbarposition = Math.abs(values);
+			
 			if (vscrollbarposition<0)
 			{
 				vscrollbarposition = 0;
@@ -172,6 +174,9 @@
 			if (vscrollbarposition>1)
 			{
 				vscrollbarposition = 1;
+			}
+			if(isNaN(vscrollbarposition)){
+				vscrollbarposition = 0;
 			}
 			if (target)
 			{
@@ -181,9 +186,21 @@
 				target.y=Math.round(this.y+(-(target.height-maskmc.height)*vscrollbarposition));
 				
 				//s_bar.y = ((trueHeight-s_right.height-s_bar.height)*value)+s_left.height-s_right.height;
-				s_bar.y = (s_left.height+((trueHeight-s_bar.height-s_right.height-s_left.height)*vscrollbarposition))+s_left.height-s_right.height;
+				
+				
+				
+				s_bar.y = s_left.height + (trueHeight - s_right.height - s_bar.height - s_left.height)*vscrollbarposition;
+				
+				//trace(s_bar.y,(trueHeight - s_right.height - s_bar.height - s_left.height),vscrollbarposition);
+				
+				drawMask();
+				//s_bar.y = (s_left.height+((trueHeight-s_bar.height-s_right.height-s_left.height)*vscrollbarposition))+s_left.height-s_right.height;
+				
+				//s_bar.y = (s_left.height+((trueHeight-s_bar.height-s_right.height-s_left.height)*vscrollbarposition));
+				
 				
 			}
+			
 		}
 		
 		override public function getScrollBarPosition():Number
@@ -213,7 +230,7 @@
 		{
 			
 			maskmc.graphics.clear ();
-			maskmc.graphics.beginFill (0xff0000,1);
+			maskmc.graphics.beginFill (0xff0000,0);
 			maskmc.graphics.drawRect (0,0,-(target.width+Math.abs(scrollBeginPoint.x)),trueHeight+scrollBeginPoint.y);
 			maskmc.graphics.endFill ();
 			
@@ -222,7 +239,7 @@
 			rectBackGround.graphics.drawRect(0,0,target.width,trueHeight);
 			rectBackGround.graphics.endFill();
 			
-			target.y = this.y;
+			//target.y = this.y;
 			
 			var kk:Number = maskmc.height / target.height;
 			maskmc.x = 0;
@@ -242,6 +259,8 @@
 				}
 				disopose ();
 				kk = 1;
+				
+				
 			}
 			else
 			{
@@ -284,7 +303,7 @@
 		}
 		override protected function chackTargetXY ():void
 		{
-			if (target.y >= this.y)
+			if (target.y >= this.y || !visible)
 			{
 				target.y = this.y;
 			}
@@ -292,6 +311,12 @@
 			{
 				target.y = this.y+(-(target.height-maskmc.height));
 			}
+			
+			//trace(target.y);
+			if(this.visible==false){
+				target.y = this.y;
+			}
+			
 		}
 		override protected function onLeftHandler (event:MouseEvent):void
 		{

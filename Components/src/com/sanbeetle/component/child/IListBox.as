@@ -432,7 +432,7 @@
 			
 			
 		}
-		public function upDisplayList():void{
+		override public function upDisplayList():void{
 			
 			renderData();
 			updateUI();
@@ -537,7 +537,7 @@
 			
 			
 		}		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			reDrawLayout();
 		}

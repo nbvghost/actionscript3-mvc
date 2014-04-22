@@ -88,6 +88,8 @@
 		
 		private var _listDropNotHide:Boolean = false;
 		
+		private var fontLoaded:Boolean = false;
+		
 		public function Component ()
 		{
 			
@@ -186,14 +188,21 @@
 			//stage.dispatchEvent(new ControlEvent(ControlEvent.FONT_LOADED));
 			
 			
-			
+			fontLoaded = true;
 			
 			
 			Log.info("Component 加载字体完成！");
 			
 			if(contentContainer==null){
-				throw new Error("没有设置 组件容器！");
+				Log.info("没有设置 组件容器！");
+				
+				return;
 			}
+				
+			disFontLoadedEvent();
+		}
+		
+		private function disFontLoadedEvent():void{
 			if(contentContainer.mine){
 				if(contentContainer.mine is Stage){
 					contentContainer.mine.dispatchEvent(new ControlEvent(ControlEvent.FONT_LOADED));
@@ -202,11 +211,8 @@
 						contentContainer.mine.dispatchEvent(new ControlEvent(ControlEvent.FONT_LOADED));
 					}
 				}
-			}			
-			
+			}		
 		}
-		
-		
 		
 		public function getMinListWidth():int
 		{
@@ -365,7 +371,10 @@
 			
 			
 			if(cc==null){
-				cc = new BoundDisplayObject(_contentContainer);			
+				cc = new BoundDisplayObject(_contentContainer);		
+				if(fontLoaded){
+					disFontLoadedEvent();
+				}
 			}else{
 				Log.info("已经对 Component.component.contentContainer 设置了。");
 				cc.upData();

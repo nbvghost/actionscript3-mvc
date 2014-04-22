@@ -1,27 +1,31 @@
 package com.sanbeetle.component
 {
-	import com.sanbeetle.component.child.IListBox;
-	import com.sanbeetle.core.DisplayItem;
-	import com.sanbeetle.core.ScrollBar;
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.DataProvider;
 	import com.sanbeetle.data.ListChildItem;
+	import com.sanbeetle.data.ListData;
+	import com.sanbeetle.events.ControlEvent;
+	import com.sanbeetle.interfaces.IDisplayItem;
 	import com.sanbeetle.interfaces.IFListItem;
 	import com.sanbeetle.renderer.AccordionItemBarRenderer;
-	import com.sanbeetle.renderer.SimpleListCellRenderer;
+	import com.sanbeetle.renderer.AccordionListContentRenderer;
+	import com.sanbeetle.utils.Utils;
 	
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
 	[Event(name="change_size", type="com.sanbeetle.events.ControlEvent")]	
+	[Event(name="select", type="com.sanbeetle.events.ControlEvent")]
 	public class IAccordion extends UIComponent
 	{
 		
 		private var _dataProvider:DataProvider = new DataProvider;
 		
 		
-		private var itemS:Vector.<DisplayItem> = new Vector.<DisplayItem>();
+		private var itemS:Array = [];
 		
-		private var _listChild:IListBox;
+		//private var _listChild:IListBox;
 		
 		private var _selectIndex:int = -1;
 		
@@ -34,45 +38,142 @@ package com.sanbeetle.component
 		
 		private var contentHeight:Number = 0;
 		
-		private var _scrollBar:ScrollBar;
-		private var _scrollBarName:String = "";
+		//private var _scrollBar:ScrollBar;
+		
+		
+		private var content:Sprite;
+		private var ivscr:IVScrollBar;
+		
+		private var contentArr:Array = [];
+		
+		private var currentContent:DisplayObject;
+		
+		
+		
+		private var _accordionItemBarCell:Function;
+		private var _accordionListCell:Function;
+		
+		private var _isFloatScrollBar:Boolean = false;
+		
+		
+		
+		
 		
 		public function IAccordion()
 		{
 			super();
 			
-			_listChild= new IListBox();			
-			_accordionItemBarRenderer = AccordionItemBarRenderer;
-			_accordionListRenderer = SimpleListCellRenderer;
+			content=new Sprite();
+			content.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
+			content.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
+			content.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);
+			this.addChild(content);
 			
+			ivscr = new IVScrollBar();
+			
+			//ivscr.visible = false;
+			this.addChild(ivscr);
+			
+			
+			ivscr.source = content;
+						
+			//_listChild= new IListBox();			
+			_accordionItemBarRenderer = AccordionItemBarRenderer;
+			//_accordionListRenderer = SimpleListCellRenderer;
+			_accordionListRenderer = AccordionListContentRenderer;
 			
 		}
-		[Inspectable(defaultValue="")]
-		public function get scrollBarName():String
+		
+		override public function dispose():void
 		{
-			if(_scrollBar){
-				return _scrollBar.name;
-			}else{
-				return "";
+			_accordionItemBarCell=null;
+			_accordionListCell=null;
+			_dataProvider.removeAll();
+			contentArr.splice(0,contentArr.length);
+			
+			itemS.splice(0,itemS.length);
+			
+			content.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
+			content.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
+			content.removeEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);
+			ivscr.dispose();
+			
+			super.dispose();
+		}
+		
+		
+		/**
+		 *  当前选择的内容项
+		 * @return 
+		 * 
+		 */		
+		public function get selectedContent():DisplayObject
+		{
+			return currentContent;
+		}
+		/**
+		 * 滚动条是否浮动上层 
+		 * @return 
+		 * 
+		 */		
+		public function get isFloatScrollBar():Boolean
+		{
+			return _isFloatScrollBar;
+		}
+		
+		public function set isFloatScrollBar(value:Boolean):void
+		{
+			_isFloatScrollBar = value;
+			
+			ivscr.isFloat = _isFloatScrollBar;
+			
+		}
+		/**
+		 * 项内容的回调函数,参数两个，（当前项的显示对象，索引号） 
+		 * @param value
+		 * 
+		 */		
+		public function set accordionListCell(value:Function):void
+		{
+			_accordionListCell = value;
+		}
+		/**
+		 * 根项的回调函数,参数两个，（当前项的显示对象，索引号）  
+		 * @param value
+		 * 
+		 */		
+		public function set accordionItemBarCell(value:Function):void
+		{
+			_accordionItemBarCell = value;
+		}
+		/**
+		 * 滚动条 
+		 * @return 
+		 * 
+		 */		
+		public function get VScrollBar():IVScrollBar{
+			
+			return ivscr;
+		}
+		
+		private function callCotentFunc(item:DisplayObject,index:int):void{
+			
+			
+			if(_accordionListCell!=null){
+				if(_accordionListCell.length>=2){
+					_accordionListCell.apply(this,[item,index]);
+				}else{
+					throw new Error("accordionItemBarCell 参数个数不对，应该 有 2 个，当前"+_accordionListCell.length+"个！");
+				}
 			}
 			
+			
 		}
-		
-		public function set scrollBarName(value:String):void
-		{
-			if(_scrollBarName!=value){
-				_scrollBarName = value;
-				if(value!="" && value!=null){
-					
-					if(this.parent){
-						_scrollBar = this.parent.getChildByName(value) as ScrollBar;
-						updateUI();
-					}				
-				}
-				//trace("_scrollBar",_scrollBar);
-			}			
-		}
-		
+		/**
+		 * 根项的上下间距 
+		 * @return 
+		 * 
+		 */		
 		[Inspectable(defaultValue="0")]
 		public function get vspace():int
 		{
@@ -90,14 +191,13 @@ package com.sanbeetle.component
 		{
 			_vspace = value;
 			
-			updateUI();
+			
 		}
-		
-		public function get listChild():IListBox
-		{
-			return _listChild;
-		}
-		
+		/**
+		 * 内容项的 渲染器 
+		 * @return 
+		 * 
+		 */		
 		public function get accordionListRenderer():Class
 		{
 			return _accordionListRenderer;
@@ -107,11 +207,19 @@ package com.sanbeetle.component
 		{
 			_accordionListRenderer = value;
 			
-			_listChild.ItemCellRender = _accordionListRenderer;
+			//_listChild.ItemCellRender = _accordionListRenderer;
 		}
-		
+		private function getContentWidth():Number{
+			
+			if(_isFloatScrollBar){
+				return trueWidth;
+			}else{
+				return trueWidth-ivscr.width;
+			}
+			
+		}
 		/**
-		 * 默认 AccordionItemBarRenderer 
+		 * 默认 AccordionItemBarRenderer 根项渲染器
 		 */
 		public function get accordionItemBarRenderer():Class
 		{
@@ -125,54 +233,124 @@ package com.sanbeetle.component
 		{
 			_accordionItemBarRenderer = value;
 		}
-		
+		private function getContentByIndex(index:int):DisplayObject{
+			if(currentContent){
+				if(currentContent.parent){
+					currentContent.parent.removeChild(currentContent);
+				}
+				//IDisplayItem(currentContent).listData = null;
+			}
+			
+			
+			if(contentArr[index]==null){
+				contentArr[index] = new _accordionListRenderer();
+				
+				
+				var item:ListChildItem;				
+				if(_dataProvider.length-1>=index){
+					item = this._dataProvider.getItemAt(index) as ListChildItem;
+				}
+				
+				var listdatap:ListData = new ListData(item,index,0,null);
+				var listdata:ListData = new ListData(item,index,0,listdatap);
+				
+				IDisplayItem(contentArr[index]).listData=listdata;
+			}
+			
+			return contentArr[index];
+		}
 		[Inspectable(defaultValue="-1")]
 		public function get selectIndex():int
 		{
 			return _selectIndex;
 		}
+		
 		[Inspectable(defaultValue="-1")]
 		public function set selectIndex(value:int):void
 		{
+			if(_selectIndex==value){
+				return;
+			}
 			_selectIndex = value;
-			
 			if(_selectIndex<0){
 				_selectIndex=-1
 			}else{
-				this.addChild(_listChild);
-				var itemdata:ListChildItem = (_dataProvider.getItemAt(_selectIndex) as ListChildItem);
-				
-				if(itemdata){					
-					_listChild.dataProvider = itemdata.childs;
-					_listChild.y = itemS[_selectIndex].y+itemS[_selectIndex].contentHeight
-					itemS[_selectIndex].selected = true;
-				}else{
-					_selectIndex=-1
+				if(_selectIndex<=itemS.length-1){
+					currentContent  = this.getContentByIndex(_selectIndex);
+					content.addChild(currentContent);
+					var itemdata:ListChildItem = (_dataProvider.getItemAt(_selectIndex) as ListChildItem);
+					
+					if(itemdata){			
+						
+						IDisplayItem(currentContent).data = itemdata;
+						
+						IDisplayItem(currentContent).setSize(getContentWidth(),trueHeight,false,_selectIndex);
+						
+						currentContent.y = itemS[_selectIndex].y+itemS[_selectIndex].contentHeight;
+						
+						callCotentFunc(currentContent,_selectIndex);
+						
+						
+						
+						itemS[_selectIndex].selected = true;
+					}else{
+						_selectIndex=-1
+					}				
 				}
 				
 				
 			}
-			updateUI();
+			this.updateUI();
+		}
+		private function getParBar(index:int):IDisplayItem{
+			
+			if(itemS[index]==null){
+				itemS[index] = new _accordionItemBarRenderer();
+				
+				var item:ListChildItem;
+				
+				if(_dataProvider.length-1>=index){
+					item=this._dataProvider.getItemAt(index) as ListChildItem;
+				}
+				
+				var listdata:ListData = new ListData(item,index,0,null);
+				
+				IDisplayItem(itemS[index]).listData=listdata;
+				
+			}
+			return itemS[index];
+		}
+		[Deprecated(message="无效")]
+		override public function upDisplayList():void
+		{
+			
+			
+			
 		}
 		
 		protected function onMouseDownHandler(event:MouseEvent):void
 		{
 			//trace(event.target,event.currentTarget);
-			var combar:DisplayItem = event.currentTarget as DisplayItem;
+			var combar:IDisplayItem =Utils.isChildTypeof(_accordionItemBarRenderer,this.content,event.target as DisplayObject) as IDisplayItem;
+			
 			var itemCidlData:ListChildItem;
 			if(combar){
 				
 				itemCidlData = _dataProvider.getItemAt(uint(combar.name)) as ListChildItem;
-				if(itemCidlData){					
-					this.addChild(_listChild);
-					_listChild.dataProvider = itemCidlData.childs;
-					
-					_listChild.y = combar.y+combar.contentHeight
+				if(itemCidlData){	
 					
 					_selectIndex = uint(combar.name);
 					
-					//trace(uint(combar.name));
-					//listChild.x = 50;
+					currentContent  = this.getContentByIndex(_selectIndex);
+					
+					content.addChild(currentContent);
+					
+					IDisplayItem(currentContent).data = itemCidlData;
+					IDisplayItem(currentContent).setSize(getContentWidth(),trueHeight,false,_selectIndex);
+					
+					//currentContent.y = combar.y+combar.contentHeight;
+					
+					callCotentFunc(currentContent,_selectIndex);
 					
 					for (var i:int = 0; i < itemS.length; i++) 
 					{
@@ -188,12 +366,14 @@ package com.sanbeetle.component
 							
 						}else{
 							combar.selected= false;
+							//_selectIndex = -1;
 						}
 					}
 					
-					updateUI();
+					this.dispatchEvent(new ControlEvent(ControlEvent.SELECT,this.currentContent));
 					
 				}
+				updateUI();
 			}
 			
 		}
@@ -210,44 +390,34 @@ package com.sanbeetle.component
 			this.graphics.drawRect(0,0,trueWidth,trueHeight);
 			this.graphics.endFill();
 			
-			if(_scrollBar==null){
-				this.scrollBarName ="";
-				this.scrollBarName = this._scrollBarName;
-			}
-			
 		}
-		
+		/**
+		 * 必须是 ListChildItem 对象， 
+		 * @param value
+		 * 
+		 */		
 		public function set dataProvider(value:DataProvider):void
 		{
 			
-			if(_dataProvider!=value){
-				
-				
+			if(_dataProvider!=value){				
 				
 				_dataProvider = value;
+				currentContent  = this.getContentByIndex(0);
 				
-				for (var j:int = 0; j < itemS.length; j++) 
-				{
-					itemS[j].removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
-					itemS[j].removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
-					itemS[j].removeEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);
-					if(itemS[j].parent){
-						
-						itemS[j].parent.removeChild(itemS[j]);
-						itemS[j].setStage(false);
-					}
+				while(content.numChildren>0){
+					content.removeChildAt(0);
 				}
 				
-				
-				itemS.splice(0,itemS.length);
+				//itemS.splice(0,itemS.length);
 				
 				
 				for (var i:int = 0; i < _dataProvider.length; i++) 
 				{
 					
-					var item:DisplayItem = new _accordionItemBarRenderer();
-					item.data = (_dataProvider.getItemAt(i) as IFListItem);
-					item.setSize(trueWidth,trueHeight);
+					var item:DisplayObject =getParBar(i) as DisplayObject;
+					
+					IDisplayItem(item).data = (_dataProvider.getItemAt(i) as IFListItem);
+					IDisplayItem(item).setSize(getContentWidth(),trueHeight);
 					
 					//item.backgroundType = ComboBox.background_default;
 					//item.width = trueWidth;
@@ -255,27 +425,35 @@ package com.sanbeetle.component
 					//item.defaultLabel = (_dataProvider.getItemAt(i) as IFListItem).label;
 					item.name = i+"";
 					
-					item.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
+					/*item.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
 					item.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
-					item.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);
+					item.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);*/
 					
 					//item.displayItem = 
 					
-					item.y = item.contentHeight*i;
-					this.addChild(item);
-					item.setStage(true);
+					//item.y = IDisplayItem(item).contentHeight*i;
+					content.addChild(item);
+					IDisplayItem(item).setStage(true);
 					
-					itemS.push(item);
-				}				
+					if(_accordionItemBarCell!=null){
+						if(_accordionItemBarCell.length>=2){
+							_accordionItemBarCell.apply(this,[item,i]);
+						}else{
+							throw new Error("accordionItemBarCell 参数个数不对，应该 有 2 个，当前"+_accordionItemBarCell.length+"个！");
+						}
+					}
+					
+				}	
 				
 				updateUI();
 			}
+			
 		}
 		
 		protected function onMouseOverHandler(event:MouseEvent):void
 		{
-			// TODO Auto-generated method stub
-			var combar:DisplayItem = event.currentTarget as DisplayItem;
+			
+			var combar:IDisplayItem =Utils.isChildTypeof(IDisplayItem,this.content,event.target as DisplayObject) as IDisplayItem;
 			if(combar){
 				combar.mouseOver(event);
 			}
@@ -283,34 +461,56 @@ package com.sanbeetle.component
 		
 		protected function onMouseOutHandler(event:MouseEvent):void
 		{
-			var combar:DisplayItem = event.currentTarget as DisplayItem;
+			var combar:IDisplayItem =Utils.isChildTypeof(IDisplayItem,this.content,event.target as DisplayObject) as IDisplayItem;
 			if(combar){
 				combar.mouseOut(event);
 			}
 			
 		}
 		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			
-			_listChild.width = trueWidth;
+			ivscr.height = trueHeight;
+			
+			if(this._isFloatScrollBar){
+				ivscr.x = trueWidth-ivscr.width;
+			}else{
+				
+				ivscr.x = getContentWidth();
+			}
+			
+			if(currentContent==null){
+				
+				return;
+			}
 			
 			
 			var listExtHeight:int = 0;
 			for (var j:int = 0; j < itemS.length; j++) 
 			{
 				
-				itemS[j].setSize(trueWidth,trueHeight);	
+				itemS[j].setSize(getContentWidth(),trueHeight);	
 				
 				itemS[j].y = (itemS[j].contentHeight+vspace)*j;
 				
 				
+				/*if( _selectIndex==-1){					
+				if(currentContent.parent){						
+				currentContent.parent.removeChild(currentContent);
+				}
+				}else{
+				if(IDisplayItem(itemS[j]).selected){
+				currentContent.y = itemS[j].y+itemS[j].contentHeight+vspace;
+				listExtHeight=currentContent.y+IDisplayItem(currentContent).contentHeight;
+				content.addChild(currentContent);
+				}
+				}*/
+				
 				if(j==_selectIndex){
-					_listChild.y = itemS[j].y+itemS[j].contentHeight+vspace;
-					listExtHeight=_listChild.y+_listChild.height;
-					
-					_listChild.visible = true;
-					//this.addChild(listChild);
+					currentContent.y = itemS[j].y+itemS[j].contentHeight+vspace;
+					listExtHeight=currentContent.y+IDisplayItem(currentContent).contentHeight;
+					//content.addChild(currentContent);
 				}
 				if(j>_selectIndex && _selectIndex!=-1){
 					
@@ -320,24 +520,24 @@ package com.sanbeetle.component
 					listExtHeight=listExtHeight+itemS[j].contentHeight+_vspace;
 				}
 				if( _selectIndex==-1){
-					/*if(listChild.parent){
-					listChild.parent.removeChild(listChild);
-					}*/
-					//listChild.cleanUp();
-					if(_listChild.parent){						
-						this.setChildIndex(_listChild,0);
+					
+					if(currentContent.parent){						
+						currentContent.parent.removeChild(currentContent);
 					}
-					_listChild.visible = false;
+					
 				}
+				
 			}
+			
 			this.graphics.clear();
 			this.graphics.beginFill(0xff0000,0);
+			
 			if(itemS.length==0){
 				this.graphics.drawRect(0,0,trueWidth,trueHeight);
 			}else{
 				if(_selectIndex==itemS.length-1){
 					
-					contentHeight = itemS[itemS.length-1].y+itemS[itemS.length-1].contentHeight+_listChild.height+_vspace;
+					contentHeight = itemS[itemS.length-1].y+itemS[itemS.length-1].contentHeight+IDisplayItem(currentContent).contentHeight+_vspace;
 				}else{
 					contentHeight = itemS[itemS.length-1].y+itemS[itemS.length-1].contentHeight;
 				}
@@ -345,16 +545,25 @@ package com.sanbeetle.component
 			}
 			this.graphics.endFill();
 			
+			//this.graphics.clear();
+			//var posion:Number = ivscr.getScrollBarPosition();
+			
+			//ivscr.upDisplayList();
 			
 			
-			if(_scrollBar){
-				var posion:Number = _scrollBar.getScrollBarPosition();
-				
-				_scrollBar.upDisplayList();
-				_scrollBar.setVScrollBarPosition(posion);
-				//trace(_scrollBar);
-			}
 			
+			//ivscr.setVScrollBarPosition(posion);
+			
+			
+			//trace(this.content.height,ivscr.height);
+			/*content.graphics.clear();
+			content.graphics.beginFill(0xffff00);
+			content.graphics.drawRect(0,0,content.width,content.height);
+			content.graphics.endFill();*/
+			
+			var posion:Number = ivscr.getScrollBarPosition();
+			ivscr.upDisplayList();
+			ivscr.setVScrollBarPosition(posion);
 		}
 		
 		

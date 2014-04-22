@@ -127,8 +127,8 @@ package com.game.framework.net {
 			}
 			skinLoader = new SkinLoader(url);
 			
-			var assite:AssetsData = new AssetsData();
-			assite.asssetCompleteFunc = onSkinloaderOver;
+			var assite:AssetsData = new AssetsData();		
+			assite.asssetCompleteFunc = onSkinloaderOver;			
 			assite.netErrorFunc = function (event:IOErrorEvent,data:IAssetItem):void{
 				getDatainterface.netError(event,data);
 			}
@@ -137,6 +137,8 @@ package com.game.framework.net {
 		}
 		
 		private function onSkinloaderOver(data:IAssetItem):void {
+			_isinitView = true;
+			_isLoadSuccess = true;
 			
 			createView = swfFile.getCreateView;			
 			mediator = swfFile.getMediator;
@@ -147,8 +149,6 @@ package com.game.framework.net {
 			
 			
 			Launcher.FW::launcher.registerMediator(mediator);
-			
-			
 			
 			createView.FW::setContentContainer(this,data as AssetItem,mediator);
 			
@@ -168,8 +168,7 @@ package com.game.framework.net {
 			
 			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.INIT_OVER));
 			
-			_isinitView = true;
-			_isLoadSuccess = true;
+			
 		}
 		
 		protected function onDissolveHandler(event:DissolveEvent):void

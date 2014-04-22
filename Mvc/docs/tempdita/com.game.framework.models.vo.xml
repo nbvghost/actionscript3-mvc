@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><apiPackage id="com.game.framework.models.vo"><apiName>com.game.framework.models.vo</apiName><apiDetail/><apiClassifier id="com.game.framework.models.vo:BaseVo"><apiName>BaseVo</apiName><shortdesc>
-	 
-	 author sixf
-	 </shortdesc><prolog><asMetadata/></prolog><apiClassifierDetail><apiClassifierDef><apiAccess value="public"/><apiStatic/><apiBaseClassifier>Object</apiBaseClassifier></apiClassifierDef><apiDesc>
-	 
-	 author sixf
-	 </apiDesc></apiClassifierDetail><apiConstructor id="com.game.framework.models.vo:BaseVo:BaseVo"><apiName>BaseVo</apiName><shortdesc/><prolog/><apiConstructorDetail><apiConstructorDef><apiAccess value="public"/></apiConstructorDef></apiConstructorDetail></apiConstructor></apiClassifier></apiPackage>

@@ -40,7 +40,7 @@ package com.asvital.text.elements
 				_defaultFormat = textformat.clone();
 			}
 			_defaultFormat.dominantBaseline = TextBaseline.ASCENT;
-			//_defaultFormat.alignmentBaseline = TextBaseline.ROMAN;
+			//_defaultFormat.alignmentBaseline = TextBaseline.USE_DOMINANT_BASELINE;
 			_defaultFormat.baselineShift=0;
 			
 						

@@ -97,7 +97,7 @@
 			
 			updateUI();
 		}		
-		override public function updateUI():void
+		override protected function updateUI():void
 		{
 			
 			

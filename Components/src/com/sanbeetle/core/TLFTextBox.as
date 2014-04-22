@@ -1130,7 +1130,7 @@ package com.sanbeetle.core
 			
 		}
 		private var containerRect:Rectangle=new Rectangle;
-		override public function updateUI():void		
+		override protected function updateUI():void		
 		{
 			
 			var t:Number = getTimer();
@@ -1164,10 +1164,10 @@ package com.sanbeetle.core
 					rect  = textContainerManager.getContentBounds();
 					
 					///trace("a");
-					//trace(rect.width,rect.height);
+					//(rect.width,rect.height);
 					
 					changeCCSize(rect.width,NaN);
-					//trace(rect.width,rect.height);
+					//(rect.width,rect.height);
 					
 					containerRect.x = 0;
 					containerRect.y = 0;

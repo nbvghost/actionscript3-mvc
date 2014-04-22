@@ -25,7 +25,8 @@ package com.sanbeetle.interfaces
 		 * 更新 
 		 * 
 		 */
-		function updateUI ():void;
+		//function updateUI ():void;
+		function upDisplayList():void;
 		function dispose ():void;	
 		
 		
