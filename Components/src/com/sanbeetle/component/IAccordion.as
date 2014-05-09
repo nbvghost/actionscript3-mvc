@@ -1,4 +1,4 @@
-package com.sanbeetle.component
+﻿package com.sanbeetle.component
 {
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.DataProvider;
@@ -12,11 +12,14 @@ package com.sanbeetle.component
 	import com.sanbeetle.utils.Utils;
 	
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	import flash.display.InteractiveObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	
 	[Event(name="change_size", type="com.sanbeetle.events.ControlEvent")]	
 	[Event(name="select", type="com.sanbeetle.events.ControlEvent")]
+	[Event(name="item_select", type="com.sanbeetle.events.ControlEvent")]
 	public class IAccordion extends UIComponent
 	{
 		
@@ -48,15 +51,15 @@ package com.sanbeetle.component
 		
 		private var currentContent:DisplayObject;
 		
-		
-		
 		private var _accordionItemBarCell:Function;
 		private var _accordionListCell:Function;
 		
 		private var _isFloatScrollBar:Boolean = false;
 		
 		
+		private var _autoHeight:Boolean = false;
 		
+		private var scrollBarPosition:Number=0;
 		
 		
 		public function IAccordion()
@@ -76,14 +79,40 @@ package com.sanbeetle.component
 			
 			
 			ivscr.source = content;
-						
+			
 			//_listChild= new IListBox();			
 			_accordionItemBarRenderer = AccordionItemBarRenderer;
 			//_accordionListRenderer = SimpleListCellRenderer;
 			_accordionListRenderer = AccordionListContentRenderer;
 			
 		}
+		public function get contentContainer():DisplayObjectContainer{
+			
+			return content;
+		}
+		public function get autoHeight():Boolean
+		{
+			return _autoHeight;
+		}
 		
+		public function set autoHeight(value:Boolean):void
+		{
+			if(_autoHeight!=value){				
+				_autoHeight = value;	
+				if(_autoHeight){
+					ivscr.dispose();
+					if(ivscr.parent){
+						ivscr.parent.removeChild(ivscr);
+					}
+					ivscr.source = null;
+					this.content.y = 0;
+				}else{					
+					this.addChild(ivscr);
+					ivscr.source = content;
+				}
+				updateUI();
+			}
+		}
 		override public function dispose():void
 		{
 			_accordionItemBarCell=null;
@@ -123,9 +152,13 @@ package com.sanbeetle.component
 		
 		public function set isFloatScrollBar(value:Boolean):void
 		{
-			_isFloatScrollBar = value;
+			if(_isFloatScrollBar != value){
+				_isFloatScrollBar = value;
+				
+				ivscr.isFloat = _isFloatScrollBar;
+				this.updateUI();
+			}
 			
-			ivscr.isFloat = _isFloatScrollBar;
 			
 		}
 		/**
@@ -182,8 +215,17 @@ package com.sanbeetle.component
 		
 		override public function get height():Number
 		{
-			// TODO Auto Generated method stub
-			return contentHeight;
+			if(autoHeight){
+				return content.height;
+				
+			}else{
+				if(this.ivscr.visible){
+					return trueHeight;
+				}else{
+					return content.height;
+				}
+				
+			}
 		}
 		
 		
@@ -209,14 +251,18 @@ package com.sanbeetle.component
 			
 			//_listChild.ItemCellRender = _accordionListRenderer;
 		}
+		
 		private function getContentWidth():Number{
 			
-			if(_isFloatScrollBar){
+			if(_autoHeight){
 				return trueWidth;
 			}else{
-				return trueWidth-ivscr.width;
+				if(_isFloatScrollBar){
+					return trueWidth;
+				}else{
+					return trueWidth-ivscr.width;
+				}
 			}
-			
 		}
 		/**
 		 * 默认 AccordionItemBarRenderer 根项渲染器
@@ -245,7 +291,7 @@ package com.sanbeetle.component
 			if(contentArr[index]==null){
 				contentArr[index] = new _accordionListRenderer();
 				
-				
+				InteractiveObject(contentArr[index]).addEventListener(ControlEvent.ITEM_SELECT,onItemSelectHandler);
 				var item:ListChildItem;				
 				if(_dataProvider.length-1>=index){
 					item = this._dataProvider.getItemAt(index) as ListChildItem;
@@ -258,6 +304,11 @@ package com.sanbeetle.component
 			}
 			
 			return contentArr[index];
+		}
+		
+		protected function onItemSelectHandler(event:ControlEvent):void
+		{
+			this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_SELECT,currentContent));
 		}
 		[Inspectable(defaultValue="-1")]
 		public function get selectIndex():int
@@ -273,18 +324,22 @@ package com.sanbeetle.component
 			}
 			_selectIndex = value;
 			if(_selectIndex<0){
+				if(currentContent){
+					IDisplayItem(currentContent).selected = false;
+				}
 				_selectIndex=-1
 			}else{
 				if(_selectIndex<=itemS.length-1){
 					currentContent  = this.getContentByIndex(_selectIndex);
 					content.addChild(currentContent);
+					this.ivscr.upDisplayList();
 					var itemdata:ListChildItem = (_dataProvider.getItemAt(_selectIndex) as ListChildItem);
 					
 					if(itemdata){			
 						
 						IDisplayItem(currentContent).data = itemdata;
 						
-						IDisplayItem(currentContent).setSize(getContentWidth(),trueHeight,false,_selectIndex);
+						IDisplayItem(currentContent).setSize(getContentWidth(),currentContent.height,false,_selectIndex);
 						
 						currentContent.y = itemS[_selectIndex].y+itemS[_selectIndex].contentHeight;
 						
@@ -292,10 +347,17 @@ package com.sanbeetle.component
 						
 						
 						
-						itemS[_selectIndex].selected = true;
+						//itemS[_selectIndex].selected = true;
+						IDisplayItem(currentContent).selected = true;
 					}else{
+						IDisplayItem(currentContent).selected = false;
 						_selectIndex=-1
 					}				
+				}else{
+					if(currentContent){
+						IDisplayItem(currentContent).selected = false;
+					}
+					_selectIndex = -1;
 				}
 				
 				
@@ -331,10 +393,13 @@ package com.sanbeetle.component
 		protected function onMouseDownHandler(event:MouseEvent):void
 		{
 			//trace(event.target,event.currentTarget);
-			var combar:IDisplayItem =Utils.isChildTypeof(_accordionItemBarRenderer,this.content,event.target as DisplayObject) as IDisplayItem;
+			var combar:IDisplayItem =Utils.isChildTypeof(_accordionItemBarRenderer,this.content,event.target as DisplayObject) as IDisplayItem;	
+			
 			
 			var itemCidlData:ListChildItem;
 			if(combar){
+				
+				scrollBarPosition = combar.y;
 				
 				itemCidlData = _dataProvider.getItemAt(uint(combar.name)) as ListChildItem;
 				if(itemCidlData){	
@@ -346,7 +411,11 @@ package com.sanbeetle.component
 					content.addChild(currentContent);
 					
 					IDisplayItem(currentContent).data = itemCidlData;
-					IDisplayItem(currentContent).setSize(getContentWidth(),trueHeight,false,_selectIndex);
+					IDisplayItem(currentContent).setSize(getContentWidth(),IDisplayItem(currentContent).contentHeight,false,_selectIndex);
+					
+					this.ivscr.upDisplayList();
+					
+					
 					
 					//currentContent.y = combar.y+combar.contentHeight;
 					
@@ -369,15 +438,22 @@ package com.sanbeetle.component
 							//_selectIndex = -1;
 						}
 					}
-					
+					combar.mouseDown(event);
 					this.dispatchEvent(new ControlEvent(ControlEvent.SELECT,this.currentContent));
 					
 				}
 				updateUI();
 			}
 			
+			var comcont:IDisplayItem =Utils.isChildTypeof(_accordionListRenderer,this.content,event.target as DisplayObject) as IDisplayItem;
+			if(comcont){
+				//currentContent  = this.getContentByIndex(_selectIndex);
+				comcont.mouseDown(event);
+				//this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_SELECT,currentContent));
+			}
+			
 		}
-		[Collection(collectionClass = "com.sanbeetle.data.DataProvider",identifier = "item",collectionItem = "com.sanbeetle.data.SimpleCollectionItem")]
+		//[Collection(collectionClass = "com.sanbeetle.data.DataProvider",identifier = "item",collectionItem = "com.sanbeetle.data.SimpleCollectionItem")]
 		public function get dataProvider():DataProvider
 		{
 			return _dataProvider;
@@ -402,22 +478,28 @@ package com.sanbeetle.component
 			if(_dataProvider!=value){				
 				
 				_dataProvider = value;
-				currentContent  = this.getContentByIndex(0);
+				
 				
 				while(content.numChildren>0){
 					content.removeChildAt(0);
 				}
+				
+				this.ivscr.upDisplayList();
 				
 				//itemS.splice(0,itemS.length);
 				
 				
 				for (var i:int = 0; i < _dataProvider.length; i++) 
 				{
+					if(i==0){
+						currentContent  = this.getContentByIndex(0);
+						IDisplayItem(currentContent).data = (_dataProvider.getItemAt(i) as IFListItem);
+					}
 					
 					var item:DisplayObject =getParBar(i) as DisplayObject;
 					
 					IDisplayItem(item).data = (_dataProvider.getItemAt(i) as IFListItem);
-					IDisplayItem(item).setSize(getContentWidth(),trueHeight);
+					IDisplayItem(item).setSize(getContentWidth(),item.height);
 					
 					//item.backgroundType = ComboBox.background_default;
 					//item.width = trueWidth;
@@ -433,7 +515,7 @@ package com.sanbeetle.component
 					
 					//item.y = IDisplayItem(item).contentHeight*i;
 					content.addChild(item);
-					IDisplayItem(item).setStage(true);
+					
 					
 					if(_accordionItemBarCell!=null){
 						if(_accordionItemBarCell.length>=2){
@@ -486,38 +568,48 @@ package com.sanbeetle.component
 			}
 			
 			
+			
 			var listExtHeight:int = 0;
-			for (var j:int = 0; j < itemS.length; j++) 
+			var theight:Number = 0;
+			for (var j:int = 0; j < _dataProvider.length; j++) 
 			{
 				
-				itemS[j].setSize(getContentWidth(),trueHeight);	
+				var pitem:DisplayObject =getParBar(j) as DisplayObject;
 				
-				itemS[j].y = (itemS[j].contentHeight+vspace)*j;
+				IDisplayItem(pitem).setSize(getContentWidth(),pitem.height);
 				
 				
-				/*if( _selectIndex==-1){					
-				if(currentContent.parent){						
-				currentContent.parent.removeChild(currentContent);
-				}
-				}else{
-				if(IDisplayItem(itemS[j]).selected){
-				currentContent.y = itemS[j].y+itemS[j].contentHeight+vspace;
-				listExtHeight=currentContent.y+IDisplayItem(currentContent).contentHeight;
-				content.addChild(currentContent);
-				}
-				}*/
+				pitem.y = theight;
+				
+				
+				
 				
 				if(j==_selectIndex){
-					currentContent.y = itemS[j].y+itemS[j].contentHeight+vspace;
-					listExtHeight=currentContent.y+IDisplayItem(currentContent).contentHeight;
-					//content.addChild(currentContent);
+					
+					theight = theight+vspace;
+					
+					IDisplayItem(currentContent).data =  (_dataProvider.getItemAt(j) as IFListItem);
+					IDisplayItem(currentContent).setSize(getContentWidth(),IDisplayItem(currentContent).contentHeight);
+					
+					currentContent.y = theight+IDisplayItem(pitem).contentHeight;
+					
+					content.addChild(currentContent);
+					
+					//currentContent.y = pitem.y+IDisplayItem(pitem).contentHeight+vspace;
+					//listExtHeight=currentContent.y+IDisplayItem(currentContent).contentHeight;
+					
+					theight = theight+IDisplayItem(currentContent).contentHeight;
 				}
 				if(j>_selectIndex && _selectIndex!=-1){
 					
 					
-					itemS[j].y = listExtHeight+_vspace;
+					//pitem.y = theight;
+					//theight = theight+_vspace;
 					
-					listExtHeight=listExtHeight+itemS[j].contentHeight+_vspace;
+					//pitem.y = listExtHeight+_vspace;			
+					
+					
+					listExtHeight=listExtHeight+IDisplayItem(pitem).contentHeight+_vspace;
 				}
 				if( _selectIndex==-1){
 					
@@ -526,6 +618,8 @@ package com.sanbeetle.component
 					}
 					
 				}
+				
+				theight = theight+(IDisplayItem(pitem).contentHeight+vspace);
 				
 			}
 			
@@ -556,14 +650,16 @@ package com.sanbeetle.component
 			
 			
 			//trace(this.content.height,ivscr.height);
-			/*content.graphics.clear();
-			content.graphics.beginFill(0xffff00);
+			content.graphics.clear();
+			content.graphics.beginFill(0xffff00,0);
 			content.graphics.drawRect(0,0,content.width,content.height);
-			content.graphics.endFill();*/
+			content.graphics.endFill();
 			
-			var posion:Number = ivscr.getScrollBarPosition();
+			
 			ivscr.upDisplayList();
-			ivscr.setVScrollBarPosition(posion);
+			
+			
+			ivscr.setVScrollBarPosition(scrollBarPosition/content.height);
 		}
 		
 		

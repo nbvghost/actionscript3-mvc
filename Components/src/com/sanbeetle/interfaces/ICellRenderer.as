@@ -3,7 +3,7 @@ package com.sanbeetle.interfaces
 	import com.sanbeetle.core.DisplayItem;
 	import com.sanbeetle.data.ListData;
 
-	public interface ICellRenderer extends IStage
+	public interface ICellRenderer 
 	{
 		function getItem():DisplayItem;
 		function createItem(itemData:IFListItem,listData:ListData):DisplayItem;

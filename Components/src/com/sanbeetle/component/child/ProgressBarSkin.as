@@ -17,11 +17,11 @@ package com.sanbeetle.component.child
 		private var c:Shape;
 		
 		private var _border:int = 0;		
-		private var _borderColor:uint =0x000000;
+		private var _borderColor:String ="0x000000";
 		private var _borderAlpha:Number = 1;
 		
-		private var _slipColor:uint=0x234E02;
-		private var _backgroundColor:uint=0xDDE6D6;
+		private var _slipColor:String="0x234E02";
+		private var _backgroundColor:String="0xDDE6D6";
 		
 		private var _currentValue:Number=1;
 		
@@ -46,12 +46,12 @@ package com.sanbeetle.component.child
 			reDraw();
 		}
 
-		public function get borderColor():uint
+		public function get borderColor():String
 		{
 			return _borderColor;
 		}
 
-		public function set borderColor(value:uint):void
+		public function set borderColor(value:String):void
 		{
 			_borderColor = value;
 			reDraw();
@@ -79,23 +79,23 @@ package com.sanbeetle.component.child
 			reDraw();
 		}
 
-		public function get backgroundColor():uint
+		public function get backgroundColor():String
 		{
 			return _backgroundColor;
 		}
 
-		public function set backgroundColor(value:uint):void
+		public function set backgroundColor(value:String):void
 		{
 			_backgroundColor = value;
 			reDraw();
 		}
 
-		public function get slipColor():uint
+		public function get slipColor():String
 		{
 			return _slipColor;
 		}
 
-		public function set slipColor(value:uint):void
+		public function set slipColor(value:String):void
 		{
 			_slipColor = value;
 			reDraw();
@@ -119,13 +119,13 @@ package com.sanbeetle.component.child
 			}
 			
 			bg.graphics.clear();
-			bg.graphics.lineStyle(_border,_borderColor,_borderAlpha);
-			bg.graphics.beginFill(_backgroundColor);
+			bg.graphics.lineStyle(_border,uint(_borderColor),_borderAlpha);
+			bg.graphics.beginFill(uint(_backgroundColor));
 			bg.graphics.drawRect(0,0,ww,hh);
 			
 			c.graphics.clear();
-			c.graphics.lineStyle(_border,_borderColor,_borderAlpha);
-			c.graphics.beginFill(_slipColor);
+			c.graphics.lineStyle(_border,uint(_borderColor),_borderAlpha);
+			c.graphics.beginFill(uint(_slipColor));
 			c.graphics.drawRect(0,0,ww*(int(_currentValue*100))/100,hh);
 			
 		}

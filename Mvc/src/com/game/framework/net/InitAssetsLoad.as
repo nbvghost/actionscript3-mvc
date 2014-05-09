@@ -135,8 +135,15 @@ package com.game.framework.net {
 				loadOver();
 				
 			}else{
-				currentLoadItem = items.shift();			
+				currentLoadItem = items.shift();
+				if(currentLoadItem){
 				currentLoadItem.initView();
+					
+				}
+				
+				/*currentLoadItem = items.shift();	
+				if(currentLoadItem)
+				currentLoadItem.initView();*/
 			}
 			
 		}

@@ -36,7 +36,7 @@
 		private var _listData:ListData;
 		
 		private var _fontSize:String = "10";
-		private var _fontColor:String = "0xffffff";
+		private var _fontColor:String ="0xffffff";
 		
 		
 		private var list:ListChild;
@@ -141,7 +141,7 @@
 		}
 		private function onItemRenderereHandler(event:ControlEvent):void
 		{
-			this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_RENDERER_SELECT,event.data));
+			this.dispatchEvent(event.cloneEvent());
 		}
 		
 		public function set itemCellRenaderer(value:Class):void
@@ -261,7 +261,7 @@
 			}
 			
 			
-			this.dispatchEvent(new ControlEvent(event.type,event.data));
+			this.dispatchEvent(event.cloneEvent());
 			
 		}
 		

@@ -35,7 +35,7 @@
 		
 		private var _bold:Boolean =false;
 		private var _fontSize:String = "14";			
-		private var _color:String="0x333333";	
+		private var _color:String="0x333333";
 		private var _paddingBottom:int =0;
 		private var _paddingLeft:int=0;
 		private var _paddingRight:int=0;
@@ -78,6 +78,9 @@
 		private var _gridFitType:String = "";		
 		
 		private var _currentLinkData:AMark=new AMark();
+		
+		private var _tracking:Number = 0;
+		
 		public function ILabel()
 		{
 			super();
@@ -95,6 +98,25 @@
 			
 			//this.mouseChildren = false;
 			
+		
+			
+			
+			
+		}
+				
+		[Inspectable(defaultValue=0)]
+		public function get tracking():Number
+		{
+			return _tracking;
+		}
+		
+		public function set tracking(value:Number):void
+		{
+			if(_tracking != value){
+				_tracking = value;
+				
+				this.updateUI();
+			}
 		}
 		
 		protected function onLinkMouseOverHandler(event:FTEOperationEvent):void
@@ -121,8 +143,8 @@
 		{
 			super.dispose();
 			
-			if(stage){				
-				stage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
+			if(linkStage){				
+				linkStage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
 			}
 			
 			if(textField){
@@ -449,7 +471,7 @@
 				updateUI();
 			}
 		}
-		[Inspectable(defaultValue=0x333333)]
+		[Inspectable(defaultValue="0x333333")]
 		public function get color():String
 		{
 			return _color;
@@ -461,7 +483,7 @@
 				
 				_color = value;
 				
-				_textformat.color =uint(_color);		
+				_textformat.color =uint(_color);
 				
 				updateUI();
 			}
@@ -611,7 +633,9 @@
 			
 			textField.padding = padding;
 			
+			
 			textField.textFormat = tf;
+			textField.tracking = _tracking;
 			
 			
 			
@@ -638,6 +662,14 @@
 			//trace(this.width,this.height);
 			
 		}
+		
+		override protected function onRemoveStage():void
+		{
+			
+			linkStage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
+		}
+		
+		
 		override public function onStageHandler(event:Event):void
 		{
 			textField.addEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
@@ -658,7 +690,7 @@
 		protected function onFontLoaderHandler(event:Event):void
 		{
 			//trace(Font.enumerateFonts());
-			stage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
+			linkStage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
 			var fonts:Array = Font.enumerateFonts();
 			if(fonts.length>=2){
 				var fontName:String = Font(fonts[0]).fontName+Font(fonts[1]).fontName;

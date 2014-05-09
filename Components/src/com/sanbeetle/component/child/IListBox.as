@@ -114,6 +114,8 @@
 			
 			cleanUp();
 			
+			itemcellrenderArr.splice(0,itemcellrenderArr.length);
+			
 			this.removeEventListener(MouseEvent.MOUSE_UP,onMouseDownHandler);			
 			this.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
 			this.removeEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);	
@@ -141,7 +143,7 @@
 				_selectColumn = ite.listData.column;
 				ite.mouseOut(event);
 				event.updateAfterEvent();
-				this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_OUT,ite.data));
+				this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_OUT,ite.data).setMouseEvent(event));
 			}
 			event.updateAfterEvent();
 		}
@@ -175,6 +177,7 @@
 			if(ItemCellRenderClass !== value && value!=null){
 				ItemCellRenderClass = value;
 				isNewItemCellrender = true;
+				itemcellrenderArr.splice(0,itemcellrenderArr.length);
 				this.upDisplayList();
 			}
 			
@@ -252,7 +255,7 @@
 				_selectColumn = ite.listData.column;
 				ite.mouseOver(event);
 				//event.updateAfterEvent();
-				this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_OVER,ite.data));
+				this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_OVER,ite.data).setMouseEvent(event));
 			}
 			event.updateAfterEvent();
 		}
@@ -312,7 +315,7 @@
 				if(targ!=null){
 					irt.listData=(targ as IDisplayItem).listData;	
 					(targ as IDisplayItem).mouseOut(event);
-					this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_RENDERER_SELECT,irt));
+					this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_RENDERER_SELECT,irt).setMouseEvent(event));
 				}
 				
 			}
@@ -358,7 +361,15 @@
 		{
 			return _dataProvider;
 		}
-		
+		private var itemcellrenderArr:Array=[];
+		private function getRenderereByIndex(index:int):ICellRenderer 
+		{
+			if(itemcellrenderArr[index]==null){
+				itemcellrenderArr[index] =new ItemCellRenderClass();
+			}
+			
+			return itemcellrenderArr[index];
+		}
 		private function renderData():void{
 			
 			//-------------
@@ -382,8 +393,10 @@
 					itemData = _dataProvider.getItemAt(i) as IFListItem;
 					
 					//itemcellrenderer = itemArr[i];
-					itemcellrenderer = CacheDispaly.getTarget(getQualifiedClassName(ItemCellRenderClass)) as ICellRenderer;
+					//itemcellrenderer = CacheDispaly.getTarget(getQualifiedClassName(ItemCellRenderClass)) as ICellRenderer;
 					//itemcellrenderer = new ItemCellRenderClass();
+					itemcellrenderer=getRenderereByIndex(i);
+					
 					if((getTimer()-t)>0){
 						total=total+(getTimer()-t);
 					}
@@ -419,7 +432,7 @@
 					
 					h =h+item.contentHeight;
 					
-					itemcellrenderer.setStage(true);
+					
 					
 					content.addChild(item);
 					itemArr.push(itemcellrenderer);						

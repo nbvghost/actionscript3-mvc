@@ -1,5 +1,6 @@
 package com.game.framework.net {
 	import com.asvital.dev.Log;
+	import com.game.framework.data.ConfigData;
 	import com.game.framework.ifaces.IAssetItem;
 	import com.game.framework.ifaces.IAssetsData;
 	import com.game.framework.ifaces.INotifyData;
@@ -89,12 +90,20 @@ package com.game.framework.net {
 			this._content = urlloaer.data;
 			this.getDatainterface.asssetComplete(this);
 			
+			_loadCount=0;
+			
 		}
 		
 		public function onIOErrorHandler(event:IOErrorEvent):void {
-			// TODO Auto Generated method stub
-			Log.out(event.toString());
-			assetsData.netError(event, this);
+			
+			if(_loadCount<=ConfigData.MaxLoadCount){
+				initView();
+			}else{				
+				Log.out(event.toString());
+				assetsData.netError(event, this);
+			}
+			
+			
 		}
 		
 		public function onProgressHandler(event:ProgressEvent):void {

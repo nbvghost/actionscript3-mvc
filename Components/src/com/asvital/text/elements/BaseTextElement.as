@@ -43,6 +43,9 @@ package com.asvital.text.elements
 			//_defaultFormat.alignmentBaseline = TextBaseline.USE_DOMINANT_BASELINE;
 			_defaultFormat.baselineShift=0;
 			
+			
+		
+			
 						
 			var lent:int = attribs.length();
 			_attributes = {};

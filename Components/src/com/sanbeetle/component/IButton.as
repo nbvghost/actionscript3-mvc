@@ -36,6 +36,8 @@
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormatAlign;
 	
+	import fl.motion.Color;
+	
 	import flashx.textLayout.formats.TextAlign;
 	
 	/**
@@ -98,7 +100,7 @@
 			btnlabel.autoBound = true;
 			btnlabel.textAlign = TextAlign.CENTER;
 			
-			btnlabel.paddingTop = 0;
+			btnlabel.paddingTop = 1;
 			//btnlabel.paddingLeft = 0;
 			
 			//btnlabel.textAlign = TextAlign.CENTER;

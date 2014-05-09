@@ -63,7 +63,7 @@
 				this.select = true;
 			}
 			onMouseEventHandler(event);
-			this.dispatchEvent(new ControlEvent(ControlEvent.CHANGE));
+			this.dispatchEvent(new ControlEvent(ControlEvent.CHANGE).setMouseEvent(event));
 		}
 		[Inspectable(defaultValue = false)]
 		public function get select():Boolean

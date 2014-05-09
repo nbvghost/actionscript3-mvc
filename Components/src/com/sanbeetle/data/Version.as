@@ -3,7 +3,7 @@ package com.sanbeetle.data
 	public class Version
 	{
 		private var _name:String="内存优化";
-		private var _code:uint=65;
+		private var _code:uint=69;
 				
 		public function Version()
 		{

@@ -78,23 +78,23 @@
 			// TODO Auto Generated method stub
 			super.dispose();
 			
-			if (stage)
+			if (linkStage)
 			{
-				stage.removeEventListener (MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
-				stage.removeEventListener (MouseEvent.MOUSE_UP,onMouseUphadnelr);
+				linkStage.removeEventListener (MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
+				linkStage.removeEventListener (MouseEvent.MOUSE_UP,onMouseUphadnelr);
 			}
 		}
 		
-		private var linkStage:Stage;
+		
 		
 		override protected function onBarDown (event:MouseEvent):void
 		{
 			s_bar.startDrag (false,new Rectangle(s_bar.x,s_left.height,0,bg.height-s_right.height-s_bar.height-s_left.height));
 			
 			
-			if (stage)
+			if (linkStage)
 			{
-				linkStage = stage;
+				
 				linkStage.addEventListener (MouseEvent.MOUSE_MOVE,onMouseMoveHandler);
 				linkStage.addEventListener (MouseEvent.MOUSE_UP,onMouseUphadnelr);
 			}
@@ -183,7 +183,7 @@
 				var tx:Number=(s_bar.y-s_left.height)/(trueHeight-s_right.height-s_bar.height-s_left.height)*100;
 				tx = (vscrollbarposition / 100);
 				
-				target.y=Math.round(this.y+(-(target.height-maskmc.height)*vscrollbarposition));
+				target.y=(this.y+(-(target.height-maskmc.height)*vscrollbarposition));
 				
 				//s_bar.y = ((trueHeight-s_right.height-s_bar.height)*value)+s_left.height-s_right.height;
 				

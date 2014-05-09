@@ -10,6 +10,8 @@
 	import flash.events.MouseEvent;
 	import flash.geom.ColorTransform;
 	
+	import fl.motion.Color;
+	
 	import flashx.textLayout.formats.TextAlign;
 	import flashx.textLayout.formats.VerticalAlign;
 	
@@ -25,7 +27,6 @@
 		
 		private var _color:String="0x373B40";
 		private var _colorOver:String="0x373B40";
-		
 		
 		
 		public function IPagingSkin() {
@@ -174,10 +175,10 @@
 			
 		}
 		private function changeColor(color:String,target:DisplayObject):void{
-			var col:uint = uint(color);
+			var col:String = color;
 			var colort:ColorTransform = target.transform.colorTransform;
 			
-			colort.color = col;
+			colort.color = uint(col);
 			
 			target.transform.colorTransform = colort;
 			
@@ -192,7 +193,7 @@
 		{
 			_colorOver = value;
 		}
-
+		
 		public function get color():String
 		{
 			return _color;

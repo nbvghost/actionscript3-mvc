@@ -4,6 +4,7 @@
 	import com.sanbeetle.skin.IListBoxBg;
 	import com.sanbeetle.skin.image.IStatus_bruise;
 	import com.sanbeetle.skin.image.IStatus_lease;
+	import com.sanbeetle.skin.image.IStatus_mood;
 	import com.sanbeetle.skin.image.IStatus_pre_sale;
 	import com.sanbeetle.skin.image.IStatus_red_card;
 	import com.sanbeetle.skin.image.IStatus_retire;
@@ -52,6 +53,10 @@
 		 * 红牌
 		 */
 		public static const RED_CARD:String="red_card";
+		/**
+		 * 情绪 
+		 */
+		public static const MOOD:String ="mood";
 		/**
 		 * 黄牌
 		 */
@@ -274,6 +279,9 @@
 					break;
 				case IStatus.YELLOW_CARD:
 					currentBMD = new IStatus_yellow_card;
+					break;
+				case IStatus.MOOD:
+					currentBMD = new IStatus_mood;
 					break;
 				case IStatus.PRE_SALE:
 					currentBMD = new IStatus_pre_sale;

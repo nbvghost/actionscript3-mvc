@@ -1,5 +1,10 @@
 package com.sanbeetle.data
 {
+	/**
+	 *  
+	 * @author sixf
+	 * 
+	 */	
 	public class ScaleType
 	{
 		/**
@@ -15,6 +20,11 @@ package com.sanbeetle.data
 		 * 最小程度的显示（可能不满屏） 
 		 */
 		public static const IN_BORDER:String ="in_border";
+		
+		/**
+		 * 居中，不绽放 
+		 */
+		public static const CENTER_NOSCALE:String ="center_noscale";
 		
 		
 	}

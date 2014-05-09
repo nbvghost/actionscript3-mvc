@@ -29,11 +29,17 @@ package com.game.framework.events
 		public static const CLOSE_DIALOG:String="close_dialog";
 		
 		
+		/**
+		 * 突出窗口 tab 事件
+		 */
+		public static const DIALOG_TAB_EVENT:String = "dialog_tab_event";
+		
 		public var dialogBuilder:AlertDialogBuilder;
 		public function DialogEvent(type:String,dialogBuilder:AlertDialogBuilder)
 		{
 			super(type);
 			this.dialogBuilder = dialogBuilder;
+			
 		}
 	}
 }

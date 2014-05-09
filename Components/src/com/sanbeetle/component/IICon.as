@@ -9,10 +9,25 @@
 	import com.sanbeetle.skin.IICon_HZ6;
 	import com.sanbeetle.skin.IICon_HZ7;
 	import com.sanbeetle.skin.IICon_HZ8;
+	import com.sanbeetle.skin.IICon_JB_FZ;
+	import com.sanbeetle.skin.IICon_JB_LS;
+	import com.sanbeetle.skin.IICon_JB_MZ;
+	import com.sanbeetle.skin.IICon_JB_OZ;
+	import com.sanbeetle.skin.IICon_JB_YZ;
 	import com.sanbeetle.skin.IICon_N;
+	import com.sanbeetle.skin.IICon_SW1;
+	import com.sanbeetle.skin.IICon_SW2;
+	import com.sanbeetle.skin.IICon_SW3;
+	import com.sanbeetle.skin.IICon_SW4;
+	import com.sanbeetle.skin.IICon_SW5;
 	import com.sanbeetle.skin.IICon_VIP1;
 	import com.sanbeetle.skin.IICon_VIP2;
 	import com.sanbeetle.skin.IICon_VIP3;
+	import com.sanbeetle.skin.IICon_XYD_blue;
+	import com.sanbeetle.skin.IICon_XYD_diamond;
+	import com.sanbeetle.skin.IICon_XYD_gold;
+	import com.sanbeetle.skin.IICon_XYD_green;
+	import com.sanbeetle.skin.IICon_XYD_silver;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -51,63 +66,107 @@
 			bitMap.bitmapData = bitMapData;
 			this.addChild(bitMap);
 		}
-
+		public static function get JB_YZ():BitmapData{
+			return new IICon_JB_YZ;
+		}
+		public static function JB_OZ():BitmapData{
+			return new IICon_JB_OZ;
+		}
+		public static function JB_MZ():BitmapData{
+			return new IICon_JB_MZ;
+		}
+		public static function JB_LS():BitmapData{
+			return new IICon_JB_LS;
+		}
+		public static function JB_FZ():BitmapData{
+			return new IICon_JB_FZ;
+		}
+		public static function SW1():BitmapData{
+			return new IICon_SW1;
+		}
+		public static function SW2():BitmapData{
+			return new IICon_SW2;
+		}
+		public static function SW3():BitmapData{
+			return new IICon_SW3;
+		}
+		public static function SW4():BitmapData{
+			return new IICon_SW4;
+		}
+		public static function SW5():BitmapData{
+			return new IICon_SW5;
+		}
 		public static function get VIP_3():BitmapData
 		{
 			return new IICon_VIP3;
 		}
-
+		
+		public static function XYD_silver():BitmapData{
+			return new IICon_XYD_silver;
+		}
+		public static function XYD_diamond():BitmapData{
+			return new IICon_XYD_diamond;
+		}
+		public static function XYD_green():BitmapData{
+			return new IICon_XYD_green;
+		}
+		public static function XYD_blue():BitmapData{
+			return new IICon_XYD_blue;
+		}
+		public static function XYD_gold():BitmapData{
+			return new IICon_XYD_gold;
+		}
 		public static function get VIP_2():BitmapData
 		{
 			return new IICon_VIP2;
 			
 		}
-
+		
 		public static function get VIP_1():BitmapData
 		{
 			return new IICon_VIP1;
 		}
-
+		
 		public static function get N():BitmapData
 		{
 			return new IICon_N;
 		}
-
+		
 		public static function get HZ_8():BitmapData
 		{
 			return new IICon_HZ8;
 		}
-
+		
 		public static function get HZ_7():BitmapData
 		{
 			return new IICon_HZ7;
 		}
-
+		
 		public static function get HZ_6():BitmapData
 		{
 			return new IICon_HZ6;
 		}
-
+		
 		public static function get HZ_5():BitmapData
 		{
 			return new IICon_HZ5;
 		}
-
+		
 		public static function get HZ_4():BitmapData
 		{
 			return new IICon_HZ4;
 		}
-
+		
 		public static function get HZ_3():BitmapData
 		{
 			return new IICon_HZ3;
 		}
-
+		
 		public static function get HZ_2():BitmapData
 		{
 			return new IICon_HZ2;
 		}
-
+		
 		public static function get HZ_1():BitmapData
 		{
 			return new IICon_HZ1;
@@ -175,7 +234,7 @@
 		 * 
 		 */		
 		private function push(index:BitmapData):void{
-		
+			
 			w = w+index.width;			
 			maxH = Math.max(maxH,index.height);				
 			

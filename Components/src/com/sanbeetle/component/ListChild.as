@@ -162,7 +162,7 @@
 		protected function onItemRendererHandler(event:ControlEvent):void
 		{
 			
-			this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_RENDERER_SELECT,event.data));
+			this.dispatchEvent(event.cloneEvent());
 			
 		}
 		override public function upDisplayList():void{
@@ -449,7 +449,7 @@
 			_childList = event.target as List;
 			//evt = new ControlEvent(ControlEvent.ITEM_SELECT,_childList.currentItem);			
 			//this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_SELECT,_childList.currentItem));	
-			this.dispatchEvent(new ControlEvent(ControlEvent.ITEM_SELECT,event.data));	
+			this.dispatchEvent(event.cloneEvent());	
 		}		
 		
 	}

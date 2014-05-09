@@ -3,11 +3,15 @@ package com.sanbeetle.renderer
 	import com.sanbeetle.component.child.IListBox;
 	import com.sanbeetle.data.ListChildItem;
 	import com.sanbeetle.data.ListData;
+	import com.sanbeetle.events.ControlEvent;
 	import com.sanbeetle.interfaces.IDisplayItem;
 	import com.sanbeetle.interfaces.IFListItem;
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	
+		
+	[Event(name="item_select", type="com.sanbeetle.events.ControlEvent")]
 	
 	public class AccordionListContentRenderer extends Sprite implements IDisplayItem
 	{
@@ -23,6 +27,7 @@ package com.sanbeetle.renderer
 			_listChild = new IListBox();
 			this.addChild(_listChild);
 			
+			_listChild.addEventListener(ControlEvent.ITEM_SELECT,onitemSelecthandler);
 			
 			_listChild.ItemCellRender = getItemCellRender();
 			
@@ -30,6 +35,13 @@ package com.sanbeetle.renderer
 			this.graphics.beginFill(0xff0000);
 			this.graphics.drawRect(0,0,this.contentWidth,this.contentHeight);
 			this.graphics.endFill();
+			
+		}
+		
+		protected function onitemSelecthandler(event:ControlEvent):void
+		{
+			
+			this.dispatchEvent(event.cloneEvent());
 			
 		}
 		
@@ -102,6 +114,7 @@ package com.sanbeetle.renderer
 		
 		public function doAction(actionType:String, actionComplete:Function, actionPar:Array=null):void
 		{
+			
 		}
 		
 		public function get selected():Boolean

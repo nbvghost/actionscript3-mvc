@@ -82,6 +82,7 @@ package com.asvital.text
 			}			
 			copyFontDes.fontWeight = textFormat.hasOwnProperty("fontWeight")?textFormat.fontWeight:copyFontDes.fontWeight;
 			
+			//copyFontDes.cffHinting = CFFHinting.HORIZONTAL_STEM;
 			
 			elementFormat.fontDescription = copyFontDes;
 			return elementFormat;

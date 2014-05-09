@@ -223,6 +223,7 @@
 					rectBackGround.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
 				}
 				
+				
 				target.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 				this.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 				rectBackGround.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
@@ -230,6 +231,11 @@
 				
 				addChild(maskmc);				
 				drawMask();	
+				
+				if(parent){
+					
+					this.parent.addChildAt(rectBackGround,0);
+				}
 			}		
 			
 		}
@@ -271,6 +277,8 @@
 				target.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
 				
 				rectBackGround.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
+				
+				target.mask = null;
 			}			
 			this.removeEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 			rectBackGround.removeEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
@@ -422,7 +430,10 @@
 			this.height=h;			
 		}
 		public function set source(value:Object):void
-		{			
+		{		
+			
+			disopose();
+			
 			this._source = value;
 			
 			if(value is String){
@@ -438,6 +449,9 @@
 				
 				target = this.parent.getChildByName(String(value.target)) as DisplayObjectContainer;
 			}	
+			if(value==null){
+				target=null;
+			}
 			if(target==null){
 				
 				return;

@@ -25,6 +25,8 @@ package com.sanbeetle.component.child
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	
+	import fl.motion.Color;
+	
 	[Event(name="select", type="com.sanbeetle.events.ControlEvent")]
 	
 	public class ComboBoxBar extends ExtendMovieClip 
@@ -166,7 +168,7 @@ package com.sanbeetle.component.child
 		protected function onClickHandler(event:MouseEvent):void
 		{
 			
-			this.dispatchEvent(new ControlEvent(ControlEvent.SELECT));
+			this.dispatchEvent(new ControlEvent(ControlEvent.SELECT).setMouseEvent(event));
 		}
 		
 		public function get backgroundType():String

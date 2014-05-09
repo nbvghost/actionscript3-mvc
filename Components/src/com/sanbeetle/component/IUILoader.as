@@ -1,5 +1,6 @@
 package com.sanbeetle.component
 {
+	import com.asvital.dev.Log;
 	import com.sanbeetle.core.UIComponent;
 	import com.sanbeetle.data.ScaleType;
 	import com.sanbeetle.skin.IUILoaderSkin;
@@ -11,6 +12,8 @@ package com.sanbeetle.component
 	import flash.display.LoaderInfo;
 	import flash.display.PixelSnapping;
 	import flash.display.Shape;
+	import flash.display.Sprite;
+	import flash.errors.IOError;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
@@ -20,7 +23,11 @@ package com.sanbeetle.component
 	import flash.system.LoaderContext;
 	
 
-	
+	/**
+	 * 加载器，有缩放功能 
+	 * @author Administrator
+	 * 
+	 */	
 	public class IUILoader extends UIComponent
 	{
 		private var _loader:Loader;
@@ -72,10 +79,14 @@ package com.sanbeetle.component
 		{
 			return _source;
 		}
-		
+		/**
+		 * 要加载的 显示资源的地址  同， load 方法 
+		 * @param value
+		 * @see #load()
+		 */		
 		public function set source(value:String):void
 		{
-			if(_source != value && value!=""){
+			if(_source != value && value!=""){			
 				
 				_source = value;
 				urlrequest = new URLRequest(_source);
@@ -83,18 +94,61 @@ package com.sanbeetle.component
 				if(stage){
 					pload();
 				}
+			}else{
+				_source = value;
+				clean();
+				this.updateUI();
+				
+				
+				
 			}
 		}
-		
+		private function clean():void{
+			try{
+				
+				_loader.close();
+				_loader.unload();
+				
+			}catch(e:IOError){
+				Log.error(e);	
+			}
+			
+			if(_currentTarget){
+				if(_currentTarget.parent){
+					_currentTarget.parent.removeChild(_currentTarget);
+				}
+				if(_currentTarget is Bitmap){
+					Bitmap(_currentTarget).bitmapData.dispose();
+				}
+			}
+			
+			if(loading.parent){
+				loading.parent.removeChild(loading);
+			}
+			loading.p1.stop();
+			loading.p2.stop();
+			loading.p3.stop();
+			
+			_currentTarget= new Sprite();
+			Sprite(_currentTarget).graphics.beginFill(0x000000,0.5);
+			Sprite(_currentTarget).graphics.drawRect(0,0,this.trueWidth,this.trueHeight);
+			Sprite(_currentTarget).graphics.endFill();
+			this.addChild(_currentTarget);
+		}
+		/**
+		 * 当前加载的显示对象 
+		 * @return 
+		 * 
+		 */		
 		public function get currentTarget():DisplayObject
 		{
 			return _currentTarget;
 		}
 		[Inspectable]
 		/**
-		 * 当是图片类型时，才有作用 
+		 * 当是图片类型时，才有作用 ，对图片 进行平滑操作
 		 * @return 
-		 * 
+		 * @see flash.display.Bitmap#smoothing
 		 */		
 		public function get smoothing():Boolean
 		{
@@ -105,7 +159,18 @@ package com.sanbeetle.component
 		{
 			_smoothing = value;
 		}
-		[Inspectable(enumeration= "none,out_border,in_border",defaultValue = "none")]
+		/**
+		 * 
+		 * 
+		 * 对显示对象进行 大小 处理以及位置，参数为  ScaleType 静态属性
+		 * @see com.sanbeetle.data.ScaleType#NONE
+		 * @see com.sanbeetle.data.ScaleType#OUT_BORDER
+		 * @see com.sanbeetle.data.ScaleType#IN_BORDER
+		 * @see com.sanbeetle.data.ScaleType#CENTER_NOSCALE
+		 * @return 
+		 * 
+		 */		
+		[Inspectable(enumeration= "none,out_border,in_border,center_noscale",defaultValue = "none")]
 		public function get scaleType():String
 		{
 			return _scaleType;
@@ -119,9 +184,14 @@ package com.sanbeetle.component
 				updateUI();
 			}
 		}
-		
+		/**
+		 * 与 source 属性类似 ，不同的是，不在是一个单纯的 地址，可以给  URLRequest 对象传  data属性
+		 * @param url =URLRequest.url
+		 * @param urldata  =URLRequest.data
+		 * @see flash.net.URLRequest
+		 */		
 		public function load(url:String,urldata:Object=null):void{
-			
+			_source= url;
 			urlrequest = new URLRequest(url);
 			urlrequest.data = urldata;
 			issetLoad = true;
@@ -159,7 +229,7 @@ package com.sanbeetle.component
 			_loader.load(urlrequest,loaderContext);
 			
 		}
-		protected function onIOErrorHandler(event:IOErrorEvent):void
+		private function onIOErrorHandler(event:IOErrorEvent):void
 		{
 			loading.buttonMode = true;
 			loading.p1.gotoAndStop(11);
@@ -168,7 +238,7 @@ package com.sanbeetle.component
 			loading.addEventListener(MouseEvent.CLICK,onreload);
 		}
 		
-		protected function onProgressHandler(event:ProgressEvent):void
+		private function onProgressHandler(event:ProgressEvent):void
 		{
 			if(loading.parent==null){
 				this.addChild(loading);
@@ -187,7 +257,7 @@ package com.sanbeetle.component
 			
 		}
 		
-		protected function onreload(event:MouseEvent):void
+		private function onreload(event:MouseEvent):void
 		{
 			loading.buttonMode = false;
 			loading.removeEventListener(MouseEvent.CLICK,onreload);
@@ -209,9 +279,11 @@ package com.sanbeetle.component
 				var cupi:Number= _currentTarget.height/_currentTarget.width;
 				
 				switch(_scaleType){
+					case ScaleType.CENTER_NOSCALE:
 					case ScaleType.NONE:
 						
-						
+						_currentTarget.scaleX = 1;
+						_currentTarget.scaleY = 1;
 						
 						break;
 					case ScaleType.IN_BORDER:
@@ -253,8 +325,10 @@ package com.sanbeetle.component
 		}
 		
 		
-		protected function onCompleteHandler(event:Event):void
+		private function onCompleteHandler(event:Event):void
 		{
+			
+			
 			
 			loading.p1.stop();
 			loading.p2.stop();
@@ -291,10 +365,18 @@ package com.sanbeetle.component
 			}
 			
 			_currentTarget.mask = maskmc;
+			
+			
 			this.addChild(maskmc);
 			
+			if(_source==null || _source=="" || _source.length<8){
+				clean();
+			}
 			
 			updateUI();
+			
+			
+			
 			
 		}
 		

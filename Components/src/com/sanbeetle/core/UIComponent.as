@@ -3,12 +3,12 @@
 	import com.asvital.dev.Log;
 	import com.sanbeetle.Component;
 	import com.sanbeetle.events.ControlEvent;
-	import com.sanbeetle.interfaces.IStage;
 	import com.sanbeetle.interfaces.ITimerRun;
 	import com.sanbeetle.interfaces.IUIComponent;
 	import com.sanbeetle.utils.TimerRun;
 	
 	import flash.display.DisplayObject;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
@@ -21,7 +21,7 @@
 	 *
 	 *@author sixf
 	 */
-	public class UIComponent extends ExtendMovieClip implements IUIComponent,IStage,ITimerRun
+	public class UIComponent extends ExtendMovieClip implements IUIComponent,ITimerRun
 	{
 		private var _trueWidth:Number = -1;
 		private var _trueHeight:Number = -1;
@@ -36,6 +36,7 @@
 		
 		private var linkRoot:DisplayObject;
 		
+		private var _linkStage:Stage;
 		
 		private var _glowFilter:Object={};
 		
@@ -84,6 +85,19 @@
 			
 			
 		}
+
+		protected function get linkStage():Stage
+		{
+			return _linkStage;
+		}
+
+		[Inspectable(defaultValue="true")]
+		override public function get visible():Boolean
+		{
+			// TODO Auto Generated method stub
+			return super.visible;
+		}
+		
 		
 		[Inspectable(type="Object",defaultValue="enable:false,color:0x000000,alpha:1,blurX:6,blurY:6,strength:2,quality:1,inner:false,knockout:false")]
 		public function get glowFilter():Object
@@ -179,6 +193,8 @@
 		{
 			isInstage = true;
 			
+			_linkStage = stage;
+			
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.addEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);	
 			
@@ -209,6 +225,8 @@
 			linkRoot=null;
 			this.graphics.clear();
 			
+			_linkStage =null;
+			
 			//trace("Dispose View Component!");	
 		}
 		
@@ -235,9 +253,12 @@
 		private function onRemoveStageHandler(event:Event):void
 		{		
 			isInstage = false;
+		
 			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);
-			this.onRemoveStage();			
+			this.onRemoveStage();	
+			
+			
 		}		
 		protected function onRemoveStage():void{
 			

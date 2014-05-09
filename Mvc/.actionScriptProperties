@@ -34,7 +34,6 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="${libs}/DevLib.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="${libs}/textLayout.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>

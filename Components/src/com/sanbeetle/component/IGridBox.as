@@ -2,6 +2,7 @@ package com.sanbeetle.component
 {
 	import com.asvital.dev.Log;
 	import com.sanbeetle.core.UIComponent;
+	import com.sanbeetle.events.ControlEvent;
 	import com.sanbeetle.interfaces.IDisplayItem;
 	import com.sanbeetle.interfaces.IFListItem;
 	import com.sanbeetle.renderer.GridBoxItemRenderer;
@@ -10,10 +11,11 @@ package com.sanbeetle.component
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
-	
+
+	[Event(name="select", type="com.sanbeetle.events.ControlEvent")]
 	/**
 	 *  
-	 * @author Administrator
+	 * @author sixf
 	 * 
 	 */
 	public class IGridBox extends UIComponent
@@ -35,20 +37,11 @@ package com.sanbeetle.component
 		
 		private var backgroundCl:uint = 0x000000;	
 		private var background_alpha:Number = 0.05;
-		
+		private var _itemRendererCell:Function;
 		private var _ItemRenderer:Class;
 		
-		public function get itemRendererCell():Function
-		{
-			return _itemRendererCell;
-		}
 		
-		public function set itemRendererCell(value:Function):void
-		{
-			_itemRendererCell = value;
-		}
 		
-		private var _itemRendererCell:Function;
 		
 		public function IGridBox()
 		{
@@ -68,6 +61,16 @@ package com.sanbeetle.component
 			_ItemRenderer = GridBoxItemRenderer;
 			
 		}
+		public function get itemRendererCell():Function
+		{
+			return _itemRendererCell;
+		}
+		
+		public function set itemRendererCell(value:Function):void
+		{
+			_itemRendererCell = value;
+		}
+		
 		/**
 		 * 滚动条
 		 * @return 
@@ -110,6 +113,7 @@ package com.sanbeetle.component
 			
 			if(target){
 				IDisplayItem(target).mouseOver(event);
+				this.dispatchEvent(new ControlEvent(ControlEvent.SELECT,target,event));
 			}
 		}
 		
@@ -133,6 +137,11 @@ package com.sanbeetle.component
 				IDisplayItem(target).mouseOver(event);
 			}
 		}
+		/**
+		 * 滚动条，是否要盖住，内容 
+		 * @return 
+		 * 
+		 */		
 		[Inspectable(defaultValue=false)]
 		public function get isFloat():Boolean
 		{
@@ -201,7 +210,11 @@ package com.sanbeetle.component
 		}
 		
 		
-		
+		/**
+		 * 每一条的背景，间隔留空的切换器
+		 * @return 
+		 * 
+		 */		
 		[Inspectable(defaultValue=false)]
 		public function get lineBackgroundFix():Boolean
 		{
@@ -211,6 +224,11 @@ package com.sanbeetle.component
 		{
 			_lineBackgroundFix = value;
 		}
+		/**
+		 * 每行的高 
+		 * @return 
+		 * 
+		 */		
 		[Inspectable(defaultValue=24)]
 		public function get lineHeight():int
 		{
@@ -219,9 +237,17 @@ package com.sanbeetle.component
 		
 		public function set lineHeight(value:int):void
 		{
-			_lineHeight = value;
+			if(_lineHeight != value){
+				
+				_lineHeight = value;
+				updateUI();
+			}
 		}
-		
+		/**
+		 * 每一行的数据 
+		 * @return 
+		 * @see com.sanbeetle.interfaces.IFListItem
+		 */		
 		public function get dataArray():Vector.<IFListItem>
 		{
 			return _dataArray;
@@ -254,7 +280,10 @@ package com.sanbeetle.component
 			updateUI();
 		}
 		
-		
+		/**
+		 * 理解成刷新 
+		 * 
+		 */		
 		override public function upDisplayList():void{
 			
 			for (var i:int = 0; i < _dataArray.length; i++) 
@@ -271,7 +300,7 @@ package com.sanbeetle.component
 				}else{
 					itemw=trueWidth-ivsb.width;
 				}
-								
+				
 				IDisplayItem(ite).setSize(itemw,_lineHeight,false,i+1);				
 				
 				ite.y = IDisplayItem(ite).contentHeight*i;
@@ -297,20 +326,28 @@ package com.sanbeetle.component
 				Log.error("IGridBox gridBoxClassLoader 不能为空！");
 				return;
 			}
-			if(value==null){
-				while(content.numChildren>0){
-					content.removeChildAt(0);
-				}
-				//value = new Vector.<IFListItem>();
+			
+			while(content.numChildren>0){
+				content.removeChildAt(0);
 			}
+			//value = new Vector.<IFListItem>();
+			
+			content.graphics.clear();
+			
 			
 			_dataArray = value;			
 			
 		}		
-		
+		[Deprecated(message="目前无效")]
 		public function addItem(disobject:DisplayObject):void{
-			items.push(disobject);
+			//items.push(disobject);
 		}
+		/**
+		 * 通过  dataArray 的索引号得到相关的 ItemRenderer
+		 * @param index
+		 * @return 
+		 * 
+		 */		
 		public function getItem(index:int):DisplayObject{
 			
 			if(items.length-1<index){
@@ -321,6 +358,7 @@ package com.sanbeetle.component
 			
 			return items[index];
 		}
+		[Deprecated(message="目前无效")]
 		public function removeItem(index:int):DisplayObject{
 			
 			return null;

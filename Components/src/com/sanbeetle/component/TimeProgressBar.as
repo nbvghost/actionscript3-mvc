@@ -145,7 +145,7 @@
 		
 		protected function onClickHandler(event:MouseEvent):void
 		{
-			this.dispatchEvent(new ControlEvent(ControlEvent.CLOSE));
+			this.dispatchEvent(new ControlEvent(ControlEvent.CLOSE).setMouseEvent(event));
 		}
 		
 		override public function dispose():void

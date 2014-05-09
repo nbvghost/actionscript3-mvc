@@ -41,7 +41,7 @@
 			_colorOver = value;
 			content.colorOver = _colorOver;
 		}
-		[Inspectable]
+		[Inspectable(defaultValue="0x373B40")]
 		public function get color():String
 		{
 			return _color;

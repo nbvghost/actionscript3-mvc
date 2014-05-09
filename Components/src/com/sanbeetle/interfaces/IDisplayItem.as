@@ -4,7 +4,7 @@ package com.sanbeetle.interfaces
 	
 	import flash.events.MouseEvent;
 
-	public interface IDisplayItem extends IStage
+	public interface IDisplayItem
 	{
 		function get data():IFListItem;
 		function set data(value:IFListItem):void;

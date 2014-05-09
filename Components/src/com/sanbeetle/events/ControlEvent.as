@@ -1,6 +1,7 @@
 ﻿package com.sanbeetle.events
 {
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 
 
 	/**
@@ -25,6 +26,9 @@
 		public static const ITEM_OVER:String="item_over";
 		public static const ITEM_OUT:String = "item_out";
 		public static const CLOSE:String="close";
+		/**
+		 * 选择
+		 */
 		public static const SELECT:String="select";
 		
 		public static const CHANGE_SIZE:String = "change_size";
@@ -69,12 +73,31 @@
 		public static const COMPONENT_CREATE_UI:String="component_create_ui";
 		
 		public var data:Object;
+		
+		/**
+		 * 如果这个事件是鼠标事件进行触发的，将携带 mouse 事件
+		 */
+		public var event:Event;
 				
-		public function ControlEvent(type:String,data:Object=null)
+		public function ControlEvent(type:String,data:Object=null,event:Event=null)
 		{		
 			super(type);
 			this.data = data;		
+			this.event = event;
+				
 			
 		}
+		public function setMouseEvent(event:MouseEvent):ControlEvent{
+		
+			this.event = event;
+			return this;
+		}
+		
+		public function cloneEvent():ControlEvent
+		{
+			// TODO Auto Generated method stub
+			return new ControlEvent(type,data,event);
+		}
+		
 	}
 }

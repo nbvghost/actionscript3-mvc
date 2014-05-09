@@ -20,6 +20,8 @@ package com.sanbeetle.core
 	import flash.utils.ByteArray;
 	import flash.utils.getTimer;
 	
+	import fl.motion.Color;
+	
 	import flashx.textLayout.conversion.ConversionType;
 	import flashx.textLayout.conversion.TextConverter;
 	import flashx.textLayout.edit.EditManager;
@@ -67,7 +69,7 @@ package com.sanbeetle.core
 		
 		
 		private var _fontSize:String = "14";
-		private var _color:String = "0x333333";		
+		private var _color:String = "0x333333";
 		
 		private var aMarkData:Object = new Object;		
 		

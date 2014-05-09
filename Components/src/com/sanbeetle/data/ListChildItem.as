@@ -11,12 +11,11 @@ package com.sanbeetle.data
 		private var _childs:DataProvider;
 		
 		
-		public function ListChildItem(label:String,data:String)
+		public function ListChildItem(label:String,data:Object)
 		{
 			super(label,data);
 		}
 		[Collection(collectionClass="com.sanbeetle.data.DataProvider", identifier="item", collectionItem="com.sanbeetle.data.SimpleCollectionItem")]
-		//[Inspectable()]
 		/**
 		 * 子菜单数据 
 		 */

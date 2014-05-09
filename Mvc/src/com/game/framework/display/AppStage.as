@@ -62,9 +62,7 @@ package com.game.framework.display {
 			return _trueStage;
 		}
 		
-		public function set trueStage(value:Stage):void {
-			_trueStage = value;
-		}
+		
 		
 	}
 }

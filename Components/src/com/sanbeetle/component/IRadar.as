@@ -18,7 +18,7 @@
 		private var _maxValue:Number=100;
 		//private var _currentValues:Array=[10,10,10,10,10,10,10,10];
 		private var _lineThickness:Number=1;
-		private var _lineColor:String="0x000000";
+		private var _lineColor:String= "0x000000";
 		
 		private var lineLayer:Shape =new Shape();
 		

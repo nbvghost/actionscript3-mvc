@@ -118,7 +118,7 @@ package com.game.framework.views
 			
 			callerBuilder = value;
 		}
-		public function show(_ID:ITargetID=null):AlertDialog{		
+		public function show(_ID:ITargetID=null,useBorder:Boolean=true):AlertDialog{		
 			
 			if(ConfigData.getInvalidDialogAlert()){
 				return this;
@@ -147,8 +147,7 @@ package com.game.framework.views
 				//  dialogAssetItem 这对象已经是 AlertDialog 本身的对象，不用再去列表去获取一次。
 				//var childIndex:int=midLayer.getChildIndex(dialogAssetItem);
 				//dialogAssetItem=midLayer.getChildAt(childIndex);
-				//dialogAssetItem = midLayer.getChildByName(ConfigData.getDialogView().url) as DialogAssetItem;
-				
+				//dialogAssetItem = midLayer.getChildByName(ConfigData.getDialogView().url) as DialogAssetItem;				
 				if(dialogAssetItem==null){
 					dialogAssetItem= new DialogAssetItem(ConfigData.getDialogView(),this);	
 					
@@ -157,7 +156,8 @@ package com.game.framework.views
 						midLayer.addChild(dialogAssetItem);
 					}
 				}
-			}			
+			}	
+			
 			dialogAssetItem.callerBuilder = callerBuilder;
 			
 			if(midLayer.numChildren!=0){

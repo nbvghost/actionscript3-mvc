@@ -85,7 +85,7 @@
 		protected function onConteseleHane(event:ControlEvent):void
 		{
 			// TODO Auto-generated method stub
-			this.dispatchEvent(new ControlEvent(event.type,event.data));
+			this.dispatchEvent(event.cloneEvent());
 		}
 		override protected function updateUI():void
 		{
@@ -160,7 +160,7 @@
 		{
 			//Console.out("components"+event.target);
 			//Console.out("components"+ISideBoxSkinItem(event.target).simpleCollectionItem.label);			
-			this.dispatchEvent(new ControlEvent(ControlEvent.CHANGE,event.data));		
+			this.dispatchEvent(event.cloneEvent());
 			
 		}	
 		
@@ -203,6 +203,7 @@
 			stage.removeEventListener(MouseEvent.MOUSE_UP,onStageUpHandler);
 			
 		}
+		
 		[Collection(collectionClass="com.sanbeetle.data.DataProvider", identifier="item", collectionItem="com.sanbeetle.data.SimpleCollectionItem")]
 		/**
 		 * @copy fl.controls.SelectableList#dataProvider

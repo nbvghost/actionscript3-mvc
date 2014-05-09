@@ -38,7 +38,7 @@
 		
 		protected function onItemRendererHandler(event:ControlEvent):void
 		{
-			this.dispatchEvent(new ControlEvent(event.type,event.data));
+			this.dispatchEvent(event.cloneEvent());
 			hide();
 			
 		}
@@ -55,7 +55,7 @@
 		protected function onChangeHandler(event:ControlEvent):void
 		{
 			// TODO Auto-generated method stub
-			this.dispatchEvent(new ControlEvent(event.type,event.data));
+			this.dispatchEvent(event.cloneEvent());
 			hide();
 		}
 		[Collection(collectionClass="com.sanbeetle.data.DataProvider", identifier="item", collectionItem="com.sanbeetle.data.SimpleCollectionItem")]
@@ -136,7 +136,7 @@
 			super.dispose();
 		}
 		
-		private var linkStage:Stage;
+	
 		protected function onTargetDownHandler(event:MouseEvent):void
 		{	
 			
@@ -153,7 +153,7 @@
 				stage.addEventListener(MouseEvent.MOUSE_UP,onMouseUphandler);
 			}
 		
-			linkStage = stage;
+			
 			
 			/*parentDisp.stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseUphandler);
 			if(parentDisp.contains(this)){

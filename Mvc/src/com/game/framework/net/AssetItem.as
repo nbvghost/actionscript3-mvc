@@ -1,6 +1,7 @@
 package com.game.framework.net {
 	import com.asvital.dev.Log;
 	import com.game.framework.data.CacheData;
+	import com.game.framework.data.ConfigData;
 	import com.game.framework.display.UIComponent;
 	import com.game.framework.error.OperateError;
 	import com.game.framework.events.GlobalErrorEvent;
@@ -61,7 +62,7 @@ package com.game.framework.net {
 			swfUrlloader = new URLLoader();
 			swfUrlloader.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
 			swfUrlloader.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);
-			swfUrlloader.dataFormat = URLLoaderDataFormat.BINARY;			
+			swfUrlloader.dataFormat = URLLoaderDataFormat.BINARY;
 			
 		}
 		private var uid:String = RPCUID.createUID();
@@ -112,7 +113,7 @@ package com.game.framework.net {
 			_isLoading = false;
 			this._content = loader.content;
 			this.onCompleteHandler(event);
-			
+			_loadCount = 0;
 		}
 		
 		private function uncaughtErrorHandler(event:UncaughtErrorEvent):void {
@@ -174,10 +175,21 @@ package com.game.framework.net {
 		public function onIOErrorHandler(event:IOErrorEvent):void {
 			// TODO Auto Generated method stub
 			//Log.out(event);
-			Log.info("加载出错："+event);
-			_isLoading =false;
-			_datainterface.netError(event, this);
-			throw new OperateError("加载出错："+event,this);
+			
+			swfUrlloader.removeEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
+			
+			if(loadCount<=ConfigData.MaxLoadCount){
+				swfUrlloader.addEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
+				swfUrlloader.load(new URLRequest(url.url));
+				_loadCount++;
+			}else{
+				Log.info("加载出错："+event);
+				_isLoading =false;
+				_datainterface.netError(event, this);
+				throw new OperateError("加载出错："+event+ this.url.url,this);
+			}
+			
+			
 		}
 		
 		public function onProgressHandler(event:ProgressEvent):void {
@@ -242,6 +254,7 @@ package com.game.framework.net {
 		
 		protected function onSwfFileCompleteHandler(event:Event):void
 		{
+			_loadCount=0;
 			swfUrlloader.removeEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
 			CacheData.writeByteArray(url,swfUrlloader.data);
 			loadBytes();

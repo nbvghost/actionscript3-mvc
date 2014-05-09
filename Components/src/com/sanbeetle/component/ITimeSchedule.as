@@ -136,7 +136,7 @@
 		public function set backgroundColor(value:String):void
 		{
 			_backgroundColor = value;
-			skin.progressBar.backgroundColor = uint(_backgroundColor);
+			skin.progressBar.backgroundColor = _backgroundColor;
 		}
 		[Inspectable(defaultValue="0x234E02")]
 		public function get slipColor():String
@@ -147,7 +147,7 @@
 		public function set slipColor(value:String):void
 		{
 			_slipColor = value;
-			skin.progressBar.slipColor = uint(_slipColor);
+			skin.progressBar.slipColor = _slipColor;
 		}
 		[Inspectable(defaultValue=1)]
 		public function get borderAlpha():Number
@@ -169,7 +169,7 @@
 		public function set borderColor(value:String):void
 		{
 			_borderColor = value;
-			skin.progressBar.borderColor = uint(_borderColor);
+			skin.progressBar.borderColor = _borderColor;
 		}
 		[Inspectable(defaultValue=0)]
 		public function get border():int

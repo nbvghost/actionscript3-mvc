@@ -7,7 +7,6 @@ package com.asvital.text
 	import com.sanbeetle.Component;
 	
 	import flash.display.DisplayObjectContainer;
-	import flash.display.InteractiveObject;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.EventDispatcher;
@@ -86,6 +85,9 @@ package com.asvital.text
 		private var mouseDisplayObjectContainer:DisplayObjectContainer;
 		
 		
+		private var _tracking:Number = 0;
+		
+		
 		public function FTETextField(mouseDisplayObjectContainer:DisplayObjectContainer)
 		{
 			super();
@@ -94,13 +96,21 @@ package com.asvital.text
 			
 			//var t:Number = getTimer();			
 			_textFormat= Component.component.elementFormat.clone();			
-			_textFormat.fontDescription =Component.component.fontDescription.clone();		
+			_textFormat.fontDescription =Component.component.fontDescription.clone();	
+			
+			
+			//_textFormat.trackingLeft = 1; 
+			//_textFormat.trackingRight = 1;
+			
+			
+			
+			
+			
 			//_textFormat.color = Math.random()*0xffffff;			
 			maskTarget= new Shape();			
 			drawBorder();
-			//maskTarget.cacheAsBitmap = true;			
-			mouseDisplayObjectContainer.addChild(maskTarget);			
-			//textContent = new Sprite();
+			
+			mouseDisplayObjectContainer.addChild(maskTarget);		
 			
 			mouseDisplayObjectContainer.addEventListener(MouseEvent.MOUSE_OVER,onOverHandler);
 			mouseDisplayObjectContainer.addEventListener(MouseEvent.MOUSE_DOWN,onDownHandler,true);			
@@ -110,6 +120,23 @@ package com.asvital.text
 			//textContent.mask = maskTarget;
 			
 			this.mask = maskTarget;
+		}
+		
+		public function get tracking():Number
+		{
+			return _tracking;
+		}
+		
+		public function set tracking(value:Number):void
+		{
+			
+			_tracking = value;
+			
+			_textFormat.trackingLeft = _tracking/2;
+			_textFormat.trackingRight = _tracking/2;
+			
+			
+			
 		}
 		
 		public function get scrollText():Boolean
@@ -420,7 +447,7 @@ package com.asvital.text
 			
 			maskTarget.graphics.clear();
 			maskTarget.graphics.beginFill(0xff0000,0.5);
-			//maskTarget.graphics.drawRect(-1,-1,_width+2,_height+2);
+			//maskTarget.graphics.drawRect(-1,-1,_width+20,_height+20);
 			maskTarget.graphics.drawRect(0,0,_width,_height);
 			maskTarget.graphics.endFill();
 		}
@@ -444,7 +471,7 @@ package com.asvital.text
 					this.removeChildAt(0);
 				}
 				/*if(textContent.parent){
-					this.removeChild(textContent);
+				this.removeChild(textContent);
 				}*/
 			}
 			if(_styleSheet){
@@ -598,7 +625,7 @@ package com.asvital.text
 			
 		}
 		
-	
+		
 		
 		private function createTextLine():void{
 			

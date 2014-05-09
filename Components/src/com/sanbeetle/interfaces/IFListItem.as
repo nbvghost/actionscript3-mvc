@@ -1,5 +1,7 @@
 package com.sanbeetle.interfaces
 {
+	
+
 	/**
 	 *
 	 *@author sixf

@@ -11,8 +11,8 @@ package com.sanbeetle.renderer
 		
 		override protected function data(itemData:IFListItem):IFListItem
 		{
-			itemData.itemColor = "0x333333";
-			itemData.itemOverColor = "0xffffff";
+			itemData.itemColor ="0x333333";
+			itemData.itemOverColor ="0xffffff";
 			
 			return itemData;
 		}

@@ -20,6 +20,8 @@
 	import flash.geom.Point;
 	import flash.utils.getTimer;
 	
+	import fl.motion.Color;
+	
 	/**
 	 * 
 	 * 二级菜单发生改变时
@@ -41,8 +43,8 @@
 		private const mid:String="mid";
 		private const right:String="right";
 		
-		private var _fontColor:String = "0xffffff";
-		private var _backgroundColor:String = "0x000000";
+		private var _fontColor:String ="0xffffff";
+		private var _backgroundColor:String ="0x000000";
 		
 		private var _selectIndex:int=-1;
 		private var _fontSize:String="10";
@@ -117,7 +119,7 @@
 				list.parent.removeChild(list);
 			}
 			
-			this.dispatchEvent(new ControlEvent(event.type,event.data));
+			this.dispatchEvent(event.cloneEvent());
 		}
 		
 		
