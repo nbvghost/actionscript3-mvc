@@ -7,7 +7,6 @@
 	
 	import flash.display.DisplayObject;
 	import flash.display.InteractiveObject;
-	import flash.display.Stage;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
@@ -34,8 +33,12 @@
 			list.addEventListener(ControlEvent.CHANGE,onChangeHandler);
 			list.addEventListener(ControlEvent.ITEM_RENDERER_SELECT,onItemRendererHandler);
 			
+			
+			
 		}
-		
+		public function get listChild():ListChild{
+			return list;
+		}
 		protected function onItemRendererHandler(event:ControlEvent):void
 		{
 			this.dispatchEvent(event.cloneEvent());

@@ -55,6 +55,8 @@
 			bg.height = this.trueHeight;
 			s_right.y = this.trueHeight - s_right.height;
 			
+			setVScrollBarPosition(vscrollbarposition);
+			
 			this.drawBorder (this.width,this.trueHeight);
 			
 		}
@@ -127,6 +129,7 @@
 			
 			var ww:Number = trueHeight - s_right.height - s_bar.height - s_left.height;
 			s_bar.y = s_left.height + (p * ww);
+			
 		}
 		override protected function onRightHandler (event:MouseEvent):void
 		{
@@ -230,7 +233,7 @@
 		{
 			
 			maskmc.graphics.clear ();
-			maskmc.graphics.beginFill (0xff0000,0);
+			maskmc.graphics.beginFill (0xff0000,1);
 			maskmc.graphics.drawRect (0,0,-(target.width+Math.abs(scrollBeginPoint.x)),trueHeight+scrollBeginPoint.y);
 			maskmc.graphics.endFill ();
 			
@@ -246,39 +249,34 @@
 			
 			s_bar.height = 0;
 			var ss:Number = trueHeight - s_right.height - s_bar.height - s_left.height;
+			
+			
+			if(isFloat){
+				target.x = this.x - target.width+bg.width;
+				//this.x = target.width -bg.width;
+				maskmc.x = bg.width;
+			}else{
+				target.x = this.x - target.width;
+			}			
+			
 			if (kk>=1)
 			{
-				this.visible = false;
-				
-				if(isFloat){
-					target.x = this.x - target.width+bg.width;
-					//this.x = target.width -bg.width;
-					maskmc.x = bg.width;
-				}else{
-					target.x = this.x - target.width;
-				}
+				this.visible = false;				
+				target.y = this.y;
+				vscrollbarposition = 0;
 				disopose ();
-				kk = 1;
-				
+				kk = 1;		
 				
 			}
 			else
 			{
 				this.visible = true;
-				
-				
-				if(isFloat){
-					target.x = this.x - target.width+bg.width;
-					//this.x = target.width -bg.width;
-					maskmc.x = bg.width;
-				}else{
-					target.x = this.x - target.width;
-				}
-				
-				//target.x = this.x - target.width;
-				
-				target.mask = maskmc;
+					
+				//target.mask = maskmc;
 			}		
+						
+			target.mask = maskmc;
+			
 			var minHeight:Number = trueHeight / 3;
 			if ((kk*ss)<minHeight)
 			{

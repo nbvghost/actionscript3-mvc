@@ -37,7 +37,7 @@ package com.sanbeetle.interfaces
 		 * @param event
 		 * 
 		 */
-		function onStageHandler (event:Event):void;
+		//function onStageHandler (event:Event):void;
 		/**
 		 * 跳到第二帧时，开始构建 样式、界面 
 		 * 

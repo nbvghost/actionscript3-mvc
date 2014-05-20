@@ -1,6 +1,5 @@
 ﻿package com.sanbeetle.renderer
 {
-	import com.sanbeetle.component.ILabel;
 	import com.sanbeetle.data.ListData;
 	import com.sanbeetle.interfaces.IDisplayItem;
 	import com.sanbeetle.interfaces.IFListItem;
@@ -47,12 +46,6 @@
 
 			mouseOverShape = new Shape();
 			this.addChildAt (mouseOverShape,2);
-			
-			var il:ILabel = new ILabel();
-			il.width = 100;
-			il.height = 21;
-			il.text = "dd";
-			this.addChild(il);
 			
 		}
 

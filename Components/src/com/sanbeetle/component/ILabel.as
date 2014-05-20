@@ -15,6 +15,7 @@
 	import flash.text.engine.FontDescription;
 	import flash.text.engine.FontLookup;
 	import flash.text.engine.FontWeight;
+	import flash.text.engine.TextRotation;
 	
 	
 	[Event(name="text_link",type="com.sanbeetle.events.ControlEvent")]
@@ -81,6 +82,8 @@
 		
 		private var _tracking:Number = 0;
 		
+		private var _rotate2:String = TextRotation.ROTATE_0;
+		
 		public function ILabel()
 		{
 			super();
@@ -98,12 +101,20 @@
 			
 			//this.mouseChildren = false;
 			
-		
-			
-			
 			
 		}
-				
+		[Inspectable(enumeration = "rotate0,rotate90,rotate180,rotate270",defaultValue = "rotate0")]
+		public function get rotate2():String
+		{
+			return _rotate2;
+		}
+
+		public function set rotate2(value:String):void
+		{
+			_rotate2 = value;
+		}
+
+		
 		[Inspectable(defaultValue=0)]
 		public function get tracking():Number
 		{
@@ -574,6 +585,7 @@
 				
 				_autoBound = value;
 				textField.autoSize = _autoBound;
+				
 				updateUI();
 			}
 		}
@@ -661,30 +673,57 @@
 			
 			//trace(this.width,this.height);
 			
+			
+			
+			
 		}
+		private var _rotation:Number = 0;
+		//[Inspectable]
+		override public function get rotation():Number
+		{
+			// TODO Auto Generated method stub
+			return super.rotation;
+		}
+		
+		override public function set rotation(value:Number):void
+		{
+			// TODO Auto Generated method stub
+			_rotation = value;
+			
+			super.rotation = _rotation;		
+			
+		}
+		
 		
 		override protected function onRemoveStage():void
 		{
 			
 			linkStage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
+			
+			textField.removeEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
+			textField.removeEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
+			textField.removeEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);
+			
+			stage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
 		}
 		
-		
-		override public function onStageHandler(event:Event):void
+		override protected function onAddStage():void
 		{
 			textField.addEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
 			textField.addEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
 			textField.addEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);
 			
 			stage.addEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
-			
 		}
+		
 		override public function createUI():void
 		{
 			this.addChild(textField);
 			
 			onFontLoaderHandler(null);
 			updateUI();
+			
+			rotation = _rotation;
 		}
 		
 		protected function onFontLoaderHandler(event:Event):void

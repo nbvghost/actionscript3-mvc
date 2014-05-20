@@ -9,5 +9,8 @@ package com.sanbeetle.core
 			super();
 			
 		}
+		
+	
+		
 	}
 }

@@ -1,7 +1,6 @@
 ﻿package com.sanbeetle.component.child {
 	
 	import com.sanbeetle.component.ILabel;
-	import com.sanbeetle.core.TextBox;
 	import com.sanbeetle.data.DataProvider;
 	
 	import flash.display.MovieClip;
@@ -12,7 +11,26 @@
 	public class IRadarSkinLabel extends MovieClip {
 		
 		private var _dataPro:DataProvider;
+		private var _labelColor:uint=0x000000;
 		public function IRadarSkinLabel() {
+			
+		}
+
+		public function get labelColor():uint
+		{
+			return _labelColor;
+		}
+
+		public function set labelColor(value:uint):void
+		{
+			_labelColor = value;
+			for (var i:int = 0; i < labelArr.length; i++) 
+			{
+				var ite:ILabel = labelArr[i];
+				if(ite){
+					ite.color = String(_labelColor);
+				}
+			}
 			
 		}
 
@@ -21,6 +39,7 @@
 			return _dataPro;
 		}
 
+		
 		private var labelArr:Array = new Array;
 		public function dataProvider(value:DataProvider,viewHeight:int):void
 		{
@@ -49,6 +68,7 @@
 				//lable.autoSize = TextFieldAutoSize.LEFT;	
 				lable.autoBound = true;
 				lable.multiline =false;
+				lable.color =String(_labelColor);
 				//lable.border =true;
 				//lable.align = TextFormatAlign.LEFT;
 				lable.horizontalAlign = TextAlign.LEFT;

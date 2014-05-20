@@ -21,6 +21,7 @@ package com.asvital.text
 	import flash.text.engine.TextBlock;
 	import flash.text.engine.TextElement;
 	import flash.text.engine.TextLine;
+	import flash.text.engine.TextRotation;
 	import flash.text.ime.CompositionAttributeRange;
 	import flash.text.ime.IIMEClient;
 	
@@ -39,6 +40,8 @@ package com.asvital.text
 		
 		private var _text:String;
 		private var ishtmlText:Boolean= false;
+		
+		private var _rotate2:String =TextRotation.ROTATE_0; 
 		
 		
 		private var _scrollText:Boolean =false;	
@@ -120,6 +123,16 @@ package com.asvital.text
 			//textContent.mask = maskTarget;
 			
 			this.mask = maskTarget;
+		}
+		[Inspectable(enumeration = "left,right,center",defaultValue = "left")]
+		public function get rotate2():String
+		{
+			return _rotate2;
+		}
+		
+		public function set rotate2(value:String):void
+		{
+			_rotate2 = value;
 		}
 		
 		public function get tracking():Number
@@ -334,6 +347,8 @@ package com.asvital.text
 		{
 			_autoSize = value;
 			createTextLine();		
+			
+			
 		}
 		
 		public function get compositionEndIndex():int
@@ -625,11 +640,7 @@ package com.asvital.text
 			
 		}
 		
-		
-		
-		private function createTextLine():void{
-			
-			
+		private function createTextLineR0():void{
 			var preTextLine:TextLine=null;
 			var textBlock:TextBlock;
 			
@@ -638,11 +649,6 @@ package com.asvital.text
 			_textWidth = 0;
 			_textHeight = _padding.top;
 			
-			while(this.numChildren>0){
-				
-				this.removeChildAt(0);
-				
-			}
 			var childs:Vector.<TextLine> = new Vector.<TextLine>();
 			var len:int = textBlocks.length;
 			
@@ -754,6 +760,45 @@ package com.asvital.text
 				
 				//textBlock.releaseLineCreationData();
 			}
+		}
+		private function createTextLineR90():void{
+			
+		}
+		private function createTextLineR180():void{
+			
+		}
+		private function createTextLineR270():void{
+			
+		}
+		
+		private function createTextLine():void{
+			
+			
+			
+			
+			while(this.numChildren>0){
+				
+				this.removeChildAt(0);
+				
+			}
+			
+			switch(_rotate2){
+				
+				case TextRotation.ROTATE_0:
+					createTextLineR0();
+					break;
+				case TextRotation.ROTATE_90:
+					createTextLineR90();
+					break;
+				case TextRotation.ROTATE_180:
+					createTextLineR180();
+					break;
+				case TextRotation.ROTATE_270:
+					createTextLineR270();
+					break;
+				default:
+					throw new Error("rotate2 值 不是 TextRotation 成员,",this);
+			}
 			
 			
 			drawBorder();
@@ -769,6 +814,7 @@ package com.asvital.text
 			//textBlock.baselineZero = TextBaseline.ASCENT;	
 			textBlock.baselineZero = TextBaseline.IDEOGRAPHIC_TOP;
 			textBlock.applyNonLinearFontScaling = true;	
+			textBlock.lineRotation=_rotate2;
 			textBlock.content=new GroupElement(groupBlock,elementFormat,eventMirror,textRotation);
 			//groupBlock.splice(0,groupBlock.length);
 			//groupBlock =null;

@@ -60,7 +60,16 @@
 			//targetMouse.cacheAsBitmap=true;
 			
 		}	
-		
+		/**
+		 * 滚动条，滚动的对象 
+		 * @return 
+		 * 
+		 */		
+		public function get scrollBarTarget():DisplayObjectContainer
+		{
+			return target;
+		}
+
 		[Inspectable(defaultValue=false)]
 		public function get isFloat():Boolean
 		{
@@ -229,6 +238,8 @@
 				rectBackGround.addEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 				
 				
+				target.y = this.y;
+				
 				addChild(maskmc);				
 				drawMask();	
 				
@@ -270,6 +281,8 @@
 			
 			setBackGroundIndex();
 			
+			
+			
 		}		
 		protected function disopose():void{
 			if(target!=null){
@@ -278,7 +291,7 @@
 				
 				rectBackGround.removeEventListener(MouseEvent.MOUSE_DOWN,onTargetDownHandler);
 				
-				target.mask = null;
+				
 			}			
 			this.removeEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
 			rectBackGround.removeEventListener(MouseEvent.MOUSE_WHEEL,onMouseWheelHandler);
@@ -330,7 +343,12 @@
 			// TODO Auto Generated method stub
 			super.dispose();		
 			
+			
 			disopose();
+			
+			if(target){
+				target.mask = null;
+			}
 			
 			this.removeEventListener(Event.ENTER_FRAME,onTimerHandelr);
 			//stageLink.removeEventListener(MouseEvent.MOUSE_UP,onTargetTimerUPHadnler);	
@@ -429,6 +447,8 @@
 			this.width=w;
 			this.height=h;			
 		}
+		
+				
 		public function set source(value:Object):void
 		{		
 			

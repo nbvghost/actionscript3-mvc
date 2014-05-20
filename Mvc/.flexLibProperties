@@ -3,6 +3,7 @@
   <includeClasses>
     <classEntry path="com.game.framework.data.CacheData"/>
     <classEntry path="com.game.framework.events.GlobalErrorEvent"/>
+    <classEntry path="com.game.framework.data.AlertBorderType"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

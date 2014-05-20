@@ -37,20 +37,6 @@
 	
 	public class IICon extends UIComponent {
 		
-		/*private static var _HZ_1:BitmapData;
-		private static var _HZ_2:BitmapData;
-		private static var _HZ_3:BitmapData;
-		private static var _HZ_4:BitmapData;
-		private static var _HZ_5:BitmapData;
-		private static var _HZ_6:BitmapData;
-		private static var _HZ_7:BitmapData;
-		private static var _HZ_8:BitmapData;
-		private static var _N:BitmapData;		
-		private static var _VIP_1:BitmapData;
-		private static var _VIP_2:BitmapData;
-		private static var _VIP_3:BitmapData;*/
-		
-		
 		private var _icons:Array = [];		
 		
 		private var _index:int =0;
@@ -66,62 +52,136 @@
 			bitMap.bitmapData = bitMapData;
 			this.addChild(bitMap);
 		}
+		/**
+		 *  奖杯 亚洲
+		 * @return 
+		 * 
+		 */		
 		public static function get JB_YZ():BitmapData{
 			return new IICon_JB_YZ;
 		}
-		public static function JB_OZ():BitmapData{
+		/**
+		 * 奖杯 欧洲 
+		 * @return 
+		 * 
+		 */		
+		public static function get JB_OZ():BitmapData{
 			return new IICon_JB_OZ;
 		}
-		public static function JB_MZ():BitmapData{
+		/**
+		 * 奖杯  
+		 * @return 
+		 * 
+		 */		
+		public static function get JB_MZ():BitmapData{
 			return new IICon_JB_MZ;
 		}
-		public static function JB_LS():BitmapData{
+		/**
+		 *  奖杯  联赛
+		 * @return 
+		 * 
+		 */		
+		public static function get JB_LS():BitmapData{
 			return new IICon_JB_LS;
 		}
-		public static function JB_FZ():BitmapData{
+		/**
+		 * 奖杯  非洲 
+		 * @return 
+		 * 
+		 */		
+		public static function get JB_FZ():BitmapData{
 			return new IICon_JB_FZ;
 		}
-		public static function SW1():BitmapData{
+		/**
+		 *  声望
+		 * @return 
+		 * 
+		 */		
+		public static function get SW1():BitmapData{
 			return new IICon_SW1;
 		}
-		public static function SW2():BitmapData{
+		/**
+		 * 声望 
+		 * @return 
+		 * 
+		 */		
+		public static function get SW2():BitmapData{
 			return new IICon_SW2;
 		}
-		public static function SW3():BitmapData{
+		/**
+		 * 声望 
+		 * @return 
+		 * 
+		 */	
+		public static function get SW3():BitmapData{
 			return new IICon_SW3;
 		}
-		public static function SW4():BitmapData{
+		/**
+		 * 声望 
+		 * @return 
+		 * 
+		 */	
+		public static function get SW4():BitmapData{
 			return new IICon_SW4;
 		}
-		public static function SW5():BitmapData{
+		/**
+		 * 声望 
+		 * @return 
+		 * 
+		 */	
+		public static function get SW5():BitmapData{
 			return new IICon_SW5;
 		}
 		public static function get VIP_3():BitmapData
 		{
 			return new IICon_VIP3;
 		}
-		
-		public static function XYD_silver():BitmapData{
+		/**
+		 * 稀有度
+		 * @return 
+		 * 
+		 */		
+		public static function get XYD_silver():BitmapData{
 			return new IICon_XYD_silver;
 		}
-		public static function XYD_diamond():BitmapData{
+		/**
+		 * 稀有度
+		 * @return 
+		 * 
+		 */		
+		public static function get XYD_diamond():BitmapData{
 			return new IICon_XYD_diamond;
 		}
-		public static function XYD_green():BitmapData{
+		/**
+		 * 稀有度
+		 * @return 
+		 * 
+		 */		
+		public static function get XYD_green():BitmapData{
 			return new IICon_XYD_green;
 		}
-		public static function XYD_blue():BitmapData{
+		/**
+		 * 稀有度
+		 * @return 
+		 * 
+		 */		
+		public static function get XYD_blue():BitmapData{
 			return new IICon_XYD_blue;
 		}
-		public static function XYD_gold():BitmapData{
+		/**
+		 * 稀有度
+		 * @return 
+		 * 
+		 */		
+		public static function get XYD_gold():BitmapData{
 			return new IICon_XYD_gold;
 		}
+		
 		public static function get VIP_2():BitmapData
 		{
 			return new IICon_VIP2;
 			
-		}
-		
+		}		
 		public static function get VIP_1():BitmapData
 		{
 			return new IICon_VIP1;

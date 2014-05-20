@@ -149,14 +149,14 @@ package com.game.framework.views {
 		 * @param isNewCreate 是否新创建实例，还是用旧的、。
 		 * 
 		 */
-		protected function showDialog(dialogID:ITargetID,useBorder:Boolean=true):void{		
+		protected function showDialog(dialogID:ITargetID):void{		
 			var alertdialog:AlertDialog;			
 			alertdialog = AlertDialog.getAlertDialog(dialogID);
 			if(alertdialog==null){
 				alertdialog = new AlertDialog(this); 
 			}							
 			alertdialog.Builder=onCreateDialog(dialogID);
-			alertdialog.show(dialogID,useBorder);
+			alertdialog.show(dialogID);
 			
 		}	
 		/**

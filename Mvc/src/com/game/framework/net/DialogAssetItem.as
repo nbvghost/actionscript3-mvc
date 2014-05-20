@@ -45,10 +45,11 @@ package com.game.framework.net
 		{
 			super(url, currentDomain);			
 			var callBack:AssetsData = new AssetsData();
-			callBack.asssetAllCompleteFunc = dialogLogComple;		
 			
 			
 			callBack.asssetCompleteFunc = reinitComplete;
+			callBack.asssetAllCompleteFunc = dialogLogComple;
+			
 			setDatainterface = callBack;
 			this.alertDialog =alert;
 		}			
@@ -195,6 +196,7 @@ package com.game.framework.net
 				calleeBuilder.isShadow = _callerBuilder.isShadow;
 				calleeBuilder.titleCenter = _callerBuilder.titleCenter;
 				calleeBuilder.sideSelectIndex = _callerBuilder.sideSelectIndex;	
+				calleeBuilder.alertBorderType = _callerBuilder.alertBorderType;
 			}else{
 				if(calleeBuilder.sideSelectIndex==-1){
 					calleeBuilder.sideSelectIndex = _callerBuilder.sideSelectIndex;
@@ -244,6 +246,8 @@ package com.game.framework.net
 			alertDialog.Builder.titleData.addEventListener(DialogDataItem.labelChange,onChangeHandler);
 			alertDialog.Builder.titleData.addEventListener(DialogDataItem.viewChange,onChangeHandler);
 			alertDialog.Builder.addEventListener(AlertDialogBuilder.sideSelectIndexChange,onChangeHandler);
+			
+			dialog.completeSetup();
 		}		
 		
 		protected function onChangeHandler(event:Event):void

@@ -178,12 +178,6 @@
 			updateUI();
 		}
 		
-		override public function onStageHandler(event:Event):void
-		{		
-			
-			//resetPoint();
-		}
-		
 		override protected function onAddStage():void
 		{
 			// TODO Auto Generated method stub

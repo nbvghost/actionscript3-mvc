@@ -33,6 +33,8 @@ package com.game.framework.data
 		
 		private var _titleCenter:Boolean =true;
 		
+		private var _alertBorderType:String = AlertBorderType.DEFAULT;
+		
 		private var _sideSelectIndex:int = -1;
 		
 		public function AlertDialogBuilder()
@@ -40,6 +42,16 @@ package com.game.framework.data
 			_titleData = new DialogDataItem("undefined",null);
 		}		
 		
+		public function get alertBorderType():String
+		{
+			return _alertBorderType;
+		}
+
+		public function set alertBorderType(value:String):void
+		{
+			_alertBorderType = value;
+		}
+
 		[Bindable(event=sideSelectIndexChange)]
 		/**
 		 * 侧边按钮的选中 

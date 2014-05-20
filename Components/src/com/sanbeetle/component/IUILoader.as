@@ -86,16 +86,20 @@ package com.sanbeetle.component
 		 */		
 		public function set source(value:String):void
 		{
-			if(_source != value && value!=""){			
+			if(_source == value){
+				return;
+			}
+			_source = value;
+			if(_source != null && _source!=""){
 				
-				_source = value;
+				
 				urlrequest = new URLRequest(_source);
 				issetLoad = true;
 				if(stage){
 					pload();
 				}
 			}else{
-				_source = value;
+				
 				clean();
 				this.updateUI();
 				
@@ -216,8 +220,7 @@ package com.sanbeetle.component
 			super.dispose();
 		}
 		
-		
-		override public function onStageHandler(event:Event):void
+		override protected function onAddStage():void
 		{
 			if(issetLoad){
 				pload();

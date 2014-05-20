@@ -25,7 +25,11 @@ package com.game.framework.ifaces
 		 */		
 		function setAlertDialogBuilder(builder:AlertDialogBuilder,dialogContentIF:IDialogData):void;
 		
-		
+		/**
+		 * 完成设置
+		 * 
+		 */
+		function completeSetup():void;
 		
 	}
 }

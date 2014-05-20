@@ -186,7 +186,7 @@ package com.game.framework.net {
 				Log.info("加载出错："+event);
 				_isLoading =false;
 				_datainterface.netError(event, this);
-				throw new OperateError("加载出错："+event+ this.url.url,this);
+				//throw new OperateError("加载出错："+event+ this.url.url,this);
 			}
 			
 			
@@ -231,7 +231,7 @@ package com.game.framework.net {
 		private function loadBytes():void{
 			if (_currentDomain) {
 				//loader.load(new URLRequest(url.url), new LoaderContext(false, ApplicationDomain.currentDomain));
-				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));				
+				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));		
 			} else {				
 				//loader.load(new URLRequest(url.url), new LoaderContext(false, new ApplicationDomain()));
 				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false,new ApplicationDomain()));

@@ -55,16 +55,18 @@
 				if(!component.contentContainer.isSetContainer){
 					Log.info("容器没有添加到显示列表中。");
 				}				
-			}		
-			
-			
+			}	
+			var r:Number = rotation;
+			rotation = 0;
 			_trueWidth = super.width;
 			_trueHeight = super.height;
+			rotation = r;
 			
 			while (this.numChildren>0)
 			{
 				this.removeChildAt (0);
 			}
+			
 			
 			var xx:int = this.x;
 			var yy:int = this.y;
@@ -73,7 +75,7 @@
 			this.y = Math.round(yy);
 			
 			
-			_glowFilter.ksks=0;
+			
 			
 			
 			this.scaleX = this.scaleY = 1;
@@ -85,7 +87,14 @@
 			
 			
 		}
-
+		/**
+		 * stage 的一个引用 ，完全等于  stage,不同的是， 在显示对象从舞台移除时， linkStage 还是不会为空，使用这个保证了，对象移除，无法移除 stage 的事件。可以 配合   onAddStage 和  onRemoveStage
+		 * @see #onRemoveStage()
+		 * @see #onAddStage()
+		 * @see flash.display.Stage
+		 * @return
+		 * 
+		 */
 		protected function get linkStage():Stage
 		{
 			return _linkStage;
@@ -104,7 +113,10 @@
 		{
 			return _glowFilter;
 		}
-		
+		/**
+		 *  
+		 * 如果组件支持更新（对组件重绘、设置数据等，大部分是重绘，这个将影响组件的工作效率）
+		 */		
 		public function upDisplayList():void
 		{
 			
@@ -260,9 +272,17 @@
 			
 			
 		}		
+		/**
+		 * 当组件从舞台移除时触发
+		 * 
+		 */		
 		protected function onRemoveStage():void{
 			
 		}
+		/**
+		 * 当组件从舞台添加时触发
+		 * 
+		 */		
 		protected function onAddStage():void{
 			
 		}
@@ -402,7 +422,7 @@
 		 * @param event
 		 * 
 		 */
-		public function onStageHandler (event:Event):void
+		private function onStageHandler (event:Event):void
 		{
 			
 		}

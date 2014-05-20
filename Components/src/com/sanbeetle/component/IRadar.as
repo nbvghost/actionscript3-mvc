@@ -26,10 +26,29 @@
 		
 		private const mcHeight:Number=44.5;
 		
+		private var _labelColor:uint = 0x000000;
+		
 		public function IRadar() {
 			mc = new IRadarSkinMc();			
 			labelmc=new IRadarSkinLabel();
+			
+			labelmc.labelColor = _labelColor;
 		}
+		
+		[Inspectable(type="Color",defaultValue="0x000000")]
+		public function get labelColor():uint
+		{
+			return _labelColor;
+		}
+
+		public function set labelColor(value:uint):void
+		{
+			if(_labelColor != value){
+				_labelColor = value;
+				labelmc.labelColor = _labelColor;
+			}
+		}
+
 		[Collection(collectionClass="com.sanbeetle.data.DataProvider", identifier="item",collectionItem="com.sanbeetle.data.SimpleCollectionItem")]
 		public function get dataProvider():DataProvider
 		{

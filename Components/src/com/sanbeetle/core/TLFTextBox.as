@@ -185,15 +185,13 @@ package com.sanbeetle.core
 		
 		override protected function onAddStage():void
 		{
-			// TODO Auto Generated method stub
-			super.onAddStage();
+			this.linkStage.addEventListener(ControlEvent.FONT_LOADED,onYaheiFontLoadedHandelr);
 			
 		}
 		
 		override protected function onRemoveStage():void
 		{
-			// TODO Auto Generated method stub
-			super.onRemoveStage();
+			this.linkStage.removeEventListener(ControlEvent.FONT_LOADED,onYaheiFontLoadedHandelr);
 		}
 		
 		[Inspectable(enumeration = "tb,rl",defaultValue = "tb")]
@@ -1269,12 +1267,8 @@ package com.sanbeetle.core
 			this.addChild(container);
 			
 		}
-		override public function onStageHandler(event:Event):void
-		{
-			
-			stage.addEventListener(ControlEvent.FONT_LOADED,onYaheiFontLoadedHandelr);
-			
-		}
+		
+	
 		
 		protected function onYaheiFontLoadedHandelr(event:Event):void
 		{

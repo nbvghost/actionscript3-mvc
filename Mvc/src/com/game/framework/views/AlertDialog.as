@@ -118,7 +118,7 @@ package com.game.framework.views
 			
 			callerBuilder = value;
 		}
-		public function show(_ID:ITargetID=null,useBorder:Boolean=true):AlertDialog{		
+		public function show(_ID:ITargetID=null):AlertDialog{		
 			
 			if(ConfigData.getInvalidDialogAlert()){
 				return this;
