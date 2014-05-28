@@ -410,17 +410,9 @@ package com.sanbeetle.core
 				img.x = rect.x+textField.x;
 				img.y = rect.y+textField.y;
 				this.addChild(img);
-				
-				
+								
 				
 			}
-			
-			
-			
-			
-			
-			
-			
 			
 			
 		}

@@ -1,5 +1,6 @@
 package com.game.framework.data
 {
+	import com.game.framework.error.OperateError;
 	import com.game.framework.ifaces.IURL;
 	
 	/**
@@ -14,11 +15,26 @@ package com.game.framework.data
 		private static var _MaxRecodePage:int = 10;
 		private static var _InvalidDialogAlert:Boolean = false;
 		private static var _MaxLoadCount:int = 5;
+			
+		private static var _ReSizeRepeatCount:uint = 6;
 		public function ConfigData()
 		{
 			
+		}		
+		public static function getReSizeRepeatCount():uint
+		{
+			return _ReSizeRepeatCount;
 		}
-		
+
+		public static function setReSizeRepeatCount(value:uint):void
+		{
+			if(value==0){
+				throw new OperateError("ReSizeRepeatCount 不能少等于 0，请设置大于 0 的值！ ",setReSizeRepeatCount);
+			}
+			
+			_ReSizeRepeatCount = value;
+		}
+
 		public static function get MaxLoadCount():int
 		{
 			return _MaxLoadCount;

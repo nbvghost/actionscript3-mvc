@@ -1,9 +1,12 @@
 package com.sanbeetle.core
 {
+	import com.asvital.dev.Log;
+	
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.net.URLVariables;
@@ -25,6 +28,12 @@ package com.sanbeetle.core
 			
 			loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onCompleteHandler);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onIOErrorHandler);
+		}
+		
+		protected function onIOErrorHandler(event:IOErrorEvent):void
+		{
+			Log.error(event);			
 		}
 		
 		public function get source():String

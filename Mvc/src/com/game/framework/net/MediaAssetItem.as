@@ -55,8 +55,8 @@ package com.game.framework.net {
 		 * @param url
 		 *
 		 */
-		public function MediaAssetItem(url:IURL, currentDomain:Boolean = true,_serial:int =0) {
-			super(url, currentDomain);
+		public function MediaAssetItem(url:IURL,_serial:int =0,loadType:String = LoadType.ChildApplicationDomain) {
+			super(url, loadType);
 			
 			this.addEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.addEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);	
@@ -125,7 +125,12 @@ package com.game.framework.net {
 			if(skinLoader!=null){
 				return;
 			}
-			skinLoader = new SkinLoader(url);
+			
+			//loaderContext.applicationDomain = new ApplicationDomain(loaderContext.applicationDomain);
+			
+			skinLoader = new SkinLoader(url,this.loaderContext,LoadType.NoneApplicationDomain);
+			
+			//trace(loaderContext.applicationDomain.getQualifiedDefinitionNames());
 			
 			var assite:AssetsData = new AssetsData();		
 			assite.asssetCompleteFunc = onSkinloaderOver;			
@@ -136,7 +141,10 @@ package com.game.framework.net {
 			skinLoader.initView();			
 		}
 		
-		private function onSkinloaderOver(data:IAssetItem):void {
+		private function onSkinloaderOver(data:IAssetItem):void {			
+			
+			//trace(loaderContext.applicationDomain.getQualifiedDefinitionNames());
+			
 			_isinitView = true;
 			_isLoadSuccess = true;
 			
@@ -258,6 +266,8 @@ package com.game.framework.net {
 		 */
 		override public function dispose():void
 		{
+			//trace("释放之前："+this.loaderContext.applicationDomain.domainMemory.length);
+			
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);
 			
@@ -279,15 +289,20 @@ package com.game.framework.net {
 			
 			super.dispose();
 			
+			
+			
 			_isLoadSuccess = false;
 			_isinitView = false;
-			
-		
 			
 			mediator=null;
 			skinLoader =null;
 			swfFile=null;
 			createView=null;
+			
+			
+			
+			//trace("释放之后："+this.loaderContext.applicationDomain.domainMemory.length);
+			
 		}
 		
 		

@@ -10,7 +10,7 @@ package com.sanbeetle.renderer
 	{
 		
 		
-		protected var item:DisplayItem;
+		protected var item:IListBoxItem;
 		public function SimpleListCellRenderer()
 		{
 			
@@ -21,6 +21,13 @@ package com.sanbeetle.renderer
 			item.data = data(itemData);				
 			
 		}	
+		
+		public function getItemClass():Class
+		{
+			// TODO Auto Generated method stub
+			return IListBoxItem;
+		}
+		
 		
 		public function get haveStage():Boolean
 		{			

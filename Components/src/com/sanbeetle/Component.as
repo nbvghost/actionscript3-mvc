@@ -11,6 +11,7 @@
 	import flash.display.Loader;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.filters.BitmapFilterQuality;
 	import flash.filters.DropShadowFilter;
 	import flash.net.URLRequest;
@@ -101,6 +102,8 @@
 			
 			fontLoader = new Loader();
 			fontLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,onFontLoaderCompleteHandler);
+			fontLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onIOErrorHandler);
+			
 			
 			//init
 			AttributeSimpleItem;
@@ -115,6 +118,11 @@
 			_fontDescription.fontName = FontNames.MS_YaHei;
 			_fontDescription.fontWeight = FontWeight.NORMAL;
 			
+		}
+		
+		private function onIOErrorHandler(event:IOErrorEvent):void
+		{
+			Log.error(event);
 		}
 		
 		public function get listDropNotHide():Boolean

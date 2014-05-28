@@ -4,6 +4,8 @@
     <classEntry path="com.game.framework.data.CacheData"/>
     <classEntry path="com.game.framework.events.GlobalErrorEvent"/>
     <classEntry path="com.game.framework.data.AlertBorderType"/>
+    <classEntry path="com.game.framework.enum.MaskBackGroundType"/>
+    <classEntry path="com.game.framework.net.LoadType"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -1,22 +1,31 @@
-package com.game.framework.net {
-
-
-/**
- * AssetTtem 的内容类型
- * @author sixf
- * @see com.game.framework.net.AssetItem#type
- */
-public class LoadType {
-    /**
-     * 类型是swf,jps,png,等
-     */
-    public static const MEDIA_CONTENT:String = "MEDIA_CONTENT";
-    /**
-     * 类型是字符串
-     */
-    public static const STREAM_CONTENT:String = "STREAM_CONTENT";
-
-    public function LoadType() {
-    }
-}
+package com.game.framework.net
+{
+	/**
+	 * @author sixf
+	 * 日期：2014-5-25 上午11:52:00 2014
+	 * Administrator
+	 */
+	public class LoadType
+	{
+		/**
+		 * 当前域
+		 */
+		public static const CurrentApplicationDomain:String="CurrentApplicationDomain";
+		/**
+		 * 新域
+		 */
+		public static const NewApplicationDomain:String = "NewApplicationDomain";
+		/**
+		 * 子域
+		 */
+		public static const ChildApplicationDomain:String = "ChildApplicationDomain";
+		
+		/**
+		 * 不设置 
+		 */
+		public static const NoneApplicationDomain:String = "NoneApplicationDomain";
+		public function LoadType()
+		{
+		}
+	}
 }

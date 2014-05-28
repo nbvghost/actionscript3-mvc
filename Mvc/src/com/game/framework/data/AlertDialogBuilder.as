@@ -1,6 +1,7 @@
 package com.game.framework.data
 {
 	import com.asvital.dev.Log;
+	import com.game.framework.enum.MaskBackGroundType;
 	import com.game.framework.error.OperateError;
 	import com.game.framework.ifaces.INotifyData;
 	import com.game.framework.ifaces.IURL;
@@ -37,11 +38,23 @@ package com.game.framework.data
 		
 		private var _sideSelectIndex:int = -1;
 		
+		private var _maskBackGroundType:int =MaskBackGroundType.DEFAUTL;
+		
 		public function AlertDialogBuilder()
 		{
 			_titleData = new DialogDataItem("undefined",null);
 		}		
 		
+		public function get maskBackGroundType():int
+		{
+			return _maskBackGroundType;
+		}
+
+		public function set maskBackGroundType(value:int):void
+		{
+			_maskBackGroundType = value;
+		}
+
 		public function get alertBorderType():String
 		{
 			return _alertBorderType;

@@ -25,8 +25,6 @@ package com.sanbeetle.component.child
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	
-	import fl.motion.Color;
-	
 	[Event(name="select", type="com.sanbeetle.events.ControlEvent")]
 	
 	public class ComboBoxBar extends ExtendMovieClip 
@@ -64,16 +62,15 @@ package com.sanbeetle.component.child
 			
 		}
 		
-		public function get displayItem():DisplayItem
+		public function getDisplayItem():DisplayItem
 		{
 			return _displayItem;
 		}
 		
-		public function set displayItem(value:DisplayItem):void
+		public function setDisplayItem(value:DisplayItem,DClass:Class):void
 		{
 			
-			
-			var DClass:Class = getDefinitionByName(getQualifiedClassName(value)) as Class;
+			//var DClass:Class = getDefinitionByName(getQualifiedClassName(value)) as Class;
 			
 			if(_displayItem!=null){
 				if(_displayItem.parent){

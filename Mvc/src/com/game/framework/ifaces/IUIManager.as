@@ -32,5 +32,7 @@ package com.game.framework.ifaces {
 		
 		function removeTimerRun(rander:IRander):IUIManager;	
 		
+		
+		
 	}
 }

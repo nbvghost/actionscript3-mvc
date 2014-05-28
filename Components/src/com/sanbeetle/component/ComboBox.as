@@ -254,7 +254,13 @@
 			}			
 			//Log.out(list.currentList.currentItem is DisplayItem);
 			
-			this.cbbar.displayItem = list.currentList.currentItem as DisplayItem;
+			
+			if(list.itemCellRenaderer){
+				var DC:Class = list.itemCellRenaderer;				
+				var ite:ICellRenderer =new DC();				
+				this.cbbar.setDisplayItem(list.currentList.currentItem as DisplayItem,ite.getItemClass());
+			}
+		
 			
 			if(!component.listDropNotHide){				
 				list.visible = false;
@@ -441,7 +447,7 @@
 						var te:ICellRenderer = new itemCellRenaderer();
 						
 						//te.data = _selectedItem as IFListItem;
-						cbbar.displayItem = te.createItem(_selectedItem,new ListData(_selectedItem,0,_selectedIndex,null)) as DisplayItem;
+						cbbar.setDisplayItem(te.createItem(_selectedItem,new ListData(_selectedItem,0,_selectedIndex,null)) as DisplayItem,te.getItemClass());
 						
 						//Log.out(this.itemCellRenaderer,1);
 						//cbbar.label = _selectedItem.label;

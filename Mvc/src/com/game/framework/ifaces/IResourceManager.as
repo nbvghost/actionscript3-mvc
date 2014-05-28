@@ -80,7 +80,16 @@ package com.game.framework.ifaces {
 		 *
 		 */
 		function getTeamSymbol(symbolID:int, sizeEnum:int = 16, align:String = RegistrationPoint.CENTER,outBroder:Boolean=false):DisplayObject;
-		
+		/**
+		 * 同   getTeamSymbol
+		 * @param symbolID
+		 * @param sizeEnum
+		 * @param align
+		 * @param outBroder
+		 * @return 
+		 * 
+		 */
+		function getTeamSymbolCard(symbolID:int, sizeEnum:int = 16, align:String = RegistrationPoint.CENTER,outBroder:Boolean=false):DisplayObject;
 		/**
 		 *  初始化队服
 		 * @param assetData
@@ -106,7 +115,7 @@ package com.game.framework.ifaces {
 		 * @param name
 		 * 
 		 */
-		function getIcon(name:String,sizeEnum:int = 20,align:String=RegistrationPoint.CENTER,outBroder:Boolean=false):DisplayObject;
+		function getIcon(name:String,sizeEnum:int = 20,align:String=RegistrationPoint.CENTER,outBroder:Boolean=false,toolTip:String=""):DisplayObject;
 		
 		function getSmiliseNames():Vector.<String>;
 		

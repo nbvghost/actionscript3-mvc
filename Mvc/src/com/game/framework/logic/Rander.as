@@ -19,9 +19,9 @@ package com.game.framework.logic
 		private static var resize_list:Vector.<IRander>=new Vector.<IRander>();
 		private static var timer_list:Vector.<IRander>=new Vector.<IRander>();
 		
-		private static var timer:Timer;
+		private static var timer:Timer;	
 		
-
+		private static var reSizeTimer:Timer;
 		
 		public function Rander()
 		{
@@ -47,9 +47,27 @@ package com.game.framework.logic
 		public static function reSize(e:Event):void
 		{
 			
-			for each(var rander:IRander in resize_list) {
+			
+			if(reSizeTimer==null){
+				reSizeTimer = new Timer(0,ConfigData.getReSizeRepeatCount());
+				reSizeTimer.addEventListener(TimerEvent.TIMER,onReSizeTimerHandler);
+			}
+			//onReSizeTimerHandler(null);
+			reSizeTimer.delay = 0;
+			reSizeTimer.reset();
+			reSizeTimer.start();
+			
+		}
+		
+		private static function onReSizeTimerHandler(e:Event):void{
+			var rander:IRander;
+			
+			for each(rander in resize_list) {
 				rander.reSize(e);
-			}		
+			}	
+			
+			reSizeTimer.delay = reSizeTimer.repeatCount*100;			
+			
 		}
 		
 		public static function removeTimerRun(rander:IRander):void {

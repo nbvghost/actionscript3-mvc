@@ -21,7 +21,7 @@ package com.game.framework.command {
 		
 		public function registerCommand(commandID:String, command:Class):void {
 			Launcher.FW::launcher.registerCommand(commandID, command);
-			trace(commandID,command);
+			//trace(commandID,command);
 		}
 		public function registerClassAliasCommand(serverClassPath:String,classObject:Class,command:Class):void{
 			registerClassAlias(serverClassPath,classObject);

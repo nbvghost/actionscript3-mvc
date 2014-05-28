@@ -165,13 +165,17 @@ package com.game.framework.display
 		
 		public function removeChild(child:DisplayObject):DisplayObject
 		{
-			// TODO Auto Generated method stub
-			return _container.removeChild(child);
+			if(child){
+				if(_container.contains(child)){
+					_container.removeChild(child);
+				}
+			}
+			return child;
 		}
 		
 		public function removeChildAt(index:int):DisplayObject
 		{
-			// TODO Auto Generated method stub
+			
 			return _container.removeChildAt(index);
 		}
 		

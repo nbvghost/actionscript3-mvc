@@ -155,7 +155,7 @@ package com.game.framework.net {
 		
 		public function get type():String {
 			// TODO Auto Generated method stub
-			return LoadType.STREAM_CONTENT;
+			return LoadContentType.STREAM_CONTENT;
 		}
 		
 		public function get url():IURL {

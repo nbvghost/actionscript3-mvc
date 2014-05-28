@@ -3,7 +3,7 @@ package com.sanbeetle.data
 	public class Version
 	{
 		private var _name:String="Popular";
-		private var _code:uint=70;		
+		private var _code:uint=72;	
 		private var _decoration:String = "雷达图文字可以改颜色:IUILoader Bug 修复";
 				
 		public function Version()

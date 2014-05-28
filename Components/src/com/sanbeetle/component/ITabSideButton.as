@@ -14,6 +14,7 @@
 	
 	import flash.display.Shape;
 	import flash.events.MouseEvent;
+	import flash.filters.BitmapFilterQuality;
 	import flash.filters.GlowFilter;
 	
 	/**
@@ -24,7 +25,7 @@
 	{
 		
 		
-		private var _vspace:int = 15;
+		private var _vspace:int = -15;
 		
 		
 		private var tx:Number = 7;
@@ -118,13 +119,13 @@
 			{
 				currentBtn=btnArr[j];
 				currentBtn.width = 33;			
-				currentBtn.height = 116;	
+				currentBtn.height = itew;	
 				
 				currentBtn.y = w;
 				currentBtn.x = tx;
 				
 				
-				w += currentBtn.height-_vspace;
+				w += currentBtn.height+_vspace;
 				
 				if(selectButton(currentBtn)){
 					if(currentBtn.parent){						
@@ -140,8 +141,8 @@
 				
 			}
 			
-			/*
-			if(_data.length==1){
+			
+			/*if(_data.length==1){
 				var one:ExtendButton = createMidButton();
 				one.width = 33;
 				one.height = 116;	
@@ -216,7 +217,8 @@
 				setButonStyle(right_a);
 			}*/
 			
-			this.changeTrueSize(33,(116*btnArr.length)-(_vspace*(btnArr.length-1)));
+			
+			//this.changeTrueSize(33,(116*btnArr.length)-(_vspace*(btnArr.length-1)));
 			
 			maskMC.graphics.clear();
 			maskMC.graphics.beginFill(0xff0000);
@@ -233,7 +235,7 @@
 			btn.addEventListener(MouseEvent.MOUSE_OVER,onOverHandle);	
 			btn.addEventListener(MouseEvent.MOUSE_OUT,onOutHandler);
 			
-			btn.filters = [new GlowFilter(0x000000,1,8,20,0.4)];
+			btn.filters = [new GlowFilter(0x000000,1,8,20,0.4,BitmapFilterQuality.HIGH)];
 			btn.buttonLabel.x = 8;
 			
 		}

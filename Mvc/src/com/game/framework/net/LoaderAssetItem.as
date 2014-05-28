@@ -6,8 +6,8 @@ package com.game.framework.net {
 	 *@author sixf
 	 */
 	public class LoaderAssetItem extends AssetItem {
-		public function LoaderAssetItem(url:IURL, currentDomain:Boolean = true) {
-			super(url, currentDomain);
+		public function LoaderAssetItem(url:IURL, loadType:String = LoadType.CurrentApplicationDomain) {
+			super(url, loadType);
 		}
 		
 		

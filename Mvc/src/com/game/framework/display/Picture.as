@@ -2,6 +2,7 @@ package com.game.framework.display {
 	import com.game.framework.ifaces.IURL;
 	import com.game.framework.logic.AssetsData;
 	import com.game.framework.net.AssetItem;
+	import com.game.framework.net.LoadType;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
@@ -17,7 +18,7 @@ package com.game.framework.display {
 		protected var rect:Rectangle;
 		
 		public function Picture(target:DisplayObjectContainer, url:IURL, rect:Rectangle = null) {
-			super(url, true);
+			super(url,LoadType.CurrentApplicationDomain);
 			this.target = target;
 			
 			if (this.getDatainterface == null) {

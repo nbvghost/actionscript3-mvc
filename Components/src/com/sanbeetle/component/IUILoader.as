@@ -68,7 +68,11 @@ package com.sanbeetle.component
 			loading.p3.stop();			
 		
 		}
-
+		/**
+		 *  Loader.contentLoaderInfo 的引用
+		 * @return 
+		 * 
+		 */
 		public function get contentLoaderInfo():LoaderInfo
 		{
 			return _loader.contentLoaderInfo;

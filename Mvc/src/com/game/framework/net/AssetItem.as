@@ -31,25 +31,29 @@ package com.game.framework.net {
 		private var _datainterface:IAssetsData;
 		private var _url:IURL;
 		protected var _content:Object;
-		protected var _type:String = LoadType.MEDIA_CONTENT;
+		protected var _type:String = LoadContentType.MEDIA_CONTENT;
 		protected var _isinitView:Boolean = false;
 		private var loader:Loader;
-		private var _currentDomain:Boolean = true;
+		private var _loadType:String = LoadType.CurrentApplicationDomain;
 		private var _loadCount:int = 0;
 		private var swfUrlloader:URLLoader;
 		
 		private var _isLoading:Boolean = false;
+		
+		protected var loaderContext:LoaderContext = new LoaderContext();
+		
+		
 		/**
 		 *
 		 * @param url 加载的IURL
 		 * @param currentDomain 使用当前域？
 		 *
 		 */
-		public function AssetItem(url:IURL, currentDomain:Boolean = true) {		
+		public function AssetItem(url:IURL, loadType:String) {		
 			
 			this.name = url.url;
 			_url = url;
-			this._currentDomain = currentDomain;
+			this._loadType = loadType;
 			loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
@@ -198,6 +202,8 @@ package com.game.framework.net {
 		
 		public function dispose():void {
 			
+			this.removeChildren();
+			
 			if(loader){
 				
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
@@ -211,8 +217,10 @@ package com.game.framework.net {
 				}catch(e:Error){
 					//Log.out(e.getStackTrace());
 				}			
-				loader.unload();
 				loader.unloadAndStop();
+				loader.unload();
+				
+				
 				loader = null;
 			}
 			if (this.parent != null) {
@@ -220,7 +228,7 @@ package com.game.framework.net {
 				//Log.out(this.parent,this.parent.contains(this));
 				
 			}		
-			this.removeChildren();
+			
 			
 			_datainterface = null;
 			_content = null;
@@ -228,17 +236,44 @@ package com.game.framework.net {
 			swfUrlloader =null;
 			
 		}
+		
 		private function loadBytes():void{
-			if (_currentDomain) {
+			//trace(ApplicationDomain.currentDomain.getQualifiedDefinitionNames());
+			switch(_loadType){
+				case LoadType.ChildApplicationDomain:
+					loaderContext.applicationDomain =  new ApplicationDomain(ApplicationDomain.currentDomain);
+					//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, new ApplicationDomain(ApplicationDomain.currentDomain)));
+					break;
+				case LoadType.CurrentApplicationDomain:
+					loaderContext.applicationDomain =  ApplicationDomain.currentDomain;
+					//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));
+					break;
+				case LoadType.NewApplicationDomain:
+					loaderContext.applicationDomain =  new ApplicationDomain();
+					//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, new ApplicationDomain()));
+					break;
+				case LoadType.NoneApplicationDomain:
+					
+					break;
+				default:
+					throw new OperateError("指定的 loadType 不是 LoadType 成员！",this);
+					return;
+			}
+			
+			loader.loadBytes(CacheData.getSwfByteArray(url),loaderContext);
+			/*if (_loadType) {
 				//loader.load(new URLRequest(url.url), new LoaderContext(false, ApplicationDomain.currentDomain));
-				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));		
+				//trace(ApplicationDomain.currentDomain.getQualifiedDefinitionNames());
+				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));
+				//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, new ApplicationDomain(ApplicationDomain.currentDomain)));	
 			} else {				
 				//loader.load(new URLRequest(url.url), new LoaderContext(false, new ApplicationDomain()));
 				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false,new ApplicationDomain()));
-			}
+			}*/
 		}
 		
 		public function initView(notify:INotifyData = null):void {
+			
 			
 			if(CacheData.getSwfByteArray(url)!=null){
 				loadBytes();
@@ -258,9 +293,6 @@ package com.game.framework.net {
 			swfUrlloader.removeEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
 			CacheData.writeByteArray(url,swfUrlloader.data);
 			loadBytes();
-			
-			
-			
 		}
 	}
 }

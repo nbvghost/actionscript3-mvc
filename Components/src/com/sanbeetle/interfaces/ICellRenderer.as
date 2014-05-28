@@ -8,6 +8,9 @@ package com.sanbeetle.interfaces
 		function getItem():DisplayItem;
 		function createItem(itemData:IFListItem,listData:ListData):DisplayItem;
 		function upData(itemData:IFListItem,listData:ListData):void;
+		/** 项的Class 引用 */
+		function getItemClass():Class;
+		
 		
 		
 		//function get itemHeight():int;	

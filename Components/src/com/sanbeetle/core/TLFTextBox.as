@@ -377,6 +377,9 @@ package com.sanbeetle.core
 			var pastedText:String = op.textScrap.textFlow.getText();
 			// See if there is anything we need to do.
 			
+			if(pastedText==null){
+				pastedText="";
+			}
 			
 			// Save this in case we modify the pasted text.  We need to know
 			// how much text to delete.
@@ -391,23 +394,23 @@ package com.sanbeetle.core
 			// DeleteTextOperation or the InsertTextOperation which are also part
 			// of the paste.
 			
+			if(editManager){
+				var selectionState:SelectionState = new SelectionState(op.textFlow, op.absoluteStart,op.absoluteStart + textLength);             
+				editManager.deleteText(selectionState);
+				
+				// Insert the same text, the same place where the paste was done.
+				// This will go thru the InsertPasteOperation and do the right
+				// things with restrict, maxChars and displayAsPassword.
+				selectionState = new SelectionState(op.textFlow, op.absoluteStart, op.absoluteStart);
+				editManager.insertText(pastedText, selectionState);        
+				
+				// All done with the edit manager.
+				
+				
+				//dispatchChangeAndChangingEvents = true;
+			}
 			
-			var selectionState:SelectionState = new SelectionState(
-				op.textFlow, op.absoluteStart, 
-				op.absoluteStart + textLength);             
-			editManager.deleteText(selectionState);
 			
-			// Insert the same text, the same place where the paste was done.
-			// This will go thru the InsertPasteOperation and do the right
-			// things with restrict, maxChars and displayAsPassword.
-			selectionState = new SelectionState(
-				op.textFlow, op.absoluteStart, op.absoluteStart);
-			editManager.insertText(pastedText, selectionState);        
-			
-			// All done with the edit manager.
-			
-			
-			//dispatchChangeAndChangingEvents = true;
 		}
 		
 		public function get textXML():String{
