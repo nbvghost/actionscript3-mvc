@@ -382,11 +382,56 @@
 			}
 			return itemS[index];
 		}
-		[Deprecated(message="无效")]
+		
 		override public function upDisplayList():void
 		{
 			
+			while(content.numChildren>0){
+				content.removeChildAt(0);
+			}
 			
+			this.ivscr.upDisplayList();				
+			//itemS.splice(0,itemS.length);				
+			
+			for (var i:int = 0; i < _dataProvider.length; i++) 
+			{
+				if(i==0){
+					currentContent  = this.getContentByIndex(0);
+					IDisplayItem(currentContent).data = (_dataProvider.getItemAt(i) as IFListItem);
+				}
+				
+				var item:DisplayObject =getParBar(i) as DisplayObject;
+				
+				IDisplayItem(item).data = (_dataProvider.getItemAt(i) as IFListItem);
+				IDisplayItem(item).setSize(getContentWidth(),item.height);
+				
+				//item.backgroundType = ComboBox.background_default;
+				//item.width = trueWidth;
+				//item.height = trueHeight;
+				//item.defaultLabel = (_dataProvider.getItemAt(i) as IFListItem).label;
+				item.name = i+"";
+				
+				/*item.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
+				item.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
+				item.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);*/
+				
+				//item.displayItem = 
+				
+				//item.y = IDisplayItem(item).contentHeight*i;
+				content.addChild(item);
+				
+				
+				if(_accordionItemBarCell!=null){
+					if(_accordionItemBarCell.length>=2){
+						_accordionItemBarCell.apply(this,[item,i]);
+					}else{
+						throw new Error("accordionItemBarCell 参数个数不对，应该 有 2 个，当前"+_accordionItemBarCell.length+"个！");
+					}
+				}
+				
+			}	
+			
+			updateUI();
 			
 		}
 		
@@ -476,58 +521,8 @@
 		{
 			
 			if(_dataProvider!=value){				
-				
-				_dataProvider = value;
-				
-				
-				while(content.numChildren>0){
-					content.removeChildAt(0);
-				}
-				
-				this.ivscr.upDisplayList();
-				
-				//itemS.splice(0,itemS.length);
-				
-				
-				for (var i:int = 0; i < _dataProvider.length; i++) 
-				{
-					if(i==0){
-						currentContent  = this.getContentByIndex(0);
-						IDisplayItem(currentContent).data = (_dataProvider.getItemAt(i) as IFListItem);
-					}
-					
-					var item:DisplayObject =getParBar(i) as DisplayObject;
-					
-					IDisplayItem(item).data = (_dataProvider.getItemAt(i) as IFListItem);
-					IDisplayItem(item).setSize(getContentWidth(),item.height);
-					
-					//item.backgroundType = ComboBox.background_default;
-					//item.width = trueWidth;
-					//item.height = trueHeight;
-					//item.defaultLabel = (_dataProvider.getItemAt(i) as IFListItem).label;
-					item.name = i+"";
-					
-					/*item.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
-					item.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
-					item.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);*/
-					
-					//item.displayItem = 
-					
-					//item.y = IDisplayItem(item).contentHeight*i;
-					content.addChild(item);
-					
-					
-					if(_accordionItemBarCell!=null){
-						if(_accordionItemBarCell.length>=2){
-							_accordionItemBarCell.apply(this,[item,i]);
-						}else{
-							throw new Error("accordionItemBarCell 参数个数不对，应该 有 2 个，当前"+_accordionItemBarCell.length+"个！");
-						}
-					}
-					
-				}	
-				
-				updateUI();
+				_dataProvider=value;
+				upDisplayList();
 			}
 			
 		}
@@ -580,9 +575,7 @@
 				
 				
 				pitem.y = theight;
-				
-				
-				
+							
 				
 				if(j==_selectIndex){
 					
