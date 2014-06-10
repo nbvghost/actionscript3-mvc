@@ -8,8 +8,12 @@ package com.game.framework.views {
 	import com.game.framework.ifaces.IUIManager;
 	import com.game.framework.net.AssetItem;
 	
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	import flash.display.InteractiveObject;
 	import flash.display.LoaderInfo;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.ProgressEvent;
@@ -29,14 +33,22 @@ package com.game.framework.views {
 		
 		private var _mediator:Mediator;
 		
-		private var _contentContainer:AssetItem;
+		private var _contentContainer:Sprite;
 		private var _skinContainer:AssetItem;
 		private var _hasLoad:Boolean = true;
+		private var _assetItem:AssetItem;
 		
+		private var cc:AssetItem;
+			
 		public function CreateView() {
 			super();
 		}
 		
+		public function get assetItem():AssetItem
+		{
+			return _assetItem;
+		}
+
 		public function timerRun(event:TimerEvent):void
 		{
 			// TODO Auto Generated method stub
@@ -48,23 +60,27 @@ package com.game.framework.views {
 		 * @return 
 		 * 
 		 */	
-		public function get contentContainer():AssetItem
+		public function get contentContainer():Sprite
 		{
 			return _contentContainer;
 		}
 		FW function get skinContainer():AssetItem{
 			return _skinContainer;
 		}
-		FW function setContentContainer(cc:AssetItem,skin:AssetItem,mediator:Mediator):void
+		FW function setContentContainer(_contentContainer:Sprite,cc:AssetItem,skin:AssetItem,mediator:Mediator,assetItem:AssetItem):void
 		{
-			_contentContainer = cc;	
+			this._contentContainer = _contentContainer;	
+			this.cc = cc;
+			
+			this._assetItem = assetItem;
+			
 			_skinContainer= skin;
 			_mediator = mediator;
 			
 			//_contentContainer.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);
 			
-			childName = _contentContainer.contentLoaderInfo.applicationDomain.getQualifiedDefinitionNames();
-			
+			//childName = cc.contentLoaderInfo.applicationDomain.getQualifiedDefinitionNames();
+			childName = cc.loaderContext.applicationDomain.getQualifiedDefinitionNames();
 			
 			initBefore(skin.contentLoaderInfo);
 			init(MovieClip(skin.contentLoaderInfo.content));
@@ -114,7 +130,7 @@ package com.game.framework.views {
 		 *
 		 */
 		protected function getAssetClassByName(name:String):Class {
-			return _contentContainer.contentLoaderInfo.applicationDomain.getDefinition(name) as Class;
+			return cc.loaderContext.applicationDomain.getDefinition(name) as Class;
 		}
 		
 		protected function onProgressHandler(event:ProgressEvent):void {
@@ -182,7 +198,7 @@ package com.game.framework.views {
 		 *
 		 */
 		protected function getAssetByName(name:String):Object {
-			var Asset:Class = _contentContainer.contentLoaderInfo.applicationDomain.getDefinition(name) as Class;
+			var Asset:Class = cc.loaderContext.applicationDomain.getDefinition(name) as Class;
 			return new Asset();
 		}
 		

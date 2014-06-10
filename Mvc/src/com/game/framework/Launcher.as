@@ -1,7 +1,6 @@
 package com.game.framework {
 	import com.asvital.dev.Log;
 	import com.game.framework.command.Command;
-	import com.game.framework.display.UIComponent;
 	import com.game.framework.error.OperateError;
 	import com.game.framework.ifaces.INotify;
 	import com.game.framework.ifaces.INotifyData;
@@ -15,6 +14,7 @@ package com.game.framework {
 	import com.game.framework.views.BaseMediator;
 	import com.game.framework.views.Mediator;
 	
+	import flash.sampler.getSize;
 	import flash.system.Capabilities;
 	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
@@ -293,6 +293,13 @@ package com.game.framework {
 		public function obtainProxy(proxyName:String):IProxy {
 			
 			return dictionaryProxy[proxyName];
+		}
+		public function testProxyMe():void{
+			for (var key:Object in dictionaryProxy) 
+			{
+				trace(getSize(dictionaryProxy[key])/1024/1024,"MB");
+			}
+			
 		}
 	}
 	

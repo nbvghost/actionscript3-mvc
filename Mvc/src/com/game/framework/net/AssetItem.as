@@ -1,6 +1,5 @@
 package com.game.framework.net {
 	import com.asvital.dev.Log;
-	import com.game.framework.data.CacheData;
 	import com.game.framework.data.ConfigData;
 	import com.game.framework.display.UIComponent;
 	import com.game.framework.error.OperateError;
@@ -17,8 +16,6 @@ package com.game.framework.net {
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.UncaughtErrorEvent;
-	import flash.net.URLLoader;
-	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
@@ -31,17 +28,12 @@ package com.game.framework.net {
 		private var _datainterface:IAssetsData;
 		private var _url:IURL;
 		protected var _content:Object;
-		protected var _type:String = LoadContentType.MEDIA_CONTENT;
-		protected var _isinitView:Boolean = false;
+		protected var _type:String = LoadContentType.MEDIA_CONTENT;		
 		private var loader:Loader;
 		private var _loadType:String = LoadType.CurrentApplicationDomain;
-		private var _loadCount:int = 0;
-		private var swfUrlloader:URLLoader;
-		
-		private var _isLoading:Boolean = false;
-		
-		protected var loaderContext:LoaderContext = new LoaderContext();
-		
+		private var _loadCount:int = 0;		
+		private var _isLoading:Boolean = false;		
+		protected var _loaderContext:LoaderContext = new LoaderContext();		
 		
 		/**
 		 *
@@ -57,32 +49,32 @@ package com.game.framework.net {
 			loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
-			//loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandlerPrivate);
 			
 			loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 			loader.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
-			
-						
-			swfUrlloader = new URLLoader();
-			swfUrlloader.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
-			swfUrlloader.addEventListener(ProgressEvent.PROGRESS, onProgressHandler);
-			swfUrlloader.dataFormat = URLLoaderDataFormat.BINARY;
+					
 			
 		}
 		private var uid:String = RPCUID.createUID();
 		
 		
-
+		
+		public function get loaderContext():LoaderContext
+		{
+			return _loaderContext;
+		}
+		
 		public function get isLoading():Boolean
 		{
 			return _isLoading;
 		}
-
+		
 		public function set isLoading(value:Boolean):void
 		{
 			_isLoading = value;
 		}
-
+		
 		public function get UID():String
 		{
 			// TODO Auto Generated method stub
@@ -125,14 +117,7 @@ package com.game.framework.net {
 			appStage.dispatchEvent(new GlobalErrorEvent(GlobalErrorEvent.UNCAUGHT_ERROR,event));
 		}
 		
-		/**
-		 * 是否正在初始化视图
-		 * @return
-		 *
-		 */
-		public function get isinitView():Boolean {
-			return _isinitView;
-		}
+		
 		
 		/**
 		 * 加载类型
@@ -168,7 +153,7 @@ package com.game.framework.net {
 			_datainterface = value;
 		}
 		public function onCompleteHandler(event:Event):void {		
-		
+			
 			if(_datainterface==null){			
 				
 			}else{
@@ -177,14 +162,9 @@ package com.game.framework.net {
 			}    
 		}
 		public function onIOErrorHandler(event:IOErrorEvent):void {
-			// TODO Auto Generated method stub
-			//Log.out(event);
 			
-			swfUrlloader.removeEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
-			
-			if(loadCount<=ConfigData.MaxLoadCount){
-				swfUrlloader.addEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
-				swfUrlloader.load(new URLRequest(url.url));
+			if(_loadCount<=ConfigData.MaxLoadCount){
+				loadBytes();
 				_loadCount++;
 			}else{
 				Log.info("加载出错："+event);
@@ -195,9 +175,11 @@ package com.game.framework.net {
 			
 			
 		}
-		
 		public function onProgressHandler(event:ProgressEvent):void {
 			_datainterface.progress(event, this);
+		}
+		private function onProgressHandlerPrivate(event:ProgressEvent):void {
+			onProgressHandler(event);
 		}
 		
 		public function dispose():void {
@@ -208,7 +190,7 @@ package com.game.framework.net {
 				
 				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 				loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
-				loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgressHandler);			
+				loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgressHandlerPrivate);			
 				loader.contentLoaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 				loader.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 				
@@ -229,27 +211,25 @@ package com.game.framework.net {
 				
 			}		
 			
-			
 			_datainterface = null;
 			_content = null;
 			
-			swfUrlloader =null;
 			
-		}
-		
+			
+		}		
 		private function loadBytes():void{
 			//trace(ApplicationDomain.currentDomain.getQualifiedDefinitionNames());
 			switch(_loadType){
 				case LoadType.ChildApplicationDomain:
-					loaderContext.applicationDomain =  new ApplicationDomain(ApplicationDomain.currentDomain);
+					_loaderContext.applicationDomain =  new ApplicationDomain(ApplicationDomain.currentDomain);
 					//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, new ApplicationDomain(ApplicationDomain.currentDomain)));
 					break;
 				case LoadType.CurrentApplicationDomain:
-					loaderContext.applicationDomain =  ApplicationDomain.currentDomain;
+					_loaderContext.applicationDomain =  ApplicationDomain.currentDomain;
 					//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));
 					break;
 				case LoadType.NewApplicationDomain:
-					loaderContext.applicationDomain =  new ApplicationDomain();
+					_loaderContext.applicationDomain =  new ApplicationDomain();
 					//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, new ApplicationDomain()));
 					break;
 				case LoadType.NoneApplicationDomain:
@@ -260,39 +240,31 @@ package com.game.framework.net {
 					return;
 			}
 			
-			loader.loadBytes(CacheData.getSwfByteArray(url),loaderContext);
+			loader.load(new URLRequest(url.url),_loaderContext);
+			
+			//loader.loadBytes(CacheData.getSwfByteArray(url),_loaderContext);
 			/*if (_loadType) {
-				//loader.load(new URLRequest(url.url), new LoaderContext(false, ApplicationDomain.currentDomain));
-				//trace(ApplicationDomain.currentDomain.getQualifiedDefinitionNames());
-				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));
-				//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, new ApplicationDomain(ApplicationDomain.currentDomain)));	
+			//loader.load(new URLRequest(url.url), new LoaderContext(false, ApplicationDomain.currentDomain));
+			//trace(ApplicationDomain.currentDomain.getQualifiedDefinitionNames());
+			loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));
+			//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, new ApplicationDomain(ApplicationDomain.currentDomain)));	
 			} else {				
-				//loader.load(new URLRequest(url.url), new LoaderContext(false, new ApplicationDomain()));
-				loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false,new ApplicationDomain()));
+			//loader.load(new URLRequest(url.url), new LoaderContext(false, new ApplicationDomain()));
+			loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false,new ApplicationDomain()));
 			}*/
 		}
 		
 		public function initView(notify:INotifyData = null):void {
 			
 			
-			if(CacheData.getSwfByteArray(url)!=null){
+			if(!_isLoading){
+				_isLoading = true;
 				loadBytes();
-			}else{
-				if(!_isLoading){
-					_isLoading = true;
-					swfUrlloader.addEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
-					swfUrlloader.load(new URLRequest(url.url));
-				}				
 			}
+			
 			_loadCount++;
 		}
 		
-		protected function onSwfFileCompleteHandler(event:Event):void
-		{
-			_loadCount=0;
-			swfUrlloader.removeEventListener(Event.COMPLETE,onSwfFileCompleteHandler);
-			CacheData.writeByteArray(url,swfUrlloader.data);
-			loadBytes();
-		}
+		
 	}
 }

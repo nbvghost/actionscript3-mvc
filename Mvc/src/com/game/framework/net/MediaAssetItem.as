@@ -14,6 +14,7 @@ package com.game.framework.net {
 	import com.game.framework.views.CreateView;
 	import com.game.framework.views.Mediator;
 	
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	
@@ -46,7 +47,7 @@ package com.game.framework.net {
 		private var skinLoader:SkinLoader;
 		private var swfFile:ISwfFile;
 		private var isINType:Boolean =false;
-		
+		protected var _isinitView:Boolean = false;
 		private var _serial:int=0;
 		
 		/**
@@ -128,7 +129,7 @@ package com.game.framework.net {
 			
 			//loaderContext.applicationDomain = new ApplicationDomain(loaderContext.applicationDomain);
 			
-			skinLoader = new SkinLoader(url,this.loaderContext,LoadType.NoneApplicationDomain);
+			skinLoader = new SkinLoader(url,this._loaderContext,LoadType.NoneApplicationDomain);
 			
 			//trace(loaderContext.applicationDomain.getQualifiedDefinitionNames());
 			
@@ -153,12 +154,13 @@ package com.game.framework.net {
 			
 			mediator.addEventListener(DissolveEvent.DISSOLVE,onDissolveHandler);
 			mediator.addEventListener(AssetsEvent.COMPLETE_LOAD, onSkinLoadCompleteHandler);
-			mediator.FW::view = createView;
-			
+			mediator.FW::view = createView;			
 			
 			Launcher.FW::launcher.registerMediator(mediator);
 			
-			createView.FW::setContentContainer(this,data as AssetItem,mediator);
+			createView.FW::setContentContainer(swfFile as Sprite,this,data as AssetItem,mediator,this);
+			
+			this.addChild(swfFile as Sprite);
 			
 			if(getDatainterface){
 				this.getDatainterface.asssetComplete(this);					
@@ -174,8 +176,7 @@ package com.game.framework.net {
 			mediator.push(Mediator.INIT_TYPE,notify);
 			//-------------end----------
 			
-			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.INIT_OVER));
-			
+			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.INIT_OVER));			
 			
 		}
 		
@@ -211,7 +212,15 @@ package com.game.framework.net {
 			this.notify = null;
 		}
 		/**
-		 * 初始时，也就是执行一个资源的加载，此时可以向  Mediator 层发信息,加载到当前域中</br>
+		 * 是否正在初始化视图
+		 * @return
+		 *
+		 */
+		public function get isinitView():Boolean {
+			return _isinitView;
+		}
+		/**
+		 * 初始时，也就是执行一个资源的加载，此时可以向  Mediator 层发信息,加载到共享域中</br>
 		 * 有可能在 Mediator.INIT_TYPE 类型的之后，可能还有一个 为  Mediator.RE_INIT_TYPE 类型的消息。也会发送。默认情况下，Mediator.RE_INIT_TYPE  消息数据为  Mediator.RE_INIT_NOTIFY，如果不相等的，就满足发送的条件。</br>
 		 * 
 		 * @param type 如果为 null 将使用 Mediator 中的 Mediator.DEFAULT_TYPE
@@ -225,7 +234,6 @@ package com.game.framework.net {
 		override public function initView(notify:INotifyData = null):void {
 			this.notifyType = type;
 			this.notify = notify as NotifyData;	
-			
 			
 			if (_isinitView) {			
 				if (this.notify == null) {
@@ -266,10 +274,11 @@ package com.game.framework.net {
 		 */
 		override public function dispose():void
 		{
-			//trace("释放之前："+this.loaderContext.applicationDomain.domainMemory.length);
-			
+			//trace("释放之前："+this.loaderContext.applicationDomain.domainMemory.length);			
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);
+			
+			(swfFile as Sprite).removeChildren();
 			
 			if(mediator){
 				mediator.removeEventListener(DissolveEvent.DISSOLVE,onDissolveHandler);
@@ -289,8 +298,6 @@ package com.game.framework.net {
 			
 			super.dispose();
 			
-			
-			
 			_isLoadSuccess = false;
 			_isinitView = false;
 			
@@ -298,11 +305,7 @@ package com.game.framework.net {
 			skinLoader =null;
 			swfFile=null;
 			createView=null;
-			
-			
-			
 			//trace("释放之后："+this.loaderContext.applicationDomain.domainMemory.length);
-			
 		}
 		
 		

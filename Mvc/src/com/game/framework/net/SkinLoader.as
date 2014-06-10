@@ -13,7 +13,7 @@ package com.game.framework.net {
 			super(url, loadType);
 			
 			if(loadContext!=null){
-				this.loaderContext = loadContext;				
+				this._loaderContext = loadContext;				
 			}
 		}
 		

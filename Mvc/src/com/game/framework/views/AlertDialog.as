@@ -159,21 +159,7 @@ package com.game.framework.views
 			
 			if(dialogAssetItem==null){
 				dialogAssetItem= new DialogAssetItem(ConfigData.getDialogView(),this);	
-				//midLayer.addChild(dialogAssetItem);
-			}else{
-				//  dialogAssetItem 这对象已经是 AlertDialog 本身的对象，不用再去列表去获取一次。
-				//var childIndex:int=midLayer.getChildIndex(dialogAssetItem);
-				//dialogAssetItem=midLayer.getChildAt(childIndex);
-				//dialogAssetItem = midLayer.getChildByName(ConfigData.getDialogView().url) as DialogAssetItem;				
-				if(dialogAssetItem==null){
-					dialogAssetItem= new DialogAssetItem(ConfigData.getDialogView(),this);	
-					
-				}else{
-					if(dialogAssetItem.parent==null){
-						//midLayer.addChild(dialogAssetItem);
-					}
-				}
-			}	
+			}
 			
 			dialogAssetItem.callerBuilder = callerBuilder;
 			midLayer.addChild(dialogAssetItem);

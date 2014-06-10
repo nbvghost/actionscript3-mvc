@@ -81,7 +81,7 @@ package com.game.framework.display
 
 		public function addChild(child:DisplayObject):DisplayObject
 		{
-			// TODO Auto Generated method stub
+			
 			return _container.addChild(child);
 		}
 		
