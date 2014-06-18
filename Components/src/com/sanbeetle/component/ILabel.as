@@ -16,6 +16,7 @@
 	import flash.text.engine.FontLookup;
 	import flash.text.engine.FontWeight;
 	import flash.text.engine.TextRotation;
+	import flash.utils.getTimer;
 	
 	
 	[Event(name="text_link",type="com.sanbeetle.events.ControlEvent")]
@@ -87,12 +88,20 @@
 		public function ILabel()
 		{
 			super();
+			
+			
+			
 			textField = new FTETextField(this);
+			
+			
+			
 			//textField.mouseChildren = false;
 			/*	textField.addEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
 			textField.addEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
 			textField.addEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);*/
 			textField.styleSheet =component.getStyle();
+			
+			
 			
 			_textformat  =textField.textFormat.clone();
 			fontDescription = _textformat.fontDescription.clone();
@@ -634,6 +643,9 @@
 		override protected function updateUI():void
 		{
 			
+			if(linkStage==null){
+				return;
+			}
 			
 			var tf:ElementFormat =  _textformat.clone();
 			tf.fontDescription =fontDescription.clone();

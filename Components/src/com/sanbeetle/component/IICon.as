@@ -20,6 +20,8 @@
 	import com.sanbeetle.skin.IICon_SW3;
 	import com.sanbeetle.skin.IICon_SW4;
 	import com.sanbeetle.skin.IICon_SW5;
+	import com.sanbeetle.skin.IICon_SW6;
+	import com.sanbeetle.skin.IICon_SW7;
 	import com.sanbeetle.skin.IICon_VIP1;
 	import com.sanbeetle.skin.IICon_VIP2;
 	import com.sanbeetle.skin.IICon_VIP3;
@@ -37,21 +39,31 @@
 	
 	public class IICon extends UIComponent {
 		
-		private var _icons:Array = [];		
+		private var _icons:Array = [];	
+		
+		private var _labels:Array = [];
 		
 		private var _index:int =0;
 		
 		
 		
-		private var bitMapData:BitmapData;
-		private var bitMap:Bitmap;
+		
+		
 		private var dis:Array = [];
 		public function IICon() {
-			bitMap=new Bitmap();
-			bitMapData = new BitmapData(16,16,false,0xff0000);
-			bitMap.bitmapData = bitMapData;
-			this.addChild(bitMap);
+			
 		}
+
+		public function get labels():Array
+		{
+			return _labels;
+		}
+
+		public function set labels(value:Array):void
+		{
+			_labels = value;
+		}
+
 		/**
 		 *  奖杯 亚洲
 		 * @return 
@@ -131,6 +143,12 @@
 		 */	
 		public static function get SW5():BitmapData{
 			return new IICon_SW5;
+		}
+		public static function get SW6():BitmapData{
+			return new IICon_SW6;
+		}
+		public static function get SW7():BitmapData{
+			return new IICon_SW7;
 		}
 		public static function get VIP_3():BitmapData
 		{
@@ -231,6 +249,7 @@
 		{
 			return new IICon_HZ1;
 		}
+		
 		[Deprecated(message="这个不在使用了")]
 		public function get index():int
 		{
@@ -254,9 +273,7 @@
 				cut =null;
 			}	
 			
-			if(bitMapData){				
-				bitMapData.dispose();
-			}		
+				
 			_icons.splice(0,_icons.length);
 		}
 		
@@ -264,6 +281,7 @@
 		public function get icons():Array{
 			return _icons;
 		}
+		
 		
 		public function set icons(value:Array):void{
 			w=0;
@@ -276,13 +294,14 @@
 				
 				_icons = [];
 				
-				bitMapData = new BitmapData(16,16,true,0xff0000);
-				bitMap.bitmapData = bitMapData;
+				this.removeChildren();
+				
 			}			
 			
 			for(var i:int=0;i<_icons.length;i++){
 				push(_icons[i]);
 			}
+			this.removeChildren();
 			drawIcon();
 			
 		}
@@ -293,36 +312,42 @@
 		 * @param index IICon 静态属性
 		 * 
 		 */		
-		private function push(index:BitmapData):void{
+		private function push(bder:BitmapData):void{
 			
-			w = w+index.width;			
-			maxH = Math.max(maxH,index.height);				
+			w = w+bder.width;			
+			maxH = Math.max(maxH,bder.height);				
 			
 		}
 		private function drawIcon():void{			
 			
-			if(bitMapData){
-				bitMap.bitmapData.dispose();
-				bitMap.bitmapData = null;
-				bitMapData.dispose();
-				bitMapData=null;
-			}
-			bitMapData = new BitmapData(w+(_icons.length*2),maxH,true,0xffff00);			
-			
+						
 			var xx:int = 0;
 			
 			for(var i:int=0;i<_icons.length;i++){
 				
 				var cut:BitmapData = _icons[i];
 				
-				var mxx:Matrix = new Matrix();
-				mxx.translate(xx,0);
-				bitMapData.draw(cut,mxx);
+				
+				var bimap:Bitmap = new Bitmap(cut);
+				
+				var dispaly:UIComponent = new UIComponent();
+				dispaly.graphics.beginFill(0xff0000,0);
+				dispaly.graphics.drawRect(0,0,cut.width,cut.height);
+				dispaly.graphics.endFill();
+				
+				
+				dispaly.addChild(bimap);
+				dispaly.mouseChildren = false;
+				this.addChild(dispaly);
+				dispaly.toolTip = _labels[i];
+				dispaly.x = xx;
 				xx=xx+cut.width+2;
-				cut.dispose();
-				cut =null;
+				
+				dispaly.y = (maxH-cut.height);
+				
+				//trace(dispaly.width,dispaly.height);
 			}	
-			bitMap.bitmapData = bitMapData;
+			
 		}
 		override protected function updateUI():void
 		{
@@ -337,13 +362,13 @@
 		override public function get height():Number
 		{
 			// TODO Auto Generated method stub
-			return bitMap.height;
+			return maxH;
 		}
 		
 		override public function get width():Number
 		{
 			
-			return bitMap.width;
+			return w;
 		}
 		
 		

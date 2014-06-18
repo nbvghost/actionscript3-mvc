@@ -20,8 +20,6 @@
 	import flash.geom.Point;
 	import flash.utils.getTimer;
 	
-	import fl.motion.Color;
-	
 	/**
 	 * 
 	 * 二级菜单发生改变时
@@ -255,7 +253,9 @@
 			list.visible =true;	
 			
 			
-			stage.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);				
+			if(linkStage){
+				linkStage.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);				
+			}
 			
 		}		
 		
@@ -264,9 +264,9 @@
 			
 			super.dispose();
 			
-			if(stage){
+			if(linkStage){
 				
-				stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);	
+				linkStage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);	
 			}
 			
 			for (var i:int = 0; i <this.btnArr.length; i++) 
@@ -325,14 +325,16 @@
 					}			
 				}
 				
-				this.list.cleanUp();
-				list.visible =false;
-				if(list.parent){
-					list.parent.removeChild(list);
-				}
+				if(list){
+					this.list.cleanUp();
+					list.visible =false;
+					if(list.parent){
+						list.parent.removeChild(list);
+					}
+				}				
 				
-				if(stage){
-					stage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);
+				if(linkStage){
+					linkStage.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDoaneHadnler);
 				}
 			}
 			

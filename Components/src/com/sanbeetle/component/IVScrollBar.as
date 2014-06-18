@@ -7,7 +7,6 @@
 	import com.sanbeetle.skin.IVScrollBarSkin_buttom;
 	import com.sanbeetle.skin.IVScrollBarSkin_top;
 	
-	import flash.display.Stage;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	
@@ -238,7 +237,7 @@
 			maskmc.graphics.endFill ();
 			
 			rectBackGround.graphics.clear();
-			rectBackGround.graphics.beginFill(0xff0000,0);
+			rectBackGround.graphics.beginFill(0xff0000,1);
 			rectBackGround.graphics.drawRect(0,0,target.width,trueHeight);
 			rectBackGround.graphics.endFill();
 			
@@ -296,7 +295,7 @@
 			
 			
 			rectBackGround.x = target.x;
-			rectBackGround.y = target.y;			
+			rectBackGround.y = this.y;			
 			
 		}
 		override protected function chackTargetXY ():void

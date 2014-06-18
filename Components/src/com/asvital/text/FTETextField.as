@@ -346,7 +346,7 @@ package com.asvital.text
 		public function set autoSize(value:Boolean):void
 		{
 			_autoSize = value;
-			createTextLine();		
+			//			/createTextLine();		
 			
 			
 		}
@@ -489,9 +489,7 @@ package com.asvital.text
 				this.removeChild(textContent);
 				}*/
 			}
-			if(_styleSheet){
-				_styleSheet.clear();
-			}
+			
 			
 			_textFormat= null;
 			mouseDisplayObjectContainer=null;
@@ -520,9 +518,13 @@ package com.asvital.text
 		{
 			
 			if(value!=null){
+				
+				_styleSheet = value;
+				return;
 				var lent:int = value.styleNames.length;
 				for (var i:int = 0; i < lent; i++) 
 				{
+					
 					_styleSheet.setStyle(value.styleNames[i],value.getStyle(value.styleNames[i]));
 				}
 				

@@ -374,6 +374,9 @@ package com.sanbeetle.core
 		{
 			// If copied/cut from displayAsPassword field the pastedText
 			// is '*' characters but this is correct.
+			if(op.textScrap==null){
+				return;
+			}		
 			var pastedText:String = op.textScrap.textFlow.getText();
 			// See if there is anything we need to do.
 			
