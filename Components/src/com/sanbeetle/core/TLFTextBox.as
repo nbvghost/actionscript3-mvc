@@ -132,7 +132,7 @@ package com.sanbeetle.core
 			
 			
 			container= new Sprite();	
-			
+			container.name = "container sprite";
 			
 			configuration = component.configuration;
 			
@@ -434,7 +434,7 @@ package com.sanbeetle.core
 			var disstr:String;
 			
 			
-			var llll:XMLList = new XMLList(value);			
+			var llll:XMLList = new XMLList(value);
 			
 			
 			if(llll.length()==1){//is xml
@@ -1265,7 +1265,7 @@ package com.sanbeetle.core
 			
 		}	
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{		
 			
 			onYaheiFontLoadedHandelr(null);

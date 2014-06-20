@@ -504,7 +504,7 @@
 			return _dataProvider;
 		}
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			
 			this.graphics.beginFill(0xff0000,0);

@@ -47,6 +47,9 @@
 			djy_txt.verticalAlign = VerticalAlign.MIDDLE;
 			this.addChild(djy_txt);
 			
+			djy_txt.upDisplayList();
+			
+			
 			txt = new ILabel();
 			//txt.selectable =true;
 			txt.color = djy_txt.color;
@@ -61,6 +64,9 @@
 			txt.horizontalAlign = TextAlign.LEFT;
 			txt.verticalAlign = VerticalAlign.MIDDLE;
 			this.addChild(txt);
+			
+			txt.upDisplayList();
+			
 			
 			pageindex_txt = new ITextInput();
 			pageindex_txt.selectable =true;
@@ -82,7 +88,7 @@
 			pageindex_txt.textAlign = TextAlign.CENTER;
 			//pageindex_txt.leading = 0;
 			addChild(pageindex_txt);
-			
+			pageindex_txt.upDisplayList();
 			
 			
 			

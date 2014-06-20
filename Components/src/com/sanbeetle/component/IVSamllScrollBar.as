@@ -24,7 +24,7 @@ package com.sanbeetle.component
 			bg=new IVSamllScrollBarSkin_bg;
 			//bg.width = s_bar.width;
 		}
-		override public function createUI():void
+		override protected function createUI():void
 		{			
 			super.createUI();	
 			

@@ -312,7 +312,7 @@
 			updateUI();
 			
 		}
-		override public function createUI():void
+		override protected function createUI():void
 		{	
 			
 			

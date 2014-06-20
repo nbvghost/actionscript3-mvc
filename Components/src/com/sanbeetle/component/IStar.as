@@ -68,7 +68,7 @@
 			createStar();
 		}
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			//Console.out("components"+57%10);
 			

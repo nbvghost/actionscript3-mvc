@@ -992,7 +992,7 @@ package com.sanbeetle.core
 			
 		}	
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{		
 			
 			this.addChildAt(textField,0);

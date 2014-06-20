@@ -229,7 +229,7 @@
 			return _autoSize;
 		}
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			//renderData();
 			//updateUI();

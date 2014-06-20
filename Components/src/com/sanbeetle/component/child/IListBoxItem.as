@@ -64,6 +64,8 @@
 			this.addChild(label);
 			//this.width = 100;
 			//this.height =20;
+			//label.upDisplayList();
+			
 			
 		}
 		
@@ -94,6 +96,8 @@
 			
 			this.addChild(bg);
 			this.addChild(label);
+			
+			
 			
 			var lci:ListChildItem = data as ListChildItem;
 			
@@ -141,6 +145,7 @@
 				if(autoLayOut){
 					label.autoBound = true;
 					label.multiline = false;
+					label.upDisplayList();
 					this.bg.width = label.width+8;
 					chidlAroww.x =bg.width-chidlAroww.width-10;
 					chidlAroww.y = (bg.height-chidlAroww.height)/2;				
@@ -150,6 +155,7 @@
 				}else{
 					label.autoBound = false;
 					label.multiline = false;
+					label.upDisplayList();
 					this.bg.width = cw;
 					chidlAroww.x =bg.width-chidlAroww.width-10;
 					chidlAroww.y = (bg.height-chidlAroww.height)/2;				
@@ -188,7 +194,7 @@
 				
 				label.text = data.label;
 			
-				
+				label.upDisplayList();
 				//bg.height = label.height;
 				
 				this.bg.width = 8+label.width;

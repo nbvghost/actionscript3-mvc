@@ -130,6 +130,7 @@
 			super.addTextFlowEvent();
 			if(isRichText)
 				textContainerManager.addEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,graphicStatusChangeEvent);
+			
 		}
 		
 		override protected function removeTextFlowEvent():void
@@ -148,6 +149,10 @@
 				img.width = w;
 				img.height = h;
 				img.format = format;
+				
+				
+				
+				
 				
 				var em:EditManager = textContainerManager.getTextFlow().interactionManager as EditManager;
 				
@@ -200,7 +205,9 @@
 					
 				}else{
 					textContainerManager.editingMode = EditingMode.READ_ONLY;
-					return null;
+					//textContainerManager.editingMode = EditingMode.READ_SELECT;
+					//return null;
+					return new EditManager(new UndoManager());
 				}
 			}else{
 				return null;
@@ -290,7 +297,7 @@
 			//trace("ss",this.width,this.height);
 		}
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			
 			this.selectable =true;

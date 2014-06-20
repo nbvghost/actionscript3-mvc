@@ -333,7 +333,8 @@
 				var dispaly:UIComponent = new UIComponent();
 				dispaly.graphics.beginFill(0xff0000,0);
 				dispaly.graphics.drawRect(0,0,cut.width,cut.height);
-				dispaly.graphics.endFill();
+				dispaly.graphics.endFill();	
+				
 				
 				
 				dispaly.addChild(bimap);
@@ -372,7 +373,7 @@
 		}
 		
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			//this.addChild(skin);
 			updateUI();

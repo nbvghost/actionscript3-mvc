@@ -272,7 +272,7 @@ package com.sanbeetle.component
 		}
 		
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			ivsb.height = this.trueHeight;
 			ivsb.x = this.trueWidth-ivsb.width;

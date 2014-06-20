@@ -87,6 +87,7 @@
 			
 			
 		}
+		
 		/**
 		 * stage 的一个引用 ，完全等于  stage,不同的是， 在显示对象从舞台移除时， linkStage 还是不会为空，使用这个保证了，对象移除，无法移除 stage 的事件。可以 配合   onAddStage 和  onRemoveStage
 		 * @see #onRemoveStage()
@@ -184,11 +185,14 @@
 			if(value!=null && value!="" && value!=" "){
 				this.addEventListener(MouseEvent.ROLL_OVER,onMouseRoolOverHandler);
 				this.addEventListener(MouseEvent.ROLL_OUT,onMouseRoolOutHandler);
+			
 			}else{
 				this.removeEventListener(MouseEvent.ROLL_OVER,onMouseRoolOverHandler);
 				this.removeEventListener(MouseEvent.ROLL_OUT,onMouseRoolOutHandler);
 			}
 		}
+		
+		
 		
 		override public function set x(value:Number):void
 		{
@@ -430,7 +434,7 @@
 		 * 跳到第二帧时，开始构建 样式、界面 
 		 * 
 		 */
-		public function createUI ():void
+		protected function createUI ():void
 		{
 			
 		}

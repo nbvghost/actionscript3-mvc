@@ -110,7 +110,7 @@
 			updateUI();
 		}
 
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			this.addChild(m_back);
 			this.addChild(m_front);

@@ -53,7 +53,7 @@
 			content.color = _color;
 		}
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{			
 			
 			//Console.out("components"+content);

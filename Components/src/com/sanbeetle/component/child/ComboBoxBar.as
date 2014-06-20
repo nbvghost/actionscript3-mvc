@@ -22,8 +22,6 @@ package com.sanbeetle.component.child
 	import com.sanbeetle.skin.ComboBox_upSkin;
 	
 	import flash.events.MouseEvent;
-	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
 	
 	[Event(name="select", type="com.sanbeetle.events.ControlEvent")]
 	
@@ -33,7 +31,6 @@ package com.sanbeetle.component.child
 		private var _height:Number=0;
 		private var _width:Number = 0;
 		private var _backgroundType:String;
-		private var _labelTxt:ILabel;
 		
 		private var _cx:Number = 0;
 		private var randFunc:Function;

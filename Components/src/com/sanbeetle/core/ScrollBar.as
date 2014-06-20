@@ -167,7 +167,7 @@
 			throw new Error(" 重写  getScrollBosition  ");
 			return 0;
 		}
-		override public function createUI():void
+		override protected function createUI():void
 		{			
 			super.createUI();			
 			source = this._source;

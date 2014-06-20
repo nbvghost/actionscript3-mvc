@@ -51,7 +51,7 @@
 			contentTxt.text = _text;
 			updateUI();
 		}
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			
 			skin.filters = component.irightMenuFilters;

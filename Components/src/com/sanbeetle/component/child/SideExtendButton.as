@@ -70,7 +70,7 @@
 		}
 		
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			// TODO Auto Generated method stub
 			super.createUI();

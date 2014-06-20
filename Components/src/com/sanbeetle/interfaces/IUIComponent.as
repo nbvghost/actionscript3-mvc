@@ -1,6 +1,6 @@
 package com.sanbeetle.interfaces
 {
-	import flash.events.Event;
+	
 	
 	public interface IUIComponent 
 	{
@@ -28,10 +28,7 @@ package com.sanbeetle.interfaces
 		//function updateUI ():void;
 		function upDisplayList():void;
 		function dispose ():void;	
-		
-		
-		
-		
+				
 		/**
 		 * 得到stage 
 		 * @param event
@@ -42,7 +39,7 @@ package com.sanbeetle.interfaces
 		 * 跳到第二帧时，开始构建 样式、界面 
 		 * 
 		 */
-		function createUI ():void;
+		//function createUI ():void;
 		/**
 		 * 设置高，宽
 		 * @param w

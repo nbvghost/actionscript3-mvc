@@ -16,7 +16,6 @@
 	import flash.text.engine.FontLookup;
 	import flash.text.engine.FontWeight;
 	import flash.text.engine.TextRotation;
-	import flash.utils.getTimer;
 	
 	
 	[Event(name="text_link",type="com.sanbeetle.events.ControlEvent")]
@@ -44,7 +43,7 @@
 		private var _paddingTop:int=2;
 		private var _lineHeight:int=2;
 		
-		
+		private var _rotation:Number = 0;
 		private var _scrollText:Boolean =false;		
 		private var _showHtml:Boolean = false;	
 		
@@ -87,29 +86,16 @@
 		
 		public function ILabel()
 		{
-			super();
+			super();			
 			
+			textField = new FTETextField(this);			
 			
-			
-			textField = new FTETextField(this);
-			
-			
-			
-			//textField.mouseChildren = false;
-			/*	textField.addEventListener(FTEOperationEvent.LinkMouseDown,onLinkMouseDownHandler);
-			textField.addEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
-			textField.addEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);*/
-			textField.styleSheet =component.getStyle();
-			
-			
+			textField.styleSheet =component.getStyle();			
 			
 			_textformat  =textField.textFormat.clone();
 			fontDescription = _textformat.fontDescription.clone();
 			textField.text = _text;
 			textField.wordWrap = _multiline;
-			
-			//this.mouseChildren = false;
-			
 			
 		}
 		[Inspectable(enumeration = "rotate0,rotate90,rotate180,rotate270",defaultValue = "rotate0")]
@@ -639,16 +625,10 @@
 			return textField.width;
 		}
 		
-		
-		override protected function updateUI():void
+		override public function upDisplayList():void
 		{
-			
-			if(linkStage==null){
-				return;
-			}
-			
 			var tf:ElementFormat =  _textformat.clone();
-			tf.fontDescription =fontDescription.clone();
+			tf.fontDescription = fontDescription.clone();
 			
 			padding.buttom = paddingBottom;
 			padding.left = paddingLeft;
@@ -659,8 +639,7 @@
 			
 			
 			textField.textFormat = tf;
-			textField.tracking = _tracking;
-			
+			textField.tracking = _tracking;	
 			
 			
 			
@@ -682,14 +661,14 @@
 			}
 			
 			drawBorder(textField.width,textField.height);
-			
-			//trace(this.width,this.height);
-			
-			
-			
-			
+		}		
+		override protected function updateUI():void
+		{				
+			//if(linkStage){
+				upDisplayList();
+			//}
 		}
-		private var _rotation:Number = 0;
+		
 		//[Inspectable]
 		override public function get rotation():Number
 		{
@@ -728,7 +707,7 @@
 			stage.addEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
 		}
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			this.addChild(textField);
 			

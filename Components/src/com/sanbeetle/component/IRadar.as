@@ -97,7 +97,7 @@
 			startTimer();
 		}
 		
-		override public function createUI():void
+		override protected function createUI():void
 		{
 			
 			/*_dataProvider.addItem({label:"速度",data:50-12});

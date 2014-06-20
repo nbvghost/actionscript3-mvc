@@ -346,8 +346,7 @@ package com.asvital.text
 		public function set autoSize(value:Boolean):void
 		{
 			_autoSize = value;
-			//			/createTextLine();		
-			
+			createTextLine();			
 			
 		}
 		
@@ -559,6 +558,7 @@ package com.asvital.text
 			var groupBlock:Vector.<ContentElement> = new Vector.<ContentElement>();
 			
 			textBlocks.splice(0,textBlocks.length);
+			
 			if(ishtmlText){
 				
 				var xml:XML;
@@ -775,9 +775,6 @@ package com.asvital.text
 		
 		private function createTextLine():void{
 			
-			
-			
-			
 			while(this.numChildren>0){
 				
 				this.removeChildAt(0);
@@ -855,8 +852,6 @@ package com.asvital.text
 				return;
 			}
 			
-			
-			//createTextLine();
 		}
 		
 	}

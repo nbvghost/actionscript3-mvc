@@ -34,7 +34,7 @@
 		}
 		
 		
-		override public function createUI ():void
+		override protected function createUI ():void
 		{
 			super.createUI ();
 			
@@ -232,12 +232,12 @@
 		{
 			
 			maskmc.graphics.clear ();
-			maskmc.graphics.beginFill (0xff0000,1);
+			maskmc.graphics.beginFill (0xff0000,0);
 			maskmc.graphics.drawRect (0,0,-(target.width+Math.abs(scrollBeginPoint.x)),trueHeight+scrollBeginPoint.y);
 			maskmc.graphics.endFill ();
 			
 			rectBackGround.graphics.clear();
-			rectBackGround.graphics.beginFill(0xff0000,1);
+			rectBackGround.graphics.beginFill(0xff0000,0);
 			rectBackGround.graphics.drawRect(0,0,target.width,trueHeight);
 			rectBackGround.graphics.endFill();
 			
