@@ -4,6 +4,7 @@ package com.game.framework.data
 	import com.game.framework.enum.MaskBackGroundType;
 	import com.game.framework.error.OperateError;
 	import com.game.framework.ifaces.INotifyData;
+	import com.game.framework.ifaces.ITargetID;
 	import com.game.framework.ifaces.IURL;
 	
 	import flash.events.Event;
@@ -21,6 +22,8 @@ package com.game.framework.data
 		private var _notify:INotifyData;		
 		private var _width:int=0;
 		private var _height:int=0;
+		
+		private var _targetID:ITargetID;
 		
 		private var _diaLogButtons:Vector.<DialogButtonData> = new Vector.<DialogButtonData>();
 		
@@ -45,6 +48,16 @@ package com.game.framework.data
 			_titleData = new DialogDataItem("undefined",null);
 		}		
 		
+		public function get targetID():ITargetID
+		{
+			return _targetID;
+		}
+
+		public function set targetID(value:ITargetID):void
+		{
+			_targetID = value;
+		}
+
 		public function get maskBackGroundType():int
 		{
 			return _maskBackGroundType;
