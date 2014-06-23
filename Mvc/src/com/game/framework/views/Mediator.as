@@ -7,6 +7,7 @@ package com.game.framework.views {
 	import com.game.framework.events.DissolveEvent;
 	import com.game.framework.ifaces.INotifyData;
 	import com.game.framework.ifaces.ITargetID;
+	import com.game.framework.ifaces.IURL;
 	import com.game.framework.models.NotifyData;
 	
 	/**
@@ -150,13 +151,33 @@ package com.game.framework.views {
 		 * 
 		 */
 		protected function showDialog(dialogID:ITargetID):void{		
-			var alertdialog:AlertDialog;			
-			alertdialog = AlertDialog.getAlertDialog(dialogID);
+			var alertdialog:AlertDialog;	
+			var alertBuilder:AlertDialogBuilder =onCreateDialog(dialogID);
+			
+			
+			
+			if(alertBuilder==null){
+				trace("当你要弹出一个窗口的时候，请确认 窗口的描述细说");
+				return;
+			}
+			
+			alertBuilder.targetID = dialogID;
+			
+			if(alertBuilder.view==null){
+				
+				trace("AlertDialogBuilder.view  属性表示您要弹出窗口的地址！（唯一的）。如果放空，将不处理。");
+				
+				return;
+				
+			}
+			
+			alertdialog = AlertDialog.getAlertDialog(alertBuilder.view);
+			
 			if(alertdialog==null){
 				alertdialog = new AlertDialog(this); 
 			}							
-			alertdialog.Builder=onCreateDialog(dialogID);
-			alertdialog.show(dialogID);
+			alertdialog.Builder=alertBuilder;
+			alertdialog.show();
 			
 		}	
 		/**
@@ -164,12 +185,12 @@ package com.game.framework.views {
 		 * @param dialogID
 		 * 
 		 */
-		protected function dismiss(dialogID:ITargetID):void{
-			var alertdialog:AlertDialog = AlertDialog.getAlertDialog(dialogID);
+		protected function dismiss(targetURL:IURL):void{
+			var alertdialog:AlertDialog = AlertDialog.getAlertDialog(targetURL);
 			if(alertdialog!=null){
 				alertdialog.dismiss();				
 			}else{
-				Log.out(" 没有找到 dialogID:"+dialogID+"的弹出框！");
+				Log.out(" 没有找到 dialogID:"+targetURL+"的弹出框！");
 			}
 		}
 		/**

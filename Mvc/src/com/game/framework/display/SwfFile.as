@@ -33,5 +33,13 @@ package com.game.framework.display
 		{
 			return null;
 		}
+		
+		public function get getSkinClass():Class
+		{
+			// TODO Auto Generated method stub
+			return null;
+		}
+		
+		
 	}
 }

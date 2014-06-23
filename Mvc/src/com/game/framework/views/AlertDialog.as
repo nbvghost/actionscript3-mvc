@@ -7,6 +7,7 @@ package com.game.framework.views
 	import com.game.framework.enum.MaskBackGroundType;
 	import com.game.framework.events.DialogEvent;
 	import com.game.framework.ifaces.ITargetID;
+	import com.game.framework.ifaces.IURL;
 	import com.game.framework.logic.TargetID;
 	import com.game.framework.net.DialogAssetItem;
 	
@@ -41,20 +42,24 @@ package com.game.framework.views
 		private var dialogAssetItem:DialogAssetItem;
 		private var mediator:Mediator;
 		
-		private var _targetID:ITargetID;
+		private var _targetURL:IURL;
 		
 		public static var DialogPool:Array=[];
 		
 		private var _visible:Boolean = true;
 		private var dialogOver:Boolean =true;
 		
+		
+		
 		private var _isDismiss:Boolean = false;
 		public function AlertDialog(mediator:Mediator)
 		{	
 			
-			_targetID = AlertDialog.dialogID;
+			
 			callerBuilder = new AlertDialogBuilder();
 			this.mediator = mediator;
+			
+			_targetURL = callerBuilder.view;
 			
 		}
 		
@@ -62,9 +67,9 @@ package com.game.framework.views
 		{
 			return _visible;
 		}
-		public function get ID():ITargetID
+		public function get targetURL():IURL
 		{
-			return _targetID;
+			return _targetURL;
 		}
 		
 		public static function dismissAll(gc:Boolean = true):void{
@@ -85,11 +90,21 @@ package com.game.framework.views
 		 * @return 
 		 * 
 		 */
-		public static function getAlertDialog(ID:ITargetID):AlertDialog{
+		public static function getAlertDialog(targetURL:IURL):AlertDialog{
 			for (var i:int = 0; i < DialogPool.length; i++) 
 			{
 				var alertdialog:AlertDialog = DialogPool[i];
-				if(alertdialog.ID.id==ID.id){
+				if(alertdialog.targetURL.url==targetURL.url){
+					return alertdialog;
+				}	
+			}	
+			return null;
+		}
+		public static function getAlertDialogByID(targetURL:IURL,targetID:ITargetID):AlertDialog{
+			for (var i:int = 0; i < DialogPool.length; i++) 
+			{
+				var alertdialog:AlertDialog = DialogPool[i];
+				if(alertdialog.targetURL.url==targetURL.url && alertdialog.Builder.targetID.id==targetID.id){
 					return alertdialog;
 				}	
 			}	
@@ -133,17 +148,15 @@ package com.game.framework.views
 		public function set Builder(value:AlertDialogBuilder):void{
 			
 			callerBuilder = value;
+			
+			_targetURL =callerBuilder.view;
 		}
 		public function show(_ID:ITargetID=null):AlertDialog{		
 			
 			if(ConfigData.getInvalidDialogAlert()){
 				return this;
 			}
-			if(_ID!=null){
-				_targetID = _ID;
-			}else{
-				_targetID = AlertDialog.dialogID;
-			}
+			
 			if(callerBuilder==null){
 				Log.out("AlertDialog.Builder 不能为空！ ");
 				return this;

@@ -34,7 +34,7 @@ package com.game.framework.views {
 		private var _mediator:Mediator;
 		
 		private var _contentContainer:Sprite;
-		private var _skinContainer:AssetItem;
+		private var _skinContainer:MovieClip;
 		private var _hasLoad:Boolean = true;
 		private var _assetItem:AssetItem;
 		
@@ -64,10 +64,10 @@ package com.game.framework.views {
 		{
 			return _contentContainer;
 		}
-		FW function get skinContainer():AssetItem{
+		FW function get skinContainer():MovieClip{
 			return _skinContainer;
 		}
-		FW function setContentContainer(_contentContainer:Sprite,cc:AssetItem,skin:AssetItem,mediator:Mediator,assetItem:AssetItem):void
+		FW function setContentContainer(_contentContainer:Sprite,cc:AssetItem,skin:MovieClip,mediator:Mediator,assetItem:AssetItem):void
 		{
 			this._contentContainer = _contentContainer;	
 			this.cc = cc;
@@ -82,8 +82,8 @@ package com.game.framework.views {
 			//childName = cc.contentLoaderInfo.applicationDomain.getQualifiedDefinitionNames();
 			childName = cc.loaderContext.applicationDomain.getQualifiedDefinitionNames();
 			
-			initBefore(skin.contentLoaderInfo);
-			init(MovieClip(skin.contentLoaderInfo.content));
+			initBefore(skin);
+			init(skin);
 			this.dispatchEvent(new AssetsEvent(AssetsEvent.COMPLETE_LOAD));
 		}		
 		public function enterFrame(e:Event):void
@@ -207,7 +207,7 @@ package com.game.framework.views {
 		 * @param loaderinfo
 		 *
 		 */
-		protected function initBefore(loaderinfo:LoaderInfo):void {
+		protected function initBefore(skin:MovieClip):void {
 			
 		}
 		

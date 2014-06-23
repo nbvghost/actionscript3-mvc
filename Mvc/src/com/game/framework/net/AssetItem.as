@@ -13,12 +13,14 @@ package com.game.framework.net {
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
+	import flash.events.HTTPStatusEvent;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.UncaughtErrorEvent;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
+	import flash.system.SecurityDomain;
 	
 	/**
 	 *
@@ -49,11 +51,18 @@ package com.game.framework.net {
 			loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
-			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandlerPrivate);
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandlerPrivate);	
+			
+			//loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS,function(e:HTTPStatusEvent):void{trace(e);});
+			
 			
 			loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 			loader.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 					
+			
+			
+			_loaderContext.allowCodeImport = true;
+			//_loaderContext.checkPolicyFile = true;
 			
 		}
 		private var uid:String = RPCUID.createUID();
@@ -113,6 +122,7 @@ package com.game.framework.net {
 		}
 		
 		private function uncaughtErrorHandler(event:UncaughtErrorEvent):void {
+			trace(event.toString());
 			_isLoading =false;
 			appStage.dispatchEvent(new GlobalErrorEvent(GlobalErrorEvent.UNCAUGHT_ERROR,event));
 		}
@@ -200,10 +210,14 @@ package com.game.framework.net {
 					//Log.out(e.getStackTrace());
 				}			
 				loader.unloadAndStop();
-				loader.unload();
-				
+				loader.unload();			
 				
 				loader = null;
+				
+				if(_loaderContext!=null && _loaderContext.applicationDomain){
+					_loaderContext.applicationDomain =null;
+					_loaderContext=null;
+				}
 			}
 			if (this.parent != null) {
 				this.parent.removeChild(this);
@@ -241,6 +255,8 @@ package com.game.framework.net {
 			}
 			
 			loader.load(new URLRequest(url.url),_loaderContext);
+			
+			
 			
 			//loader.loadBytes(CacheData.getSwfByteArray(url),_loaderContext);
 			/*if (_loadType) {

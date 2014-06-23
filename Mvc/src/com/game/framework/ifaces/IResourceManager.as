@@ -105,6 +105,16 @@ package com.game.framework.ifaces {
 		function initSmilies(assetData:IAssetItem):void;
 		
 		/**
+		 * 初始化配制文件
+		 * @param assetData
+		 * 
+		 */
+		function initConfigFile(assetData:IAssetItem):void;
+		
+		function getConfigFile(configFileName:String):String;
+		function getConfigFileList():Object;
+		
+		/**
 		 *  来自  icons.fla
 		 * @param assetData
 		 * 

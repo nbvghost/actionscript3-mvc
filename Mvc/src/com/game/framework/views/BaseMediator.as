@@ -129,6 +129,7 @@ package com.game.framework.views {
 			//_uimanager = null;
 			_view =null;
 			Launcher.FW::launcher.unregisterMediator(this);
+			
 		}
 	}
 }

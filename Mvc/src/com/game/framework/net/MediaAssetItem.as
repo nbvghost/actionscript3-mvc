@@ -14,6 +14,7 @@ package com.game.framework.net {
 	import com.game.framework.views.CreateView;
 	import com.game.framework.views.Mediator;
 	
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -65,17 +66,17 @@ package com.game.framework.net {
 			this._serial = _serial;
 			
 		}		
-
+		
 		public function get serial():int
 		{
 			return _serial;
 		}
-
+		
 		public function set serial(value:int):void
 		{
 			_serial = value;
 		}
-
+		
 		protected function onAddStageHandler(event:Event):void
 		{
 			
@@ -127,11 +128,8 @@ package com.game.framework.net {
 				return;
 			}
 			
-			//loaderContext.applicationDomain = new ApplicationDomain(loaderContext.applicationDomain);
 			
-			skinLoader = new SkinLoader(url,this._loaderContext,LoadType.NoneApplicationDomain);
-			
-			//trace(loaderContext.applicationDomain.getQualifiedDefinitionNames());
+			skinLoader = new SkinLoader(url,this._loaderContext,LoadType.NoneApplicationDomain);		
 			
 			var assite:AssetsData = new AssetsData();		
 			assite.asssetCompleteFunc = onSkinloaderOver;			
@@ -140,11 +138,12 @@ package com.game.framework.net {
 			}
 			skinLoader.setDatainterface = assite;
 			skinLoader.initView();			
+			
 		}
 		
-		private function onSkinloaderOver(data:IAssetItem):void {			
+		
+		private function initModel(skin:MovieClip):void{
 			
-			//trace(loaderContext.applicationDomain.getQualifiedDefinitionNames());
 			
 			_isinitView = true;
 			_isLoadSuccess = true;
@@ -158,7 +157,7 @@ package com.game.framework.net {
 			
 			Launcher.FW::launcher.registerMediator(mediator);
 			
-			createView.FW::setContentContainer(swfFile as Sprite,this,data as AssetItem,mediator,this);
+			createView.FW::setContentContainer(swfFile as Sprite,this,skin,mediator,this);
 			
 			this.addChild(swfFile as Sprite);
 			
@@ -176,8 +175,26 @@ package com.game.framework.net {
 			mediator.push(Mediator.INIT_TYPE,notify);
 			//-------------end----------
 			
-			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.INIT_OVER));			
+			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.INIT_OVER));	
+		}
+		private function onSkinloaderOver(data:IAssetItem):void {			
 			
+			initModel(MovieClip(data.contentLoaderInfo.content));
+			
+		}
+		
+		/**
+		 * 反注册 
+		 * @return 
+		 * 
+		 */
+		public function unregisterMediator():Boolean{
+			if(mediator){				
+				Launcher.FW::launcher.unregisterMediator(mediator);
+				return true;
+			}else{
+				return false;
+			}
 		}
 		
 		protected function onDissolveHandler(event:DissolveEvent):void
@@ -278,7 +295,11 @@ package com.game.framework.net {
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);
 			
-			(swfFile as Sprite).removeChildren();
+			if(swfFile){
+				
+				(swfFile as Sprite).removeChildren();
+				
+			}
 			
 			if(mediator){
 				mediator.removeEventListener(DissolveEvent.DISSOLVE,onDissolveHandler);
@@ -305,6 +326,7 @@ package com.game.framework.net {
 			skinLoader =null;
 			swfFile=null;
 			createView=null;
+			
 			//trace("释放之后："+this.loaderContext.applicationDomain.domainMemory.length);
 		}
 		

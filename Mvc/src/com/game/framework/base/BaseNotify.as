@@ -70,7 +70,7 @@ package com.game.framework.base {
 		
 		public function handerNotify(type:String, notifyData:INotifyData):void {
 			if (Capabilities.isDebugger) {
-				Log.out(new OperateError("未处理的消息：" + type, this));
+				trace(new OperateError("未处理的消息：" + type, this));
 			}
 		}
 	}

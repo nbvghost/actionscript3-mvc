@@ -14,9 +14,7 @@ package com.game.framework {
 	import com.game.framework.views.BaseMediator;
 	import com.game.framework.views.Mediator;
 	
-	import flash.sampler.getSize;
 	import flash.system.Capabilities;
-	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
 	
 	/**
@@ -28,9 +26,9 @@ package com.game.framework {
 	 */
 	public class Launcher implements INotify,IRegister,IObtain {
 		
-		private var dictionaryMediator:Dictionary;
-		private var dictionaryCommand:Dictionary;
-		private var dictionaryProxy:Dictionary;
+		private var dictionaryMediator:Object={};
+		private var dictionaryCommand:Object={};
+		private var dictionaryProxy:Object={};
 		
 		private static var _launcher:Launcher;
 		private var _uimanager:IUIManager;
@@ -40,9 +38,9 @@ package com.game.framework {
 			if (singleton == null) {
 				throw new Error("Launcher 实例化出错！请使用静态访问！");
 			}
-			dictionaryMediator = new Dictionary(true);
+			/*dictionaryMediator = new Dictionary(true);
 			dictionaryCommand = new Dictionary(true);
-			dictionaryProxy = new Dictionary(true);
+			dictionaryProxy = new Dictionary(true);*/
 		}
 		
 		/**
@@ -294,13 +292,7 @@ package com.game.framework {
 			
 			return dictionaryProxy[proxyName];
 		}
-		public function testProxyMe():void{
-			for (var key:Object in dictionaryProxy) 
-			{
-				trace(getSize(dictionaryProxy[key])/1024/1024,"MB");
-			}
-			
-		}
+		
 	}
 	
 }

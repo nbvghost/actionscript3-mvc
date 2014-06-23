@@ -27,5 +27,14 @@ package com.game.framework.ifaces {
 		 *
 		 */
 		function get getSkinURL():IURL;
+		
+		/**
+		 * 通过   Embed 方式 传入  skin
+		 * [Embed(source="../skin/LoginViewSkin.swf",mimeType="application/x-shockwave-flash")]
+		 * public const LoginViewSkin:Class;
+		 * @return 
+		 * 
+		 */
+		function get getSkinClass():Class;
 	}
 }

@@ -137,7 +137,7 @@ package com.game.framework.net {
 			}else{
 				currentLoadItem = items.shift();
 				if(currentLoadItem){
-				currentLoadItem.initView();
+					currentLoadItem.initView();
 					
 				}
 				

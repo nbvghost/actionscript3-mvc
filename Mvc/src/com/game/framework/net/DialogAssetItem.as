@@ -211,7 +211,7 @@ package com.game.framework.net
 			if(calleeBuilder.sideBtnData.length<=0){
 				
 				try{
-					var content:MovieClip=MovieClip(view.FW::skinContainer.content);
+					var content:MovieClip=view.FW::skinContainer;
 					var dialogBound:MovieClip = content.getChildByName(ConfigData.getDialogContentBoundName()) as MovieClip;
 					dialogBound.x = 0;
 					dialogBound.y = 0;
