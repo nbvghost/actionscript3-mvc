@@ -18,7 +18,7 @@ package com.sanbeetle.renderer
 		private var _listChild:IListBox;
 		private var _data:IFListItem;
 		private var _listData:ListData;
-		
+		private var _selected:Boolean = false;
 		
 		public function AccordionListContentRenderer()
 		{
@@ -119,11 +119,12 @@ package com.sanbeetle.renderer
 		
 		public function get selected():Boolean
 		{
-			return false;
+			return _selected;
 		}
 		
 		public function set selected(value:Boolean):void
 		{
+			_selected = value;
 		}
 		
 		public function get haveStage():Boolean

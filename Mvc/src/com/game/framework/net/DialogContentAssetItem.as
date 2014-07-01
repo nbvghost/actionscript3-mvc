@@ -13,9 +13,9 @@ package com.game.framework.net
 	 */
 	public class DialogContentAssetItem extends MediaAssetItem
 	{
-		public function DialogContentAssetItem(url:IURL, currentDomain:Boolean=true)
+		public function DialogContentAssetItem(url:IURL, loadType:String=LoadType.ChildApplicationDomain)
 		{
-			super(url, currentDomain);
+			super(url,0, loadType);
 		}
 		public function getCreateView():CreateView{
 			return this.createView;	

@@ -665,7 +665,11 @@
 		override protected function updateUI():void
 		{				
 			//if(linkStage){
+			
+			if(componentInspectorSetting==false){
 				upDisplayList();
+			}
+				
 			//}
 		}
 		
@@ -695,7 +699,7 @@
 			textField.removeEventListener(FTEOperationEvent.LinkMouseOut,onLinkMouseOutHandler);
 			textField.removeEventListener(FTEOperationEvent.LinkMouseOver,onLinkMouseOverHandler);
 			
-			stage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
+			linkStage.removeEventListener(ControlEvent.FONT_LOADED,onFontLoaderHandler);
 		}
 		
 		override protected function onAddStage():void

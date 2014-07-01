@@ -114,7 +114,8 @@
 			}
 		}
 		override public function dispose():void
-		{
+		{		
+			
 			_accordionItemBarCell=null;
 			_accordionListCell=null;
 			_dataProvider.removeAll();
@@ -319,9 +320,16 @@
 		[Inspectable(defaultValue="-1")]
 		public function set selectIndex(value:int):void
 		{
+			scrollBarPosition = 0;
+			
 			if(_selectIndex==value){
 				return;
 			}
+			
+			if(_selectIndex!=-1){
+				this.getParBar(_selectIndex).selected =false;
+			}
+			
 			_selectIndex = value;
 			if(_selectIndex<0){
 				if(currentContent){
@@ -330,6 +338,11 @@
 				_selectIndex=-1
 			}else{
 				if(_selectIndex<=itemS.length-1){
+					
+					if(currentContent){
+						IDisplayItem(currentContent).selected = false;
+					}
+					
 					currentContent  = this.getContentByIndex(_selectIndex);
 					content.addChild(currentContent);
 					this.ivscr.upDisplayList();
@@ -349,6 +362,9 @@
 						
 						//itemS[_selectIndex].selected = true;
 						IDisplayItem(currentContent).selected = true;
+						
+						this.getParBar(_selectIndex).selected =true;
+						
 					}else{
 						IDisplayItem(currentContent).selected = false;
 						_selectIndex=-1
@@ -362,6 +378,7 @@
 				
 				
 			}
+			
 			this.updateUI();
 		}
 		private function getParBar(index:int):IDisplayItem{
@@ -386,52 +403,7 @@
 		override public function upDisplayList():void
 		{
 			
-			while(content.numChildren>0){
-				content.removeChildAt(0);
-			}
-			
-			this.ivscr.upDisplayList();				
-			//itemS.splice(0,itemS.length);				
-			
-			for (var i:int = 0; i < _dataProvider.length; i++) 
-			{
-				if(i==0){
-					currentContent  = this.getContentByIndex(0);
-					IDisplayItem(currentContent).data = (_dataProvider.getItemAt(i) as IFListItem);
-				}
-				
-				var item:DisplayObject =getParBar(i) as DisplayObject;
-				
-				IDisplayItem(item).data = (_dataProvider.getItemAt(i) as IFListItem);
-				IDisplayItem(item).setSize(getContentWidth(),item.height);
-				
-				//item.backgroundType = ComboBox.background_default;
-				//item.width = trueWidth;
-				//item.height = trueHeight;
-				//item.defaultLabel = (_dataProvider.getItemAt(i) as IFListItem).label;
-				item.name = i+"";
-				
-				/*item.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
-				item.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
-				item.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);*/
-				
-				//item.displayItem = 
-				
-				//item.y = IDisplayItem(item).contentHeight*i;
-				content.addChild(item);
-				
-				
-				if(_accordionItemBarCell!=null){
-					if(_accordionItemBarCell.length>=2){
-						_accordionItemBarCell.apply(this,[item,i]);
-					}else{
-						throw new Error("accordionItemBarCell 参数个数不对，应该 有 2 个，当前"+_accordionItemBarCell.length+"个！");
-					}
-				}
-				
-			}	
-			
-			updateUI();
+			this.updateUI();
 			
 		}
 		
@@ -451,7 +423,11 @@
 					
 					_selectIndex = uint(combar.name);
 					
+					
+					
 					currentContent  = this.getContentByIndex(_selectIndex);
+					
+					
 					
 					content.addChild(currentContent);
 					
@@ -519,10 +495,58 @@
 		 */		
 		public function set dataProvider(value:DataProvider):void
 		{
-			
-			if(_dataProvider!=value){				
+			scrollBarPosition = 0;
+			if(_dataProvider!=value){	
+				
 				_dataProvider=value;
-				upDisplayList();
+				
+				
+				while(content.numChildren>0){
+					content.removeChildAt(0);
+				}
+				
+				this.ivscr.upDisplayList();				
+				//itemS.splice(0,itemS.length);				
+				
+				for (var i:int = 0; i < _dataProvider.length; i++) 
+				{
+					if(i==0){
+						currentContent  = this.getContentByIndex(0);
+						IDisplayItem(currentContent).data = (_dataProvider.getItemAt(i) as IFListItem);
+					}
+					
+					var item:DisplayObject =getParBar(i) as DisplayObject;
+					
+					IDisplayItem(item).data = (_dataProvider.getItemAt(i) as IFListItem);
+					IDisplayItem(item).setSize(getContentWidth(),item.height);
+					
+					//item.backgroundType = ComboBox.background_default;
+					//item.width = trueWidth;
+					//item.height = trueHeight;
+					//item.defaultLabel = (_dataProvider.getItemAt(i) as IFListItem).label;
+					item.name = i+"";
+					
+					/*item.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownHandler);
+					item.addEventListener(MouseEvent.MOUSE_OUT,onMouseOutHandler);
+					item.addEventListener(MouseEvent.MOUSE_OVER,onMouseOverHandler);*/
+					
+					//item.displayItem = 
+					
+					//item.y = IDisplayItem(item).contentHeight*i;
+					content.addChild(item);
+					
+					
+					if(_accordionItemBarCell!=null){
+						if(_accordionItemBarCell.length>=2){
+							_accordionItemBarCell.apply(this,[item,i]);
+						}else{
+							throw new Error("accordionItemBarCell 参数个数不对，应该 有 2 个，当前"+_accordionItemBarCell.length+"个！");
+						}
+					}
+					
+				}	
+				
+				updateUI();
 			}
 			
 		}

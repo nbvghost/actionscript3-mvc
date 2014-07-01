@@ -23,6 +23,7 @@
 	
 	
 	[Event(name="inlineGraphicStatusChange", type="flashx.textLayout.events.StatusChangeEvent")]
+	
 	public class ITextInput extends TextBox {
 		
 		private var upSkin:ITextInputSkin_up;
@@ -206,8 +207,8 @@
 				}else{
 					textContainerManager.editingMode = EditingMode.READ_ONLY;
 					//textContainerManager.editingMode = EditingMode.READ_SELECT;
-					//return null;
-					return new EditManager(new UndoManager());
+					return null;
+					//return new EditManager(new UndoManager());
 				}
 			}else{
 				return null;

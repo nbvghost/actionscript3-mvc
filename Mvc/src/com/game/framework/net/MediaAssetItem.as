@@ -148,6 +148,7 @@ package com.game.framework.net {
 			_isinitView = true;
 			_isLoadSuccess = true;
 			
+			
 			createView = swfFile.getCreateView;			
 			mediator = swfFile.getMediator;
 			
@@ -179,6 +180,8 @@ package com.game.framework.net {
 		}
 		private function onSkinloaderOver(data:IAssetItem):void {			
 			
+			//trace(_loaderContext.applicationDomain.getQualifiedDefinitionNames());
+			//trace(data.contentLoaderInfo.applicationDomain.getQualifiedDefinitionNames());
 			initModel(MovieClip(data.contentLoaderInfo.content));
 			
 		}

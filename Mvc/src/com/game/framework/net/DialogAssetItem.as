@@ -41,9 +41,9 @@ package com.game.framework.net
 		private var alertDialog:AlertDialog;
 		private var calleeBuilder:AlertDialogBuilder;
 		
-		public function DialogAssetItem(url:IURL,alert:AlertDialog,currentDomain:Boolean=true)
+		public function DialogAssetItem(url:IURL,alert:AlertDialog,loadType:String=LoadType.ChildApplicationDomain)
 		{
-			super(url, currentDomain);			
+			super(url, 0,loadType);
 			var callBack:AssetsData = new AssetsData();
 			
 			

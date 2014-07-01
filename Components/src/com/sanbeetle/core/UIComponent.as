@@ -40,6 +40,8 @@
 		
 		private var _glowFilter:Object={};
 		
+		private var _componentInspectorSetting:Boolean = false;
+		
 		public function UIComponent ()
 		{
 			stop ();
@@ -88,6 +90,56 @@
 			
 		}
 		
+		/**
+		 * 组件属性面板设置标记。<br/>
+		 * 这属性设置由 flash cs 工具自动生成。在属性开始设置时，和设置结束时。如：<br/>
+		 * @exampleText  gfdfgfd
+		 * <listing version="3.0">
+		try
+		{
+			this.lblTrainRatio["componentInspectorSetting"] = true;
+			}
+			catch (e:Error)
+			{
+				}
+				this.lblTrainRatio.alpha = 1;
+				this.lblTrainRatio.autoBound = false;
+				this.lblTrainRatio.bold = false;
+				this.lblTrainRatio.border = false;
+				this.lblTrainRatio.color = "0x000000";
+				this.lblTrainRatio.dropShadow = false;
+				this.lblTrainRatio.fontSize = "10";
+				this.lblTrainRatio.horizontalAlign = "left";
+				this.lblTrainRatio.lineHeight = 2;
+				this.lblTrainRatio.multiline = false;
+				this.lblTrainRatio.paddingBottom = 0;
+				this.lblTrainRatio.paddingLeft = 2;
+				this.lblTrainRatio.paddingRight = 0;
+				this.lblTrainRatio.paddingTop = 5;
+				this.lblTrainRatio.text = "0%";
+				this.lblTrainRatio.verticalAlign = "inherit";
+				try
+				{
+					this.lblTrainRatio["componentInspectorSetting"] = false;
+				}
+				catch (e:Error)
+				{
+			}
+			</listing>
+			*/
+		public function get componentInspectorSetting():Boolean
+		{
+			return _componentInspectorSetting;
+		}
+
+		/**
+		 * @private
+		 */
+		public function set componentInspectorSetting(value:Boolean):void
+		{
+			_componentInspectorSetting = value;
+		}
+
 		/**
 		 * stage 的一个引用 ，完全等于  stage,不同的是， 在显示对象从舞台移除时， linkStage 还是不会为空，使用这个保证了，对象移除，无法移除 stage 的事件。可以 配合   onAddStage 和  onRemoveStage
 		 * @see #onRemoveStage()
@@ -209,7 +261,7 @@
 		{
 			isInstage = true;
 			
-			_linkStage = stage;
+			_linkStage = stage;	
 			
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.addEventListener(Event.REMOVED_FROM_STAGE,onRemoveStageHandler);	
@@ -410,6 +462,7 @@
 		 */
 		private function stageHaveHandler (event:Event):void
 		{
+			_linkStage = stage;			
 			linkRoot= this.root;
 			this.removeEventListener (Event.ADDED_TO_STAGE,stageHaveHandler);
 			createUI ();
