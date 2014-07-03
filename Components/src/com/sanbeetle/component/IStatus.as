@@ -165,7 +165,13 @@
 			}
 			
 			arr.splice(0,arr.length);
-			rightDO.removeChildren();
+			
+			if(rightDO){
+				while(rightDO.numChildren>0){
+					rightDO.removeChildAt(0);
+				}
+			}
+			//rightDO.removeChildren();
 		}
 		/**
 		 *  这个方法会影响性能，请使用 iconLabels

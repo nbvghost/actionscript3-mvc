@@ -17,11 +17,14 @@
 		public function IToolTip() {
 			skin = new ToolTipSkin();			
 			contentTxt = new IRichText();
+			contentTxt.addEventListener(ControlEvent.FONT_LOADED,onReHande);
+			contentTxt.componentInspectorSetting = true;
+			contentTxt.enableEdit =false;
 			contentTxt.autoBound = true;
 			contentTxt.multiline =false;
-			contentTxt.addEventListener(ControlEvent.FONT_LOADED,onReHande);
 			contentTxt.color = "0x373b40";
 			contentTxt.fontSize = "11";			
+			contentTxt.componentInspectorSetting = false;
 			rect = new LocationRect(9,11,9,11);
 		}
 		public function get textXML():String{

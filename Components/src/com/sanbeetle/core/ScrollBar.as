@@ -69,7 +69,7 @@
 		{
 			return target;
 		}
-
+		
 		[Inspectable(defaultValue=false)]
 		public function get isFloat():Boolean
 		{
@@ -169,8 +169,13 @@
 		}
 		override protected function createUI():void
 		{			
-			super.createUI();			
+			super.createUI();
+			
 			source = this._source;
+			
+			if(this.target){
+				this.target.visible = true;
+			}
 			
 			
 			this.parent.addChildAt(rectBackGround,0);
@@ -281,7 +286,9 @@
 			
 			setBackGroundIndex();
 			
-			
+			if(target){				
+				target.visible = true;
+			}
 			
 		}		
 		protected function disopose():void{
@@ -448,7 +455,7 @@
 			this.height=h;			
 		}
 		
-				
+		
 		public function set source(value:Object):void
 		{		
 			
@@ -469,16 +476,19 @@
 				
 				target = this.parent.getChildByName(String(value.target)) as DisplayObjectContainer;
 			}	
+			
 			if(value==null){
 				target=null;
 			}
+			
 			if(target==null){
 				
 				return;
 			}
 			
-			//Log.out(target);			
-			this.upDisplayList();
+			upDisplayList();		
+			
+			target.visible = false;
 			
 		}
 		
