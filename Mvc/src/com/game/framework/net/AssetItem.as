@@ -13,14 +13,13 @@ package com.game.framework.net {
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
-	import flash.events.HTTPStatusEvent;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.UncaughtErrorEvent;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
-	import flash.system.SecurityDomain;
+	import flash.utils.ByteArray;
 	
 	/**
 	 *
@@ -35,7 +34,9 @@ package com.game.framework.net {
 		private var _loadType:String = LoadType.CurrentApplicationDomain;
 		private var _loadCount:int = 0;		
 		private var _isLoading:Boolean = false;		
-		protected var _loaderContext:LoaderContext = new LoaderContext();		
+		protected var _loaderContext:LoaderContext = new LoaderContext();
+		
+		private var _data:ByteArray;
 		
 		/**
 		 *
@@ -43,11 +44,14 @@ package com.game.framework.net {
 		 * @param currentDomain 使用当前域？
 		 *
 		 */
-		public function AssetItem(url:IURL, loadType:String) {		
+		public function AssetItem(url:IURL, loadType:String,contentType:String=LoadContentType.MEDIA_CONTENT) {		
 			
 			this.name = url.url;
 			_url = url;
 			this._loadType = loadType;
+			
+			_type = contentType;
+			
 			loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandlerPrivate);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
@@ -58,7 +62,7 @@ package com.game.framework.net {
 			
 			loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
 			loader.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
-					
+			
 			
 			
 			_loaderContext.allowCodeImport = true;
@@ -69,6 +73,16 @@ package com.game.framework.net {
 		
 		
 		
+		public function get data():ByteArray
+		{
+			return _data;
+		}
+
+		public function set data(value:ByteArray):void
+		{
+			_data = value;
+		}
+
 		public function get loaderContext():LoaderContext
 		{
 			return _loaderContext;
@@ -254,21 +268,20 @@ package com.game.framework.net {
 					return;
 			}
 			
-			loader.load(new URLRequest(url.url),_loaderContext);
+			if(_type==LoadContentType.MEDIA_CONTENT_BY_BYTEARRAY){
+				if(_data==null){
+					
+					throw new OperateError("data 不能为空！");
+					return;
+				}
+				loader.loadBytes(_data,_loaderContext);
+			}else{
+				
+				loader.load(new URLRequest(url.url),_loaderContext);
+			}
 			
 			
-			
-			//loader.loadBytes(CacheData.getSwfByteArray(url),_loaderContext);
-			/*if (_loadType) {
-			//loader.load(new URLRequest(url.url), new LoaderContext(false, ApplicationDomain.currentDomain));
-			//trace(ApplicationDomain.currentDomain.getQualifiedDefinitionNames());
-			loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, ApplicationDomain.currentDomain));
-			//loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false, new ApplicationDomain(ApplicationDomain.currentDomain)));	
-			} else {				
-			//loader.load(new URLRequest(url.url), new LoaderContext(false, new ApplicationDomain()));
-			loader.loadBytes(CacheData.getSwfByteArray(url), new LoaderContext(false,new ApplicationDomain()));
-			}*/
-		}
+		}		
 		
 		public function initView(notify:INotifyData = null):void {
 			
@@ -276,11 +289,9 @@ package com.game.framework.net {
 			if(!_isLoading){
 				_isLoading = true;
 				loadBytes();
-			}
-			
+			}			
 			_loadCount++;
-		}
-		
+		}	
 		
 	}
 }

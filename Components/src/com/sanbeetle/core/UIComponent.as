@@ -137,7 +137,10 @@
 		 */
 		public function set componentInspectorSetting(value:Boolean):void
 		{
+					
 			_componentInspectorSetting = value;
+				
+			
 		}
 
 		/**

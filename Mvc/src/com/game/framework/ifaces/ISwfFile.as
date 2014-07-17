@@ -19,7 +19,7 @@ package com.game.framework.ifaces {
 		 * @return
 		 *
 		 */
-		function get getCreateView():CreateView;
+		function get getCreateView():CreateView;	
 		
 		/**
 		 *  皮肤地址
@@ -30,7 +30,7 @@ package com.game.framework.ifaces {
 		
 		/**
 		 * 通过   Embed 方式 传入  skin
-		 * [Embed(source="../skin/LoginViewSkin.swf",mimeType="application/x-shockwave-flash")]
+		 * [Embed(source="../skin/LoginViewSkin.swf",mimeType="application/octet-stream")]
 		 * public const LoginViewSkin:Class;
 		 * @return 
 		 * 

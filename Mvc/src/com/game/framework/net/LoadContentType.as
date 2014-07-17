@@ -11,6 +11,10 @@ public class LoadContentType {
      * 类型是swf,jps,png,等
      */
     public static const MEDIA_CONTENT:String = "MEDIA_CONTENT";
+	/**
+	 * 字节加载 
+	 */
+	public static const MEDIA_CONTENT_BY_BYTEARRAY:String = "MEDIA_CONTENT_BY_BYTEARRAY";
     /**
      * 类型是字符串
      */

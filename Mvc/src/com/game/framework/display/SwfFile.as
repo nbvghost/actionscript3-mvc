@@ -14,6 +14,7 @@ package com.game.framework.display
 	 */
 	public class SwfFile extends Sprite implements ISwfFile
 	{
+		
 		public function SwfFile()
 		{
 			super();

@@ -102,7 +102,7 @@ package com.game.framework.ifaces {
 		 * @param assetData
 		 * 
 		 */
-		function initSmilies(assetData:IAssetItem):void;
+		//function initSmilies(assetData:IAssetItem):void;
 		
 		/**
 		 * 初始化配制文件
@@ -127,7 +127,7 @@ package com.game.framework.ifaces {
 		 */
 		function getIcon(name:String,sizeEnum:int = 20,align:String=RegistrationPoint.CENTER,outBroder:Boolean=false,toolTip:String=""):DisplayObject;
 		
-		function getSmiliseNames():Vector.<String>;
+		//function getSmiliseNames():Vector.<String>;
 		
 		/**
 		 *  通过类名获取 uiassets.fla 资源 
@@ -143,13 +143,13 @@ package com.game.framework.ifaces {
 		 * @return 
 		 * 
 		 */
-		function getSmilise(name:String,sizeEnum:int = 20,align:String=RegistrationPoint.CENTER,outBroder:Boolean=false):DisplayObject;
+		//function getSmilise(name:String,sizeEnum:int = 20,align:String=RegistrationPoint.CENTER,outBroder:Boolean=false):DisplayObject;
 		/**
 		 * 返回所有的表情 
 		 * @return 
 		 * 
 		 */
-		function getSmilises(sizeEnum:int = 20,align:String=RegistrationPoint.CENTER,outBroder:Boolean=false):Vector.<DisplayObject>;
+		//function getSmilises(sizeEnum:int = 20,align:String=RegistrationPoint.CENTER,outBroder:Boolean=false):Vector.<DisplayObject>;
 		
 		/**
 		 * 得到队服 vl

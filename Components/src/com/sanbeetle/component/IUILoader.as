@@ -12,17 +12,19 @@ package com.sanbeetle.component
 	import flash.display.LoaderInfo;
 	import flash.display.PixelSnapping;
 	import flash.display.Shape;
-	import flash.display.Sprite;
 	import flash.errors.IOError;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
 	import flash.events.ProgressEvent;
 	import flash.net.URLRequest;
+	import flash.net.URLStream;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
+	import flash.utils.ByteArray;
+	import flash.utils.CompressionAlgorithm;
 	
-
+	
 	/**
 	 * 加载器，有缩放功能 
 	 * @author Administrator
@@ -38,9 +40,10 @@ package com.sanbeetle.component
 		private var _smoothing:Boolean = false;
 		private var _scaleType:String = ScaleType.NONE;
 		
-		private var _currentTarget:DisplayObject;
+		//private var _currentTarget:DisplayObject;
 		
 		private var maskmc:Shape = new Shape();
+		private var defaultmc:Shape = new Shape();
 		
 		private var loaderContext:LoaderContext;
 		private var issetLoad:Boolean = false;
@@ -49,6 +52,12 @@ package com.sanbeetle.component
 		
 		private var loading:IUILoaderSkin;
 		
+		private var urlStream:URLStream= new URLStream();
+		
+		private var _data:ByteArray = new ByteArray();
+		
+		
+		
 		public function IUILoader()
 		{
 			super();
@@ -56,17 +65,88 @@ package com.sanbeetle.component
 			_loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE,onCompleteHandler);
 			_loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS,onProgressHandler);
-			_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onIOErrorHandler);
+			_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,onIOErrorHandler);	
 			
-			this.addChild(maskmc);
+			//this.mouseChildren = false;
+			//this.mouseEnabled = false;
+			//_loader.mouseEnabled = false;
+			//_loader.mouseChildren = false;
+			
+			
+			urlStream.addEventListener(IOErrorEvent.IO_ERROR,onIOErrorHandler);
+			urlStream.addEventListener(ProgressEvent.PROGRESS,onStreamProgressHandler);
+			urlStream.addEventListener(Event.COMPLETE,onStreamCompleteHandler);
+			
+			
 			
 			loaderContext = new LoaderContext(false,ApplicationDomain.currentDomain);
 			
 			loading = new IUILoaderSkin();
-			loading.p1.stop();
-			loading.p2.stop();
-			loading.p3.stop();			
+			loading.mouseChildren = false;
+			loading.stop();
+			
+			
+			
+			
+			this.addChild(defaultmc);
+			this.addChild(_loader);			
+			
+			this.addChild(maskmc);
+		}
+		public function get pragressBar():IUILoaderSkin{
+			return loading;
+		}
+		protected function onStreamCompleteHandler(event:Event):void
+		{
+			if(defaultmc.parent){
+				defaultmc.parent.removeChild(defaultmc);
+			}
+			
+			
+			if(loading.parent){
+				loading.parent.removeChild(loading);	
+			}
+			
+			loading.stop();
+			
+			issetLoad = false;
+		}
 		
+		override protected function createUI():void
+		{
+			loading.x = Math.round((trueWidth-loading.width)/2);
+			loading.y = Math.round((trueHeight-loading.height)/2);
+			
+			this.addChild(loading);
+		}
+		
+		
+		protected function onStreamProgressHandler(event:ProgressEvent):void
+		{
+			
+			
+			
+			urlStream.readBytes(_data,_data.length,urlStream.bytesAvailable);
+			
+			
+			
+			_loader.loadBytes(_data,loaderContext);		
+			
+			
+			if(!loading.isPlaying){
+				
+				
+				loading.play();				
+			}	
+			if(loading.parent==null){
+				this.addChild(loading);
+			}
+			
+			loading.x = Math.round((trueWidth-loading.width)/2);
+			loading.y = Math.round((trueHeight-loading.height)/2);
+			
+			//loading.bg.gotoAndStop(int((event.bytesLoaded/event.bytesTotal)*100));
+			
 		}
 		/**
 		 *  Loader.contentLoaderInfo 的引用
@@ -77,7 +157,7 @@ package com.sanbeetle.component
 		{
 			return _loader.contentLoaderInfo;
 		}
-
+		
 		[Inspectable(defaultValue="")]
 		public function get source():String
 		{
@@ -116,41 +196,46 @@ package com.sanbeetle.component
 				
 				_loader.close();
 				_loader.unload();
+				_loader.unloadAndStop();
 				
 			}catch(e:IOError){
 				Log.error(e);	
 			}
 			
-			if(_currentTarget){
-				if(_currentTarget.parent){
-					_currentTarget.parent.removeChild(_currentTarget);
-				}
-				if(_currentTarget is Bitmap){
-					Bitmap(_currentTarget).bitmapData.dispose();
-				}
+			_data.clear();
+			
+			try{
+				urlStream.close();
+			}catch(e:IOError){
+				trace(e);
 			}
+			/*if(_currentTarget){
+			if(_currentTarget.parent){
+			_currentTarget.parent.removeChild(_currentTarget);
+			}
+			if(_currentTarget is Bitmap){
+			Bitmap(_currentTarget).bitmapData.dispose();
+			}
+			}*/
+			
 			
 			if(loading.parent){
 				loading.parent.removeChild(loading);
 			}
-			loading.p1.stop();
-			loading.p2.stop();
-			loading.p3.stop();
+			loading.stop();
 			
-			_currentTarget= new Sprite();
-			Sprite(_currentTarget).graphics.beginFill(0x000000,0.5);
-			Sprite(_currentTarget).graphics.drawRect(0,0,this.trueWidth,this.trueHeight);
-			Sprite(_currentTarget).graphics.endFill();
-			this.addChild(_currentTarget);
+			
+			
+			this.addChild(defaultmc);
 		}
 		/**
 		 * 当前加载的显示对象 
 		 * @return 
 		 * 
 		 */		
-		public function get currentTarget():DisplayObject
+		public function get content():DisplayObject
 		{
-			return _currentTarget;
+			return _loader.content
 		}
 		[Inspectable]
 		/**
@@ -207,8 +292,7 @@ package com.sanbeetle.component
 				pload();
 			}
 			
-		}
-		
+		}		
 		override public function dispose():void
 		{
 			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE,onCompleteHandler);
@@ -217,9 +301,12 @@ package com.sanbeetle.component
 			
 			loading.removeEventListener(MouseEvent.CLICK,onreload);
 			
-			loading.p1.stop();
-			loading.p2.stop();
-			loading.p3.stop();
+			loading.stop();
+			
+			urlStream.removeEventListener(IOErrorEvent.IO_ERROR,onIOErrorHandler);
+			urlStream.removeEventListener(ProgressEvent.PROGRESS,onStreamProgressHandler);
+			urlStream.removeEventListener(Event.COMPLETE,onStreamCompleteHandler);
+			
 			
 			super.dispose();
 		}
@@ -232,35 +319,29 @@ package com.sanbeetle.component
 		}
 		
 		private function pload():void{
+			_loader.unloadAndStop();
+			_loader.unload();
 			
-			_loader.load(urlrequest,loaderContext);
+			_data.clear();
+			
+			urlStream.load(urlrequest);
+			
+			//this.addChild(loading);	
+			//_loader.load(urlrequest,loaderContext);
 			
 		}
 		private function onIOErrorHandler(event:IOErrorEvent):void
 		{
+			
 			loading.buttonMode = true;
-			loading.p1.gotoAndStop(11);
-			loading.p2.gotoAndStop(21);
-			loading.p3.gotoAndStop(1);
+			loading.stop();
 			loading.addEventListener(MouseEvent.CLICK,onreload);
 		}
 		
 		private function onProgressHandler(event:ProgressEvent):void
 		{
-			if(loading.parent==null){
-				this.addChild(loading);
-				
-				loading.p1.play();
-				loading.p2.play();
-				loading.p3.play();
-				
-				
-			}			
 			
-			loading.x = Math.round((trueWidth-loading.width)/2);
-			loading.y = Math.round((trueHeight-loading.height)/2);
 			
-			loading.bg.gotoAndStop(int((event.bytesLoaded/event.bytesTotal)*100));
 			
 		}
 		
@@ -274,55 +355,65 @@ package com.sanbeetle.component
 			pload();
 		}
 		
+		override public function upDisplayList():void
+		{
+			this.updateUI();
+		}
+		
+		
 		override protected function updateUI():void
 		{
 			
 			
-			
-			if(_currentTarget){
-				var pih:Number = _currentTarget.height/trueHeight;
-				var piw:Number = _currentTarget.width/trueWidth;
+			if(_loader.content){
+				var pih:Number = _loader.content.height/trueHeight;
+				var piw:Number = _loader.content.width/trueWidth;
 				
-				var cupi:Number= _currentTarget.height/_currentTarget.width;
+				var cupi:Number= _loader.content.height/_loader.content.width;
 				
 				switch(_scaleType){
 					case ScaleType.CENTER_NOSCALE:
 					case ScaleType.NONE:
 						
-						_currentTarget.scaleX = 1;
-						_currentTarget.scaleY = 1;
+						_loader.content.scaleX = 1;
+						_loader.content.scaleY = 1;
 						
 						break;
 					case ScaleType.IN_BORDER:
 						if(pih>piw){
-							_currentTarget.height =trueHeight;
-							_currentTarget.width = _currentTarget.height/cupi;
+							_loader.content.height =trueHeight;
+							_loader.content.width = _loader.content.height/cupi;
 						}else{
-							_currentTarget.width = trueWidth;
-							_currentTarget.height = _currentTarget.width*cupi;
+							_loader.content.width = trueWidth;
+							_loader.content.height = _loader.content.width*cupi;
 							
 						}
 						break;
 					case ScaleType.OUT_BORDER:
 						if(pih>piw){
-							_currentTarget.width = trueWidth;
-							_currentTarget.height = _currentTarget.width*cupi;
+							_loader.content.width = trueWidth;
+							_loader.content.height = _loader.content.width*cupi;
 							
 						}else{
 							
-							_currentTarget.height =trueHeight;
-							_currentTarget.width = _currentTarget.height/cupi;
+							_loader.content.height =trueHeight;
+							_loader.content.width = _loader.content.height/cupi;
 							
 						}
 						break;
 				}
 				
 				if(_scaleType!=ScaleType.NONE){
-					_currentTarget.x = (trueWidth-_currentTarget.width)/2;
-					_currentTarget.y = (trueHeight-_currentTarget.height)/2;
+					_loader.x = (trueWidth-_loader.content.width)/2;
+					_loader.y = (trueHeight-_loader.content.height)/2;
 				}
 				
 			}
+			defaultmc.graphics.clear();
+			defaultmc.graphics.beginFill(0x000000,0.5);
+			defaultmc.graphics.drawRect(0,0,this.trueWidth,this.trueHeight);
+			defaultmc.graphics.endFill();
+			
 			
 			maskmc.graphics.clear();
 			maskmc.graphics.beginFill(0x00ff00,0);
@@ -335,43 +426,53 @@ package com.sanbeetle.component
 		private function onCompleteHandler(event:Event):void
 		{
 			
+			//trace(_loader.width,_loader.height,_loader.content.width,_loader.content.height);
 			
 			
-			loading.p1.stop();
-			loading.p2.stop();
-			loading.p3.stop();
 			
-			if(loading.parent){
-				loading.parent.removeChild(loading);	
+			
+			
+			
+			
+			
+			/*if(_currentTarget){				
+			if(_currentTarget is Bitmap){
+			if(_currentTarget.parent){
+			_currentTarget.parent.removeChild(_currentTarget);
 			}
-			
-			if(_currentTarget){
-				if(_currentTarget.parent){
-					_currentTarget.parent.removeChild(_currentTarget);
-				}
-				if(_currentTarget is Bitmap){
-					Bitmap(_currentTarget).bitmapData.dispose();
-				}
+			Bitmap(_currentTarget).bitmapData.dispose();
 			}
-			issetLoad = false;
+			}*/
 			
-			_currentTarget = _loader.content;	
+			
+			
+			//_currentTarget = _loader.content;	
 			
 			
 			
 			if(_smoothing && _loader.contentLoaderInfo.contentType!="application/x-shockwave-flash"){			
 				
-				var bd:BitmapData = new BitmapData(_currentTarget.width,_currentTarget.height,true,0x000000);				
-				bd.draw(_currentTarget,null,null,null,null,true);
-				var bit:Bitmap = new Bitmap(bd,PixelSnapping.AUTO,true);
-				_currentTarget = bit;
-				this.addChild(_currentTarget);
+				//var bd:BitmapData = new BitmapData(_currentTarget.width,_currentTarget.height,true,0x000000);				
+				//bd.draw(_currentTarget,null,null,null,null,true);
+				////var bit:Bitmap = new Bitmap(bd,PixelSnapping.AUTO,true);
+				var bit:Bitmap = _loader.content as Bitmap;
+				if(bit && bit.bitmapData){	
+					bit.smoothing = true;
+					//trace("1");
+					try{
+						bit.bitmapData.draw(bit.bitmapData.clone(),null,null,null,null,true);
+					}catch(e:ArgumentError){
+						trace(e);
+					}
+				}
+				//_currentTarget = bit;
+				//this.addChild(_currentTarget);
 			}else{
 				
-				this.addChild(_currentTarget);
+				//this.addChild(_currentTarget);
 			}
 			
-			_currentTarget.mask = maskmc;
+			_loader.mask = maskmc;
 			
 			
 			this.addChild(maskmc);

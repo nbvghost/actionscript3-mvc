@@ -173,9 +173,7 @@
 			
 			source = this._source;
 			
-			if(this.target){
-				this.target.visible = true;
-			}
+			
 			
 			
 			this.parent.addChildAt(rectBackGround,0);
@@ -286,9 +284,7 @@
 			
 			setBackGroundIndex();
 			
-			if(target){				
-				target.visible = true;
-			}
+			
 			
 		}		
 		protected function disopose():void{
@@ -488,7 +484,7 @@
 			
 			upDisplayList();		
 			
-			target.visible = false;
+			
 			
 		}
 		

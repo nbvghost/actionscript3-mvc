@@ -18,6 +18,8 @@ package com.game.framework.net {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.utils.ByteArray;
+	import flash.utils.getTimer;
 	
 	/**
 	 * 
@@ -127,17 +129,39 @@ package com.game.framework.net {
 			if(skinLoader!=null){
 				return;
 			}
+			var assite:AssetsData;
 			
-			
-			skinLoader = new SkinLoader(url,this._loaderContext,LoadType.NoneApplicationDomain);		
-			
-			var assite:AssetsData = new AssetsData();		
-			assite.asssetCompleteFunc = onSkinloaderOver;			
-			assite.netErrorFunc = function (event:IOErrorEvent,data:IAssetItem):void{
-				getDatainterface.netError(event,data);
+			if(swfFile.getSkinClass){
+				var SkinClass:Class = swfFile.getSkinClass;
+				var SkinByteArray:ByteArray = new SkinClass();
+				if(SkinByteArray){
+					skinLoader = new SkinLoader(url,this._loaderContext,LoadType.NoneApplicationDomain,LoadContentType.MEDIA_CONTENT_BY_BYTEARRAY);	
+					skinLoader.data = SkinByteArray;
+					
+					assite = new AssetsData();		
+					assite.asssetCompleteFunc = onSkinloaderOver;			
+					assite.netErrorFunc = function (event:IOErrorEvent,data:IAssetItem):void{
+						getDatainterface.netError(event,data);
+					}
+					skinLoader.setDatainterface = assite;
+					skinLoader.initView();	
+					
+				}else{
+					throw new OperateError("采用编译的 Skin 资源，Embed 的 mimeType 值必须为 application/octet-stream,请检查 "+swfFile+"是否成功指定！");
+				}
+				
+			}else{
+				throw new OperateError("请采用 Embed 嵌入 XXXSkin.swf 文件"+swfFile);
+				skinLoader = new SkinLoader(url,this._loaderContext,LoadType.NoneApplicationDomain);		
+				
+				assite = new AssetsData();		
+				assite.asssetCompleteFunc = onSkinloaderOver;
+				assite.netErrorFunc = function (event:IOErrorEvent,data:IAssetItem):void{
+					getDatainterface.netError(event,data);
+				}
+				skinLoader.setDatainterface = assite;
+				skinLoader.initView();			
 			}
-			skinLoader.setDatainterface = assite;
-			skinLoader.initView();			
 			
 		}
 		
@@ -177,11 +201,12 @@ package com.game.framework.net {
 			//-------------end----------
 			
 			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.INIT_OVER));	
+			
+			trace("加载用时："+(getTimer()-t));
 		}
 		private function onSkinloaderOver(data:IAssetItem):void {			
 			
-			//trace(_loaderContext.applicationDomain.getQualifiedDefinitionNames());
-			//trace(data.contentLoaderInfo.applicationDomain.getQualifiedDefinitionNames());
+			
 			initModel(MovieClip(data.contentLoaderInfo.content));
 			
 		}
@@ -239,6 +264,7 @@ package com.game.framework.net {
 		public function get isinitView():Boolean {
 			return _isinitView;
 		}
+		private var t:Number =0;
 		/**
 		 * 初始时，也就是执行一个资源的加载，此时可以向  Mediator 层发信息,加载到共享域中</br>
 		 * 有可能在 Mediator.INIT_TYPE 类型的之后，可能还有一个 为  Mediator.RE_INIT_TYPE 类型的消息。也会发送。默认情况下，Mediator.RE_INIT_TYPE  消息数据为  Mediator.RE_INIT_NOTIFY，如果不相等的，就满足发送的条件。</br>
@@ -252,6 +278,8 @@ package com.game.framework.net {
 		 * @see com.game.framework.view.Mediator
 		 */
 		override public function initView(notify:INotifyData = null):void {
+			t = getTimer();
+			
 			this.notifyType = type;
 			this.notify = notify as NotifyData;	
 			
@@ -286,6 +314,8 @@ package com.game.framework.net {
 				this.setDatainterface = new AssetsData();
 			}
 			super.initView();
+			
+			
 		}
 		
 		/**
