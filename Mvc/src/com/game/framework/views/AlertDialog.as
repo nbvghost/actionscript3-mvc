@@ -11,7 +11,6 @@ package com.game.framework.views
 	import com.game.framework.logic.TargetID;
 	import com.game.framework.net.DialogAssetItem;
 	
-	import flash.display.InteractiveObject;
 	import flash.events.EventDispatcher;
 	
 	/**
@@ -47,16 +46,14 @@ package com.game.framework.views
 		public static var DialogPool:Array=[];
 		
 		private var _visible:Boolean = true;
-		private var dialogOver:Boolean =true;
-		
-		
-		
+		private var dialogOver:Boolean =true;	
 		private var _isDismiss:Boolean = false;
 		public function AlertDialog(mediator:Mediator)
 		{	
 			
 			
 			callerBuilder = new AlertDialogBuilder();
+			
 			this.mediator = mediator;
 			
 			_targetURL = callerBuilder.view;
@@ -180,12 +177,7 @@ package com.game.framework.views
 			changeMaskLayer();
 			
 			
-			
-			/*if(midLayer.numChildren!=0){
-			midLayer.setChildIndex(dialogAssetItem,midLayer.numChildren-1);
-			}*/
-			
-			dialogAssetItem.initView();			
+			dialogAssetItem.initView();
 			_visible =true;
 			
 			if(DialogPool.indexOf(this)==-1){
