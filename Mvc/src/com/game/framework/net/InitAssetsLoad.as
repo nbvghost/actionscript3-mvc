@@ -105,7 +105,7 @@ package com.game.framework.net {
 		}
 		
 		public function netError(event:IOErrorEvent, data:IAssetItem):void {
-			//trace(event);
+			//Log.out(event);
 			deleteArrItem(data.UID);
 			_dataInterface.netError(event, data);
 			
@@ -116,12 +116,12 @@ package com.game.framework.net {
 				Log.error("文件【"+data.url.url+"】加载出错，并重试了"+ConfigData.MaxLoadCount+"次，仍无法加载成功！");				
 			}
 			begin();
-			//trace("加载次数："+data.loadCount);
+			//Log.out("加载次数："+data.loadCount);
 			
 		}
 		
 		public function progress(event:ProgressEvent, data:IAssetItem):void {
-			//trace(event);
+			//Log.out(event);
 			_dataInterface.progress(event, data);
 		}
 		

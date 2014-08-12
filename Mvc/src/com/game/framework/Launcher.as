@@ -15,6 +15,7 @@ package com.game.framework {
 	import com.game.framework.views.Mediator;
 	
 	import flash.system.Capabilities;
+	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
 	
 	/**
@@ -26,9 +27,9 @@ package com.game.framework {
 	 */
 	public class Launcher implements INotify,IRegister,IObtain {
 		
-		private var dictionaryMediator:Object={};
+		private var dictionaryMediator:Dictionary=new Dictionary();
 		private var dictionaryCommand:Object={};
-		private var dictionaryProxy:Object={};
+		private var dictionaryProxy:Dictionary=new Dictionary();
 		
 		private static var _launcher:Launcher;
 		private var _uimanager:IUIManager;
@@ -48,7 +49,7 @@ package com.game.framework {
 		 * @return
 		 *
 		 */
-		FW static function get launcher():Launcher {
+		public static function get launcher():Launcher {
 			if (_launcher == null) {
 				throw new Error("请在Launcher.start之后使用！");
 			}
@@ -73,14 +74,18 @@ package com.game.framework {
 		 * @param mediator
 		 *
 		 */
-		public function registerMediator(mediator:BaseMediator):void {
-			if (dictionaryMediator[mediator.name] == undefined) {
+		public function registerMediator(MediatorClass:Class):void {
+			if (dictionaryMediator[MediatorClass] == undefined) {
+				
+				var mediator:BaseMediator = new MediatorClass();
+				
 				
 				if(mediator.name!=Mediator.NONE && mediator.name!="" && mediator.name!=null){
-					dictionaryMediator[mediator.name] = mediator;
+					dictionaryMediator[MediatorClass] = mediator;
 				}				
 				
 				mediator.FW::initMediator(_uimanager, _resourceManager);
+				
 			} else {
 				throw new OperateError("Mediator 出现重名了！名字：" + mediator.name, mediator);
 			}
@@ -91,10 +96,10 @@ package com.game.framework {
 		 * @param mediator
 		 *
 		 */
-		public function unregisterMediator(mediator:BaseMediator):void {
+		public function unregisterMediator(MediatorClass:Class):void {
 			
-			delete dictionaryMediator[mediator.name];
-			mediator = null;
+			delete dictionaryMediator[MediatorClass];
+			MediatorClass = null;
 		}
 		
 		/**
@@ -157,10 +162,15 @@ package com.game.framework {
 			var key:String;
 			var notify:NotifyData;
 			
+			
+			
 			if ((executeMediator(name, notifyData) == false) && (executeProxy(name, notifyData) == false) && (executeCommand(name, notifyData) == false)) {
 				Log.info("消息发送都没有找到目标！" + name);
 				isfind = false;
 			}
+			
+			
+			
 			time = (getTimer() - time);
 			Log.info("发送消息处理用时：" + time + "毫秒",name);
 			if (Capabilities.isDebugger) {
@@ -187,13 +197,14 @@ package com.game.framework {
 		 * @param proxy
 		 *
 		 */
-		public function registerProxy(proxy:Proxy):void {
-			if (dictionaryProxy[proxy.name] == undefined) {
-				dictionaryProxy[proxy.name] = proxy;
+		public function registerProxy(ProxyClass:Class):void {
+			if (dictionaryProxy[ProxyClass] == undefined) {
+				var proxy:Proxy = new ProxyClass();				
+				dictionaryProxy[ProxyClass] = proxy;
 				proxy.FW::resourceManager = _resourceManager;
 				proxy.initProxy();
 			} else {
-				throw new OperateError("Proxy name 已经存在！请换一个名字！" + proxy);
+				throw new OperateError(ProxyClass+" 已经存在！请换一个名字！" + proxy);
 			}
 		}
 		
@@ -207,10 +218,10 @@ package com.game.framework {
 		public function executeMediator(name:String, notifyData:INotifyData):Boolean {
 			var isfind:Boolean = false;
 			var mediator:Mediator;
-			for (var key:String in dictionaryMediator) {
+			for (var key:Class in dictionaryMediator) {
 				mediator = Mediator(dictionaryMediator[key]);
 				if (mediator.registerNotify().indexOf(name) != -1) {
-					if ((notifyData as NotifyData).FW::target != mediator.name) {
+					if((notifyData as NotifyData).FW::target != mediator.name) {
 						mediator.push(name, notifyData);
 						isfind = true;
 					}else{
@@ -254,7 +265,7 @@ package com.game.framework {
 			var isfind:Boolean = false;
 			var proxy:Proxy;
 			var notifys:Array;
-			for (var key:String in dictionaryProxy) {
+			for (var key:Class in dictionaryProxy) {
 				proxy = dictionaryProxy[key];
 				notifys = proxy.registerNotify();
 				if (notifys.length > 0) {
@@ -277,9 +288,9 @@ package com.game.framework {
 		 * @return
 		 *
 		 */
-		public function obtainMediator(mediatroName:String):Mediator {
+		public function obtainMediator(MediatroClass:Class):Mediator {
 			
-			return dictionaryMediator[mediatroName];
+			return dictionaryMediator[MediatroClass];
 		}
 		
 		/**
@@ -288,9 +299,9 @@ package com.game.framework {
 		 * @return
 		 *
 		 */
-		public function obtainProxy(proxyName:String):IProxy {
+		public function obtainProxy(ProxyClass:Class):IProxy {
 			
-			return dictionaryProxy[proxyName];
+			return dictionaryProxy[ProxyClass];
 		}
 		
 	}

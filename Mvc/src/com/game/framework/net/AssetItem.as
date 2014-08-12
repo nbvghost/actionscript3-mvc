@@ -1,5 +1,6 @@
 package com.game.framework.net {
 	import com.asvital.dev.Log;
+	import com.game.framework.Launcher;
 	import com.game.framework.data.ConfigData;
 	import com.game.framework.display.UIComponent;
 	import com.game.framework.error.OperateError;
@@ -38,6 +39,8 @@ package com.game.framework.net {
 		
 		private var _data:ByteArray;
 		
+		protected var launcher:Launcher;
+		
 		/**
 		 *
 		 * @param url 加载的IURL
@@ -57,7 +60,7 @@ package com.game.framework.net {
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onIOErrorHandler);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandlerPrivate);	
 			
-			//loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS,function(e:HTTPStatusEvent):void{trace(e);});
+			//loader.contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS,function(e:HTTPStatusEvent):void{Log.out(e);});
 			
 			
 			loader.contentLoaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR,uncaughtErrorHandler);
@@ -67,6 +70,9 @@ package com.game.framework.net {
 			
 			_loaderContext.allowCodeImport = true;
 			//_loaderContext.checkPolicyFile = true;
+			
+			
+			launcher = Launcher.launcher; 
 			
 		}
 		private var uid:String = RPCUID.createUID();
@@ -136,7 +142,7 @@ package com.game.framework.net {
 		}
 		
 		private function uncaughtErrorHandler(event:UncaughtErrorEvent):void {
-			trace(event.toString());
+			Log.out(event.toString());
 			_isLoading =false;
 			appStage.dispatchEvent(new GlobalErrorEvent(GlobalErrorEvent.UNCAUGHT_ERROR,event));
 		}
@@ -246,7 +252,7 @@ package com.game.framework.net {
 			
 		}		
 		private function loadBytes():void{
-			//trace(ApplicationDomain.currentDomain.getQualifiedDefinitionNames());
+			//Log.out(ApplicationDomain.currentDomain.getQualifiedDefinitionNames());
 			switch(_loadType){
 				case LoadType.ChildApplicationDomain:
 					_loaderContext.applicationDomain =  new ApplicationDomain(ApplicationDomain.currentDomain);

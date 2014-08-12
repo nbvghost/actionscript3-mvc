@@ -1,6 +1,6 @@
-package com.game.framework.views {
+package com.game.framework.views 
+{
 	import com.game.framework.FW;
-	import com.game.framework.Launcher;
 	import com.game.framework.base.BaseNotify;
 	import com.game.framework.events.AssetsEvent;
 	import com.game.framework.ifaces.IMediator;
@@ -12,6 +12,7 @@ package com.game.framework.views {
 	
 	import flash.events.Event;
 	import flash.events.TimerEvent;
+	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 *
@@ -54,12 +55,13 @@ package com.game.framework.views {
 			return _uimanager;
 		}
 
-		public function obtainMediator(mediatroName:String):Mediator {
-			return Launcher.FW::launcher.obtainMediator(mediatroName);
+		public function obtainMediator(MediatroClass:Class):Mediator {
+			return launcher.obtainMediator(MediatroClass);
 		}
 		
-		public function obtainProxy(proxyName:String):IProxy {
-			return Launcher.FW::launcher.obtainProxy(proxyName);
+		public function obtainProxy(ProxyClass:Class):IProxy {
+			
+			return launcher.obtainProxy(ProxyClass);
 		}
 		
 		protected function get resourceManager():IResourceManager {
@@ -128,7 +130,8 @@ package com.game.framework.views {
 			}
 			//_uimanager = null;
 			_view =null;
-			Launcher.FW::launcher.unregisterMediator(this);
+			
+			
 			
 		}
 	}

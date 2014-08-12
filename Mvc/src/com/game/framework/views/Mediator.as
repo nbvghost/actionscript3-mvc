@@ -10,6 +10,8 @@ package com.game.framework.views {
 	import com.game.framework.ifaces.IURL;
 	import com.game.framework.models.NotifyData;
 	
+	import flash.utils.getQualifiedClassName;
+	
 	/**
 	 * 
 	 * Mediiator 被执行消失了。
@@ -67,6 +69,8 @@ package com.game.framework.views {
 			
 		FW var isdissolve:Boolean = false;
 		
+		
+		
 		/**
 		 *  实例化时，传入 ICreateView 视图对象
 		 * @param view
@@ -74,6 +78,8 @@ package com.game.framework.views {
 		 */
 		public function Mediator() {
 			_notiys = new Vector.<Object>();
+			
+					
 			
 		}	
 		
@@ -157,7 +163,7 @@ package com.game.framework.views {
 			
 			
 			if(alertBuilder==null){
-				trace("当你要弹出一个窗口的时候，请确认 窗口的描述细说");
+				Log.out("当你要弹出一个窗口的时候，请确认 窗口的描述细说");
 				return;
 			}
 			
@@ -165,7 +171,7 @@ package com.game.framework.views {
 			
 			if(alertBuilder.view==null){
 				
-				trace("AlertDialogBuilder.view  属性表示您要弹出窗口的地址！（唯一的）。如果放空，将不处理。");
+				Log.out("AlertDialogBuilder.view  属性表示您要弹出窗口的地址！（唯一的）。如果放空，将不处理。");
 				
 				return;
 				
@@ -175,7 +181,8 @@ package com.game.framework.views {
 			
 			if(alertdialog==null){
 				alertdialog = new AlertDialog(this); 
-			}							
+			}		
+			
 			alertdialog.Builder=alertBuilder;
 			alertdialog.show();
 			
@@ -242,13 +249,14 @@ package com.game.framework.views {
 		private function reSendNotify():void {
 			
 			if(_isOutStage && _keepLiveMsg==false){
+				Log.info("mediator 接收到对方发来的消息，但由于 不在 可视区域，并且 keepLiveMsg 属性为 false。");	
 				return;
 			}
 			var currrentObj:Object;
 			while (_notiys.length > 0) {
 				currrentObj = _notiys.shift();
-				//改成事件驱动
 				this.handerNotify(currrentObj.name,currrentObj.notify);
+				//改成事件驱动
 				//FW::disHanderNotify(currrentObj.name, currrentObj.notify);
 			}
 		}

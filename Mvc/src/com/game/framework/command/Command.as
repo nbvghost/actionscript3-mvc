@@ -14,9 +14,10 @@ package com.game.framework.command {
 	 *@author sixf
 	 */
 	public class Command extends EventDispatcher implements IObtain,ICommand {
+		protected var launcher:Launcher;
 		public function Command() {
 			super();
-			
+			launcher = Launcher.launcher;
 		}
 		
 		
@@ -39,9 +40,9 @@ package com.game.framework.command {
 		 * @return
 		 *
 		 */
-		public function obtainMediator(mediatroName:String):Mediator {
+		public function obtainMediator(MediatroClass:Class):Mediator {
 			
-			return  Launcher.FW::launcher.obtainMediator(mediatroName);
+			return  launcher.obtainMediator(MediatroClass);
 		}
 		
 		/**
@@ -50,9 +51,9 @@ package com.game.framework.command {
 		 * @return
 		 *
 		 */
-		public function obtainProxy(proxyName:String):IProxy {
+		public function obtainProxy(ProxyClass:Class):IProxy {
 			
-			return Launcher.FW::launcher.obtainProxy(proxyName);
+			return launcher.obtainProxy(ProxyClass);
 		}
 		
 	}

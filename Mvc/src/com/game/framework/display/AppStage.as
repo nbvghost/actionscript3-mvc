@@ -1,4 +1,5 @@
 package com.game.framework.display {
+	import com.asvital.dev.Log;
 	import com.game.framework.ui.MouseCursor;
 	import com.game.framework.utils.Base64;
 	
@@ -31,8 +32,9 @@ package com.game.framework.display {
 			
 			_trueStage.addEventListener(MouseEvent.MOUSE_DOWN,onMouseHandler);
 			_trueStage.addEventListener(MouseEvent.MOUSE_UP,onMouseHandler);
-			_trueStage.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN,onMouseHandler);
-			_trueStage.addEventListener(MouseEvent.RIGHT_MOUSE_UP,onMouseHandler);
+			
+			//_trueStage.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN,onMouseHandler);
+			//_trueStage.addEventListener(MouseEvent.RIGHT_MOUSE_UP,onMouseHandler);
 			
 			//_trueStage.addEventListener(MouseEvent.MOUSE_OVER,onMouseHandler);
 			//_trueStage.addEventListener(MouseEvent.MOUSE_MOVE,onMouseHandler);
@@ -44,7 +46,7 @@ package com.game.framework.display {
 		private var oldEventType:String;
 		private function onMouseHandler(event:MouseEvent):void
 		{
-			//trace(event.currentTarget,event.target);
+			//Log.out(event.currentTarget,event.target);
 			switch(event.type){
 				case MouseEvent.MOUSE_DOWN:
 					mouseRecord.writeUTF("d");
@@ -88,7 +90,7 @@ package com.game.framework.display {
 						
 					}else{
 						var typestr:String = String(event.target);
-						trace(typestr);
+						Log.out(typestr);
 						if(typestr.indexOf("StateButton")!=-1){
 							Mouse.cursor = MouseCursor.BUTTON;
 						}else if(typestr.indexOf("SimpleButton")!=-1){

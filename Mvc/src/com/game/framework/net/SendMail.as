@@ -1,5 +1,6 @@
 package com.game.framework.net
 {
+	import com.asvital.dev.Log;
 	import com.game.framework.events.RemoteEvent;
 	import com.game.framework.utils.Base64;
 	
@@ -114,7 +115,7 @@ package com.game.framework.net
 			}else{
 				s.writeMultiByte(messages[counter++]+"\r\n","gb2312");
 				s.flush();
-				trace(str);
+				Log.out(str);
 			}
 			if(counter==messages.length){
 				this.dispatchEvent(new RemoteEvent(RemoteEvent.RESULT));

@@ -1,4 +1,5 @@
 package  com.game.framework.net {
+	import com.asvital.dev.Log;
 	import com.game.framework.data.NetRequestFormat;
 	import com.game.framework.ifaces.ICallBack;
 	
@@ -41,17 +42,17 @@ package  com.game.framework.net {
 			
 			function onLoginHandler(event:Event):void {
 				
-				//trace((event.target as URLStream).bytesAvailable);
+				//Log.out((event.target as URLStream).bytesAvailable);
 				var ba:ByteArray = new ByteArray();
 				urlstream.readBytes(ba, 0, urlstream.bytesAvailable);
 				ba.position = 0;
 				
 				callback.success(ba, action);
-				trace(url.url + "&" + url.data);
+				Log.out(url.url + "&" + url.data);
 			}
 			
 			function onErrorHandler(event:Object):void {
-				trace(url.url + "&" + url.data);
+				Log.out(url.url + "&" + url.data);
 				callback.error(event.toString(), action);
 				
 			}
@@ -97,7 +98,7 @@ package  com.game.framework.net {
 				}
 				
 				callback.success(data, action);
-				trace(url.url + "&" + url.data);
+				Log.out(url.url + "&" + url.data);
 				
 			}
 			

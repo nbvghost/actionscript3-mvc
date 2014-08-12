@@ -1,5 +1,6 @@
 package com.game.framework.net
 {
+	import com.asvital.dev.Log;
 	import com.game.framework.data.RequesProxy;
 	import com.game.framework.events.RemoteEvent;
 	
@@ -43,7 +44,7 @@ package com.game.framework.net
 		}
 		public function AppendToGatewayUrl(value:String):void
 		{
-			trace(value);
+			Log.out(value);
 			nc.connect(url+value,arguments);
 			//for(var i:int=0;i<messages.length;i++){
 				//nc.call.apply(nc,messages[i]);
@@ -78,26 +79,26 @@ package com.game.framework.net
 		protected function onSecurityErrorHandler(event:SecurityErrorEvent):void
 		{
 			// TODO Auto-generated method stub
-			trace(event);
+			Log.out(event);
 		}
 		
 		protected function onNetStatusHandler(event:NetStatusEvent):void
 		{
 			// TODO Auto-generated method stub
-			trace(event.info.code);
+			Log.out(event.info.code);
 			
 		}
 		
 		protected function onIOErrorHandler(event:IOErrorEvent):void
 		{
 			// TODO Auto-generated method stub
-			trace(event);
+			Log.out(event);
 		}
 		
 		protected function onAsyncErrorHandler(event:AsyncErrorEvent):void
 		{
 			// TODO Auto-generated method stub
-			trace(event);
+			Log.out(event);
 		}	
 		
 		

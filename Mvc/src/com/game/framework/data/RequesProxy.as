@@ -1,5 +1,7 @@
 package com.game.framework.data
 {
+	import com.asvital.dev.Log;
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
@@ -102,7 +104,7 @@ package com.game.framework.data
 		
 		override flash_proxy function setProperty(name:*, value:*):void
 		{
-			trace("")
+			Log.out("")
 			var q:QName = name;
 			if(q!=null){
 				

@@ -1,4 +1,5 @@
 package com.game.framework.net {
+	import com.asvital.dev.Log;
 	import com.game.framework.FW;
 	import com.game.framework.Launcher;
 	import com.game.framework.error.OperateError;
@@ -18,8 +19,11 @@ package com.game.framework.net {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
+	import flash.net.getClassByAlias;
 	import flash.utils.ByteArray;
 	import flash.utils.getTimer;
+	
+	import avmplus.getQualifiedClassName;
 	
 	/**
 	 * 
@@ -180,7 +184,8 @@ package com.game.framework.net {
 			mediator.addEventListener(AssetsEvent.COMPLETE_LOAD, onSkinLoadCompleteHandler);
 			mediator.FW::view = createView;			
 			
-			Launcher.FW::launcher.registerMediator(mediator);
+			launcher.registerMediator(_loaderContext.applicationDomain.getDefinition(getQualifiedClassName(mediator)) as Class);
+			
 			
 			createView.FW::setContentContainer(swfFile as Sprite,this,skin,mediator,this);
 			
@@ -194,7 +199,7 @@ package com.game.framework.net {
 			//-----------start----解决多必加载的问题。------
 			if (this.notify == null) {
 				notify = Mediator.INIT_NOTIFY;
-				//trace("-dsfdsf----------------ss------------------");
+				//Log.out("-dsfdsf----------------ss------------------");
 			}		
 			//mediator.handerNotify(Mediator.INIT_TYPE,notify);
 			mediator.push(Mediator.INIT_TYPE,notify);
@@ -202,10 +207,9 @@ package com.game.framework.net {
 			
 			this.dispatchEvent(new FrameWorkEvent(FrameWorkEvent.INIT_OVER));	
 			
-			trace("加载用时："+(getTimer()-t));
+			Log.out("加载用时："+(getTimer()-t));
 		}
 		private function onSkinloaderOver(data:IAssetItem):void {			
-			
 			
 			initModel(MovieClip(data.contentLoaderInfo.content));
 			
@@ -218,7 +222,7 @@ package com.game.framework.net {
 		 */
 		public function unregisterMediator():Boolean{
 			if(mediator){				
-				Launcher.FW::launcher.unregisterMediator(mediator);
+				launcher.unregisterMediator(_loaderContext.applicationDomain.getDefinition(getQualifiedClassName(mediator)) as Class);
 				return true;
 			}else{
 				return false;
@@ -240,13 +244,15 @@ package com.game.framework.net {
 		
 		protected function onEnterFrameHandler(event:Event):void
 		{
-			//trace("ENTER_FRAME",this);
+			//Log.out("ENTER_FRAME",this);
 			this.removeEventListener(Event.ENTER_FRAME,onEnterFrameHandler);
 			notifyMediator();			
 			
 		}
 		protected function notifyMediator():void{
-			this.getDatainterface.asssetAllComplete(this);			
+			if(getDatainterface){				
+				this.getDatainterface.asssetAllComplete(this);			
+			}
 			
 			if(isINType){
 				onAddStageHandler(null);
@@ -324,7 +330,7 @@ package com.game.framework.net {
 		 */
 		override public function dispose():void
 		{
-			//trace("释放之前："+this.loaderContext.applicationDomain.domainMemory.length);			
+			//Log.out("释放之前："+this.loaderContext.applicationDomain.domainMemory.length);			
 			this.removeEventListener(Event.ADDED_TO_STAGE,onAddStageHandler);
 			this.removeEventListener(Event.REMOVED_FROM_STAGE,onRemovedStageHandler);
 			
@@ -336,7 +342,8 @@ package com.game.framework.net {
 			
 			if(mediator){
 				mediator.removeEventListener(DissolveEvent.DISSOLVE,onDissolveHandler);
-				mediator.dispose();
+				mediator.dispose();				
+				launcher.unregisterMediator(_loaderContext.applicationDomain.getDefinition(getQualifiedClassName(mediator)) as Class);				
 				mediator=null;
 			}		
 			if(createView){
@@ -360,7 +367,7 @@ package com.game.framework.net {
 			swfFile=null;
 			createView=null;
 			
-			//trace("释放之后："+this.loaderContext.applicationDomain.domainMemory.length);
+			//Log.out("释放之后："+this.loaderContext.applicationDomain.domainMemory.length);
 		}
 		
 		

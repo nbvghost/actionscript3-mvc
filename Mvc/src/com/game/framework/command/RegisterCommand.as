@@ -1,6 +1,7 @@
 package com.game.framework.command {
 	import com.game.framework.FW;
 	import com.game.framework.Launcher;
+	import com.game.framework.error.OperateError;
 	import com.game.framework.ifaces.IRegister;
 	import com.game.framework.models.proxy.Proxy;
 	import com.game.framework.views.BaseMediator;
@@ -20,8 +21,8 @@ package com.game.framework.command {
 		}
 		
 		public function registerCommand(commandID:String, command:Class):void {
-			Launcher.FW::launcher.registerCommand(commandID, command);
-			//trace(commandID,command);
+			launcher.registerCommand(commandID, command);
+			//Log.out(commandID,command);
 		}
 		public function registerClassAliasCommand(serverClassPath:String,classObject:Class,command:Class):void{
 			registerClassAlias(serverClassPath,classObject);
@@ -29,14 +30,16 @@ package com.game.framework.command {
 			
 		}
 		
-		public function registerMediator(mediator:BaseMediator):void {
-			Launcher.FW::launcher.registerMediator(mediator);
+		public function registerMediator(MediatorClass:Class):void {
+			
+			
+			launcher.registerMediator(MediatorClass);
 			
 		}
 		
-		public function registerProxy(proxy:Proxy):void {
+		public function registerProxy(ProxyClass:Class):void {
 			
-			Launcher.FW::launcher.registerProxy(proxy);
+			launcher.registerProxy(ProxyClass);
 		}
 		
 	}

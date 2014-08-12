@@ -26,18 +26,18 @@ package com.game.framework.models.proxy {
 			return _resourceManager;
 		}
 		
-		public function obtainMediator(mediatroName:String):Mediator {
+		public function obtainMediator(MediatroClass:Class):Mediator {
 			// TODO Auto Generated method stub
-			return FW::launcher.obtainMediator(mediatroName);
+			return launcher.obtainMediator(MediatroClass);
 		}
 		
 		public function initProxy():void {
 			
 		}
 		
-		public function obtainProxy(proxyName:String):IProxy {
+		public function obtainProxy(ProxyClass:Class):IProxy {
 			// TODO Auto Generated method stub
-			return FW::launcher.obtainProxy(proxyName);
+			return launcher.obtainProxy(ProxyClass);
 		}
 		
 	}
